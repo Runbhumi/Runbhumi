@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:runbhumi_ui/authentication/forgotPassword.dart';
-import 'package:runbhumi_ui/authentication/signUp.dart';
+import 'package:runbhumi_ui/Authentication/forgotPassword.dart';
+import 'package:runbhumi_ui/Authentication/signUp.dart';
 
 class loginPage extends StatefulWidget {
   @override

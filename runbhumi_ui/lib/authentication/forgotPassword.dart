@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:runbhumi_ui/authentication/checkMail.dart';
+import 'package:runbhumi_ui/Authentication/checkMail.dart';
 
 import 'loginPage.dart';
 

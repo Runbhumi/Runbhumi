@@ -4,13 +4,11 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+ After dowlading flutter into your local system. Fork this repository and clone it to your PC.
+ After cloning, open this project on VSCode or Andriod Studios. 
+ Initally you will have few errors in the lib file. Call the pub get to get the required files for flutter(A notification will pop up if using VSCode). This will chage few things on the pubspec.lock file which will eventually cause the errors to disappear.
 
-A few resources to get you started if this is your first Flutter project:
+## Open Emulator and run the code
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Open your AVD in android studious and run the the emulator, XCODE simulator for IOS devices.
+Once the emulator is set up. Go to main.dart and hit run.

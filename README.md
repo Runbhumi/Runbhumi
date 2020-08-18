@@ -10,7 +10,7 @@
 
 > A Flutter app which aims to build a sports community
 
-### 🏠 [Homepage](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
+### 🏠 [Homepage](https://runbhumi.github.io/our-team/)
 
 ### ✨ [Demo](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
 

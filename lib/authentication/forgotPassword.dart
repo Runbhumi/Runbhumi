@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:runbhumi_ui/Authentication/checkMail.dart';
 
+import 'CheckMail.dart';
 import 'loginPage.dart';
 
-class forgotPassword extends StatefulWidget {
+class ForgotPassword extends StatefulWidget {
   @override
-  _forgotPasswordState createState() => _forgotPasswordState();
+  _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
-class _forgotPasswordState extends State<forgotPassword> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class _forgotPasswordState extends State<forgotPassword> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => loginPage()));
+                      MaterialPageRoute(builder: (context) => LoginPage()));
                 },
                 child: Container(
                     alignment: Alignment.centerLeft,
@@ -79,7 +79,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                   onTap: () {
                     //send email via backend then
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => checkMail()));
+                        MaterialPageRoute(builder: (context) => CheckMail()));
                   },
                   child: Container(
                     height: 55,

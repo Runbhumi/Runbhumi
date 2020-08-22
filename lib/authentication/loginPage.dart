@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:runbhumi_ui/Authentication/forgotPassword.dart';
-import 'package:runbhumi_ui/Authentication/signUp.dart';
 
-class loginPage extends StatefulWidget {
+import 'ForgotPassword.dart';
+import 'SignUp.dart';
+
+class LoginPage extends StatefulWidget {
   @override
-  _loginPageState createState() => _loginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,13 +17,7 @@ class _loginPageState extends State<loginPage> {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Image(image: AssetImage('assets/loginPage.png')),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
+              TopWelcomeImage(),
               Container(
                 margin: EdgeInsets.all(20),
                 alignment: Alignment.centerLeft,
@@ -30,12 +25,12 @@ class _loginPageState extends State<loginPage> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                     boxShadow: [
                       BoxShadow(
-                          color: Color.fromRGBO(225, 95, 27, .3),
-                          blurRadius: 40,
-                          offset: Offset(0, 10))
+                          color: Color.fromRGBO(0, 0, 0, .16),
+                          blurRadius: 6,
+                          offset: Offset(1, 1))
                     ]),
                 child: Container(
                   decoration: BoxDecoration(
@@ -55,9 +50,6 @@ class _loginPageState extends State<loginPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30.0,
-              ),
               Container(
                 margin: EdgeInsets.all(20),
                 alignment: Alignment.centerLeft,
@@ -65,12 +57,12 @@ class _loginPageState extends State<loginPage> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                     boxShadow: [
                       BoxShadow(
-                          color: Color.fromRGBO(225, 95, 27, .3),
-                          blurRadius: 40,
-                          offset: Offset(0, 10))
+                          color: Color.fromRGBO(0, 0, 0, .16),
+                          blurRadius: 6,
+                          offset: Offset(1, 1))
                     ]),
                 child: Container(
                   decoration: BoxDecoration(
@@ -88,15 +80,12 @@ class _loginPageState extends State<loginPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30.0,
-              ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => forgotPassword()));
+                          builder: (context) => ForgotPassword()));
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
@@ -106,83 +95,117 @@ class _loginPageState extends State<loginPage> {
                     "Forgot Password?",
                     style: TextStyle(
                       color: Color(0xFF3A3535),
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30.0,
-              ),
-              GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 55,
-                    width: 250,
-                    margin: EdgeInsets.symmetric(horizontal: 50),
-                    decoration:
-                        BoxDecoration(color: Color(0xFFFF7315), boxShadow: [
-                      BoxShadow(
-                          color: Color.fromRGBO(225, 95, 27, .3),
-                          blurRadius: 40,
-                          offset: Offset(0, 10))
-                    ]),
-                    child: Center(
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
+              ContinueButton(),
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    "New here? Create an account",
+                    style: TextStyle(
+                      color: Color(0xFF3A3535),
+                      fontSize: 18,
                     ),
-                  )),
-              SizedBox(
-                height: 30.0,
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  "New here? Create an account",
-                  style: TextStyle(
-                    color: Color(0xFF3A3535),
-                    fontSize: 20,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => signUp()));
-                  },
-                  child: Container(
-                    height: 55,
-                    width: 250,
-                    margin: EdgeInsets.symmetric(horizontal: 50),
-                    decoration:
-                        BoxDecoration(color: Color(0xFF3A3535), boxShadow: [
-                      BoxShadow(
-                          color: Color.fromRGBO(225, 95, 27, .3),
-                          blurRadius: 40,
-                          offset: Offset(0, 10))
-                    ]),
-                    child: Center(
-                      child: Text(
-                        "Create an account",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )),
-              SizedBox(
-                height: 20.0,
-              ),
+              CreateAccountButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class CreateAccountButton extends StatelessWidget {
+  const CreateAccountButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignUp()));
+          },
+          child: Center(
+            child: Container(
+              height: 55,
+              width: 250,
+              margin: EdgeInsets.symmetric(horizontal: 50),
+              decoration: BoxDecoration(
+                  color: Color(0xFF3A3535),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(58, 53, 53, .5),
+                        blurRadius: 6,
+                        offset: Offset(0, 5))
+                  ]),
+              child: Center(
+                child: Text(
+                  "Create an account",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+          )),
+    );
+  }
+}
+
+class ContinueButton extends StatelessWidget {
+  const ContinueButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 55,
+            width: 250,
+            decoration: BoxDecoration(
+                color: Color(0xFFFF7315),
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(225, 95, 27, .3),
+                      blurRadius: 6,
+                      offset: Offset(0, 5))
+                ]),
+            child: Center(
+              child: Text(
+                "Continue",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          )),
+    );
+  }
+}
+
+class TopWelcomeImage extends StatelessWidget {
+  const TopWelcomeImage({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Image(image: AssetImage('assets/loginPage.png')),
     );
   }
 }

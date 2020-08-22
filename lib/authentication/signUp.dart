@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:runbhumi_ui/Authentication/loginPage.dart';
 
-class signUp extends StatefulWidget {
+import 'LoginPage.dart';
+
+class SignUp extends StatefulWidget {
   @override
-  _signUpState createState() => _signUpState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _signUpState extends State<signUp> {
+class _SignUpState extends State<SignUp> {
   int _radioValue = 0;
   String textResult = '';
   String dropdownValue = null;
@@ -91,7 +92,7 @@ class _signUpState extends State<signUp> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => loginPage()));
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(10, 0, 0, 0),

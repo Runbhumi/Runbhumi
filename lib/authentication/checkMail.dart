@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'loginPage.dart';
+import 'LoginPage.dart';
 
-class checkMail extends StatelessWidget {
+class CheckMail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class checkMail extends StatelessWidget {
               GestureDetector(
                   onTap: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => loginPage()));
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   child: Container(
                     height: 55,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class newPost extends StatefulWidget {
+class NewPost extends StatefulWidget {
   @override
-  _newPostState createState() => _newPostState();
+  _NewPostState createState() => _NewPostState();
 }
 
-class _newPostState extends State<newPost> {
-  int _radioValue = 0;
+class _NewPostState extends State<NewPost> {
+  // int _radioValue = 0;
   String textResult = '';
   String dropdownValue = null;
   String dropdownValue2 = null;

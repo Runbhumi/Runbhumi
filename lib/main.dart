@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Runbhumi',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Montserrat'),
       home: CustomSplashScreen(),
+      // home: LoginPage(),
       debugShowCheckedModeBanner: true,
     );
   }
@@ -30,7 +31,11 @@ class CustomSplashScreen extends StatelessWidget {
       navigateAfterSeconds: new LoginPage(),
       title: new Text(
         'Runbhumi',
-        textScaleFactor: 2,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),
+        textScaleFactor: 1.5,
       ),
       // image: new Image.network(
       //     'https://img.pngio.com/skipping-sport-game-outdoor-exercise-jumping-rope-activity-png-outdoor-games-256_256.png'),

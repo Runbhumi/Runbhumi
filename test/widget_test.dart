@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -29,10 +30,14 @@ import 'package:Runbhumi/main.dart';
 //   });
 // }
 
-
 void main() {
-  testWidgets('app should work', (tester) async {
-    await tester.pumpWidget(new MyApp());
-    expect(find.text('New here? Create an account'), findsOneWidget);
+  MaterialApp app = MaterialApp(
+    home: Scaffold(body: CreateAccountButton()),
+  );
+  testWidgets('CreateAccountButton UI Test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(app);
+
+    expect(find.byType(Text), findsNWidgets(1));
   });
 }

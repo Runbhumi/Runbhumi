@@ -1,7 +1,6 @@
 import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:flutter/material.dart';
 
-
 class CheckMail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

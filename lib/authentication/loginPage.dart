@@ -2,7 +2,6 @@ import 'package:Runbhumi/authentication/forgotPassword.dart';
 import 'package:Runbhumi/authentication/signUp.dart';
 import 'package:flutter/material.dart';
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();

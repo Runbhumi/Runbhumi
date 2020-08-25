@@ -8,9 +8,9 @@ class NewPost extends StatefulWidget {
 class _NewPostState extends State<NewPost> {
   // int _radioValue = 0;
   String textResult = '';
-  String dropdownValue = null;
-  String dropdownValue2 = null;
-  String dropdownValue3 = null;
+  String dropdownValue;
+  String dropdownValue2;
+  String dropdownValue3;
   List<DropdownMenuItem<String>> sportlist = [];
   List<DropdownMenuItem<String>> locations = [];
   List<DropdownMenuItem<String>> purpose = [];

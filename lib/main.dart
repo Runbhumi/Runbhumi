@@ -1,5 +1,5 @@
+import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:flutter/material.dart';
-import 'authentication/LoginPage.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() {

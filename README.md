@@ -1,6 +1,7 @@
 <h1 align="center">Welcome to Runbhumi 👋</h1>
 <p>
   <a href="https://flutter.dev/docs/get-started/install" target="_blank">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/Runbhumi/Runbhumi/Flutter%20CI?logo=dart&logoColor=lightblue">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
   <img alt="Documentation" src="https://img.shields.io/badge/-Flutter-blue?&logo=flutter" />

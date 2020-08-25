@@ -10,7 +10,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   int _radioValue = 0;
   String textResult = '';
-  String dropdownValue = null;
+  String dropdownValue;
   List<DropdownMenuItem<String>> locations = [];
 
   void loadLocations() {

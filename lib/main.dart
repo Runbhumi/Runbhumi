@@ -40,12 +40,10 @@ class CustomSplashScreen extends StatelessWidget {
         ),
         textScaleFactor: 1.5,
       ),
-      // image: new Image.network(
-      //     'https://img.pngio.com/skipping-sport-game-outdoor-exercise-jumping-rope-activity-png-outdoor-games-256_256.png'),
-      image: new Image(image: AssetImage('assets/loginPage.png')),
-      loadingText: Text("Running"),
+      image: new Image(image: AssetImage('assets/welcome.png')),
+      loadingText: Text(""),
       photoSize: 100.0,
-      loaderColor: Colors.orange,
+      loaderColor: Theme.of(context).primaryColor,
     );
   }
 }

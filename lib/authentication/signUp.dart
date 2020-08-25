@@ -1,6 +1,6 @@
+import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:flutter/material.dart';
 
-import 'LoginPage.dart';
 
 class SignUp extends StatefulWidget {
   @override

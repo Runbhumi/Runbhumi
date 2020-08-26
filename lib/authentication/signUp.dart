@@ -1,6 +1,5 @@
+import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:flutter/material.dart';
-
-import 'LoginPage.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -10,7 +9,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   int _radioValue = 0;
   String textResult = '';
-  String dropdownValue = null;
+  String dropdownValue;
   List<DropdownMenuItem<String>> locations = [];
 
   void loadLocations() {

@@ -1,5 +1,5 @@
+import 'package:Runbhumi/authentication/secondPage.dart';
 import 'package:flutter/material.dart';
-import 'authentication/LoginPage.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() {
@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryColor: Color(0xff00adb5),
+          accentColor: Color(0xff393e46),
+          buttonColor: Color(0xffeeeeee),
           fontFamily: 'Montserrat'),
       home: CustomSplashScreen(),
       // home: LoginPage(),
@@ -28,7 +31,7 @@ class CustomSplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 5,
-      navigateAfterSeconds: new LoginPage(),
+      navigateAfterSeconds: new SecondPage(),
       title: new Text(
         'Runbhumi',
         style: TextStyle(
@@ -37,12 +40,10 @@ class CustomSplashScreen extends StatelessWidget {
         ),
         textScaleFactor: 1.5,
       ),
-      // image: new Image.network(
-      //     'https://img.pngio.com/skipping-sport-game-outdoor-exercise-jumping-rope-activity-png-outdoor-games-256_256.png'),
-      image: new Image(image: AssetImage('assets/loginPage.png')),
-      loadingText: Text("Running"),
+      image: new Image(image: AssetImage('assets/welcome.png')),
+      loadingText: Text(""),
       photoSize: 100.0,
-      loaderColor: Colors.orange,
+      loaderColor: Theme.of(context).primaryColor,
     );
   }
 }

@@ -1,7 +1,6 @@
+import 'package:Runbhumi/authentication/checkMail.dart';
+import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:flutter/material.dart';
-
-import 'CheckMail.dart';
-import 'loginPage.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override

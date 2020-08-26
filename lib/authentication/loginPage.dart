@@ -1,6 +1,7 @@
 import 'package:Runbhumi/authentication/forgotPassword.dart';
 import 'package:Runbhumi/authentication/signUp.dart';
 import 'package:Runbhumi/components/button.dart';
+import 'package:Runbhumi/components/googleOauth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,42 +15,38 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              TopWelcomeImage(),
-              UsernameInputLogin(),
-              PasswordInputLogin(),
-              ForgotPasswordAnchor(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [LoginMainBtn(), GoogleOauthSmall()],
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Container(
-                    child: Text(
-                      "New here? Create an account",
-                      style: TextStyle(
-                        color: Color(0xFF3A3535),
-                        fontSize: 18,
-                      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            TopWelcomeImage(),
+            UsernameInputLogin(),
+            PasswordInputLogin(),
+            ForgotPasswordAnchor(),
+            LoginMainBtn(),
+            GoogleOauth(),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Container(
+                  child: Text(
+                    "New here? Create an account",
+                    style: TextStyle(
+                      color: Color(0xFF3A3535),
+                      fontSize: 18,
                     ),
                   ),
                 ),
               ),
-              Button(
-                myColor: Theme.of(context).accentColor,
-                myText: "SignUp",
-                myWidget: SignUp(),
-              ),
-              SizedBox(
-                height: 16.0,
-              )
-            ],
-          ),
+            ),
+            Button(
+              myColor: Theme.of(context).accentColor,
+              myText: "SignUp",
+              myWidget: SignUp(),
+            ),
+            SizedBox(
+              height: 16.0,
+            )
+          ],
         ),
       ),
     );
@@ -69,7 +66,7 @@ class LoginMainBtn extends StatelessWidget {
           onTap: () {},
           child: Container(
             height: 55,
-            width: 100,
+            width: 250,
             decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(8),
@@ -90,36 +87,6 @@ class LoginMainBtn extends StatelessWidget {
   }
 }
 
-class GoogleOauthSmall extends StatelessWidget {
-  const GoogleOauthSmall({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: GestureDetector(
-          onTap: () {},
-          child: Container(
-            height: 55,
-            width: 100,
-            decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).buttonColor.withOpacity(.4),
-                      blurRadius: 6,
-                      offset: Offset(0, 5))
-                ]),
-            child: Center(
-                child: Image(image: AssetImage("assets/googleicon.png"))),
-          )),
-    );
-  }
-}
-
 class ForgotPasswordAnchor extends StatelessWidget {
   const ForgotPasswordAnchor({
     Key key,
@@ -128,7 +95,7 @@ class ForgotPasswordAnchor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 40.0, top: 8.0, bottom: 16.0),
+      padding: const EdgeInsets.only(right: 32.0),
       child: GestureDetector(
         onTap: () {
           Navigator.push(context,
@@ -136,12 +103,13 @@ class ForgotPasswordAnchor extends StatelessWidget {
         },
         child: Container(
           padding: EdgeInsets.all(8.0),
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Forgot Password?",
-            style: TextStyle(
-              color: Color(0xFF3A3535),
-              fontSize: 18,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Forgot Password?",
+              style: TextStyle(
+                fontSize: 18,
+              ),
             ),
           ),
         ),
@@ -172,6 +140,7 @@ class PasswordInputLogin extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.black))),
           child: TextFormField(
+            obscureText: true,
             validator: (val) {
               return val.length > 6 ? null : "Enter Password 6+ characters";
             },

@@ -1,14 +1,15 @@
 <h1 align="center">Welcome to Runbhumi 👋</h1>
 <p>
-  <a href="https://flutter.dev/docs/get-started/install" target="_blank">
-    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/Runbhumi/Runbhumi/Flutter%20CI?logo=dart&logoColor=lightblue">
+  <!-- <a href="https://flutter.dev/docs/get-started/install" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
+  </a> -->
   <img alt="Documentation" src="https://img.shields.io/badge/-Flutter-blue?&logo=flutter" />
   <img alt="Documentation" src="https://img.shields.io/badge/-Firebase-blue?&logo=firebase" />
   <a href="https://github.com/Runbhumi/Runbhumi/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Runbhumi/Runbhumi">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/Runbhumi/Runbhumi/Flutter%20CI?logo=dart&logoColor=lightblue">
 </p>
 
 > A Flutter app which aims to build a sports community
@@ -33,13 +34,13 @@ flutter run
 
 🏢 **Runbhumi**
 
-* Github: [@Runbhumi](https://github.com/Runbhumi)
+- Github: [@Runbhumi](https://github.com/Runbhumi)
 
 ## 🤝 Contributing
 
-Contributions are only made by organisation members, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues). 
+Contributions are only made by organisation members, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues).
 
-## Show your support
+## Show your support <img alt="GitHub stars" src="https://img.shields.io/github/stars/Runbhumi/Runbhumi?style=social">
 
 Give a ⭐️ if this project helped/inspired you!
 

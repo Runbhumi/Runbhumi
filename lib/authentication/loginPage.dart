@@ -183,7 +183,7 @@ class UsernameInputLogin extends StatelessWidget {
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(val)
                   ? null
-                  : "Please Enter Correct Email";
+                  : "Not Valid";
             },
             decoration: InputDecoration(
                 icon: Icon(Icons.person),

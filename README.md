@@ -18,17 +18,48 @@
 
 ### ✨ [Demo](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
 
-## Install
+## 📥 Install
 
 ```sh
 flutter pub get
 ```
 
-## Usage
+## 👷‍♂️ Usage
 
 ```sh
 flutter run
 ```
+
+## ✨ Format code
+
+```sh
+flutter format .
+```
+
+## 🧪 Test
+
+```sh
+flutter analyze .
+flutter test
+```
+
+<details><summary>List of Screens</summary>
+  
+  - [ ] Splash Screen
+  - [ ] Pre-Authorization Screen
+  - [ ] Login Screen
+  - [ ] SignUp Screen
+  - [ ] Forgot Password Screen
+  - [ ] Home Screen
+  - [ ] Networks Screen
+  - [ ] Add Event Screen
+  - [ ] Notification Screen
+  - [ ] Profile Screen
+  - [ ] Chat Screen
+  - [ ] Schedule Screen
+  
+</details>
+
 
 ## Author
 

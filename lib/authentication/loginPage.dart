@@ -2,6 +2,7 @@ import 'package:Runbhumi/authentication/forgotPassword.dart';
 import 'package:Runbhumi/authentication/signUp.dart';
 import 'package:Runbhumi/components/button.dart';
 import 'package:Runbhumi/components/googleOauth.dart';
+import 'package:Runbhumi/components/inputBox.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,10 +20,26 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             TopWelcomeImage(),
-            UsernameInputLogin(),
-            PasswordInputLogin(),
+            InputBox(
+              myText: "Username",
+              hidden: false,
+              icon: Icon(Icons.account_circle),
+            ),
+            InputBox(
+              myText: "Password",
+              hidden: false,
+              icon: Icon(Icons.lock),
+              sufIcon: Icon(Icons.remove_red_eye),
+            ),
             ForgotPasswordAnchor(),
-            LoginMainBtn(),
+            Button(
+              myText: "Login",
+              myColor: Theme.of(context).primaryColor,
+              myWidget: LoginPage(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             GoogleOauth(),
             Center(
               child: Padding(
@@ -49,40 +66,6 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class LoginMainBtn extends StatelessWidget {
-  const LoginMainBtn({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: GestureDetector(
-          onTap: () {},
-          child: Container(
-            height: 55,
-            width: 250,
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).primaryColor.withOpacity(.4),
-                      blurRadius: 6,
-                      offset: Offset(0, 5))
-                ]),
-            child: Center(
-              child: Text(
-                "Login",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          )),
     );
   }
 }

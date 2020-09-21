@@ -1,8 +1,10 @@
 import 'package:Runbhumi/authentication/loginPage.dart';
 import 'package:Runbhumi/components/button.dart';
+import 'package:Runbhumi/components/inputBox.dart';
+// import 'package:pinput/pin_put/pin_put.dart';
 import 'package:flutter/material.dart';
 
-class CheckMail extends StatelessWidget {
+class OtpInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,20 +16,23 @@ class CheckMail extends StatelessWidget {
           children: <Widget>[
             Container(
               alignment: Alignment.center,
-              child: Image(
-                image: AssetImage('assets/checkmail.png'),
-              ),
+              child:
+                  Image(image: AssetImage('assets/checkmail.png'), width: 200),
             ),
             Container(
               alignment: Alignment.center,
-              child: Text(
-                "We have sent you a mail, follow the instructions to reset your password",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Text(
+                  "Please enter the OTP here",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
+            InputBox(myText: "OTP", hidden: true),
             Button(
               myText: "Login Again",
               myColor: Theme.of(context).accentColor,

@@ -16,9 +16,10 @@ class GoogleOauth extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 height: 55,
+                width: 300,
                 decoration: BoxDecoration(
                     color: Theme.of(context).buttonColor,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(800),
                     boxShadow: [
                       BoxShadow(
                           color: Theme.of(context).buttonColor.withOpacity(.4),

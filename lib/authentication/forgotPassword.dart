@@ -1,6 +1,7 @@
-import 'package:Runbhumi/authentication/checkMail.dart';
 import 'package:Runbhumi/authentication/loginPage.dart';
+import 'package:Runbhumi/authentication/otpInput.dart';
 import 'package:Runbhumi/components/button.dart';
+import 'package:Runbhumi/components/inputBox.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -32,25 +33,29 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 40.0),
+                      horizontal: 50.0, vertical: 40.0),
                   child: Container(
                     child: Text(
-                      "Send us your Email, we will send you the instructions to reset you password",
+                      "Send us your Phone number, we will send you an OTP to reset you password",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0, bottom: 40.0),
-                  child: EmailInputLogin(),
+                InputBox(
+                  myText: "Phone Number",
+                  hidden: false,
+                  icon: Icon(Icons.phone),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Button(
-                  myText: "Continue",
+                  myText: "Send",
                   myColor: Theme.of(context).accentColor,
-                  myWidget: CheckMail(),
+                  myWidget: OtpInput(),
                 ),
                 SizedBox(
                   height: 16.0,
@@ -64,8 +69,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 }
 
-class EmailInputLogin extends StatelessWidget {
-  const EmailInputLogin({
+class NumberInputLogin extends StatelessWidget {
+  const NumberInputLogin({
     Key key,
   }) : super(key: key);
 
@@ -86,16 +91,17 @@ class EmailInputLogin extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.black))),
           child: TextFormField(
+            keyboardType: TextInputType.phone,
             validator: (val) {
               return RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(val)
                   ? null
-                  : "Please Enter Correct Email";
+                  : "Please Enter Correct Number";
             },
             decoration: InputDecoration(
-                icon: Icon(Icons.mail),
-                hintText: "E-mail",
+                icon: Icon(Icons.phone),
+                hintText: "Phone Number",
                 hintStyle: TextStyle(color: Color(0xff667080)),
                 border: InputBorder.none),
           ),

@@ -96,18 +96,18 @@ class _NewPostState extends State<NewPost> {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  padding: EdgeInsets.fromLTRB(20, 0, 10, 10),
-                  child: Image(
-                    image: AssetImage('assets/addPost.png'),
-                    height: 300,
-                    width: 250,
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: Container(
+              //     alignment: Alignment.center,
+              //     margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              //     padding: EdgeInsets.fromLTRB(20, 0, 10, 10),
+              //     child: Image(
+              //       image: AssetImage('assets/addPost.png'),
+              //       height: 300,
+              //       width: 250,
+              //     ),
+              //   ),
+              // ),
               Column(
                 children: <Widget>[
                   Container(

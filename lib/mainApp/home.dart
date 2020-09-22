@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage>
   String searchQuery = "";
 
   @override
-  
   void initState() {
     super.initState();
     _searchQuery = new TextEditingController();
@@ -89,7 +88,7 @@ class _HomePageState extends State<HomePage>
     setState(() {
       searchQuery = newQuery;
     });
-    print("searched" + newQuery);
+    print("searched " + newQuery);
   }
 
   List<Widget> _buildActions() {

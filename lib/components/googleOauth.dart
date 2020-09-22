@@ -29,8 +29,7 @@ class GoogleOauth extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
-                      child:
-                          Image(image: AssetImage('assets/googleicon.png')),
+                      child: Image(image: AssetImage('assets/googleicon.png')),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),

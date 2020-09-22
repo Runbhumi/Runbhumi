@@ -22,10 +22,10 @@ class Button extends StatelessWidget {
           },
           child: Container(
             height: 55,
-            width: 250,
+            width: 300,
             decoration: BoxDecoration(
                 color: myColor,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(800),
                 boxShadow: [
                   BoxShadow(
                       color: myColor.withOpacity(.4),

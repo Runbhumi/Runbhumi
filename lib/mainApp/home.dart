@@ -16,16 +16,17 @@ class _HomePageState extends State<HomePage>
 
   TextEditingController _searchQuery;
   bool _isSearching = false;
-  String searchQuery = "Search query";
+  String searchQuery = "";
 
   @override
+  
   void initState() {
     super.initState();
     _searchQuery = new TextEditingController();
   }
 
   void _startSearch() {
-    print("open search box");
+    print("clicked search");
     ModalRoute.of(context)
         .addLocalHistoryEntry(new LocalHistoryEntry(onRemove: _stopSearching));
 
@@ -43,10 +44,10 @@ class _HomePageState extends State<HomePage>
   }
 
   void _clearSearchQuery() {
-    print("close search box");
+    print("close search");
     setState(() {
       _searchQuery.clear();
-      updateSearchQuery("Search query");
+      updateSearchQuery("");
     });
   }
 
@@ -54,23 +55,18 @@ class _HomePageState extends State<HomePage>
     var horizontalTitleAlignment =
         Platform.isIOS ? CrossAxisAlignment.center : CrossAxisAlignment.start;
 
-    return new InkWell(
-      onTap: () => scaffoldKey.currentState.openDrawer(),
-      child: new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: horizontalTitleAlignment,
-          children: <Widget>[
-            const Text(
-              'My Feed',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                  color: Colors.black),
-            ),
-          ],
-        ),
+    return new Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: horizontalTitleAlignment,
+        children: <Widget>[
+          const Text(
+            'My Feed',
+            style: TextStyle(
+                fontWeight: FontWeight.w700, fontSize: 30, color: Colors.black),
+          ),
+        ],
       ),
     );
   }
@@ -93,7 +89,7 @@ class _HomePageState extends State<HomePage>
     setState(() {
       searchQuery = newQuery;
     });
-    print("search query " + newQuery);
+    print("searched" + newQuery);
   }
 
   List<Widget> _buildActions() {
@@ -148,31 +144,12 @@ class _HomePageState extends State<HomePage>
                   indicatorColor: Theme.of(context).primaryColor,
                   tabBarIndicatorSize: TabBarIndicatorSize.tab,
                 ),
-              )
-              // bottom: TabBar(
-              //   tabs: [
-              //     Tab(
-              //         child:
-              //             Text("Today", style: TextStyle(color: Colors.black))),
-              //     Tab(
-              //         child: Text("Tommorow",
-              //             style: TextStyle(color: Colors.black))),
-              //     Tab(
-              //         child:
-              //             Text("Later", style: TextStyle(color: Colors.black))),
-              //   ],
-              // ),
-              ),
-          body: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: new Text(
-                  '$searchQuery',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ),
+              )),
+          body: TabBarView(
+            children: [
+              Icon(Icons.directions_car, size: 50),
+              Icon(Icons.directions_transit, size: 50),
+              Icon(Icons.directions_bike, size: 50),
             ],
           ),
           bottomNavigationBar: CurvedNavigationBar(
@@ -180,27 +157,19 @@ class _HomePageState extends State<HomePage>
             index: 0,
             height: 60.0,
             items: <Widget>[
-              Icon(Icons.home, size: 30),
-              Icon(Icons.group, size: 30),
-              Icon(Icons.add, size: 30),
-              Icon(Icons.notifications, size: 30),
-              Icon(Icons.person, size: 30),
+              Icon(Icons.home, size: 30, color: Colors.white),
+              Icon(Icons.group, size: 30, color: Colors.white),
+              Icon(Icons.add, size: 30, color: Colors.white),
+              Icon(Icons.notifications, size: 30, color: Colors.white),
+              Icon(Icons.person, size: 30, color: Colors.white),
             ],
-            color: Theme.of(context).bottomAppBarColor,
-            buttonBackgroundColor: Theme.of(context).bottomAppBarColor,
-            // buttonBackgroundColor: Colors.white,
+            color: Theme.of(context).primaryColor,
+            buttonBackgroundColor: Theme.of(context).primaryColor,
             backgroundColor: Colors.white,
             animationCurve: Curves.fastLinearToSlowEaseIn,
             animationDuration: Duration(milliseconds: 800),
-            onTap: (index) {
-              // setState(() {
-              //   _page = index;
-              // });
-            },
+            onTap: (index) {},
           ),
         ));
   }
 }
-
-// some thing new
-//testing(heavy experimenting)

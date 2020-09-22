@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -121,39 +123,82 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
-      child: new Scaffold(
-        key: scaffoldKey,
-        appBar: new AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          leading: _isSearching ? const BackButton(color: Colors.black) : null,
-          title: _isSearching ? _buildSearchField() : _buildTitle(context),
-          actions: _buildActions(),
-          bottom: TabBar(
-            tabs: [
-              Tab(child: Text("Today", style: TextStyle(color: Colors.black))),
-              Tab(
-                  child:
-                      Text("Tommorow", style: TextStyle(color: Colors.black))),
-              Tab(child: Text("Later", style: TextStyle(color: Colors.black))),
-            ],
-          ),
-        ),
-        body: new Center(
-          child: new Column(
+        length: 3,
+        child: new Scaffold(
+          key: scaffoldKey,
+          appBar: new AppBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              leading:
+                  _isSearching ? const BackButton(color: Colors.black) : null,
+              title: _isSearching ? _buildSearchField() : _buildTitle(context),
+              actions: _buildActions(),
+              bottom: new TabBar(
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                tabs: [
+                  Tab(child: Text("Today")),
+                  Tab(child: Text("Tommorow")),
+                  Tab(child: Text("Later")),
+                ],
+                indicator: new BubbleTabIndicator(
+                  indicatorHeight: 30.0,
+                  indicatorColor: Theme.of(context).primaryColor,
+                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                ),
+              )
+              // bottom: TabBar(
+              //   tabs: [
+              //     Tab(
+              //         child:
+              //             Text("Today", style: TextStyle(color: Colors.black))),
+              //     Tab(
+              //         child: Text("Tommorow",
+              //             style: TextStyle(color: Colors.black))),
+              //     Tab(
+              //         child:
+              //             Text("Later", style: TextStyle(color: Colors.black))),
+              //   ],
+              // ),
+              ),
+          body: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(
-                '$searchQuery',
-                style: Theme.of(context).textTheme.headline4,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: new Text(
+                  '$searchQuery',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
               ),
             ],
           ),
-        ),
-      ),
-    );
+          bottomNavigationBar: CurvedNavigationBar(
+            // key: _bottomNavigationKey,
+            index: 0,
+            height: 60.0,
+            items: <Widget>[
+              Icon(Icons.home, size: 30),
+              Icon(Icons.group, size: 30),
+              Icon(Icons.add, size: 30),
+              Icon(Icons.notifications, size: 30),
+              Icon(Icons.person, size: 30),
+            ],
+            color: Theme.of(context).bottomAppBarColor,
+            buttonBackgroundColor: Theme.of(context).bottomAppBarColor,
+            // buttonBackgroundColor: Colors.white,
+            backgroundColor: Colors.white,
+            animationCurve: Curves.fastLinearToSlowEaseIn,
+            animationDuration: Duration(milliseconds: 800),
+            onTap: (index) {
+              // setState(() {
+              //   _page = index;
+              // });
+            },
+          ),
+        ));
   }
 }
 

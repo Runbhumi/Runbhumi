@@ -120,27 +120,42 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      key: scaffoldKey,
-      appBar: new AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        leading: _isSearching ? const BackButton(color: Colors.black) : null,
-        title: _isSearching ? _buildSearchField() : _buildTitle(context),
-        actions: _buildActions(),
-      ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              '$searchQuery',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return DefaultTabController(
+      length: 3,
+      child: new Scaffold(
+        key: scaffoldKey,
+        appBar: new AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          leading: _isSearching ? const BackButton(color: Colors.black) : null,
+          title: _isSearching ? _buildSearchField() : _buildTitle(context),
+          actions: _buildActions(),
+          bottom: TabBar(
+            tabs: [
+              Tab(child: Text("Today", style: TextStyle(color: Colors.black))),
+              Tab(
+                  child:
+                      Text("Tommorow", style: TextStyle(color: Colors.black))),
+              Tab(child: Text("Later", style: TextStyle(color: Colors.black))),
+            ],
+          ),
+        ),
+        body: new Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Text(
+                '$searchQuery',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+// some thing new
+//testing(heavy experimenting)

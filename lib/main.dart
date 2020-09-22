@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xff00adb5),
           accentColor: Color(0xff393e46),
           buttonColor: Color(0xffeeeeee),
+          bottomAppBarColor: Color(0xffd4ebf2),
           fontFamily: 'Montserrat'),
       home: CustomSplashScreen(),
       // home: LoginPage(),

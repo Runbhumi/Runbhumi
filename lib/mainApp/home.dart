@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +16,7 @@ class _HomePageState extends State<HomePage>
 
   TextEditingController _searchQuery;
   bool _isSearching = false;
-  String searchQuery = "Search query";
+  String searchQuery = "";
 
   @override
   void initState() {
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage>
   }
 
   void _startSearch() {
-    print("open search box");
+    print("clicked search");
     ModalRoute.of(context)
         .addLocalHistoryEntry(new LocalHistoryEntry(onRemove: _stopSearching));
 
@@ -41,10 +43,10 @@ class _HomePageState extends State<HomePage>
   }
 
   void _clearSearchQuery() {
-    print("close search box");
+    print("close search");
     setState(() {
       _searchQuery.clear();
-      updateSearchQuery("Search query");
+      updateSearchQuery("");
     });
   }
 
@@ -52,23 +54,18 @@ class _HomePageState extends State<HomePage>
     var horizontalTitleAlignment =
         Platform.isIOS ? CrossAxisAlignment.center : CrossAxisAlignment.start;
 
-    return new InkWell(
-      onTap: () => scaffoldKey.currentState.openDrawer(),
-      child: new Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: horizontalTitleAlignment,
-          children: <Widget>[
-            const Text(
-              'My Feed',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                  color: Colors.black),
-            ),
-          ],
-        ),
+    return new Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: horizontalTitleAlignment,
+        children: <Widget>[
+          const Text(
+            'My Feed',
+            style: TextStyle(
+                fontWeight: FontWeight.w700, fontSize: 30, color: Colors.black),
+          ),
+        ],
       ),
     );
   }
@@ -91,7 +88,7 @@ class _HomePageState extends State<HomePage>
     setState(() {
       searchQuery = newQuery;
     });
-    print("search query " + newQuery);
+    print("searched " + newQuery);
   }
 
   List<Widget> _buildActions() {
@@ -121,41 +118,57 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
-      child: new Scaffold(
-        key: scaffoldKey,
-        appBar: new AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          leading: _isSearching ? const BackButton(color: Colors.black) : null,
-          title: _isSearching ? _buildSearchField() : _buildTitle(context),
-          actions: _buildActions(),
-          bottom: TabBar(
-            tabs: [
-              Tab(child: Text("Today", style: TextStyle(color: Colors.black))),
-              Tab(
-                  child:
-                      Text("Tommorow", style: TextStyle(color: Colors.black))),
-              Tab(child: Text("Later", style: TextStyle(color: Colors.black))),
+        length: 3,
+        child: new Scaffold(
+          key: scaffoldKey,
+          appBar: new AppBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              leading:
+                  _isSearching ? const BackButton(color: Colors.black) : null,
+              title: _isSearching ? _buildSearchField() : _buildTitle(context),
+              actions: _buildActions(),
+              bottom: new TabBar(
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                tabs: [
+                  Tab(child: Text("Today")),
+                  Tab(child: Text("Tommorow")),
+                  Tab(child: Text("Later")),
+                ],
+                indicator: new BubbleTabIndicator(
+                  indicatorHeight: 30.0,
+                  indicatorColor: Theme.of(context).primaryColor,
+                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                ),
+              )),
+          body: TabBarView(
+            children: [
+              Icon(Icons.directions_car, size: 50),
+              Icon(Icons.directions_transit, size: 50),
+              Icon(Icons.directions_bike, size: 50),
             ],
           ),
-        ),
-        body: new Center(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text(
-                '$searchQuery',
-                style: Theme.of(context).textTheme.headline4,
-              ),
+          bottomNavigationBar: CurvedNavigationBar(
+            // key: _bottomNavigationKey,
+            index: 0,
+            height: 60.0,
+            items: <Widget>[
+              Icon(Icons.home, size: 30, color: Colors.white),
+              Icon(Icons.group, size: 30, color: Colors.white),
+              Icon(Icons.add, size: 30, color: Colors.white),
+              Icon(Icons.notifications, size: 30, color: Colors.white),
+              Icon(Icons.person, size: 30, color: Colors.white),
             ],
+            color: Theme.of(context).primaryColor,
+            buttonBackgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.white,
+            animationCurve: Curves.fastLinearToSlowEaseIn,
+            animationDuration: Duration(milliseconds: 800),
+            onTap: (index) {},
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
-
-// some thing new
-//testing(heavy experimenting)

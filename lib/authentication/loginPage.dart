@@ -3,6 +3,7 @@ import 'package:Runbhumi/authentication/signUp.dart';
 import 'package:Runbhumi/components/button.dart';
 import 'package:Runbhumi/components/googleOauth.dart';
 import 'package:Runbhumi/components/inputBox.dart';
+import 'package:Runbhumi/mainApp/home.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
             Button(
               myText: "Login",
               myColor: Theme.of(context).primaryColor,
-              myWidget: LoginPage(),
+              myWidget: HomePage(),
             ),
             SizedBox(
               height: 10,

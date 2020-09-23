@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:Runbhumi/services/google_signin.dart';
+import 'package:Runbhumi/view/secondPage.dart';
+
+// for now i am taking back to the login page but firebase will reflect entry
 
 class GoogleOauth extends StatelessWidget {
   const GoogleOauth({
@@ -8,7 +12,17 @@ class GoogleOauth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          signInWithGoogle().whenComplete(() {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return SecondPage();
+                },
+              ),
+            );
+          });
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

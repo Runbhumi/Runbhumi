@@ -1,8 +1,8 @@
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/dividingOr.dart';
-import 'package:Runbhumi/components/googleOauth.dart';
-import 'package:Runbhumi/components/inputBox.dart';
+import 'package:Runbhumi/view/loginPage.dart';
+import 'package:Runbhumi/widget/button.dart';
+import 'package:Runbhumi/widget/dividingOr.dart';
+import 'package:Runbhumi/widget/googleOauth.dart';
+import 'package:Runbhumi/widget/inputBox.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {

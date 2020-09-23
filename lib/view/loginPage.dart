@@ -1,8 +1,8 @@
-import 'package:Runbhumi/authentication screen/forgotPassword.dart';
-import 'package:Runbhumi/authentication screen/signUp.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/googleOauth.dart';
-import 'package:Runbhumi/components/inputBox.dart';
+import 'package:Runbhumi/view/forgotPassword.dart';
+import 'package:Runbhumi/view/signUp.dart';
+import 'package:Runbhumi/widget/button.dart';
+import 'package:Runbhumi/widget/googleOauth.dart';
+import 'package:Runbhumi/widget/inputBox.dart';
 import 'package:Runbhumi/mainApp/home.dart';
 import 'package:flutter/material.dart';
 

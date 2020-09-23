@@ -1,12 +1,8 @@
-<<<<<<< HEAD:lib/authentication screen/forgotPassword.dart
-import 'package:Runbhumi/authentication screen/checkMail.dart';
-import 'package:Runbhumi/authentication screen/loginPage.dart';
-=======
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/authentication/otpInput.dart';
->>>>>>> c618887886d4adf6b018ffda90109d82d28124b0:lib/authentication/forgotPassword.dart
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/inputBox.dart';
+//import 'package:Runbhumi/view/checkMail.dart';
+import 'package:Runbhumi/view/loginPage.dart';
+//import 'package:Runbhumi/view/otpInput.dart';
+import 'package:Runbhumi/widget/button.dart';
+import 'package:Runbhumi/widget/inputBox.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -60,7 +56,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Button(
                   myText: "Send",
                   myColor: Theme.of(context).accentColor,
-                  myWidget: OtpInput(),
+                  //myWidget: OtpInput(),
                 ),
                 SizedBox(
                   height: 16.0,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/authentication/google_signin.dart';
-import 'package:Runbhumi/authentication screen/secondPage.dart';
+import 'package:Runbhumi/services/google_signin.dart';
+import 'package:Runbhumi/view/secondPage.dart';
 
 // for now i am taking back to the login page but firebase will reflect entry
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:Runbhumi/authentication/google_signin.dart';
+import 'package:Runbhumi/authentication screen/secondPage.dart';
 
 class GoogleOauth extends StatelessWidget {
   const GoogleOauth({
@@ -8,7 +10,17 @@ class GoogleOauth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          signInWithGoogle().whenComplete(() {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return SecondPage();
+                },
+              ),
+            );
+          });
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

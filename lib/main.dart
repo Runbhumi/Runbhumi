@@ -1,4 +1,4 @@
-import 'package:Runbhumi/authentication/secondPage.dart';
+import 'package:Runbhumi/authentication screen/secondPage.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 

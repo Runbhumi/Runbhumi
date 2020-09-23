@@ -1,5 +1,5 @@
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/authentication/signUp.dart';
+import 'package:Runbhumi/authentication screen/loginPage.dart';
+import 'package:Runbhumi/authentication screen/signUp.dart';
 import 'package:Runbhumi/components/button.dart';
 import 'package:Runbhumi/components/googleOauth.dart';
 import 'package:flutter/material.dart';

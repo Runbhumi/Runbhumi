@@ -35,7 +35,9 @@ dependencies:
   google_sign_in: ^4.5.3
   shared_preferences: ^0.5.11
   cloud_firestore: ^0.14.0+2
-  
+  pinput: ^0.2.0
+  curved_navigation_bar: ^0.3.4
+  bubble_tab_indicator: "^0.1.4"
 
 dev_dependencies:
   flutter_test:

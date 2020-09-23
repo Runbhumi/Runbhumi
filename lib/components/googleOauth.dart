@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Runbhumi/authentication/google_signin.dart';
 import 'package:Runbhumi/authentication screen/secondPage.dart';
 
+// for now i am taking back to the login page but firebase will reflect entry
+
 class GoogleOauth extends StatelessWidget {
   const GoogleOauth({
     Key key,
@@ -24,37 +26,33 @@ class GoogleOauth extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).buttonColor,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Theme.of(context).buttonColor.withOpacity(.4),
-                          blurRadius: 6,
-                          offset: Offset(0, 5))
-                    ]),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child:
-                            Image(image: AssetImage('assets/googleicon.png')),
+            Container(
+              height: 55,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).buttonColor,
+                  borderRadius: BorderRadius.circular(800),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).buttonColor.withOpacity(.4),
+                        blurRadius: 6,
+                        offset: Offset(0, 5))
+                  ]),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: Image(image: AssetImage('assets/googleicon.png')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Continue with Google",
+                        style: TextStyle(color: Colors.black, fontSize: 20),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          "Continue with Google",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -5,7 +5,8 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:Runbhumi/components/googleOauth.dart';
+// import 'package:Runbhumi/components/googleOauth.dart';
+import 'package:Runbhumi/components/inputBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -30,12 +31,18 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   MaterialApp app = MaterialApp(
-    home: Scaffold(body: GoogleOauth()),
+    home: Scaffold(body: InputBox(myText: "inp", hidden: true)),
   );
-  testWidgets('GoogleOauthBig UI Test', (WidgetTester tester) async {
+  testWidgets('input box UI Test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(app);
 
-    expect(find.byType(Text), findsNWidgets(1));
+    expect(find.byType(TextFormField), findsNWidgets(1));
   });
+  // testWidgets('GoogleOauthBig UI Test', (WidgetTester tester) async {
+  //   // Build our app and trigger a frame.
+  //   await tester.pumpWidget(app);
+
+  //   expect(find.byType(Text), findsNWidgets(1));
+  // });
 }

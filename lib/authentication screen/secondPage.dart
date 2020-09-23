@@ -1,6 +1,7 @@
 import 'package:Runbhumi/authentication screen/loginPage.dart';
 import 'package:Runbhumi/authentication screen/signUp.dart';
 import 'package:Runbhumi/components/button.dart';
+import 'package:Runbhumi/components/dividingOr.dart';
 import 'package:Runbhumi/components/googleOauth.dart';
 import 'package:flutter/material.dart';
 
@@ -42,35 +43,6 @@ class _SecondPageState extends State<SecondPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DividingOr extends StatelessWidget {
-  const DividingOr({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child:
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-        Container(
-          height: 1.0,
-          width: 100.0,
-          color: Colors.black,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text("OR"),
-        ),
-        Container(
-          height: 1.0,
-          width: 100.0,
-          color: Colors.black,
-        ),
-      ]),
     );
   }
 }

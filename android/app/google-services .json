@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "120829084042-ptlutuhkc2vvpkss8lbc2m8frcflg614.apps.googleusercontent.com",
+          "client_id": "120829084042-g93t27efbamu7ru24837ifnrnh1amd8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.runbhumi.sportsapp",
+            "certificate_hash": "8838b088c64ab7e71cd997cb963d2347c1b580d9"
+          }
+        },
+        {
+          "client_id": "120829084042-2d2r3euu5dq74hrlq9gvjg5u36ocqrc6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.runbhumi.sportsapp",

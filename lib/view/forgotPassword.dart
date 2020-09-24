@@ -1,6 +1,4 @@
-//import 'package:Runbhumi/view/checkMail.dart';
 import 'package:Runbhumi/view/loginPage.dart';
-//import 'package:Runbhumi/view/otpInput.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/inputBox.dart';
 import 'package:flutter/material.dart';

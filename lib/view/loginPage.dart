@@ -1,6 +1,3 @@
-import 'package:Runbhumi/view/bottomNavigation.dart';
-import 'package:Runbhumi/view/forgotPassword.dart';
-import 'package:Runbhumi/view/signUp.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:Runbhumi/widget/inputBox.dart';
@@ -37,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             Button(
               myText: "Login",
               myColor: Theme.of(context).primaryColor,
-              // routeName: MainPage(),
+              routeName: "/home",
             ),
             SizedBox(
               height: 10,
@@ -83,8 +80,7 @@ class ForgotPasswordAnchor extends StatelessWidget {
       padding: const EdgeInsets.only(right: 32.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ForgotPassword()));
+          Navigator.pushNamed(context, "/forgotpassword");
         },
         child: Container(
           padding: EdgeInsets.all(8.0),

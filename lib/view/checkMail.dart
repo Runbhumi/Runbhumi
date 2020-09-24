@@ -1,4 +1,3 @@
-import 'package:Runbhumi/view/loginPage.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/inputBox.dart';
 // import 'package:pinput/pin_put/pin_put.dart';

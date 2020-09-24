@@ -1,5 +1,5 @@
 export 'loginPage.dart';
 export 'signUp.dart';
-// export 'quiz.dart';
-// export 'profile.dart';
-// export 'about.dart';
+export 'forgotPassword.dart';
+export 'home.dart';
+export 'addPost.dart';

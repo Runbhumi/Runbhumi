@@ -1,4 +1,3 @@
-import 'package:Runbhumi/view/loginPage.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/dividingOr.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';

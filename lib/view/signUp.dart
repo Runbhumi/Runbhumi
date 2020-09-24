@@ -54,7 +54,7 @@ class _SignUpState extends State<SignUp> {
               Button(
                 myText: "Login",
                 myColor: Theme.of(context).primaryColor,
-                myWidget: LoginPage(),
+                routeName: "/login",
               ),
               SizedBox(height: 20),
               GoogleOauth(),

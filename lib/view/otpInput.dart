@@ -36,7 +36,7 @@ class OtpInput extends StatelessWidget {
             Button(
               myText: "Login Again",
               myColor: Theme.of(context).accentColor,
-              myWidget: LoginPage(),
+              routeName: "/login",
             ),
           ],
         ),

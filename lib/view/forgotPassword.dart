@@ -56,7 +56,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Button(
                   myText: "Send",
                   myColor: Theme.of(context).accentColor,
-                  //myWidget: OtpInput(),
+                  //routeName: OtpInput(),
                 ),
                 SizedBox(
                   height: 16.0,

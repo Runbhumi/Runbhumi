@@ -28,12 +28,12 @@ class _SecondPageState extends State<SecondPage> {
             Button(
               myText: "Login",
               myColor: Theme.of(context).primaryColor,
-              myWidget: LoginPage(),
+              routeName: "/login",
             ),
             Button(
               myText: "SignUp",
               myColor: Theme.of(context).accentColor,
-              myWidget: SignUp(),
+              routeName: "/signup",
             ),
             DividingOr(),
             GoogleOauth(),

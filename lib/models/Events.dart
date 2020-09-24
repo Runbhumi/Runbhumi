@@ -1,20 +1,12 @@
 class Events {
   final String eventId;
   final String creatorId;
-  final String eventName;
-  final String location;
-  final String description;
+  String eventName;
+  String location;
+  String image;
+  String description;
   List<String> playersId;
-  final DateTime dateTime;
+  DateTime dateTime;
 
-  Events(
-      {this.eventId,
-      this.creatorId,
-      this.eventName,
-      this.location,
-      this.description,
-      this.playersId,
-      this.dateTime});
+  Events({this.eventId, this.creatorId});
 }
-
-//you can use the constructor as Event = new Events()

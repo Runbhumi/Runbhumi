@@ -14,6 +14,17 @@ class EventService {
     }
   }
 
+  Future addPlayer(Events _event, String playerId) async {
+    try {
+      await _eventCollectionReference
+          .doc(_event.eventId)
+          .update({"playerId": FieldValue.arrayUnion(_event.playersId)});
+      return true;
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
   Future getEvent(String eventId) async {
     try {
       var eventsData = await _eventCollectionReference.doc(eventId).get();

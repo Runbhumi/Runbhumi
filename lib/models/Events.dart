@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
-  String eventId;
+  final String eventId;
   final String creatorId;
   String eventName;
   String location;
@@ -12,7 +12,8 @@ class Events {
   DateTime dateTime;
 
   Events(
-      {this.creatorId,
+      {this.eventId,
+      this.creatorId,
       this.eventName,
       this.location,
       this.image,
@@ -22,6 +23,7 @@ class Events {
       this.dateTime});
 
   Map<String, dynamic> toJson() => {
+        'eventId': eventId,
         'creatorId': creatorId,
         'eventName': eventName,
         'location': location,

@@ -4,7 +4,6 @@ class UserProfile {
   String name;
   String profileImage;
   String location;
-  String address;
   String phoneNumber;
   List<String> friendsId;
   List<String> teamId;
@@ -16,7 +15,6 @@ class UserProfile {
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
-    this.address = '';
     this.phoneNumber = '';
     this.friendsId = [];
     this.teamId = [];
@@ -29,7 +27,6 @@ class UserProfile {
         'name': name,
         'profileImage': profileImage,
         'location': location,
-        'address': address,
         'phoneNumber': phoneNumber,
         'friendsId': friendsId,
         'teamId': teamId,
@@ -38,3 +35,4 @@ class UserProfile {
 }
 
 // Notifications can be taken as a seperate calss
+// https://medium.com/fabcoding/get-current-user-location-in-flutter-57e202bad6db for geolocation capture

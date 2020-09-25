@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUp(),
         '/forgotpassword': (context) => ForgotPassword(),
-        '/home': (context) => Home(),
+        '/home': (context) => MainApp(),
         '/addpost': (context) => AddPost(),
       },
       theme: ThemeData(

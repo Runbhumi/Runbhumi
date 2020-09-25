@@ -1,6 +1,6 @@
 import 'package:Runbhumi/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/view/secondPage.dart';
+import 'package:Runbhumi/view/views.dart';
 
 // for now i am taking back to the login page but firebase will reflect entry
 
@@ -17,7 +17,7 @@ class GoogleOauth extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return SecondPage();
+                  return MainApp();
                 },
               ),
             );

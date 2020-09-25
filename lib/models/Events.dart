@@ -6,6 +6,7 @@ class Events {
   String eventName;
   String location;
   String image;
+  String sportName;
   String description;
   List<String> playersId;
   DateTime dateTime;
@@ -15,6 +16,7 @@ class Events {
       this.eventName,
       this.location,
       this.image,
+      this.sportName,
       this.description,
       this.playersId,
       this.dateTime});
@@ -24,6 +26,8 @@ class Events {
         'eventName': eventName,
         'location': location,
         'image': image,
+        'sportName': sportName,
+        'description': description,
         'playersId': playersId,
         'dateTime': dateTime
       };
@@ -33,6 +37,7 @@ class Events {
         eventName = snapshot.data()['eventName'],
         location = snapshot.data()['location'],
         image = snapshot.data()['image'],
+        sportName = snapshot.data()['sportName'],
         description = snapshot.data()['desscription'],
         playersId = snapshot.data()['playerId'],
         dateTime = snapshot.data()['dateTime'].toDate();

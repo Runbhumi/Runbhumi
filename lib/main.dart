@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Runbhumi',
       // Named Routes
-        routes: {
-          '/login': (context) => LoginPage(),
-          '/signup': (context) => SignUp(),
-          '/forgotpassword': (context) => ForgotPassword(),
-          '/home': (context) => Home(),
-          '/addpost': (context) => AddPost(),
-        },
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/signup': (context) => SignUp(),
+        '/forgotpassword': (context) => ForgotPassword(),
+        '/home': (context) => Home(),
+        '/addpost': (context) => AddPost(),
+      },
       theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,

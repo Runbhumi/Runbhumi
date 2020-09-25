@@ -8,8 +8,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-    static final GlobalKey<ScaffoldState> scaffoldKey =
+  static final GlobalKey<ScaffoldState> scaffoldKey =
       new GlobalKey<ScaffoldState>();
 
   TextEditingController _searchQuery;
@@ -48,7 +47,6 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildTitle(BuildContext context) {
-
     return new Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: new Column(
@@ -114,7 +112,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-          child: Scaffold(
+      child: Scaffold(
         key: scaffoldKey,
         appBar: new AppBar(
           elevation: 0,

@@ -1,5 +1,5 @@
 name: Runbhumi
-description: A new Flutter project.
+description: social media with a sports flavour
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -28,17 +28,24 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   splashscreen: ^1.2.0
-  flutter_svg: ^0.18.1
+  
+  #firbase
   firebase_core: ^0.5.0
+
+  #authorization
   firebase_auth: ^0.18.0+1
   google_sign_in: ^4.5.3
+
+  #storage
   cloud_firestore: ^0.14.0+2
-  pinput: ^0.2.0
-  curved_navigation_bar: ^0.3.4
+
+  # pinput: ^0.2.0
   bubble_tab_indicator: "^0.1.4"
-  font_awesome_flutter: ^8.8.1
   firebase_storage: ^4.0.0
   faker: ^1.2.1
+
+  #shared prefrences
+  shared_preferences: ^0.5.12
 
 dev_dependencies:
   flutter_test:

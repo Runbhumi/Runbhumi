@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import '../widget/widgets.dart';
+import '../widget/widgets.dart';
 
 // class AddPost extends StatefulWidget {
 //   @override
@@ -180,6 +180,22 @@ import 'package:flutter/material.dart';
 //     );
 //   }
 // }
+Widget _buildTitle(BuildContext context) {
+  return new Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+    child: new Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const Text(
+          'Add Post',
+          style: TextStyle(
+              fontWeight: FontWeight.w700, fontSize: 30, color: Colors.black),
+        ),
+      ],
+    ),
+  );
+}
 
 class AddPost extends StatefulWidget {
   @override
@@ -187,12 +203,42 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('about'), backgroundColor: Colors.blue),
-      body: Center(
-        child: Text('About this app...'),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: _buildTitle(context),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image(
+              width: 300,
+              image: AssetImage('assets/addpostillustration.png'),
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  // Add TextFormFields and RaisedButton here.
+                  InputBox(
+                    myText: "Sports",
+                    hidden: false,
+                  ),
+                  InputBox(
+                    myText: "purpose",
+                    hidden: false,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

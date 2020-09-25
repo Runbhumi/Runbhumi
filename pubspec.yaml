@@ -37,6 +37,7 @@ dependencies:
   curved_navigation_bar: ^0.3.4
   bubble_tab_indicator: "^0.1.4"
   font_awesome_flutter: ^8.8.1
+  firebase_storage: ^4.0.0
 
 dev_dependencies:
   flutter_test:

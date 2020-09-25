@@ -8,12 +8,10 @@ class AppBottomNav extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       elevation: 10,
       items: [
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.home, size: 20)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.home, size: 20)),
         BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.userFriends, size: 20)),
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.plus, size: 20)),
+        BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.plus, size: 20)),
         BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.solidBell, size: 20)),
         BottomNavigationBarItem(

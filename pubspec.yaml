@@ -38,6 +38,7 @@ dependencies:
   bubble_tab_indicator: "^0.1.4"
   font_awesome_flutter: ^8.8.1
   firebase_storage: ^4.0.0
+  faker: ^1.2.1
 
 dev_dependencies:
   flutter_test:

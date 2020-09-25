@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:faker/faker.dart';
+import 'package:Runbhumi/models/User.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
+var faker = new Faker();
 
-String name;
-String email;
-String imageUrl;
-
-Future<String> signInWithGoogle() async {
+Future signInWithGoogle() async {
   await Firebase.initializeApp();
 
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -26,32 +26,18 @@ Future<String> signInWithGoogle() async {
   final User user = authResult.user;
 
   if (user != null) {
-    // Checking if email and name is null
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(user.photoURL != null);
-
-    name = user.displayName;
-    email = user.email;
-    imageUrl = user.photoURL;
-
-    // Only taking the first part of the name, i.e., First Name
-    if (name.contains(" ")) {
-      name = name.substring(0, name.indexOf(" "));
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('users')
+        .where('UserId', isEqualTo: user.uid)
+        .get();
+    final List<QueryDocumentSnapshot> documents = result.docs;
+    if (documents.length == 0) {
+      FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+          UserProfile.newuser(user.uid, faker.internet.userName(),
+                  user.displayName, user.photoURL, user.phoneNumber)
+              .toJson());
     }
-
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final User currentUser = _auth.currentUser;
-    assert(user.uid == currentUser.uid);
-
-    print('signInWithGoogle succeeded: $user');
-
-    return '$user';
   }
-
-  return null;
 }
 
 Future<void> signOutGoogle() async {

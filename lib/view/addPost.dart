@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widget/widgets.dart';
+// import '../widget/widgets.dart';
 
 // class AddPost extends StatefulWidget {
 //   @override
@@ -194,7 +194,6 @@ class _AddPostState extends State<AddPost> {
       body: Center(
         child: Text('About this app...'),
       ),
-      bottomNavigationBar: AppBottomNav(),
     );
   }
 }

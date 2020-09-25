@@ -1,8 +1,5 @@
-import 'package:Runbhumi/widget/button.dart';
-import 'package:Runbhumi/widget/googleOauth.dart';
-import 'package:Runbhumi/widget/inputBox.dart';
-// import 'package:Runbhumi/mainApp/home.dart';
 import 'package:flutter/material.dart';
+import '../widget/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -22,12 +19,12 @@ class _LoginPageState extends State<LoginPage> {
             InputBox(
               myText: "Username",
               hidden: false,
-              icon: Icon(Icons.account_circle),
+              icon: Icon(Icons.account_circle_outlined),
             ),
             InputBox(
               myText: "Password",
               hidden: true,
-              icon: Icon(Icons.lock),
+              icon: Icon(Icons.lock_outline),
               sufIcon: Icon(Icons.remove_red_eye),
             ),
             ForgotPasswordAnchor(),

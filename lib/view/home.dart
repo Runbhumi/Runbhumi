@@ -1,6 +1,5 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
-import '../widget/widgets.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,11 +7,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  static final GlobalKey<ScaffoldState> scaffoldKey =
-      new GlobalKey<ScaffoldState>();
-
   TextEditingController _searchQuery;
+
   bool _isSearching = false;
+
   String searchQuery = "";
 
   void initState() {
@@ -113,12 +111,11 @@ class _HomeState extends State<Home> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        key: scaffoldKey,
         appBar: new AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          leading: _isSearching ? const BackButton(color: Colors.black) : null,
+          leading: _isSearching ? BackButton(color: Colors.black) : null,
           title: _isSearching ? _buildSearchField() : _buildTitle(context),
           actions: _buildActions(),
           bottom: new TabBar(
@@ -144,7 +141,6 @@ class _HomeState extends State<Home> {
             Icon(Icons.directions_bike, size: 50),
           ],
         ),
-        bottomNavigationBar: AppBottomNav(),
       ),
     );
   }

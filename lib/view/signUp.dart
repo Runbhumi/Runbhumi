@@ -1,4 +1,3 @@
-import 'package:Runbhumi/view/loginPage.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/dividingOr.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
@@ -54,7 +53,7 @@ class _SignUpState extends State<SignUp> {
               Button(
                 myText: "Login",
                 myColor: Theme.of(context).primaryColor,
-                myWidget: LoginPage(),
+                routeName: "/login",
               ),
               SizedBox(height: 20),
               GoogleOauth(),

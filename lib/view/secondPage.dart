@@ -1,5 +1,3 @@
-import 'package:Runbhumi/view/loginPage.dart';
-import 'package:Runbhumi/view/signUp.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/dividingOr.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
@@ -28,12 +26,12 @@ class _SecondPageState extends State<SecondPage> {
             Button(
               myText: "Login",
               myColor: Theme.of(context).primaryColor,
-              myWidget: LoginPage(),
+              routeName: "/login",
             ),
             Button(
               myText: "SignUp",
               myColor: Theme.of(context).accentColor,
-              myWidget: SignUp(),
+              routeName: "/signup",
             ),
             DividingOr(),
             GoogleOauth(),

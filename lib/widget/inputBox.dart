@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class InputBox extends StatelessWidget {
   const InputBox({
     @required this.myText,
-    @required this.hidden,
+    this.hidden,
     this.helptext,
     this.sufIcon,
     this.icon,

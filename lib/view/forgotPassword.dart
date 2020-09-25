@@ -1,8 +1,6 @@
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/authentication/otpInput.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/inputBox.dart';
+import 'views.dart';
 import 'package:flutter/material.dart';
+import '../widget/widgets.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -14,13 +12,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
+      body: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            leading: BackButton(
+              color: Colors.black,
+            ),
+            backgroundColor: Colors.white,
+            elevation: 0,
+          ),
+          body: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: <Widget>[
-                BackButton(),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 20.0),
@@ -55,7 +59,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Button(
                   myText: "Send",
                   myColor: Theme.of(context).accentColor,
-                  myWidget: OtpInput(),
+                  //routeName: OtpInput(),
                 ),
                 SizedBox(
                   height: 16.0,
@@ -69,50 +73,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 }
 
-class NumberInputLogin extends StatelessWidget {
-  const NumberInputLogin({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
-      child: Container(
-        alignment: Alignment.centerLeft,
-        height: 60,
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Color(0xffE1F2F2),
-          border: Border.all(color: Color(0xff393E46), width: 0.3),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black))),
-          child: TextFormField(
-            keyboardType: TextInputType.phone,
-            validator: (val) {
-              return RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(val)
-                  ? null
-                  : "Please Enter Correct Number";
-            },
-            decoration: InputDecoration(
-                icon: Icon(Icons.phone),
-                hintText: "Phone Number",
-                hintStyle: TextStyle(color: Color(0xff667080)),
-                border: InputBorder.none),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class BackButton extends StatelessWidget {
-  const BackButton({
+class BackBtn extends StatelessWidget {
+  const BackBtn({
     Key key,
   }) : super(key: key);
 
@@ -126,7 +88,6 @@ class BackButton extends StatelessWidget {
         child: Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: Icon(Icons.arrow_back_ios,
-                color: Theme.of(context).primaryColor)));
+            child: Icon(Icons.arrow_back, color: Colors.black)));
   }
 }

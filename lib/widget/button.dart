@@ -4,21 +4,20 @@ class Button extends StatelessWidget {
   const Button({
     @required this.myText,
     @required this.myColor,
-    this.myWidget,
+    this.routeName,
     Key key,
   }) : super(key: key);
 
   final String myText;
   final Color myColor;
-  final Widget myWidget;
+  final String routeName;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => myWidget));
+            Navigator.pushNamed(context, routeName);
           },
           child: Container(
             height: 55,

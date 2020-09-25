@@ -1,8 +1,6 @@
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/authentication/signUp.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/dividingOr.dart';
-import 'package:Runbhumi/components/googleOauth.dart';
+import 'package:Runbhumi/widget/button.dart';
+import 'package:Runbhumi/widget/dividingOr.dart';
+import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/material.dart';
 
 class SecondPage extends StatefulWidget {
@@ -28,12 +26,12 @@ class _SecondPageState extends State<SecondPage> {
             Button(
               myText: "Login",
               myColor: Theme.of(context).primaryColor,
-              myWidget: LoginPage(),
+              routeName: "/login",
             ),
             Button(
               myText: "SignUp",
               myColor: Theme.of(context).accentColor,
-              myWidget: SignUp(),
+              routeName: "/signup",
             ),
             DividingOr(),
             GoogleOauth(),

@@ -1,9 +1,5 @@
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/dividingOr.dart';
-import 'package:Runbhumi/components/googleOauth.dart';
-import 'package:Runbhumi/components/inputBox.dart';
 import 'package:flutter/material.dart';
+import '../widget/widgets.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -13,7 +9,6 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    // loadLocations();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -24,24 +19,25 @@ class _SignUpState extends State<SignUp> {
               InputBox(
                   myText: "Full name",
                   hidden: false,
-                  icon: Icon(Icons.contacts)),
+                  icon: Icon(Icons.contacts_outlined)),
               InputBox(
                   myText: "Username",
                   hidden: false,
-                  icon: Icon(Icons.account_circle)),
+                  icon: Icon(Icons.account_circle_outlined)),
               InputBox(
-                  myText: "Phone Number",
+                  myText: "E-mail",
                   hidden: false,
-                  icon: Icon(Icons.phone)),
+                  icon: Icon(Icons.mail_outline)),
               InputBox(
                   myText: "Password",
                   hidden: true,
                   helptext: "use at least 8 charecters",
                   sufIcon: Icon(Icons.remove_red_eye),
-                  icon: Icon(Icons.lock)),
+                  icon: Icon(Icons.lock_outline)),
               Button(
                 myText: "Sign Up For Runbhumi",
                 myColor: Theme.of(context).accentColor,
+                routeName: "/home",
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -54,7 +50,7 @@ class _SignUpState extends State<SignUp> {
               Button(
                 myText: "Login",
                 myColor: Theme.of(context).primaryColor,
-                myWidget: LoginPage(),
+                routeName: "/login",
               ),
               SizedBox(height: 20),
               GoogleOauth(),

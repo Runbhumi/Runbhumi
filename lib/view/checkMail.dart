@@ -1,6 +1,5 @@
-import 'package:Runbhumi/authentication/loginPage.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/inputBox.dart';
+import 'package:Runbhumi/widget/button.dart';
+import 'package:Runbhumi/widget/inputBox.dart';
 // import 'package:pinput/pin_put/pin_put.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +35,7 @@ class OtpInput extends StatelessWidget {
             Button(
               myText: "Login Again",
               myColor: Theme.of(context).accentColor,
-              myWidget: LoginPage(),
+              routeName: "/login",
             ),
           ],
         ),

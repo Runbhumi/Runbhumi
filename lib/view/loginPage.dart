@@ -1,10 +1,5 @@
-import 'package:Runbhumi/authentication/forgotPassword.dart';
-import 'package:Runbhumi/authentication/signUp.dart';
-import 'package:Runbhumi/components/button.dart';
-import 'package:Runbhumi/components/googleOauth.dart';
-import 'package:Runbhumi/components/inputBox.dart';
-import 'package:Runbhumi/mainApp/home.dart';
 import 'package:flutter/material.dart';
+import '../widget/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -24,19 +19,19 @@ class _LoginPageState extends State<LoginPage> {
             InputBox(
               myText: "Username",
               hidden: false,
-              icon: Icon(Icons.account_circle),
+              icon: Icon(Icons.account_circle_outlined),
             ),
             InputBox(
               myText: "Password",
-              hidden: false,
-              icon: Icon(Icons.lock),
+              hidden: true,
+              icon: Icon(Icons.lock_outline),
               sufIcon: Icon(Icons.remove_red_eye),
             ),
             ForgotPasswordAnchor(),
             Button(
               myText: "Login",
               myColor: Theme.of(context).primaryColor,
-              myWidget: HomePage(),
+              routeName: "/home",
             ),
             SizedBox(
               height: 10,
@@ -59,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             Button(
               myColor: Theme.of(context).accentColor,
               myText: "SignUp",
-              myWidget: SignUp(),
+              routeName: "/signup",
             ),
             SizedBox(
               height: 16.0,
@@ -82,8 +77,7 @@ class ForgotPasswordAnchor extends StatelessWidget {
       padding: const EdgeInsets.only(right: 32.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ForgotPassword()));
+          Navigator.pushNamed(context, "/forgotpassword");
         },
         child: Container(
           padding: EdgeInsets.all(8.0),

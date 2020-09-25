@@ -9,19 +9,15 @@ class AppBottomNav extends StatelessWidget {
       elevation: 10,
       items: [
         BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.home, size: 20), title: Text('Home')),
+            icon: Icon(FontAwesomeIcons.home, size: 20)),
         BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.userFriends, size: 20),
-            title: Text('Network')),
+            icon: Icon(FontAwesomeIcons.userFriends, size: 20)),
         BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.plus, size: 20),
-            title: Text('Add Post')),
+            icon: Icon(FontAwesomeIcons.plus, size: 20)),
         BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.solidBell, size: 20),
-            title: Text('Notifications')),
+            icon: Icon(FontAwesomeIcons.solidBell, size: 20)),
         BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.solidUserCircle, size: 20),
-            title: Text('Profile')),
+            icon: Icon(FontAwesomeIcons.solidUserCircle, size: 20)),
       ].toList(),
       selectedItemColor: Theme.of(context).primaryColor,
       unselectedItemColor: Colors.black54,

@@ -39,3 +39,9 @@ class UserProfile {
 
 // Notifications can be taken as a seperate calss
 // https://medium.com/fabcoding/get-current-user-location-in-flutter-57e202bad6db for geolocation capture
+
+String generateusername(String email) {
+  String result = email.replaceAll(new RegExp(r'@.+'), "");
+  result = result.replaceAll(new RegExp(r'\\W+'), " ");
+  return result;
+}

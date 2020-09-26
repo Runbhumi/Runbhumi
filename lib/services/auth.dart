@@ -32,9 +32,10 @@ Future signInWithGoogle() async {
         .get();
     final List<QueryDocumentSnapshot> documents = result.docs;
     if (documents.length == 0) {
+      String _username = generateusername(user.email);
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
-          UserProfile.newuser(user.uid, faker.internet.userName(),
-                  user.displayName, user.photoURL, user.phoneNumber)
+          UserProfile.newuser(user.uid, _username, user.displayName,
+                  user.photoURL, user.phoneNumber)
               .toJson());
     }
   }

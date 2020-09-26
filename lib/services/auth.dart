@@ -33,7 +33,7 @@ Future signInWithGoogle() async {
       String _username = generateusername(user.email);
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
           UserProfile.newuser(user.uid, _username, user.displayName,
-                  user.photoURL, user.phoneNumber)
+                  user.photoURL, user.email)
               .toJson());
     }
   }

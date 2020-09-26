@@ -1,3 +1,4 @@
+import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 // import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
@@ -62,34 +63,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             },
           ),
         ),
-        body: Column(
-          children: [
-            RaisedButton.icon(
-              onPressed: () {
-                print("logout");
-                Constants.prefs.setBool("loggedIn", false);
-                Navigator.pushReplacementNamed(context, "/secondpage");
-              },
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(0),
-                      topRight: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(0))),
-              label: Text(
-                'Log out',
-                style: TextStyle(color: Colors.white),
-              ),
-              icon: Icon(
-                Icons.logout,
-                color: Colors.white,
-              ),
-              textColor: Colors.white,
-              color: Theme.of(context).primaryColor,
-            ),
-          ],
-        ),
+        body: DrawerBody(),
       ),
     );
     var myChild = Scaffold(
@@ -130,6 +104,45 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             ],
           );
         });
+  }
+}
+
+class DrawerBody extends StatelessWidget {
+  const DrawerBody({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        RaisedButton.icon(
+          onPressed: () {
+            print("logout");
+            Constants.prefs.setBool("loggedIn", false);
+            signOutGoogle();
+            Navigator.pushReplacementNamed(context, "/secondpage");
+          },
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(0),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(0))),
+          label: Text(
+            'Log out',
+            style: TextStyle(color: Colors.white),
+          ),
+          icon: Icon(
+            Icons.logout,
+            color: Colors.white,
+          ),
+          textColor: Colors.white,
+          color: Theme.of(context).primaryColor,
+        ),
+      ],
+    );
   }
 }
 

@@ -8,6 +8,7 @@ class UserProfile {
   List<String> friendsId;
   List<String> teamId;
   List<String> eventsId;
+  List<String> notificationId;
 
   UserProfile.newuser(userId, username, name, profileImage, phoneNumber) {
     this.userId = userId;
@@ -19,6 +20,7 @@ class UserProfile {
     this.friendsId = [];
     this.teamId = [];
     this.eventsId = [];
+    this.notificationId = [];
   }
 
   Map<String, dynamic> toJson() => {
@@ -30,7 +32,8 @@ class UserProfile {
         'phoneNumber': phoneNumber,
         'friendsId': friendsId,
         'teamId': teamId,
-        'eventsId': eventsId
+        'eventsId': eventsId,
+        'notificationId': notificationId
       };
 }
 

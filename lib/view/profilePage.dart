@@ -44,9 +44,46 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     var myDrawer = SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: toggle,
+        appBar: AppBar(
+          elevation: 0,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.clear,
+                  color: Colors.white,
+                ),
+                onPressed: toggle,
+              );
+            },
+          ),
+        ),
+        body: Column(
+          children: [
+            RaisedButton.icon(
+              onPressed: () {
+                print("logout");
+                Navigator.popAndPushNamed(context, "/login");
+              },
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(0),
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(0))),
+              label: Text(
+                'Log out',
+                style: TextStyle(color: Colors.white),
+              ),
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+            ),
+          ],
         ),
       ),
     );
@@ -68,6 +105,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
         backgroundColor: Colors.white,
       ),
+      body: Column(children: []),
     );
     return AnimatedBuilder(
         animation: animationController,

@@ -1,4 +1,5 @@
 import 'package:Runbhumi/utils/Constants.dart';
+// import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -39,6 +40,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       : animationController.reverse();
 
   final double maxSlide = 225.0;
+  final String profileImage =
+      'https://media-exp1.licdn.com/dms/image/C4E03AQFzIb-FJrXyaQ/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=yR_9RHWvRbGQ-AjfQvmTiVPLq5gDKmgxlZfB85IMC1w';
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Column(children: []),
+      body: ProfileBody(profileImage: profileImage),
     );
     return AnimatedBuilder(
         animation: animationController,
@@ -127,5 +130,68 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             ],
           );
         });
+  }
+}
+
+class ProfileBody extends StatelessWidget {
+  const ProfileBody({
+    Key key,
+    this.profileImage,
+  }) : super(key: key);
+
+  final String profileImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (profileImage != null)
+                Container(
+                  width: 200,
+                  height: 200,
+                  margin: EdgeInsets.only(top: 50),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: NetworkImage(profileImage),
+                      fit: BoxFit.contain,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3A353580),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Hayat Tamboli",
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 8.0,
+                  left: 16.0,
+                  right: 16.0,
+                ),
+                child: Text(
+                  "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

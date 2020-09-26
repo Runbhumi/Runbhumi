@@ -8,6 +8,5 @@ __signOutGoogle()__ => Will signOut the user
 __Note__ => now the username will be the credentials written before ____@gmail.com (New Feature)
 
 <h3>Updates</h3> 
-<p>
 => In ![Class User](https://github.com/Runbhumi/Runbhumi/blob/master/lib/models/User.dart) a Independent Fuction is available which can parse the email for the  username
-</p>
+

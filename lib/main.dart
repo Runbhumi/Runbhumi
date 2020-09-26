@@ -1,10 +1,15 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/secondPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'view/views.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Constants.prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
 
@@ -26,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/forgotpassword': (context) => ForgotPassword(),
         '/home': (context) => MainApp(),
         '/addpost': (context) => AddPost(),
+        '/secondpage': (context) => SecondPage(),
       },
       theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -47,7 +53,9 @@ class CustomSplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 5,
-      navigateAfterSeconds: new SecondPage(),
+      navigateAfterSeconds: Constants.prefs.getBool("loggedIn") == false
+          ? SecondPage()
+          : MainApp(),
       title: new Text(
         'Runbhumi',
         style: TextStyle(

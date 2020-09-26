@@ -1,3 +1,4 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -63,7 +64,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             RaisedButton.icon(
               onPressed: () {
                 print("logout");
-                Navigator.popAndPushNamed(context, "/login");
+                Constants.prefs.setBool("loggedIn", false);
+                Navigator.pushReplacementNamed(context, "/secondpage");
               },
               elevation: 0,
               shape: RoundedRectangleBorder(

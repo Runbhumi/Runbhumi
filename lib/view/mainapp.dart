@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'placeholder_widget.dart';
 import 'views.dart';
 
 class MainApp extends StatefulWidget {
@@ -14,9 +13,9 @@ class _MainAppState extends State<MainApp> {
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
-    PlaceholderWidget(Colors.green),
+    Network(),
     AddPost(),
-    PlaceholderWidget(Colors.yellow),
+    Notifications(),
     Profile(),
   ];
 

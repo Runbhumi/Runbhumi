@@ -5,3 +5,5 @@ export 'mainapp.dart';
 export 'addPost.dart';
 export 'home.dart';
 export 'profilePage.dart';
+export 'networkPage.dart';
+export 'notificationsPage.dart';

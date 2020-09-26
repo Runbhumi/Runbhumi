@@ -1,5 +1,6 @@
 import 'package:Runbhumi/view/secondPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'view/views.dart';
 
@@ -11,6 +12,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0x55393e46),
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return MaterialApp(
       title: 'Runbhumi',
       // Named Routes
@@ -31,7 +37,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Montserrat'),
       home: CustomSplashScreen(),
       // home: LoginPage(),
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

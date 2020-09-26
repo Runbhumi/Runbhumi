@@ -7,16 +7,17 @@ class Button extends StatelessWidget {
     this.routeName,
     Key key,
   }) : super(key: key);
-
   final String myText;
   final Color myColor;
   final String routeName;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
           onTap: () {
+            print("going to " + routeName);
             Navigator.pushNamed(context, routeName);
           },
           child: Container(

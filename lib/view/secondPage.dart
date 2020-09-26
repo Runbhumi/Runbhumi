@@ -23,10 +23,34 @@ class _SecondPageState extends State<SecondPage> {
                   const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
               child: Image(image: AssetImage('assets/login.png')),
             ),
-            Button(
-              myText: "Login",
-              myColor: Theme.of(context).primaryColor,
-              routeName: "/login",
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  print("going to " + "/login");
+                  Navigator.pushReplacementNamed(context, "/login");
+                },
+                child: Container(
+                  height: 55,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(800),
+                      boxShadow: [
+                        BoxShadow(
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.4),
+                            blurRadius: 6,
+                            offset: Offset(0, 5))
+                      ]),
+                  child: Center(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
             ),
             Button(
               myText: "SignUp",

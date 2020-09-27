@@ -11,7 +11,6 @@ class GoogleOauth extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () async {
-          //Constants.prefs.setBool("loggedIn", true);
           Constants.saveUserLoggedInSharedPreference(true);
           await signInWithGoogle().whenComplete(() {
             Navigator.pushReplacementNamed(context, "/home");

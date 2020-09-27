@@ -1,5 +1,6 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
-import '../widget/widgets.dart';
+import '../../widget/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -28,10 +29,35 @@ class _LoginPageState extends State<LoginPage> {
               sufIcon: Icon(Icons.remove_red_eye),
             ),
             ForgotPasswordAnchor(),
-            Button(
-              myText: "Login",
-              myColor: Theme.of(context).primaryColor,
-              routeName: "/home",
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Constants.prefs.setBool("loggedIn", true);
+                  print("going to " + "/home");
+                  Navigator.pushReplacementNamed(context, "/home");
+                },
+                child: Container(
+                  height: 55,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(800),
+                      boxShadow: [
+                        BoxShadow(
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.4),
+                            blurRadius: 6,
+                            offset: Offset(0, 5))
+                      ]),
+                  child: Center(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 10,

@@ -5,20 +5,24 @@ class Button extends StatelessWidget {
     @required this.myText,
     @required this.myColor,
     this.routeName,
+    this.onPressed,
     Key key,
   }) : super(key: key);
-
   final String myText;
   final Color myColor;
   final String routeName;
+  final Function onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, routeName);
-          },
+          onTap: onPressed ??
+              () {
+                print("going to " + routeName);
+                Navigator.pushNamed(context, routeName);
+              },
           child: Container(
             height: 55,
             width: 300,

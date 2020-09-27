@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'placeholder_widget.dart';
 import 'views.dart';
 
 class MainApp extends StatefulWidget {
@@ -11,12 +10,13 @@ class _MainAppState extends State<MainApp> {
   static final GlobalKey<ScaffoldState> scaffoldKey =
       new GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
+  //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
-    PlaceholderWidget(Colors.green),
+    Network(),
     AddPost(),
-    PlaceholderWidget(Colors.yellow),
-    PlaceholderWidget(Colors.redAccent),
+    Notifications(),
+    Profile(),
   ];
 
   void onTabTapped(int index) {
@@ -30,10 +30,13 @@ class _MainAppState extends State<MainApp> {
     return Scaffold(
       key: scaffoldKey,
       body: _children[_currentIndex],
+      //bottom navbar
       bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped, // new
+        onTap: onTabTapped,
         type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex, // new
+        currentIndex: _currentIndex,
+        elevation: 10,
+        showUnselectedLabels: false,
         items: [
           new BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -44,7 +47,7 @@ class _MainAppState extends State<MainApp> {
             label: 'Network',
           ),
           new BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add_circle_outline),
             label: 'Add Post',
           ),
           new BottomNavigationBarItem(

@@ -1,8 +1,6 @@
 import 'package:Runbhumi/services/auth.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/view/secondPage.dart';
-
-// for now i am taking back to the login page but firebase will reflect entry
 
 class GoogleOauth extends StatelessWidget {
   const GoogleOauth({
@@ -13,14 +11,9 @@ class GoogleOauth extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () async {
+          Constants.prefs.setBool("loggedIn", true);
           await signInWithGoogle().whenComplete(() {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return SecondPage();
-                },
-              ),
-            );
+            Navigator.pushReplacementNamed(context, "/home");
           });
         },
         child: Row(
@@ -28,6 +21,7 @@ class GoogleOauth extends StatelessWidget {
           children: [
             Container(
               height: 55,
+              width: 300,
               decoration: BoxDecoration(
                   color: Theme.of(context).buttonColor,
                   borderRadius: BorderRadius.circular(800),
@@ -49,7 +43,7 @@ class GoogleOauth extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "Continue with Google",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 18),
                       ),
                     ),
                   ],

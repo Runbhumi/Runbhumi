@@ -1,6 +1,11 @@
-export 'loginPage.dart';
-export 'signUp.dart';
-export 'forgotPassword.dart';
+export 'auth/loginPage.dart';
+export 'auth/secondPage.dart';
+export 'auth/signUp.dart';
+export 'auth/forgotPassword.dart';
 export 'mainapp.dart';
 export 'addPost.dart';
 export 'home.dart';
+export 'profilePage.dart';
+export 'networkPage.dart';
+export 'notificationsPage.dart';
+export 'moreInfo.dart';

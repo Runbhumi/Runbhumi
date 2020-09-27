@@ -1,5 +1,7 @@
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/placeholder_widget.dart';
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 // import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -69,28 +71,31 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         body: DrawerBody(),
       ),
     );
-    var myChild = Scaffold(
-      appBar: AppBar(
-        title: _buildTitle(context),
-        centerTitle: true,
-        elevation: 0,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              onPressed: toggle,
-            );
-          },
+    var myChild = DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: _buildTitle(context),
+          centerTitle: true,
+          elevation: 0,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ),
+                onPressed: toggle,
+              );
+            },
+          ),
+          backgroundColor: Colors.white,
         ),
-        backgroundColor: Colors.white,
-      ),
-      body: ProfileBody(
-        profileImage: profileImage,
-        profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
-        profileName: "Hayat Tamboli",
+        body: ProfileBody(
+          profileImage: profileImage,
+          profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
+          profileName: "Hayat Tamboli",
+        ),
       ),
     );
     return AnimatedBuilder(
@@ -216,53 +221,77 @@ class ProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (profileImage != null)
-                Container(
-                  width: 150,
-                  height: 150,
-                  margin: EdgeInsets.only(top: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    image: DecorationImage(
-                      image: NetworkImage(profileImage),
-                      fit: BoxFit.contain,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x3A353580),
-                        blurRadius: 20,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
+    return Center(
+      child: Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (profileImage != null)
+              Container(
+                width: 150,
+                height: 150,
+                margin: EdgeInsets.only(top: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  image: DecorationImage(
+                    image: AssetImage("assets/ProfilePlaceholder.png"),
+                    fit: BoxFit.contain,
                   ),
-                ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  profileName,
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                  left: 16.0,
-                  right: 16.0,
-                ),
-                child: Text(
-                  profileBio,
-                  style: TextStyle(fontSize: 14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x3A353580),
+                      blurRadius: 20,
+                      offset: Offset(0, 10),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                profileName,
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 8.0,
+                left: 16.0,
+                right: 16.0,
+              ),
+              child: Text(
+                profileBio,
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+            PreferredSize(
+              preferredSize: Size.fromHeight(50.0),
+              child: TabBar(
+                unselectedLabelColor: Colors.black,
+                tabs: [
+                  Tab(child: Text("Stats")),
+                  Tab(child: Text("Teams")),
+                  Tab(child: Text("Friends")),
+                ],
+                indicator: new BubbleTabIndicator(
+                  indicatorHeight: 30.0,
+                  indicatorColor: Theme.of(context).primaryColor,
+                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                ),
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  PlaceholderWidget(),
+                  PlaceholderWidget(),
+                  PlaceholderWidget(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

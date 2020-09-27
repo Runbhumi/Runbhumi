@@ -283,14 +283,14 @@ class ProfileBody extends StatelessWidget {
               ),
             ),
             Expanded(
-                child: TabBarView(
-                  children: [
-                    PlaceholderWidget(),
-                    PlaceholderWidget(),
-                    PlaceholderWidget(),
-                  ],
-                ),
+              child: TabBarView(
+                children: [
+                  PlaceholderWidget(),
+                  PlaceholderWidget(),
+                  PlaceholderWidget(),
+                ],
               ),
+            ),
           ],
         ),
       ),

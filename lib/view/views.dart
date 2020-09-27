@@ -2,7 +2,6 @@ export 'auth/loginPage.dart';
 export 'auth/secondPage.dart';
 export 'auth/signUp.dart';
 export 'auth/forgotPassword.dart';
-export 'auth/checkMail.dart';
 export 'mainapp.dart';
 export 'addPost.dart';
 export 'home.dart';

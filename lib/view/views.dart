@@ -8,3 +8,4 @@ export 'home.dart';
 export 'profilePage.dart';
 export 'networkPage.dart';
 export 'notificationsPage.dart';
+export 'moreInfo.dart';

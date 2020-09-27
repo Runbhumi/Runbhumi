@@ -1,6 +1,6 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
-import '../widget/widgets.dart';
+import '../../widget/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override

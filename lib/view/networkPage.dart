@@ -11,7 +11,7 @@ class Network extends StatelessWidget {
           const Text(
             'Network',
             style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 30, color: Colors.black),
+                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
           ),
         ],
       ),

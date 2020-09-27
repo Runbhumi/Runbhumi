@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widget/widgets.dart';
+import '../../widget/widgets.dart';
 
 class SignUp extends StatefulWidget {
   @override

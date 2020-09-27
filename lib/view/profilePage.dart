@@ -20,7 +20,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           const Text(
             'Profile',
             style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 30, color: Colors.black),
+                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
           ),
         ],
       ),
@@ -36,9 +36,12 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
-  void toggle() => animationController.isDismissed
-      ? animationController.forward()
-      : animationController.reverse();
+  void toggle() {
+    animationController.isDismissed
+        ? animationController.forward()
+        : animationController.reverse();
+    print("menu toggle");
+  }
 
   final double maxSlide = 225.0;
   final String profileImage =
@@ -84,7 +87,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
         backgroundColor: Colors.white,
       ),
-      body: ProfileBody(profileImage: profileImage),
+      body: ProfileBody(
+        profileImage: profileImage,
+        profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
+        profileName: "Hayat Tamboli",
+      ),
     );
     return AnimatedBuilder(
         animation: animationController,
@@ -150,9 +157,13 @@ class ProfileBody extends StatelessWidget {
   const ProfileBody({
     Key key,
     this.profileImage,
+    this.profileBio,
+    this.profileName,
   }) : super(key: key);
 
   final String profileImage;
+  final String profileBio;
+  final String profileName;
 
   @override
   Widget build(BuildContext context) {
@@ -165,9 +176,9 @@ class ProfileBody extends StatelessWidget {
             children: [
               if (profileImage != null)
                 Container(
-                  width: 200,
-                  height: 200,
-                  margin: EdgeInsets.only(top: 50),
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(40)),
                     image: DecorationImage(
@@ -186,7 +197,7 @@ class ProfileBody extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Hayat Tamboli",
+                  profileName,
                   style: TextStyle(fontSize: 24),
                 ),
               ),
@@ -197,7 +208,7 @@ class ProfileBody extends StatelessWidget {
                   right: 16.0,
                 ),
                 child: Text(
-                  "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
+                  profileBio,
                   style: TextStyle(fontSize: 14),
                 ),
               ),

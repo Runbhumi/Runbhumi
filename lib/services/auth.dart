@@ -40,7 +40,8 @@ Future signInWithGoogle() async {
 }
 
 Future<void> signOutGoogle() async {
+  await FirebaseAuth.instance.signOut();
+  await googleSignIn.disconnect();
   await googleSignIn.signOut();
-
   print("User Signed Out");
 }

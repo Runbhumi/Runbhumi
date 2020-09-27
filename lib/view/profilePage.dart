@@ -122,15 +122,41 @@ class DrawerBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RaisedButton.icon(
+        FlatButton.icon(
+          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          onPressed: () {
+            // print("logout");
+            // Constants.prefs.setBool("loggedIn", false);
+            // signOutGoogle();
+            // Navigator.pushReplacementNamed(context, "/secondpage");
+          },
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(0),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(0))),
+          label: Text(
+            'Edit Profile',
+            style: TextStyle(color: Colors.white),
+          ),
+          icon: Icon(
+            Icons.edit_outlined,
+            color: Colors.white,
+          ),
+          textColor: Colors.white,
+          color: Theme.of(context).primaryColor,
+        ),
+        FlatButton.icon(
+          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
           onPressed: () {
             print("logout");
             Constants.prefs.setBool("loggedIn", false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },
-          elevation: 0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
@@ -143,6 +169,29 @@ class DrawerBody extends StatelessWidget {
           ),
           icon: Icon(
             Icons.logout,
+            color: Colors.white,
+          ),
+          textColor: Colors.white,
+          color: Theme.of(context).primaryColor,
+        ),
+        FlatButton.icon(
+          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          onPressed: () {
+            print("go to more info");
+            Navigator.pushNamed(context, "/moreinfo");
+          },
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(0),
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(0))),
+          label: Text(
+            'More Info',
+            style: TextStyle(color: Colors.white),
+          ),
+          icon: Icon(
+            Icons.info_outline,
             color: Colors.white,
           ),
           textColor: Colors.white,

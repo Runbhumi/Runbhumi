@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => MainApp(),
         '/addpost': (context) => AddPost(),
         '/secondpage': (context) => SecondPage(),
+        '/moreinfo': (context) => MoreInfo(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,

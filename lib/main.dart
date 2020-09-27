@@ -1,5 +1,5 @@
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/secondPage.dart';
+import 'package:Runbhumi/view/auth/secondPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,15 +34,15 @@ class MyApp extends StatelessWidget {
         '/secondpage': (context) => SecondPage(),
       },
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColor: Color(0xff00adb5),
-          accentColor: Color(0xff393e46),
-          buttonColor: Color(0xffeeeeee),
-          bottomAppBarColor: Color(0xffd4ebf2),
-          fontFamily: 'Montserrat'),
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: Color(0xff00adb5),
+        accentColor: Color(0xff393e46),
+        buttonColor: Color(0xffeeeeee),
+        bottomAppBarColor: Color(0xffd4ebf2),
+        fontFamily: 'Montserrat',
+      ),
       home: CustomSplashScreen(),
-      // home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }

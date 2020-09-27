@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PlaceholderWidget extends StatelessWidget {
-  final Color color;
-
-  PlaceholderWidget(this.color);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: color,
+      decoration: BoxDecoration(
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment(0.8, 0.0), // 10% of the width, so there are ten blinds.
+      colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor], // whitish to gray
+      tileMode: TileMode.clamp, // repeats the gradient over the canvas
+    ),
+  ),
     );
   }
 }

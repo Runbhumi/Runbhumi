@@ -2,12 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:faker/faker.dart';
 import 'package:Runbhumi/models/User.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
-var faker = new Faker();
 
 Future signInWithGoogle() async {
   await Firebase.initializeApp();
@@ -32,9 +30,10 @@ Future signInWithGoogle() async {
         .get();
     final List<QueryDocumentSnapshot> documents = result.docs;
     if (documents.length == 0) {
+      String _username = generateusername(user.email);
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
-          UserProfile.newuser(user.uid, faker.internet.userName(),
-                  user.displayName, user.photoURL, user.phoneNumber)
+          UserProfile.newuser(user.uid, _username, user.displayName,
+                  user.photoURL, user.email)
               .toJson());
     }
   }

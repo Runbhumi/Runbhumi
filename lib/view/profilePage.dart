@@ -158,7 +158,7 @@ class DrawerBody extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
           onPressed: () {
             print("logout");
-            Constants.prefs.setBool("loggedIn", false);
+            Constants.saveUserLoggedInSharedPreference(false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },

@@ -2,15 +2,18 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/auth/secondPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'view/views.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  Constants.prefs = await SharedPreferences.getInstance();
+  //Constants.prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
+}
+
+_checkForUser() async {
+  bool connectionResult = await Constants.getUserLoggedInSharedPreference();
+  return connectionResult;
 }
 
 class MyApp extends StatelessWidget {
@@ -54,9 +57,7 @@ class CustomSplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 5,
-      navigateAfterSeconds: Constants.prefs.getBool("loggedIn") == false
-          ? SecondPage()
-          : MainApp(),
+      navigateAfterSeconds: _checkForUser() == false ? SecondPage() : MainApp(),
       title: new Text(
         'Runbhumi',
         style: TextStyle(

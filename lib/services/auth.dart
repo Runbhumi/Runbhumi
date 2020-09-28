@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Runbhumi/models/User.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -35,12 +36,24 @@ Future signInWithGoogle() async {
           UserProfile.newuser(user.uid, _username, user.displayName,
                   user.photoURL, user.email)
               .toJson());
+      saveToSharedPreference(
+          user.uid, _username, user.displayName, user.photoURL, user.email);
     }
   }
 }
 
 Future<void> signOutGoogle() async {
+  await FirebaseAuth.instance.signOut();
+  await googleSignIn.disconnect();
   await googleSignIn.signOut();
-
   print("User Signed Out");
+}
+
+Future saveToSharedPreference(String uid, String username, String displayName,
+    String photoURL, String emailId) async {
+  await Constants.saveName(displayName);
+  await Constants.saveProfileImage(photoURL);
+  await Constants.saveUserEmail(emailId);
+  await Constants.saveUserId(uid);
+  await Constants.saveUserName(username);
 }

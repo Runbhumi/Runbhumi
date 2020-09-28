@@ -1,3 +1,5 @@
+import 'package:Runbhumi/utils/Constants.dart';
+
 class UserProfile {
   String userId;
   String username;
@@ -47,4 +49,14 @@ String generateusername(String email) {
   String result = email.replaceAll(new RegExp(r'@.+'), "");
   result = result.replaceAll(new RegExp(r'\\W+'), " ");
   return result;
+}
+
+getImageURL() async {
+  final String profileImage = await Constants.getProfileImage();
+  return profileImage;
+}
+
+getName() async {
+  final String name = await Constants.getName();
+  return name;
 }

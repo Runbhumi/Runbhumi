@@ -317,7 +317,7 @@ class ProfileBody extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    'Freind ${index+1}',
+                                    'Freind ${index + 1}',
                                     style:
                                         Theme.of(context).textTheme.headline5,
                                   ),

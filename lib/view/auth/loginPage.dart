@@ -1,6 +1,6 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
-import '../widget/widgets.dart';
+import '../../widget/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -33,7 +33,8 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Constants.prefs.setBool("loggedIn", true);
+                  //Constants.prefs.setBool("loggedIn", true);
+                  Constants.saveUserLoggedInSharedPreference(true);
                   print("going to " + "/home");
                   Navigator.pushReplacementNamed(context, "/home");
                 },

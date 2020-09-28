@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
           const Text(
             'My Feed',
             style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 30, color: Colors.black),
+                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
           ),
         ],
       ),
@@ -118,6 +118,7 @@ class _HomeState extends State<Home> {
           leading: _isSearching ? BackButton(color: Colors.black) : null,
           title: _isSearching ? _buildSearchField() : _buildTitle(context),
           actions: _buildActions(),
+          centerTitle: true,
           bottom: new TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             labelColor: Colors.white,

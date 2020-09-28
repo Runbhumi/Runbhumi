@@ -1,6 +1,6 @@
-<h2>This will be a gateway to connect backend to front end</h2>
+<h2>This will be a gateway to connect backend to front end For Friend Requests</h2>
 
-__Class Name : FriendRequest__
+__Class Name :__  <a href="https://github.com/Runbhumi/Runbhumi/blob/master/lib/services/NotificationService.dart">FriendRequest</a>
 
 <h4>Methods :</h4>
 

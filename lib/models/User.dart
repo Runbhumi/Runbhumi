@@ -1,3 +1,5 @@
+import 'package:Runbhumi/utils/Constants.dart';
+
 class UserProfile {
   String userId;
   String username;
@@ -5,18 +7,20 @@ class UserProfile {
   String profileImage;
   String location;
   String phoneNumber;
+  String emailId;
   List<String> friendsId;
   List<String> teamId;
   List<String> eventsId;
   List<String> notificationId;
 
-  UserProfile.newuser(userId, username, name, profileImage, phoneNumber) {
+  UserProfile.newuser(userId, username, name, profileImage, emailId) {
     this.userId = userId;
     this.username = username;
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
     this.phoneNumber = '';
+    this.emailId = emailId;
     this.friendsId = [];
     this.teamId = [];
     this.eventsId = [];
@@ -30,6 +34,7 @@ class UserProfile {
         'profileImage': profileImage,
         'location': location,
         'phoneNumber': phoneNumber,
+        'emailId': emailId,
         'friendsId': friendsId,
         'teamId': teamId,
         'eventsId': eventsId,
@@ -39,3 +44,19 @@ class UserProfile {
 
 // Notifications can be taken as a seperate calss
 // https://medium.com/fabcoding/get-current-user-location-in-flutter-57e202bad6db for geolocation capture
+
+String generateusername(String email) {
+  String result = email.replaceAll(new RegExp(r'@.+'), "");
+  result = result.replaceAll(new RegExp(r'\\W+'), " ");
+  return result;
+}
+
+getImageURL() async {
+  final String profileImage = await Constants.getProfileImage();
+  return profileImage;
+}
+
+getName() async {
+  final String name = await Constants.getName();
+  return name;
+}

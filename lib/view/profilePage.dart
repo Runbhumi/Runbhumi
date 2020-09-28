@@ -226,7 +226,6 @@ class ProfileBody extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (profileImage != null)
               Container(
@@ -291,15 +290,56 @@ class ProfileBody extends StatelessWidget {
                     // Create a grid with 2 columns. If you change the scrollDirection to
                     // horizontal, this produces 2 rows.
                     crossAxisCount: 2,
-                    // Generate 100 widgets that display their index in the List.
-                    children: List.generate(100, (index) {
-                      return Center(
-                        child: Text(
-                          'Item $index',
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      );
-                    }),
+                    // Generate 10 widgets that display their index in the List.
+                    children: List.generate(
+                      10,
+                      (index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x26000000),
+                                  blurRadius: 6,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'Freind ${index+1}',
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                                  Container(
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/ProfilePlaceholder.png"),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

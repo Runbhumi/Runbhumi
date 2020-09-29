@@ -1,3 +1,4 @@
+import 'package:Runbhumi/models/User.dart';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/placeholder_widget.dart';
@@ -29,6 +30,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
+  String profileImage = "";
+
   @override
   void initState() {
     super.initState();
@@ -36,8 +39,17 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 250),
     );
+    getImageURL().then(
+      (val) => setState(
+        () {
+          print(val);
+          profileImage = val;
+        },
+      ),
+    );
   }
 
+  //toggle for drawer(menu)
   void toggle() {
     animationController.isDismissed
         ? animationController.forward()
@@ -45,9 +57,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     print("menu toggle");
   }
 
+  //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
-  final String profileImage =
-      'https://media-exp1.licdn.com/dms/image/C4E03AQFzIb-FJrXyaQ/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=yR_9RHWvRbGQ-AjfQvmTiVPLq5gDKmgxlZfB85IMC1w';
+  final List androidVersionNames = ["cupcake", "oreo", "Pie"];
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +107,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           profileImage: profileImage,
           profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
           profileName: "Hayat Tamboli",
+          androidVersionNames: androidVersionNames,
         ),
       ),
     );
@@ -208,17 +221,18 @@ class DrawerBody extends StatelessWidget {
 }
 
 class ProfileBody extends StatelessWidget {
-  const ProfileBody({
-    Key key,
-    this.profileImage,
-    this.profileBio,
-    this.profileName,
-  }) : super(key: key);
+  const ProfileBody(
+      {Key key,
+      this.profileImage,
+      this.profileBio,
+      this.profileName,
+      this.androidVersionNames})
+      : super(key: key);
 
   final String profileImage;
   final String profileBio;
   final String profileName;
-
+  final List androidVersionNames;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -226,7 +240,6 @@ class ProfileBody extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (profileImage != null)
               Container(
@@ -236,7 +249,8 @@ class ProfileBody extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
-                    image: AssetImage("assets/ProfilePlaceholder.png"),
+                    image: NetworkImage(profileImage) ??
+                        AssetImage("assets/ProfilePlaceholder.png"),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [
@@ -248,6 +262,7 @@ class ProfileBody extends StatelessWidget {
                   ],
                 ),
               ),
+            //Name
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -255,6 +270,7 @@ class ProfileBody extends StatelessWidget {
                 style: TextStyle(fontSize: 24),
               ),
             ),
+            //Bio
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
@@ -266,6 +282,7 @@ class ProfileBody extends StatelessWidget {
                 style: TextStyle(fontSize: 14),
               ),
             ),
+            //Tabs
             PreferredSize(
               preferredSize: Size.fromHeight(50.0),
               child: TabBar(
@@ -286,13 +303,80 @@ class ProfileBody extends StatelessWidget {
               child: TabBarView(
                 children: [
                   PlaceholderWidget(),
-                  PlaceholderWidget(),
-                  PlaceholderWidget(),
+                  ListView.builder(
+                    itemBuilder: (context, position) {
+                      return Card(
+                        child: Text(androidVersionNames[position]),
+                      );
+                    },
+                    itemCount: androidVersionNames.length,
+                  ),
+                  ProfileFriendsList(),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ProfileFriendsList extends StatelessWidget {
+  const ProfileFriendsList({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      // Create a grid with 2 columns. If you change the scrollDirection to
+      // horizontal, this produces 2 rows.
+      crossAxisCount: 2,
+      // Generate 10 widgets that display their index in the List.
+      children: List.generate(
+        10,
+        (index) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x26000000),
+                    blurRadius: 6,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'Freind ${index + 1}',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        image: DecorationImage(
+                          image: AssetImage("assets/ProfilePlaceholder.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

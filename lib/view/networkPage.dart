@@ -42,8 +42,20 @@ class Network extends StatelessWidget {
                 Container(
                   alignment: Alignment.topLeft,
                   height: MediaQuery.of(context).size.height / 5,
-                  child: Center(
-                    child: Text("Schedule"),
+                  child: GridView.count(
+                    // Create a grid with 2 columns. If you change the scrollDirection to
+                    // horizontal, this produces 2 rows.
+                    scrollDirection: Axis.horizontal,
+                    crossAxisCount: 1,
+                    // Generate 10 widgets that display their index in the List.
+                    children: List.generate(10, (index) {
+                      return Center(
+                        child: Text(
+                          'Item $index',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      );
+                    }),
                   ),
                   //Code for schedule should be here.
                 ),

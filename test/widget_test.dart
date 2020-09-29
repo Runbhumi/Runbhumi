@@ -31,7 +31,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   MaterialApp app = MaterialApp(
-    home: Scaffold(body: InputBox(myText: "inp", hidden: true)),
+    home: Scaffold(
+      body: InputBox(hintText: "inp"),
+    ),
   );
   testWidgets('input box UI Test', (WidgetTester tester) async {
     // Build our app and trigger a frame.

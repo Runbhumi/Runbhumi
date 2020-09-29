@@ -14,7 +14,7 @@ class EventService {
     }
   }
 
-  Future addPlayer(Events _event, String playerId) async {
+  Future addPlayerToEvent(Events _event, String playerId) async {
     try {
       await _eventCollectionReference
           .doc(_event.eventId)
@@ -25,7 +25,7 @@ class EventService {
     }
   }
 
-  Future getEvent(String eventId) async {
+  Future getEventDetails(String eventId) async {
     try {
       var eventsData = await _eventCollectionReference.doc(eventId).get();
       return Events.fromSnapshot(eventsData);

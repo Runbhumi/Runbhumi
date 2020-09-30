@@ -1,3 +1,4 @@
+import 'package:Runbhumi/utils/validations.dart';
 import '../views.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
@@ -8,9 +9,33 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  bool loading = false;
+  bool validate = false;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String email = '';
+
+  checkEmail() async {
+    FormState form = formKey.currentState;
+    form.save();
+    if (!form.validate()) {
+      validate = true;
+      setState(() {});
+      showInSnackBar('Please fix the errors in red before submitting.');
+    } else {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.removeCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(value)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Scaffold(
@@ -21,54 +46,78 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             backgroundColor: Colors.white,
             elevation: 0,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 20.0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Image(
-                      image: AssetImage('assets/forgotpassword.png'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 50.0, vertical: 40.0),
-                  child: Container(
-                    child: Text(
-                      "Send us your Phone number, we will send you an OTP to reset you password",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 20.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Image(
+                        image: AssetImage('assets/forgotpassword.png'),
                       ),
                     ),
                   ),
-                ),
-                InputBox(
-                  hintText: "Phone Number",
-                  // icon: Icon(Icons.phone),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Button(
-                  myText: "Send",
-                  myColor: Theme.of(context).accentColor,
-                  //routeName: OtpInput(),
-                ),
-                SizedBox(
-                  height: 16.0,
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50.0, vertical: 40.0),
+                    child: Container(
+                      child: Text(
+                        "Tell us your E-mail ID, we will send you A mail with the instructions to reset your password",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // InputBox(
+                  //   hintText: "E-mail",
+                  //   icon: Icon(Icons.mail_outline),
+                  // ),
+                  // // CheckEmail(),
+                  // SizedBox(
+                  //   height: 10.0,
+                  // ),
+                  Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: formKey,
+                    child: InputBox(
+                      enabled: !loading,
+                      hintText: "E-mail",
+                      icon: Icon(Icons.mail_outline),
+                      textInputAction: TextInputAction.done,
+                      validateFunction: Validations.validateEmail,
+                      submitAction: checkEmail,
+                      onSaved: (String val) {
+                        email = val;
+                      },
+                    ),
+                  ),
+                  buildButton(),
+                  SizedBox(
+                    height: 16.0,
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  buildButton() {
+    return loading
+        ? Center(child: CircularProgressIndicator())
+        : Button(
+            myColor: Theme.of(context).primaryColor,
+            myText: "Continue",
+            onPressed: () => checkEmail(),
+          );
   }
 }
 

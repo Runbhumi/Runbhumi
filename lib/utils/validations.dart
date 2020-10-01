@@ -18,7 +18,7 @@ class Validations {
   }
 
   static String validatePassword(String value) {
-    if (value.isEmpty || value.length < 6)
+    if (value.isEmpty || value.length < 8)
       return 'Please enter a valid password.';
     return null;
   }

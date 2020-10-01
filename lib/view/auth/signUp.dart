@@ -1,3 +1,4 @@
+import 'package:Runbhumi/utils/validations.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
 
@@ -7,60 +8,109 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool loading = false;
+  bool validate = false;
+  GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> _scaffoldKey2 = GlobalKey<ScaffoldState>();
+  String email = '';
+  String fullName = '';
+  String password = '';
+
+  checkAll() async {
+    FormState form = formKey2.currentState;
+    form.save();
+    if (!form.validate()) {
+      validate = true;
+      setState(() {});
+      showInSnackBar('Please fix the errors in red before submitting.');
+    } else {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey2.currentState.removeCurrentSnackBar();
+    _scaffoldKey2.currentState.showSnackBar(SnackBar(content: Text(value)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey2,
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              CreateAccHeading(),
-              InputBox(
-                hintText: "Full name",
-                icon: Icon(Icons.contacts_outlined),
+        child: Column(
+          children: <Widget>[
+            CreateAccHeading(),
+            Form(
+              key: formKey2,
+              autovalidateMode: AutovalidateMode.always,
+              child: Column(
+                children: [
+                  InputBox(
+                    enabled: !loading,
+                    hintText: "Full name",
+                    icon: Icon(Icons.contacts_outlined),
+                    validateFunction: Validations.validateName,
+                    textInputAction: TextInputAction.done,
+                    onSaved: (String val) {
+                      fullName = val;
+                    },
+                  ),
+                  // InputBox(
+                  //   hintText: "Username",
+                  //   icon: Icon(Icons.account_circle_outlined),
+                  // ),
+                  InputBox(
+                    enabled: !loading,
+                    hintText: "E-mail",
+                    icon: Icon(Icons.mail_outline),
+                    textInputAction: TextInputAction.done,
+                    validateFunction: Validations.validateEmail,
+                    submitAction: checkAll,
+                    textInputType: TextInputType.emailAddress,
+                    onSaved: (String val) {
+                      email = val;
+                    },
+                  ),
+                  InputBox(
+                    enabled: !loading,
+                    hintText: "Password",
+                    obscureText: true,
+                    helpertext: "use at least 8 charecters",
+                    sufIcon: IconButton(
+                      icon: Icon(Icons.remove_red_eye),
+                      splashRadius: 1,
+                      onPressed: () {},
+                    ),
+                    icon: Icon(Icons.lock_outline),
+                    textInputAction: TextInputAction.done,
+                    validateFunction: Validations.validatePassword,
+                  ),
+                ],
               ),
-              // InputBox(
-              //   hintText: "Username",
-              //   icon: Icon(Icons.account_circle_outlined),
-              // ),
-              InputBox(
-                hintText: "E-mail",
-                icon: Icon(Icons.mail_outline),
+            ),
+            Button(
+              myText: "Sign Up For Runbhumi",
+              myColor: Theme.of(context).accentColor,
+              onPressed: () => checkAll(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: Text(
+                "By signing up for Runbhumi you agree to our terms and conditions and privacy policy",
+                textAlign: TextAlign.center,
               ),
-              InputBox(
-                hintText: "Password",
-                obscureText: true,
-                helpertext: "use at least 8 charecters",
-                sufIcon: IconButton(
-                  icon: Icon(Icons.remove_red_eye),
-                  splashRadius: 1,
-                  onPressed: () {},
-                ),
-                icon: Icon(Icons.lock_outline),
-              ),
-              Button(
-                myText: "Sign Up For Runbhumi",
-                myColor: Theme.of(context).accentColor,
-                routeName: "/home",
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: Text(
-                  "By signing up for Runbhumi you agree to our terms and conditions and privacy policy",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              DividingOr(),
-              Button(
-                myText: "Login",
-                myColor: Theme.of(context).primaryColor,
-                routeName: "/login",
-              ),
-              SizedBox(height: 20),
-              GoogleOauth(),
-              SizedBox(height: 20),
-            ],
-          ),
+            ),
+            DividingOr(),
+            Button(
+              myText: "Login",
+              myColor: Theme.of(context).primaryColor,
+              routeName: "/login",
+            ),
+            SizedBox(height: 20),
+            GoogleOauth(),
+            SizedBox(height: 20),
+          ],
         ),
       ),
     );

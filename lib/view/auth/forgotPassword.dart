@@ -39,8 +39,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       body: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            leading: BackButton(
-            ),
+            leading: BackButton(),
             elevation: 0,
           ),
           body: SingleChildScrollView(

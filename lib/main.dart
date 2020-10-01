@@ -82,17 +82,16 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       appBarTheme: AppBarTheme(
-        color: Colors.black26,
-        elevation: 0,
-        brightness: Brightness.dark,
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        actionsIconTheme: IconThemeData(
-          color: Colors.white,
-        )
-      ),
+          color: Colors.black26,
+          elevation: 0,
+          brightness: Brightness.dark,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+          actionsIconTheme: IconThemeData(
+            color: Colors.white,
+          )),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
           color: Color(0xff333333),

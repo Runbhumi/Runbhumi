@@ -15,8 +15,7 @@ class _NotificationsState extends State<Notifications> {
         children: <Widget>[
           const Text(
             'Notifications',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),

@@ -48,8 +48,7 @@ Widget _buildTitle(BuildContext context) {
       children: <Widget>[
         const Text(
           'Add Post',
-          style: TextStyle(
-              fontWeight: FontWeight.w700, fontSize: 25),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
         ),
       ],
     ),

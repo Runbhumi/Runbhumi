@@ -53,8 +53,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           const Text(
             'My Feed',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),

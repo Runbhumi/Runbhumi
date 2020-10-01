@@ -49,7 +49,7 @@ Widget _buildTitle(BuildContext context) {
         const Text(
           'Add Post',
           style: TextStyle(
-              fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+              fontWeight: FontWeight.w700, fontSize: 25),
         ),
       ],
     ),

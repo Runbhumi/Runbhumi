@@ -16,7 +16,7 @@ class _NotificationsState extends State<Notifications> {
           const Text(
             'Notifications',
             style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+                fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),

@@ -36,14 +36,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             leading: BackButton(
-              color: Colors.black,
             ),
-            backgroundColor: Colors.white,
             elevation: 0,
           ),
           body: SingleChildScrollView(
@@ -74,14 +71,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                     ),
                   ),
-                  // InputBox(
-                  //   hintText: "E-mail",
-                  //   icon: Icon(Icons.mail_outline),
-                  // ),
-                  // // CheckEmail(),
-                  // SizedBox(
-                  //   height: 10.0,
-                  // ),
                   Form(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     key: formKey,

@@ -10,7 +10,6 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -20,10 +19,10 @@ class _SignUpState extends State<SignUp> {
                 hintText: "Full name",
                 icon: Icon(Icons.contacts_outlined),
               ),
-              InputBox(
-                hintText: "Username",
-                icon: Icon(Icons.account_circle_outlined),
-              ),
+              // InputBox(
+              //   hintText: "Username",
+              //   icon: Icon(Icons.account_circle_outlined),
+              // ),
               InputBox(
                 hintText: "E-mail",
                 icon: Icon(Icons.mail_outline),

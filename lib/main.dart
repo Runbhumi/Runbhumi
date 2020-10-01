@@ -32,63 +32,88 @@ class MyApp extends StatelessWidget {
         '/secondpage': (context) => SecondPage(),
         '/moreinfo': (context) => MoreInfo(),
       },
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(
-            color: Color(0xff393E46),
-          ),
-          filled: true,
-          fillColor: Color(0xffeeeeee),
-          hoverColor: Colors.white,
-          alignLabelWithHint: true,
-          border: border(),
-          focusedBorder: focusedBorder(context),
-        ),
-        bottomAppBarTheme: BottomAppBarTheme(
-          color: Colors.white,
-          elevation: 0,
-        ),
-        appBarTheme: AppBarTheme(
-          color: Colors.white,
-          elevation: 0,
-          brightness: Brightness.light,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
-        ),
-        primaryColor: Color(0xff00adb5),
-        primaryColorLight: Color(0xff00adb5),
-        accentColor: Color(0xff393e46),
-        buttonColor: Color(0xffeeeeee),
-        scaffoldBackgroundColor: Colors.white,
-        bottomAppBarColor: Colors.white,
-        fontFamily: 'Montserrat',
-        brightness: Brightness.light,
-        primaryColorBrightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(
-          color: Colors.black87,
-          elevation: 0,
-          brightness: Brightness.dark,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-        ),
-        primaryColor: Color(0xff00adb5),
-        primaryColorLight: Color(0xff00adb5),
-        accentColor: Color(0xff393e46),
-        buttonColor: Color(0xffeeeeee),
-        bottomAppBarColor: Colors.black87,
-        fontFamily: 'Montserrat',
-        brightness: Brightness.dark,
-      ),
+      theme: lightTheme(context),
+      darkTheme: darkTheme(context),
       home: CustomSplashScreen(),
       debugShowCheckedModeBanner: false,
+    );
+  }
+
+  ThemeData lightTheme(BuildContext context) {
+    return ThemeData(
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: Color(0xff393E46),
+        ),
+        filled: true,
+        fillColor: Color(0xffeeeeee),
+        hoverColor: Colors.white,
+        alignLabelWithHint: true,
+        border: border(),
+        focusedBorder: focusedBorder(context),
+      ),
+      bottomAppBarTheme: BottomAppBarTheme(
+        color: Colors.white,
+        elevation: 0,
+      ),
+      appBarTheme: AppBarTheme(
+        color: Colors.white,
+        elevation: 0,
+        brightness: Brightness.light,
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+      ),
+      primaryColor: Color(0xff00adb5),
+      primaryColorLight: Color(0xff00adb5),
+      accentColor: Color(0xff393e46),
+      buttonColor: Color(0xffeeeeee),
+      scaffoldBackgroundColor: Colors.white,
+      bottomAppBarColor: Colors.white,
+      fontFamily: 'Montserrat',
+      brightness: Brightness.light,
+      primaryColorBrightness: Brightness.light,
+    );
+  }
+
+  ThemeData darkTheme(BuildContext context) {
+    return ThemeData(
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      appBarTheme: AppBarTheme(
+        color: Colors.black26,
+        elevation: 0,
+        brightness: Brightness.dark,
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        actionsIconTheme: IconThemeData(
+          color: Colors.white,
+        )
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: Color(0xff333333),
+        ),
+        filled: true,
+        fillColor: Colors.black,
+        alignLabelWithHint: true,
+        border: border(),
+        focusedBorder: focusedBorder(context),
+      ),
+      primaryColor: Color(0xff00adb5),
+      primaryColorLight: Color(0xff00adb5),
+      accentColor: Color(0xff393e46),
+      buttonColor: Color(0xffeeeeee),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.black45,
+        elevation: 10,
+        selectedItemColor: Color(0xff00adb5),
+      ),
+      fontFamily: 'Montserrat',
+      brightness: Brightness.dark,
     );
   }
 

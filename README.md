@@ -1,8 +1,8 @@
 <h1 align="center">Welcome to Runbhumi 👋</h1>
 <p>
-  <!-- <a href="https://flutter.dev/docs/get-started/install" target="_blank">
+  <a href="../Runbhumi/documentation/auth.md" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a> -->
+  </a>
   <img alt="Documentation" src="https://img.shields.io/badge/-Flutter-blue?&logo=flutter" />
   <img alt="Documentation" src="https://img.shields.io/badge/-Firebase-blue?&logo=firebase" />
   <a href="https://github.com/Runbhumi/Runbhumi/blob/master/LICENSE" target="_blank">
@@ -45,8 +45,8 @@ flutter test
 
 <details><summary>List of Screens</summary>
   
-  - [ ] Splash Screen
-  - [ ] Pre-Authorization Screen
+  - [x] Splash Screen
+  - [x] Pre-Authorization Screen
   - [ ] Login Screen
   - [ ] SignUp Screen
   - [ ] Forgot Password Screen
@@ -69,7 +69,7 @@ flutter test
 
 ## 🤝 Contributing
 
-Contributions are only made by organisation members, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues).
+Contributions are only made by organisation members, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues), the [contribution guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## Show your support <img alt="GitHub stars" src="https://img.shields.io/github/stars/Runbhumi/Runbhumi?style=social">
 

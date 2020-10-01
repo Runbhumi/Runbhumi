@@ -1,9 +1,7 @@
-import 'package:Runbhumi/models/User.dart';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-// import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -30,7 +28,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
-  String profileImage = "";
+  String profileImage = "assets/ProfilePlaceholder.png";
+  final String profileName = "Hayat Tamboli";
+  final String profileBio = "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer";
+  final List teamsList = ["cupcake", "lolipop", "oreo", "Pie"];
+  final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
   void initState() {
@@ -38,14 +40,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 250),
-    );
-    getImageURL().then(
-      (val) => setState(
-        () {
-          print(val);
-          profileImage = val;
-        },
-      ),
     );
   }
 
@@ -59,7 +53,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
-  final List androidVersionNames = ["cupcake", "oreo", "Pie"];
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +100,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           profileImage: profileImage,
           profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
           profileName: "Hayat Tamboli",
-          androidVersionNames: androidVersionNames,
+          teamsList: teamsList,
+          friendsList: friendsList,
         ),
       ),
     );
@@ -144,12 +138,7 @@ class DrawerBody extends StatelessWidget {
       children: [
         FlatButton.icon(
           padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {
-            // print("logout");
-            // Constants.prefs.setBool("loggedIn", false);
-            // signOutGoogle();
-            // Navigator.pushReplacementNamed(context, "/secondpage");
-          },
+          onPressed: () {},
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
@@ -221,18 +210,20 @@ class DrawerBody extends StatelessWidget {
 }
 
 class ProfileBody extends StatelessWidget {
-  const ProfileBody(
-      {Key key,
-      this.profileImage,
-      this.profileBio,
-      this.profileName,
-      this.androidVersionNames})
-      : super(key: key);
+  const ProfileBody({
+    Key key,
+    this.profileImage,
+    this.profileBio,
+    this.profileName,
+    this.teamsList,
+    this.friendsList,
+  }) : super(key: key);
 
   final String profileImage;
   final String profileBio;
   final String profileName;
-  final List androidVersionNames;
+  final List teamsList;
+  final List friendsList;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -249,8 +240,8 @@ class ProfileBody extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
-                    image: NetworkImage(profileImage) ??
-                        AssetImage("assets/ProfilePlaceholder.png"),
+                    // now only assets image
+                    image: AssetImage(profileImage),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [
@@ -283,22 +274,7 @@ class ProfileBody extends StatelessWidget {
               ),
             ),
             //Tabs
-            PreferredSize(
-              preferredSize: Size.fromHeight(50.0),
-              child: TabBar(
-                unselectedLabelColor: Colors.black,
-                tabs: [
-                  Tab(child: Text("Stats")),
-                  Tab(child: Text("Teams")),
-                  Tab(child: Text("Friends")),
-                ],
-                indicator: new BubbleTabIndicator(
-                  indicatorHeight: 30.0,
-                  indicatorColor: Theme.of(context).primaryColor,
-                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                ),
-              ),
-            ),
+            Tabs(),
             Expanded(
               child: TabBarView(
                 children: [
@@ -306,12 +282,12 @@ class ProfileBody extends StatelessWidget {
                   ListView.builder(
                     itemBuilder: (context, position) {
                       return Card(
-                        child: Text(androidVersionNames[position]),
+                        child: Text(teamsList[position]),
                       );
                     },
-                    itemCount: androidVersionNames.length,
+                    itemCount: teamsList.length,
                   ),
-                  ProfileFriendsList(),
+                  ProfileFriendsList(friendsList: friendsList),
                 ],
               ),
             ),
@@ -322,8 +298,36 @@ class ProfileBody extends StatelessWidget {
   }
 }
 
+class Tabs extends StatelessWidget {
+  const Tabs({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(50.0),
+      child: TabBar(
+        unselectedLabelColor: Colors.black,
+        tabs: [
+          Tab(child: Text("Stats")),
+          Tab(child: Text("Teams")),
+          Tab(child: Text("Friends")),
+        ],
+        indicator: new BubbleTabIndicator(
+          indicatorHeight: 30.0,
+          indicatorColor: Theme.of(context).primaryColor,
+          tabBarIndicatorSize: TabBarIndicatorSize.tab,
+        ),
+      ),
+    );
+  }
+}
+
 class ProfileFriendsList extends StatelessWidget {
+  final List friendsList;
   const ProfileFriendsList({
+    this.friendsList = const [],
     Key key,
   }) : super(key: key);
 
@@ -335,7 +339,7 @@ class ProfileFriendsList extends StatelessWidget {
       crossAxisCount: 2,
       // Generate 10 widgets that display their index in the List.
       children: List.generate(
-        10,
+        friendsList.length,
         (index) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -358,7 +362,7 @@ class ProfileFriendsList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      'Freind ${index + 1}',
+                      '${friendsList[index]}',
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Container(

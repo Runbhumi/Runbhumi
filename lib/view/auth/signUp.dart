@@ -17,23 +17,28 @@ class _SignUpState extends State<SignUp> {
             children: <Widget>[
               CreateAccHeading(),
               InputBox(
-                  myText: "Full name",
-                  hidden: false,
-                  icon: Icon(Icons.contacts_outlined)),
+                hintText: "Full name",
+                icon: Icon(Icons.contacts_outlined),
+              ),
               InputBox(
-                  myText: "Username",
-                  hidden: false,
-                  icon: Icon(Icons.account_circle_outlined)),
+                hintText: "Username",
+                icon: Icon(Icons.account_circle_outlined),
+              ),
               InputBox(
-                  myText: "E-mail",
-                  hidden: false,
-                  icon: Icon(Icons.mail_outline)),
+                hintText: "E-mail",
+                icon: Icon(Icons.mail_outline),
+              ),
               InputBox(
-                  myText: "Password",
-                  hidden: true,
-                  helptext: "use at least 8 charecters",
-                  sufIcon: Icon(Icons.remove_red_eye),
-                  icon: Icon(Icons.lock_outline)),
+                hintText: "Password",
+                obscureText: true,
+                helpertext: "use at least 8 charecters",
+                sufIcon: IconButton(
+                  icon: Icon(Icons.remove_red_eye),
+                  splashRadius: 1,
+                  onPressed: () {},
+                ),
+                icon: Icon(Icons.lock_outline),
+              ),
               Button(
                 myText: "Sign Up For Runbhumi",
                 myColor: Theme.of(context).accentColor,

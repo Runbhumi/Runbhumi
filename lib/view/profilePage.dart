@@ -2,7 +2,6 @@ import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-// import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -29,6 +28,12 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
+  String profileImage = "assets/ProfilePlaceholder.png";
+  final String profileName = "Hayat Tamboli";
+  final String profileBio = "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer";
+  final List teamsList = ["cupcake", "lolipop", "oreo", "Pie"];
+  final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +43,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
+  //toggle for drawer(menu)
   void toggle() {
     animationController.isDismissed
         ? animationController.forward()
@@ -45,9 +51,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     print("menu toggle");
   }
 
+  //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
-  final String profileImage =
-      'https://media-exp1.licdn.com/dms/image/C4E03AQFzIb-FJrXyaQ/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=yR_9RHWvRbGQ-AjfQvmTiVPLq5gDKmgxlZfB85IMC1w';
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +100,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           profileImage: profileImage,
           profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
           profileName: "Hayat Tamboli",
+          teamsList: teamsList,
+          friendsList: friendsList,
         ),
       ),
     );
@@ -131,12 +138,7 @@ class DrawerBody extends StatelessWidget {
       children: [
         FlatButton.icon(
           padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {
-            // print("logout");
-            // Constants.prefs.setBool("loggedIn", false);
-            // signOutGoogle();
-            // Navigator.pushReplacementNamed(context, "/secondpage");
-          },
+          onPressed: () {},
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
@@ -213,12 +215,15 @@ class ProfileBody extends StatelessWidget {
     this.profileImage,
     this.profileBio,
     this.profileName,
+    this.teamsList,
+    this.friendsList,
   }) : super(key: key);
 
   final String profileImage;
   final String profileBio;
   final String profileName;
-
+  final List teamsList;
+  final List friendsList;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -235,7 +240,8 @@ class ProfileBody extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
-                    image: AssetImage("assets/ProfilePlaceholder.png"),
+                    // now only assets image
+                    image: AssetImage(profileImage),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [
@@ -247,6 +253,7 @@ class ProfileBody extends StatelessWidget {
                   ],
                 ),
               ),
+            //Name
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -254,6 +261,7 @@ class ProfileBody extends StatelessWidget {
                 style: TextStyle(fontSize: 24),
               ),
             ),
+            //Bio
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
@@ -265,87 +273,114 @@ class ProfileBody extends StatelessWidget {
                 style: TextStyle(fontSize: 14),
               ),
             ),
-            PreferredSize(
-              preferredSize: Size.fromHeight(50.0),
-              child: TabBar(
-                unselectedLabelColor: Colors.black,
-                tabs: [
-                  Tab(child: Text("Stats")),
-                  Tab(child: Text("Teams")),
-                  Tab(child: Text("Friends")),
-                ],
-                indicator: new BubbleTabIndicator(
-                  indicatorHeight: 30.0,
-                  indicatorColor: Theme.of(context).primaryColor,
-                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                ),
-              ),
-            ),
+            //Tabs
+            Tabs(),
             Expanded(
               child: TabBarView(
                 children: [
                   PlaceholderWidget(),
-                  PlaceholderWidget(),
-                  GridView.count(
-                    // Create a grid with 2 columns. If you change the scrollDirection to
-                    // horizontal, this produces 2 rows.
-                    crossAxisCount: 2,
-                    // Generate 10 widgets that display their index in the List.
-                    children: List.generate(
-                      10,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x26000000),
-                                  blurRadius: 6,
-                                  offset: Offset(0, 1),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    'Freind ${index + 1}',
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
-                                  ),
-                                  Container(
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/ProfilePlaceholder.png"),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                  ListView.builder(
+                    itemBuilder: (context, position) {
+                      return Card(
+                        child: Text(teamsList[position]),
+                      );
+                    },
+                    itemCount: teamsList.length,
                   ),
+                  ProfileFriendsList(friendsList: friendsList),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Tabs extends StatelessWidget {
+  const Tabs({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(50.0),
+      child: TabBar(
+        unselectedLabelColor: Colors.black,
+        tabs: [
+          Tab(child: Text("Stats")),
+          Tab(child: Text("Teams")),
+          Tab(child: Text("Friends")),
+        ],
+        indicator: new BubbleTabIndicator(
+          indicatorHeight: 30.0,
+          indicatorColor: Theme.of(context).primaryColor,
+          tabBarIndicatorSize: TabBarIndicatorSize.tab,
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileFriendsList extends StatelessWidget {
+  final List friendsList;
+  const ProfileFriendsList({
+    this.friendsList = const [],
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      // Create a grid with 2 columns. If you change the scrollDirection to
+      // horizontal, this produces 2 rows.
+      crossAxisCount: 2,
+      // Generate 10 widgets that display their index in the List.
+      children: List.generate(
+        friendsList.length,
+        (index) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x26000000),
+                    blurRadius: 6,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      '${friendsList[index]}',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        image: DecorationImage(
+                          image: AssetImage("assets/ProfilePlaceholder.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -49,9 +49,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                 ),
                 InputBox(
-                  myText: "Phone Number",
-                  hidden: false,
-                  icon: Icon(Icons.phone),
+                  hintText: "Phone Number",
+                  // icon: Icon(Icons.phone),
                 ),
                 SizedBox(
                   height: 10.0,

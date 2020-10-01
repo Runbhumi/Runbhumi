@@ -18,22 +18,24 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             TopWelcomeImage(),
             InputBox(
-              myText: "Username",
-              hidden: false,
+              hintText: "Username",
               icon: Icon(Icons.account_circle_outlined),
             ),
             InputBox(
-              myText: "Password",
-              hidden: true,
+              hintText: "Password",
+              obscureText: true,
               icon: Icon(Icons.lock_outline),
-              sufIcon: Icon(Icons.remove_red_eye),
+              sufIcon: IconButton(
+                icon: Icon(Icons.remove_red_eye),
+                splashRadius: 1,
+                onPressed: () {},
+              ),
             ),
             ForgotPasswordAnchor(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  //Constants.prefs.setBool("loggedIn", true);
                   Constants.saveUserLoggedInSharedPreference(true);
                   print("going to " + "/home");
                   Navigator.pushReplacementNamed(context, "/home");
@@ -113,7 +115,7 @@ class ForgotPasswordAnchor extends StatelessWidget {
             child: Text(
               "Forgot Password?",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
               ),
             ),
           ),

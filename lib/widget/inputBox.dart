@@ -47,9 +47,6 @@ class InputBox extends StatelessWidget {
           obscureText: obscureText,
           enabled: enabled,
           onChanged: onChange,
-          // validator: (val) {
-          //   return val.length > 8 ? null : "Enter Password 8+ characters";
-          // },
           validator: validateFunction,
           key: key,
           controller: controller,
@@ -67,39 +64,12 @@ class InputBox extends StatelessWidget {
           },
           decoration: InputDecoration(
             hintText: hintText,
-            border: border(),
-            focusedBorder: focusedBorder(context),
-            disabledBorder: border(),
+            labelText: hintText,
             prefixIcon: icon,
             suffixIcon: sufIcon,
             helperText: helpertext,
-            filled: true,
-            fillColor: Color(0xffeeeeee),
-            hintStyle: TextStyle(
-              color: Color(0xff393E46),
-            ),
           ),
         ),
-      ),
-    );
-  }
-
-  OutlineInputBorder focusedBorder(BuildContext context) {
-    return OutlineInputBorder(
-      borderRadius: new BorderRadius.circular(50),
-      borderSide: BorderSide(
-        color: Theme.of(context).primaryColor,
-        width: 2.0,
-      ),
-    );
-  }
-
-  OutlineInputBorder border() {
-    return OutlineInputBorder(
-      borderRadius: new BorderRadius.circular(50),
-      borderSide: BorderSide(
-        color: Color(0xffB3ABAB),
-        width: 1.0,
       ),
     );
   }

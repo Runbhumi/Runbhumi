@@ -20,11 +20,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Color(0x55393e46),
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-    ));
     return MaterialApp(
       title: 'Runbhumi',
       // Named Routes
@@ -38,16 +33,82 @@ class MyApp extends StatelessWidget {
         '/moreinfo': (context) => MoreInfo(),
       },
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: TextStyle(
+            color: Color(0xff393E46),
+          ),
+          filled: true,
+          fillColor: Color(0xffeeeeee),
+          hoverColor: Colors.white,
+          alignLabelWithHint: true,
+          border: border(),
+          focusedBorder: focusedBorder(context),
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.white,
+          elevation: 0,
+        ),
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          elevation: 0,
+          brightness: Brightness.light,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+        ),
         primaryColor: Color(0xff00adb5),
+        primaryColorLight: Color(0xff00adb5),
         accentColor: Color(0xff393e46),
         buttonColor: Color(0xffeeeeee),
-        bottomAppBarColor: Color(0xffd4ebf2),
+        scaffoldBackgroundColor: Colors.white,
+        bottomAppBarColor: Colors.white,
         fontFamily: 'Montserrat',
+        brightness: Brightness.light,
+        primaryColorBrightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: AppBarTheme(
+          color: Colors.black87,
+          elevation: 0,
+          brightness: Brightness.dark,
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
+        primaryColor: Color(0xff00adb5),
+        primaryColorLight: Color(0xff00adb5),
+        accentColor: Color(0xff393e46),
+        buttonColor: Color(0xffeeeeee),
+        bottomAppBarColor: Colors.black87,
+        fontFamily: 'Montserrat',
+        brightness: Brightness.dark,
       ),
       home: CustomSplashScreen(),
       debugShowCheckedModeBanner: false,
+    );
+  }
+
+  OutlineInputBorder focusedBorder(BuildContext context) {
+    return OutlineInputBorder(
+      borderRadius: new BorderRadius.circular(50),
+      borderSide: BorderSide(
+        color: Color(0xff00adb5),
+        width: 2.0,
+      ),
+    );
+  }
+
+  OutlineInputBorder border() {
+    return OutlineInputBorder(
+      borderRadius: new BorderRadius.circular(50),
+      borderSide: BorderSide(
+        color: Color(0xffB3ABAB),
+        width: 1.0,
+      ),
     );
   }
 }

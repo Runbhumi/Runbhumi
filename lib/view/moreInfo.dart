@@ -7,7 +7,6 @@ class MoreInfo extends StatelessWidget {
       appBar: AppBar(
         leading: BackButton(),
         title: Text("More Info"),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(

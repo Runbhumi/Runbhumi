@@ -25,10 +25,7 @@ class Network extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
-        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        elevation: 0,
       ),
       body: DefaultTabController(
         length: 3,

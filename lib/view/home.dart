@@ -112,13 +112,10 @@ class _HomeState extends State<Home> {
       length: 3,
       child: Scaffold(
         appBar: new AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
           leading: _isSearching ? BackButton(color: Colors.black) : null,
           title: _isSearching ? _buildSearchField() : _buildTitle(context),
           actions: _buildActions(),
-          centerTitle: true,
           bottom: new TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             labelColor: Colors.white,

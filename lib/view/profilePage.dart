@@ -60,7 +60,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
@@ -106,23 +106,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
     );
     return AnimatedBuilder(
-        animation: animationController,
-        builder: (context, _) {
-          double slide = maxSlide * animationController.value;
-          double scale = 1 - (animationController.value * 0.3);
-          return Stack(
-            children: [
-              myDrawer,
-              Transform(
-                child: myChild,
-                transform: Matrix4.identity()
-                  ..translate(slide)
-                  ..scale(scale),
-                alignment: Alignment.centerLeft,
-              ),
-            ],
-          );
-        });
+      animation: animationController,
+      builder: (context, _) {
+        double slide = maxSlide * animationController.value;
+        double scale = 1 - (animationController.value * 0.3);
+        return Stack(
+          children: [
+            myDrawer,
+            Transform(
+              child: myChild,
+              transform: Matrix4.identity()
+                ..translate(slide)
+                ..scale(scale),
+              alignment: Alignment.centerLeft,
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -308,6 +309,7 @@ class Tabs extends StatelessWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(50.0),
       child: TabBar(
+        labelColor: Colors.white,
         unselectedLabelColor: Colors.black,
         tabs: [
           Tab(child: Text("Stats")),

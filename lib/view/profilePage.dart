@@ -56,7 +56,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
 
-  final List teamsList = ["cupcake", "lolipop", "oreo", "Pie"];
+  final List teamsList = ["Chennai superKings", "Rajasthan Royals", "Delhi dare devils", "Manchester united"];
   final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
@@ -127,11 +127,16 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 }
 
-class DrawerBody extends StatelessWidget {
+class DrawerBody extends StatefulWidget {
   const DrawerBody({
     Key key,
   }) : super(key: key);
 
+  @override
+  _DrawerBodyState createState() => _DrawerBodyState();
+}
+
+class _DrawerBodyState extends State<DrawerBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -278,6 +283,26 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ],
                 ),
               ),
+              if (data['profileImage'] == null)
+                Container(
+                width: 150,
+                height: 150,
+                margin: EdgeInsets.only(top: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  image: DecorationImage(
+                    image: AssetImage("assets/ProfilePlaceholder.png"),
+                    fit: BoxFit.contain,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x3A353580),
+                      blurRadius: 20,
+                      offset: Offset(0, 10),
+                    ),
+                  ],
+                ),
+              ),
             //Name
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -303,32 +328,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             Expanded(
               child: TabBarView(
                 children: [
-                  ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 4),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 2,
-                          child: Container(
-                            height: 80,
-                            child: Center(
-                              child: ListTile(
-                                title: Text(
-                                  widget.teamsList[index],
-                                  style: Theme.of(context).textTheme.headline5,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: widget.teamsList.length,
-                  ),
+                  ProfileTeamsList(widget: widget),
                   ProfileFriendsList(friendsList: widget.friendsList),
                 ],
               ),
@@ -336,6 +336,45 @@ class _ProfileBodyState extends State<ProfileBody> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProfileTeamsList extends StatelessWidget {
+  const ProfileTeamsList({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final ProfileBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 16.0, vertical: 4),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            elevation: 2,
+            child: Container(
+              height: 80,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    widget.teamsList[index],
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      itemCount: widget.teamsList.length,
     );
   }
 }

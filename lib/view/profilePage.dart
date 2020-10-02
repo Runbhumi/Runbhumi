@@ -56,7 +56,12 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
 
-  final List teamsList = ["Chennai superKings", "Rajasthan Royals", "Delhi dare devils", "Manchester united"];
+  final List teamsList = [
+    "Chennai superKings",
+    "Rajasthan Royals",
+    "Delhi dare devils",
+    "Manchester united"
+  ];
   final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
@@ -283,8 +288,8 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ],
                 ),
               ),
-              if (data['profileImage'] == null)
-                Container(
+            if (data['profileImage'] == null)
+              Container(
                 width: 150,
                 height: 150,
                 margin: EdgeInsets.only(top: 15),
@@ -353,8 +358,7 @@ class ProfileTeamsList extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 16.0, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),

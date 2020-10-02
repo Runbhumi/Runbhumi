@@ -2,7 +2,12 @@ import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
-class Network extends StatelessWidget {
+class Network extends StatefulWidget {
+  @override
+  _NetworkState createState() => _NetworkState();
+}
+
+class _NetworkState extends State<Network> {
   Widget _buildTitle(BuildContext context) {
     return new Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -13,13 +18,9 @@ class Network extends StatelessWidget {
     );
   }
 
-  final List scheduleList = [
-    "hayat",
-    "mahek",
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List scheduleList = ["hayat", "manas", "rohan", "mohit"];
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
@@ -35,34 +36,16 @@ class Network extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               //schedule
-              Container(
-                alignment: Alignment.topLeft,
-                height: MediaQuery.of(context).size.height / 5,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Center(
-                      child: Card(
-                        elevation: 2,
-                        child: Container(
-                          width: 250,
-                          height: 100,
-                          child: Center(
-                            child: Text(
-                              scheduleList[index],
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: scheduleList.length,
-                ),
+              Schedule(scheduleList: scheduleList),
+              SizedBox(
+                height: 10,
               ),
               Text(
                 'Chats',
                 style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(
+                height: 10,
               ),
               ChatsTabs(),
               Expanded(
@@ -77,6 +60,49 @@ class Network extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Schedule extends StatelessWidget {
+  const Schedule({
+    Key key,
+    @required this.scheduleList,
+  }) : super(key: key);
+
+  final List scheduleList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height / 5,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+            ),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              elevation: 2,
+              child: Container(
+                width: 250,
+                height: 100,
+                child: Center(
+                  child: Text(
+                    scheduleList[index],
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        itemCount: scheduleList.length,
       ),
     );
   }

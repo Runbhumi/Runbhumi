@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +82,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
     );
     var myChild = DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: _buildTitle(context),
@@ -304,7 +303,6 @@ class _ProfileBodyState extends State<ProfileBody> {
             Expanded(
               child: TabBarView(
                 children: [
-                  PlaceholderWidget(),
                   ListView.builder(
                     itemBuilder: (context, index) {
                       return Padding(
@@ -314,13 +312,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          elevation: 4,
+                          elevation: 2,
                           child: Container(
                             height: 80,
                             child: Center(
                               child: ListTile(
                                 title: Text(
-                                  teamsList[index],
+                                  widget.teamsList[index],
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
                               ),
@@ -355,7 +353,6 @@ class Tabs extends StatelessWidget {
         labelColor: Colors.white,
         unselectedLabelColor: Colors.grey,
         tabs: [
-          Tab(child: Text("Stats")),
           Tab(child: Text("Teams")),
           Tab(child: Text("Friends")),
         ],
@@ -394,7 +391,7 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 4,
+              elevation: 2,
               child: Container(
                 child: Column(
                   children: [

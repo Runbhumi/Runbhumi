@@ -48,7 +48,6 @@ dependencies:
 
   #shared prefrences
   shared_preferences: ^0.5.12
-  provider: ^4.3.2
 
 dev_dependencies:
   flutter_test:

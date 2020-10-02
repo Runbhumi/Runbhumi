@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

@@ -60,3 +60,13 @@ getName() async {
   final String name = await Constants.getName();
   return name;
 }
+
+getUserName() async {
+  final String userName = await Constants.getUserName();
+  return userName;
+}
+
+getUserLocation() async {
+  final String location = await Constants.getUserLocation();
+  return location;
+}

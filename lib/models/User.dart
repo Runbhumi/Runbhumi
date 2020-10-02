@@ -1,4 +1,4 @@
-import 'package:Runbhumi/utils/Constants.dart';
+// import 'package:Runbhumi/utils/Constants.dart';
 
 class UserProfile {
   String userId;
@@ -51,22 +51,22 @@ String generateusername(String email) {
   return result;
 }
 
-getImageURL() async {
-  final String profileImage = await Constants.getProfileImage();
-  return profileImage;
-}
+// getImageURL() async {
+//   final String profileImage = await Constants.getProfileImage();
+//   return profileImage;
+// }
 
-getName() async {
-  final String name = await Constants.getName();
-  return name;
-}
+// getName() async {
+//   final String name = await Constants.getName();
+//   return name;
+// }
 
-getUserName() async {
-  final String userName = await Constants.getUserName();
-  return userName;
-}
+// getUserName() async {
+//   final String userName = await Constants.getUserName();
+//   return userName;
+// }
 
-getUserLocation() async {
-  final String location = await Constants.getUserLocation();
-  return location;
-}
+// getUserLocation() async {
+//   final String location = await Constants.getUserLocation();
+//   return location;
+// }

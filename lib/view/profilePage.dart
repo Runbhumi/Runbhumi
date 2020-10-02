@@ -159,7 +159,7 @@ class _DrawerBodyState extends State<DrawerBody> {
         DrawerButton(
           onpressed: () {
             print("logout");
-            Constants.saveUserLoggedInSharedPreference(false);
+            Constants.prefs.setBool("loggedin", false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },

@@ -83,7 +83,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
     );
     var myChild = DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: _buildTitle(context),
@@ -291,7 +291,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
-                left: 16.0, 
+                left: 16.0,
                 right: 16.0,
               ),
               child: Text(
@@ -304,7 +304,6 @@ class _ProfileBodyState extends State<ProfileBody> {
             Expanded(
               child: TabBarView(
                 children: [
-                  PlaceholderWidget(),
                   ListView.builder(
                     itemBuilder: (context, index) {
                       return Padding(
@@ -314,7 +313,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          elevation: 4,
+                          elevation: 2,
                           child: Container(
                             height: 80,
                             child: Center(
@@ -355,7 +354,6 @@ class Tabs extends StatelessWidget {
         labelColor: Colors.white,
         unselectedLabelColor: Colors.grey,
         tabs: [
-          Tab(child: Text("Stats")),
           Tab(child: Text("Teams")),
           Tab(child: Text("Friends")),
         ],
@@ -394,7 +392,7 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 4,
+              elevation: 2,
               child: Container(
                 child: Column(
                   children: [

@@ -291,7 +291,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
-                left: 16.0,
+                left: 16.0, 
                 right: 16.0,
               ),
               child: Text(
@@ -320,7 +320,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                             child: Center(
                               child: ListTile(
                                 title: Text(
-                                  teamsList[index],
+                                  widget.teamsList[index],
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
                               ),

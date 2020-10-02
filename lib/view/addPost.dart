@@ -1,3 +1,4 @@
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 /*    
 locations = <String>[
@@ -40,15 +41,18 @@ locations = <String>[
       */
 
 Widget _buildTitle(BuildContext context) {
-  return new Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-    child: new Column(
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    color: Colors.white54,
+    child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
+      children: [
         const Text(
           'Add Post',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 25,
+          ),
         ),
       ],
     ),
@@ -63,6 +67,7 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   int _chosenSport;
   int _chosenPurpose;
+  TextEditingController _descriptionController;
   @override
   Widget build(BuildContext context) {
     //sports
@@ -115,56 +120,97 @@ class _AddPostState extends State<AddPost> {
         );
       },
     );
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: _buildTitle(context),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image(
-                  width: 300,
-                  image: AssetImage('assets/addpostillustration.png'),
-                ),
+    return SafeArea(
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: addPastSliverAppBar,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        borderRadius: new BorderRadius.circular(50),
+                        border: Border.all(),
+                        color: Color(0xffeeeeee),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: sportsList,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        borderRadius: new BorderRadius.circular(50),
+                        border: Border.all(),
+                        color: Color(0xffeeeeee),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: purposeList,
+                      ),
+                    ),
+                  ),
+                  InputBox(
+                    hintText: "description",
+                    controller: _descriptionController,
+                  ),
+                  //TODO: make this a date time input
+                  InputBox(
+                    hintText: "date & time",
+                    controller: _descriptionController,
+                  ),
+                  //TODO: make this is a location input
+                  InputBox(
+                    hintText: "Location",
+                    controller: _descriptionController,
+                  ),
+                  Button(
+                    myText: "Invite Friends",
+                    myColor: Theme.of(context).accentColor,
+                  ),
+                  //TODO: complete Add post button
+                  Button(
+                    myText: "Add Post",
+                    myColor: Theme.of(context).primaryColor,
+                    onPressed: () {},
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.circular(50),
-                    border: Border.all(),
-                    color: Color(0xffeeeeee),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: sportsList,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.circular(50),
-                    border: Border.all(),
-                    color: Color(0xffeeeeee),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: purposeList,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> addPastSliverAppBar(
+      BuildContext context, bool innerBoxIsScrolled) {
+    return <Widget>[
+      SliverAppBar(
+        expandedHeight: 250.0,
+        elevation: 0,
+        floating: false,
+        pinned: true,
+        flexibleSpace: FlexibleSpaceBar(
+          centerTitle: true,
+          title: _buildTitle(context),
+          background: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image(
+              width: 200,
+              image: AssetImage('assets/addpostillustration.png'),
+            ),
+          ),
+        ),
+      ),
+    ];
   }
 }

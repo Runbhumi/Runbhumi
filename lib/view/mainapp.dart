@@ -35,7 +35,6 @@ class _MainAppState extends State<MainApp> {
         onTap: onTabTapped,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        elevation: 10,
         showUnselectedLabels: false,
         items: [
           new BottomNavigationBarItem(

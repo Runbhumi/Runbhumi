@@ -11,7 +11,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -73,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     "New here? Create an account",
                     style: TextStyle(
-                      color: Color(0xFF3A3535),
                       fontSize: 18,
                     ),
                   ),

@@ -99,8 +99,3 @@ getUserLocation() async {
   final String location = await Constants.getUserLocation();
   return location;
 }
-
-class UserId {
-  final String uid;
-  UserId({this.uid});
-}

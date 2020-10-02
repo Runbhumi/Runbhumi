@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Constants.saveUserLoggedInSharedPreference(true);
+                  Constants.prefs.setBool("loggedin", true);
                   print("going to " + "/home");
                   Navigator.pushReplacementNamed(context, "/home");
                 },

@@ -211,6 +211,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
+
   @override
   void initState() {
     super.initState();
@@ -306,7 +307,7 @@ class _ProfileBodyState extends State<ProfileBody> {
               child: TabBarView(
                 children: [
                   ProfileTeamsList(widget: widget),
-                  ProfileFriendsList(friendsList: data['friendsId'] ?? []),
+                  ProfileFriendsList(friendsList: widget.friendsList),
                 ],
               ),
             ),

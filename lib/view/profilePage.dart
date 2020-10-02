@@ -1,8 +1,18 @@
+import 'dart:async';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final FirebaseAuth auth = FirebaseAuth.instance;
+String getCurrentUserId() {
+  final User user = auth.currentUser;
+  final uid = user.uid;
+  return uid;
+}
 
 class Profile extends StatefulWidget {
   @override
@@ -27,17 +37,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
-  String profileImage = "assets/ProfilePlaceholder.png";
-  final String profileName = "Hayat Tamboli";
-  final String profileBio = "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer";
-  final List teamsList = [
-    "chennai super kings",
-    "rajasthan royals",
-    "mumbai indians",
-    "pune wariors"
-  ];
-  final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
-
   @override
   void initState() {
     super.initState();
@@ -57,6 +56,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
+
+  final List teamsList = ["cupcake", "lolipop", "oreo", "Pie"];
+  final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +101,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           ),
         ),
         body: ProfileBody(
-          profileImage: profileImage,
-          profileBio: "👨‍🎓 Student | 👨‍💻programmer | 👨‍🎨designer",
-          profileName: "Hayat Tamboli",
           teamsList: teamsList,
           friendsList: friendsList,
         ),
@@ -212,21 +211,45 @@ class DrawerBody extends StatelessWidget {
   }
 }
 
-class ProfileBody extends StatelessWidget {
+class ProfileBody extends StatefulWidget {
   const ProfileBody({
     Key key,
-    this.profileImage,
-    this.profileBio,
-    this.profileName,
     this.teamsList,
     this.friendsList,
   }) : super(key: key);
 
-  final String profileImage;
-  final String profileBio;
-  final String profileName;
   final List teamsList;
   final List friendsList;
+
+  @override
+  _ProfileBodyState createState() => _ProfileBodyState();
+}
+
+class _ProfileBodyState extends State<ProfileBody> {
+  final db = FirebaseFirestore.instance;
+  StreamSubscription sub;
+  Map data;
+
+  @override
+  void initState() {
+    super.initState();
+    sub = db
+        .collection('users')
+        .doc(getCurrentUserId())
+        .snapshots()
+        .listen((snap) {
+      setState(() {
+        data = snap.data();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -235,7 +258,7 @@ class ProfileBody extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            if (profileImage != null)
+            if (data['profileImage'] != null)
               Container(
                 width: 150,
                 height: 150,
@@ -244,7 +267,7 @@ class ProfileBody extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
                     // now only assets image
-                    image: AssetImage(profileImage),
+                    image: NetworkImage(data['profileImage']),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [
@@ -260,7 +283,7 @@ class ProfileBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                profileName,
+                data['name'],
                 style: TextStyle(fontSize: 24),
               ),
             ),
@@ -272,7 +295,7 @@ class ProfileBody extends StatelessWidget {
                 right: 16.0,
               ),
               child: Text(
-                profileBio,
+                data['username'],
                 style: TextStyle(fontSize: 14),
               ),
             ),
@@ -306,9 +329,9 @@ class ProfileBody extends StatelessWidget {
                         ),
                       );
                     },
-                    itemCount: teamsList.length,
+                    itemCount: widget.teamsList.length,
                   ),
-                  ProfileFriendsList(friendsList: friendsList),
+                  ProfileFriendsList(friendsList: widget.friendsList),
                 ],
               ),
             ),

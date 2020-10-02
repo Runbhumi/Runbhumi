@@ -48,8 +48,7 @@ Widget _buildTitle(BuildContext context) {
       children: <Widget>[
         const Text(
           'Add Post',
-          style: TextStyle(
-              fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
         ),
       ],
     ),
@@ -120,9 +119,6 @@ class _AddPostState extends State<AddPost> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: _buildTitle(context),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Center(

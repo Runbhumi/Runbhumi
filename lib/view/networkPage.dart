@@ -12,23 +12,21 @@ class Network extends StatelessWidget {
         children: <Widget>[
           const Text(
             'Network',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),
     );
   }
 
+  final List scheduleList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
-        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        elevation: 0,
       ),
       body: DefaultTabController(
         length: 3,
@@ -36,33 +34,36 @@ class Network extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
                   alignment: Alignment.topLeft,
                   height: MediaQuery.of(context).size.height / 5,
-                  child: GridView.count(
-                    // Create a grid with 2 columns. If you change the scrollDirection to
-                    // horizontal, this produces 2 rows.
+                  child: ListView(
                     scrollDirection: Axis.horizontal,
-                    crossAxisCount: 1,
-                    // Generate 10 widgets that display their index in the List.
-                    children: List.generate(10, (index) {
+                    children: List.generate(scheduleList.length, (index) {
                       return Center(
-                        child: Text(
-                          'Item $index',
-                          style: Theme.of(context).textTheme.headline5,
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          elevation: 4,
+                          child: Container(
+                            width: 250,
+                            height: 100,
+                            child: Center(
+                              child: Text(
+                                'Item $index',
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     }),
                   ),
-                  //Code for schedule should be here.
                 ),
                 PreferredSize(
                   preferredSize: Size.fromHeight(50.0),
                   child: TabBar(
-                    unselectedLabelColor: Colors.black,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.grey,
                     tabs: [
                       Tab(child: Text("Individual")),
                       Tab(child: Text("Team")),

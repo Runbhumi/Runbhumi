@@ -30,8 +30,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         children: <Widget>[
           const Text(
             'Profile',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),
@@ -67,7 +66,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
@@ -95,13 +94,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               return IconButton(
                 icon: const Icon(
                   Icons.menu,
-                  color: Colors.black,
                 ),
                 onPressed: toggle,
               );
             },
           ),
-          backgroundColor: Colors.white,
         ),
         body: ProfileBody(
           teamsList: teamsList,
@@ -110,23 +107,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
     );
     return AnimatedBuilder(
-        animation: animationController,
-        builder: (context, _) {
-          double slide = maxSlide * animationController.value;
-          double scale = 1 - (animationController.value * 0.3);
-          return Stack(
-            children: [
-              myDrawer,
-              Transform(
-                child: myChild,
-                transform: Matrix4.identity()
-                  ..translate(slide)
-                  ..scale(scale),
-                alignment: Alignment.centerLeft,
-              ),
-            ],
-          );
-        });
+      animation: animationController,
+      builder: (context, _) {
+        double slide = maxSlide * animationController.value;
+        double scale = 1 - (animationController.value * 0.3);
+        return Stack(
+          children: [
+            myDrawer,
+            Transform(
+              child: myChild,
+              transform: Matrix4.identity()
+                ..translate(slide)
+                ..scale(scale),
+              alignment: Alignment.centerLeft,
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -308,9 +306,27 @@ class _ProfileBodyState extends State<ProfileBody> {
                 children: [
                   PlaceholderWidget(),
                   ListView.builder(
-                    itemBuilder: (context, position) {
-                      return Card(
-                        child: Text(widget.teamsList[position]),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 4),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 4,
+                          child: Container(
+                            height: 80,
+                            child: Center(
+                              child: ListTile(
+                                title: Text(
+                                  teamsList[index],
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
                     itemCount: widget.teamsList.length,
@@ -336,7 +352,8 @@ class Tabs extends StatelessWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(50.0),
       child: TabBar(
-        unselectedLabelColor: Colors.black,
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey,
         tabs: [
           Tab(child: Text("Stats")),
           Tab(child: Text("Teams")),
@@ -361,54 +378,47 @@ class ProfileFriendsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      // Create a grid with 2 columns. If you change the scrollDirection to
-      // horizontal, this produces 2 rows.
-      crossAxisCount: 2,
-      // Generate 10 widgets that display their index in the List.
-      children: List.generate(
-        friendsList.length,
-        (index) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: GridView.count(
+        // Create a grid with 2 columns. If you change the scrollDirection to
+        // horizontal, this produces 2 rows.
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        // Generate 10 widgets that display their index in the List.
+        children: List.generate(
+          friendsList.length,
+          (index) {
+            return Card(
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x26000000),
-                    blurRadius: 6,
-                    offset: Offset(0, 1),
-                  ),
-                ],
               ),
-              child: Center(
+              elevation: 4,
+              child: Container(
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      '${friendsList[index]}',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        image: DecorationImage(
-                          image: AssetImage("assets/ProfilePlaceholder.png"),
-                          fit: BoxFit.contain,
+                    Center(
+                      child: ListTile(
+                        title: Text(
+                          friendsList[index],
+                          textAlign: TextAlign.center,
                         ),
+                      ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        "assets/ProfilePlaceholder.png",
+                        height: 100,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

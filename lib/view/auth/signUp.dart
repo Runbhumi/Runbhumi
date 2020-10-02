@@ -1,4 +1,5 @@
 import 'package:Runbhumi/utils/validations.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
 
@@ -24,6 +25,8 @@ class _SignUpState extends State<SignUp> {
       setState(() {});
       showInSnackBar('Please fix the errors in red before submitting.');
     } else {
+      Constants.prefs.setBool("loggedin", true);
+      print("going to " + "/home");
       Navigator.pushReplacementNamed(context, '/home');
     }
   }
@@ -127,11 +130,14 @@ class CreateAccHeading extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
-        child: Text("Create Account",
-            style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).primaryColor)),
+        child: Text(
+          "Create Account",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
       ),
     );
   }

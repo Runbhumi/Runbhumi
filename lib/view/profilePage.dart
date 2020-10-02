@@ -5,6 +5,7 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../widget/widgets.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 String getCurrentUserId() {
@@ -147,73 +148,45 @@ class _DrawerBodyState extends State<DrawerBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FlatButton.icon(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {},
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(0))),
-          label: Text(
-            'Edit Profile',
-            style: TextStyle(color: Colors.white),
-          ),
+        DrawerButton(
+          onpressed: () {},
+          label: "Edit Profile",
           icon: Icon(
             Icons.edit_outlined,
             color: Colors.white,
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).primaryColor,
         ),
-        FlatButton.icon(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {
+        DrawerButton(
+          onpressed: () {
             print("logout");
             Constants.saveUserLoggedInSharedPreference(false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(0))),
-          label: Text(
-            'Log out',
-            style: TextStyle(color: Colors.white),
-          ),
+          label: 'Log out',
           icon: Icon(
             Icons.logout,
             color: Colors.white,
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).primaryColor,
         ),
-        FlatButton.icon(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {
-            print("go to more info");
-            Navigator.pushNamed(context, "/moreinfo");
-          },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(0))),
-          label: Text(
-            'More Info',
-            style: TextStyle(color: Colors.white),
-          ),
+        DrawerButton(
           icon: Icon(
             Icons.info_outline,
             color: Colors.white,
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).primaryColor,
+          onpressed: () {
+            print("go to more info");
+            Navigator.pushNamed(context, "/moreinfo");
+          },
+          label: "More Info",
+        ),
+        DrawerButton(
+          onpressed: () {},
+          label: 'About Us',
+          icon: Icon(
+            Icons.engineering_outlined,
+            color: Colors.white,
+          ),
         ),
       ],
     );

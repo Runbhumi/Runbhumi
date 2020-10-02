@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'views.dart';
+/*
+  this has the bottom navigation bar of the app
+*/
 
 class MainApp extends StatefulWidget {
   @override

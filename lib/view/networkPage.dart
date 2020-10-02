@@ -2,12 +2,16 @@ import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
+/*
+  Code For Network Page
+*/
 class Network extends StatefulWidget {
   @override
   _NetworkState createState() => _NetworkState();
 }
 
 class _NetworkState extends State<Network> {
+  // for Title
   Widget _buildTitle(BuildContext context) {
     return new Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -20,6 +24,7 @@ class _NetworkState extends State<Network> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: make this schedule list connect to firebase
     final List scheduleList = ["hayat", "manas", "rohan", "mohit"];
     return Scaffold(
       appBar: AppBar(
@@ -30,24 +35,32 @@ class _NetworkState extends State<Network> {
         length: 3,
         child: Scaffold(
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Schedule',
-                style: Theme.of(context).textTheme.headline6,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                child: Text(
+                  'Schedule',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
               //schedule
               Schedule(scheduleList: scheduleList),
-              SizedBox(
-                height: 10,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: 8.0,
+                ),
+                child: Text(
+                  'Chats',
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.start,
+                ),
               ),
-              Text(
-                'Chats',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              //Chat Tabs
               ChatsTabs(),
+              // TODO: replace placeholders with actual UI
               Expanded(
                 child: TabBarView(
                   children: [
@@ -82,7 +95,7 @@ class Schedule extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
+              horizontal: 8.0,
             ),
             child: Card(
               shape: RoundedRectangleBorder(
@@ -90,12 +103,32 @@ class Schedule extends StatelessWidget {
               ),
               elevation: 2,
               child: Container(
-                width: 250,
-                height: 100,
-                child: Center(
-                  child: Text(
-                    scheduleList[index],
-                    style: Theme.of(context).textTheme.headline6,
+                width: 300,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        title: Text(
+                          scheduleList[index],
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        subtitle: Row(
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              size: 18.0,
+                            ),
+                            Text(
+                              "Bahrain",
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ],
+                        ),
+                        trailing: Text("6:00pm"),
+                      ),
+                    ],
                   ),
                 ),
               ),

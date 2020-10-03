@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
+  String eventName;
   String eventId;
   String creatorId;
   String location;
@@ -11,6 +12,7 @@ class Events {
 
   Events(
       {this.eventId,
+      this.eventName,
       this.creatorId,
       this.location,
       this.sportName,
@@ -20,6 +22,7 @@ class Events {
 
   Events.newEvent(
       String eventId,
+      String eventName,
       String creatorId,
       String location,
       String sportName,
@@ -27,6 +30,7 @@ class Events {
       List<String> playersId,
       DateTime dateTime) {
     this.eventId = eventId;
+    this.eventName = eventName;
     this.creatorId = creatorId;
     this.location = location;
     this.sportName = sportName;
@@ -37,6 +41,7 @@ class Events {
 
   Map<String, dynamic> toJson() => {
         'eventId': eventId,
+        'eventName': eventName,
         'creatorId': creatorId,
         'location': location,
         'sportName': sportName,
@@ -46,6 +51,7 @@ class Events {
       };
   Events.fromSnapshot(DocumentSnapshot snapshot)
       : eventId = snapshot.data()['eventId'],
+        eventName = snapshot.data()['eventName'],
         creatorId = snapshot.data()['creatorId'],
         location = snapshot.data()['location'],
         sportName = snapshot.data()['sportName'],

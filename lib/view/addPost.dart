@@ -179,14 +179,8 @@ class _AddPostState extends State<AddPost> {
                     myText: "Add Post",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
-                      createNewEvent(
-                          getCurrentUserId(),
-                          userId,
-                          "",
-                          _chosenSport,
-                          _chosenPurpose,
-                          [userId],
-                          DateTime.now());
+                      createNewEvent("", userId, "", _chosenSport,
+                          _chosenPurpose, [userId], DateTime.now());
                     }, //FirebaseFirestore.instance.collection('events').add(
                     //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                   ),

@@ -1,5 +1,11 @@
+import 'package:Runbhumi/models/Events.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:Runbhumi/view/profilePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+String userId = getCurrentUserId();
+
 /*    
 locations = <String>[
       "Andhra Pradesh",
@@ -65,10 +71,11 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
-  int _chosenSport;
-  int _chosenPurpose;
-  TextEditingController _descriptionController;
-  TextEditingController _datetime;
+  String _chosenSport;
+  String _chosenPurpose;
+  TextEditingController _descriptionController = new TextEditingController();
+  TextEditingController _locationController = new TextEditingController();
+  TextEditingController _datetime = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     //sports
@@ -78,18 +85,19 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text("Basketball"),
-          value: 1,
+          value: "Basketball",
         ),
         DropdownMenuItem(
           child: Text("Football"),
-          value: 2,
+          value: "Football",
         ),
-        DropdownMenuItem(child: Text("Volleyball"), value: 3),
-        DropdownMenuItem(child: Text("Cricket"), value: 4)
+        DropdownMenuItem(child: Text("Volleyball"), value: "Volleyball"),
+        DropdownMenuItem(child: Text("Cricket"), value: "Cricket")
       ],
       onChanged: (value) {
         setState(
           () {
+            print(value);
             _chosenSport = value;
           },
         );
@@ -102,15 +110,15 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text("Want to join a team"),
-          value: 1,
+          value: "Want to join a team",
         ),
         DropdownMenuItem(
           child: Text("Looking for an opponent"),
-          value: 2,
+          value: "Looking for an opponent",
         ),
         DropdownMenuItem(
           child: Text("Looking for players in our team"),
-          value: 3,
+          value: "Looking for players in our team",
         ),
       ],
       onChanged: (value) {
@@ -166,20 +174,32 @@ class _AddPostState extends State<AddPost> {
                   DateTimePicker(
                     controller: _datetime,
                   ),
-                  //TODO: make this is a location input
                   InputBox(
                     hintText: "Location",
-                    controller: _descriptionController,
+                    controller: _locationController,
                   ),
                   Button(
                     myText: "Invite Friends",
                     myColor: Theme.of(context).accentColor,
                   ),
-                  //TODO: complete Add post button
                   Button(
                     myText: "Add Post",
                     myColor: Theme.of(context).primaryColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      var newDoc =
+                          FirebaseFirestore.instance.collection('events').doc();
+                      String id = newDoc.id;
+                      newDoc.set(Events.newEvent(id, userId, "", _chosenSport,
+                              _chosenPurpose, [userId], DateTime.now())
+                          .toJson());
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(userId)
+                          .update({
+                        "eventsId": FieldValue.arrayUnion([id])
+                      });
+                    }, //FirebaseFirestore.instance.collection('events').add(
+                    //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                   ),
                 ],
               ),
@@ -213,3 +233,6 @@ class _AddPostState extends State<AddPost> {
     ];
   }
 }
+
+//TODO: make this is a location input
+//TODO: complete Add post button

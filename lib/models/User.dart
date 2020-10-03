@@ -13,6 +13,20 @@ class UserProfile {
   List<String> eventsId;
   List<String> notificationId;
 
+  UserProfile({
+    this.userId,
+    this.username,
+    this.name,
+    this.profileImage,
+    this.location,
+    this.phoneNumber,
+    this.emailId,
+    this.friendsId,
+    this.teamId,
+    this.eventsId,
+    this.notificationId,
+  });
+
   UserProfile.newuser(userId, username, name, profileImage, emailId) {
     this.userId = userId;
     this.username = username;
@@ -40,6 +54,21 @@ class UserProfile {
         'eventsId': eventsId,
         'notificationId': notificationId
       };
+
+  factory UserProfile.fromMap(Map data) {
+    return UserProfile(
+        userId: data['userId'] ?? "",
+        username: data['username'] ?? "",
+        name: data['name'] ?? "",
+        profileImage: data['profileImage'] ?? "",
+        location: data['location'] ?? "",
+        phoneNumber: data['phoneNumber'] ?? "",
+        emailId: data['emailId'] ?? "",
+        friendsId: data['friendsId'] ?? [],
+        teamId: data['teamId'] ?? [],
+        eventsId: data['eventsId'] ?? [],
+        notificationId: data['notificationId'] ?? []);
+  }
 }
 
 // Notifications can be taken as a seperate calss

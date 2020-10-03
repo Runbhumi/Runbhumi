@@ -4,15 +4,7 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../widget/widgets.dart';
-
-final FirebaseAuth auth = FirebaseAuth.instance;
-String getCurrentUserId() {
-  final User user = auth.currentUser;
-  final uid = user.uid;
-  return uid;
-}
 
 class Profile extends StatefulWidget {
   @override

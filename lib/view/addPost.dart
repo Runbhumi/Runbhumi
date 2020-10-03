@@ -73,6 +73,7 @@ class _AddPostState extends State<AddPost> {
   String _chosenPurpose;
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
+  TextEditingController _nameController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     //sports
@@ -164,11 +165,13 @@ class _AddPostState extends State<AddPost> {
                       ),
                     ),
                   ),
+                  TextFormField(
+                    controller: _nameController,
+                  ),
                   DateTimePicker(
                     controller: _datetime,
                   ),
-                  InputBox(
-                    hintText: "Location",
+                  TextFormField(
                     controller: _locationController,
                   ),
                   Button(
@@ -179,8 +182,16 @@ class _AddPostState extends State<AddPost> {
                     myText: "Add Post",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
-                      createNewEvent("", userId, "", _chosenSport,
-                          _chosenPurpose, [userId], DateTime.now());
+                      print(DateTime.now());
+                      print(DateTime.parse(_datetime.text));
+                      createNewEvent(
+                          _nameController.text,
+                          userId,
+                          _locationController.text,
+                          _chosenSport,
+                          _chosenPurpose,
+                          [userId],
+                          DateTime.parse(_datetime.text));
                     }, //FirebaseFirestore.instance.collection('events').add(
                     //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                   ),

@@ -47,25 +47,30 @@ flutter test
   
   - [x] Splash Screen
   - [x] Pre-Authorization Screen
-  - [ ] Login Screen
-  - [ ] SignUp Screen
-  - [ ] Forgot Password Screen
+  - [x] Login Screen
+  - [x] SignUp Screen
+  - [x] Forgot Password Screen
   - [ ] Home Screen
   - [ ] Networks Screen
   - [ ] Add Event Screen
   - [ ] Notification Screen
-  - [ ] Profile Screen
+  - [x] Profile Screen
   - [ ] Chat Screen
   - [ ] Schedule Screen
   
 </details>
-
 
 ## Author
 
 🏢 **Runbhumi**
 
 - Github: [@Runbhumi](https://github.com/Runbhumi)
+
+<details><summary> <strong>💪Motivation/Inspiration</strong> </summary>
+
+<img src="./documentation/Problem_statement_by_tanmay_bhat.jpeg" />
+
+</details>
 
 ## 🤝 Contributing
 

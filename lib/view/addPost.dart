@@ -71,7 +71,8 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   String _chosenSport;
   String _chosenPurpose;
-  TextEditingController _locationController = new TextEditingController();
+  TextEditingController _addressController = new TextEditingController();
+  TextEditingController _stateController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -168,12 +169,17 @@ class _AddPostState extends State<AddPost> {
                     controller: _datetime,
                   ),
                   InputBox(
-                    hintText: "Location",
-                    controller: _locationController,
+                    hintText: "Address & City",
+                    controller: _addressController,
+                  ),
+                  InputBox(
+                    hintText: "State",
+                    controller: _stateController,
                   ),
                   Button(
                     myText: "Invite Friends",
                     myColor: Theme.of(context).accentColor,
+                    onPressed: () {},
                   ),
                   Button(
                     myText: "Add Post",

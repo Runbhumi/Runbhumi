@@ -1,5 +1,4 @@
-import 'package:Runbhumi/widget/button.dart';
-import 'package:Runbhumi/widget/dividingOr.dart';
+import '../../widget/widgets.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +21,7 @@ class _SecondPageState extends State<SecondPage> {
                   const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
               child: Image(image: AssetImage('assets/login.png')),
             ),
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
@@ -56,7 +55,7 @@ class _SecondPageState extends State<SecondPage> {
               myColor: Theme.of(context).accentColor,
               routeName: "/signup",
             ),
-            DividingOr(),
+            DividingOr(),*/
             GoogleOauth(),
             SizedBox(
               height: 20,

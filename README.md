@@ -74,7 +74,7 @@ flutter test
 
 ## 🤝 Contributing
 
-Contributions are only made by organisation members, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues), the [contribution guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md)
+issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues), the [contribution guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## Show your support <img alt="GitHub stars" src="https://img.shields.io/github/stars/Runbhumi/Runbhumi?style=social">
 

@@ -15,8 +15,7 @@ class _NotificationsState extends State<Notifications> {
         children: <Widget>[
           const Text(
             'Notifications',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),
@@ -28,10 +27,7 @@ class _NotificationsState extends State<Notifications> {
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
-        centerTitle: true,
-        elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
       ),
     );
   }

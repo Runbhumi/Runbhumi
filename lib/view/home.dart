@@ -53,8 +53,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           const Text(
             'My Feed',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),
@@ -68,7 +67,7 @@ class _HomeState extends State<Home> {
       decoration: const InputDecoration(
         hintText: 'Search...',
         border: InputBorder.none,
-        hintStyle: const TextStyle(color: Colors.black54),
+        hintStyle: const TextStyle(color: Colors.grey),
       ),
       style: const TextStyle(color: Colors.black, fontSize: 16.0),
       onChanged: updateSearchQuery,
@@ -86,7 +85,7 @@ class _HomeState extends State<Home> {
     if (_isSearching) {
       return <Widget>[
         new IconButton(
-          icon: const Icon(Icons.clear, color: Colors.black),
+          icon: const Icon(Icons.clear),
           onPressed: () {
             if (_searchQuery == null || _searchQuery.text.isEmpty) {
               Navigator.pop(context);
@@ -100,7 +99,7 @@ class _HomeState extends State<Home> {
 
     return <Widget>[
       new IconButton(
-        icon: const Icon(Icons.search, color: Colors.black, size: 30),
+        icon: const Icon(Icons.search, size: 30),
         onPressed: _startSearch,
       ),
     ];
@@ -112,17 +111,14 @@ class _HomeState extends State<Home> {
       length: 3,
       child: Scaffold(
         appBar: new AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          leading: _isSearching ? BackButton(color: Colors.black) : null,
+          leading: _isSearching ? BackButton() : null,
           title: _isSearching ? _buildSearchField() : _buildTitle(context),
           actions: _buildActions(),
-          centerTitle: true,
           bottom: new TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             labelColor: Colors.white,
-            unselectedLabelColor: Colors.black,
+            unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(child: Text("Today")),
               Tab(child: Text("Tommorow")),

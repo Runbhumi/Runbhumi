@@ -57,3 +57,9 @@ Future<void> signOutGoogle() async {
 //   await Constants.saveUserId(uid);
 //   await Constants.saveUserName(username);
 // }
+
+String getCurrentUserId() {
+  final User user = _auth.currentUser;
+  final uid = user.uid;
+  return uid;
+}

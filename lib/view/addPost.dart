@@ -73,7 +73,6 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   String _chosenSport;
   String _chosenPurpose;
-  TextEditingController _descriptionController = new TextEditingController();
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   @override
@@ -166,10 +165,6 @@ class _AddPostState extends State<AddPost> {
                         child: purposeList,
                       ),
                     ),
-                  ),
-                  InputBox(
-                    hintText: "description",
-                    controller: _descriptionController,
                   ),
                   DateTimePicker(
                     controller: _datetime,

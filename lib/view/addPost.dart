@@ -1,4 +1,9 @@
+import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:Runbhumi/services/auth.dart';
+
+String userId = getCurrentUserId();
 /*    
 locations = <String>[
       "Andhra Pradesh",
@@ -40,16 +45,18 @@ locations = <String>[
       */
 
 Widget _buildTitle(BuildContext context) {
-  return new Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-    child: new Column(
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    color: Colors.white54,
+    child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
+      children: [
         const Text(
           'Add Post',
           style: TextStyle(
-              fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+            fontWeight: FontWeight.w700,
+            fontSize: 25,
+          ),
         ),
       ],
     ),
@@ -62,8 +69,11 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
-  int _chosenSport;
-  int _chosenPurpose;
+  String _chosenSport;
+  String _chosenPurpose;
+  TextEditingController _addressController = new TextEditingController();
+  TextEditingController _stateController = new TextEditingController();
+  TextEditingController _datetime = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     //sports
@@ -73,18 +83,19 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text("Basketball"),
-          value: 1,
+          value: "Basketball",
         ),
         DropdownMenuItem(
           child: Text("Football"),
-          value: 2,
+          value: "Football",
         ),
-        DropdownMenuItem(child: Text("Volleyball"), value: 3),
-        DropdownMenuItem(child: Text("Cricket"), value: 4)
+        DropdownMenuItem(child: Text("Volleyball"), value: "Volleyball"),
+        DropdownMenuItem(child: Text("Cricket"), value: "Cricket")
       ],
       onChanged: (value) {
         setState(
           () {
+            print(value);
             _chosenSport = value;
           },
         );
@@ -97,15 +108,15 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text("Want to join a team"),
-          value: 1,
+          value: "Want to join a team",
         ),
         DropdownMenuItem(
           child: Text("Looking for an opponent"),
-          value: 2,
+          value: "Looking for an opponent",
         ),
         DropdownMenuItem(
           child: Text("Looking for players in our team"),
-          value: 3,
+          value: "Looking for players in our team",
         ),
       ],
       onChanged: (value) {
@@ -116,59 +127,107 @@ class _AddPostState extends State<AddPost> {
         );
       },
     );
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: _buildTitle(context),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image(
-                  width: 300,
-                  image: AssetImage('assets/addpostillustration.png'),
-                ),
+    return SafeArea(
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: addPostSliverAppBar,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        borderRadius: new BorderRadius.circular(50),
+                        border: Border.all(),
+                        color: Color(0xffeeeeee),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: sportsList,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      decoration: BoxDecoration(
+                        borderRadius: new BorderRadius.circular(50),
+                        border: Border.all(),
+                        color: Color(0xffeeeeee),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: purposeList,
+                      ),
+                    ),
+                  ),
+                  DateTimePicker(
+                    controller: _datetime,
+                  ),
+                  InputBox(
+                    hintText: "Address & City",
+                    controller: _addressController,
+                  ),
+                  InputBox(
+                    hintText: "State",
+                    controller: _stateController,
+                  ),
+                  Button(
+                    myText: "Invite Friends",
+                    myColor: Theme.of(context).accentColor,
+                    onPressed: () {},
+                  ),
+                  Button(
+                    myText: "Add Post",
+                    myColor: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      createNewEvent(
+                          getCurrentUserId(),
+                          userId,
+                          "",
+                          _chosenSport,
+                          _chosenPurpose,
+                          [userId],
+                          DateTime.now());
+                    }, //FirebaseFirestore.instance.collection('events').add(
+                    //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.circular(50),
-                    border: Border.all(),
-                    color: Color(0xffeeeeee),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: sportsList,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.circular(50),
-                    border: Border.all(),
-                    color: Color(0xffeeeeee),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: purposeList,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  List<Widget> addPostSliverAppBar(
+      BuildContext context, bool innerBoxIsScrolled) {
+    return <Widget>[
+      SliverAppBar(
+        expandedHeight: 250.0,
+        elevation: 0,
+        floating: false,
+        pinned: true,
+        flexibleSpace: FlexibleSpaceBar(
+          centerTitle: true,
+          title: _buildTitle(context),
+          background: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image(
+              width: 200,
+              image: AssetImage('assets/addpostillustration.png'),
+            ),
+          ),
+        ),
+      ),
+    ];
+  }
 }
+
+//TODO: make this is a location input
+//TODO: complete Add post button

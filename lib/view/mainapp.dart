@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'views.dart';
+/*
+  this has the bottom navigation bar of the app
+*/
 
 class MainApp extends StatefulWidget {
   @override
@@ -35,7 +38,6 @@ class _MainAppState extends State<MainApp> {
         onTap: onTabTapped,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        elevation: 10,
         showUnselectedLabels: false,
         items: [
           new BottomNavigationBarItem(

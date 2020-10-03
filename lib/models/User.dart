@@ -1,4 +1,4 @@
-import 'package:Runbhumi/utils/Constants.dart';
+// import 'package:Runbhumi/utils/Constants.dart';
 
 class UserProfile {
   String userId;
@@ -12,6 +12,20 @@ class UserProfile {
   List<String> teamId;
   List<String> eventsId;
   List<String> notificationId;
+
+  UserProfile({
+    this.userId,
+    this.username,
+    this.name,
+    this.profileImage,
+    this.location,
+    this.phoneNumber,
+    this.emailId,
+    this.friendsId,
+    this.teamId,
+    this.eventsId,
+    this.notificationId,
+  });
 
   UserProfile.newuser(userId, username, name, profileImage, emailId) {
     this.userId = userId;
@@ -40,6 +54,21 @@ class UserProfile {
         'eventsId': eventsId,
         'notificationId': notificationId
       };
+
+  factory UserProfile.fromMap(Map data) {
+    return UserProfile(
+        userId: data['userId'] ?? "",
+        username: data['username'] ?? "",
+        name: data['name'] ?? "",
+        profileImage: data['profileImage'] ?? "",
+        location: data['location'] ?? "",
+        phoneNumber: data['phoneNumber'] ?? "",
+        emailId: data['emailId'] ?? "",
+        friendsId: data['friendsId'] ?? [],
+        teamId: data['teamId'] ?? [],
+        eventsId: data['eventsId'] ?? [],
+        notificationId: data['notificationId'] ?? []);
+  }
 }
 
 // Notifications can be taken as a seperate calss
@@ -51,22 +80,22 @@ String generateusername(String email) {
   return result;
 }
 
-getImageURL() async {
-  final String profileImage = await Constants.getProfileImage();
-  return profileImage;
-}
+// getImageURL() async {
+//   final String profileImage = await Constants.getProfileImage();
+//   return profileImage;
+// }
 
-getName() async {
-  final String name = await Constants.getName();
-  return name;
-}
+// getName() async {
+//   final String name = await Constants.getName();
+//   return name;
+// }
 
-getUserName() async {
-  final String userName = await Constants.getUserName();
-  return userName;
-}
+// getUserName() async {
+//   final String userName = await Constants.getUserName();
+//   return userName;
+// }
 
-getUserLocation() async {
-  final String location = await Constants.getUserLocation();
-  return location;
-}
+// getUserLocation() async {
+//   final String location = await Constants.getUserLocation();
+//   return location;
+// }

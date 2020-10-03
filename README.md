@@ -47,19 +47,18 @@ flutter test
   
   - [x] Splash Screen
   - [x] Pre-Authorization Screen
-  - [ ] Login Screen
-  - [ ] SignUp Screen
-  - [ ] Forgot Password Screen
+  - [x] Login Screen
+  - [x] SignUp Screen
+  - [x] Forgot Password Screen
   - [ ] Home Screen
   - [ ] Networks Screen
   - [ ] Add Event Screen
   - [ ] Notification Screen
-  - [ ] Profile Screen
+  - [x] Profile Screen
   - [ ] Chat Screen
   - [ ] Schedule Screen
   
 </details>
-
 
 ## Author
 
@@ -67,9 +66,15 @@ flutter test
 
 - Github: [@Runbhumi](https://github.com/Runbhumi)
 
+<details><summary> <strong>💪Motivation/Inspiration</strong> </summary>
+
+<img src="./documentation/Problem_statement_by_tanmay_bhat.jpeg" />
+
+</details>
+
 ## 🤝 Contributing
 
-Contributions are only made by organisation members, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues), the [contribution guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md)
+issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Runbhumi/Runbhumi/issues), the [contribution guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## Show your support <img alt="GitHub stars" src="https://img.shields.io/github/stars/Runbhumi/Runbhumi?style=social">
 

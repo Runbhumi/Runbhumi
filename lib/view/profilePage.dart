@@ -1,18 +1,10 @@
 import 'dart:async';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-final FirebaseAuth auth = FirebaseAuth.instance;
-String getCurrentUserId() {
-  final User user = auth.currentUser;
-  final uid = user.uid;
-  return uid;
-}
+import '../widget/widgets.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -30,8 +22,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         children: <Widget>[
           const Text(
             'Profile',
-            style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 25, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
           ),
         ],
       ),
@@ -58,7 +49,12 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   //distance for profile to move right when the drawer is opened
   final double maxSlide = 225.0;
 
-  final List teamsList = ["cupcake", "lolipop", "oreo", "Pie"];
+  final List teamsList = [
+    "Chennai superKings",
+    "Rajasthan Royals",
+    "Delhi dare devils",
+    "Manchester united"
+  ];
   final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
@@ -67,7 +63,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
@@ -84,7 +80,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
     );
     var myChild = DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: _buildTitle(context),
@@ -95,13 +91,11 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               return IconButton(
                 icon: const Icon(
                   Icons.menu,
-                  color: Colors.black,
                 ),
                 onPressed: toggle,
               );
             },
           ),
-          backgroundColor: Colors.white,
         ),
         body: ProfileBody(
           teamsList: teamsList,
@@ -110,103 +104,81 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
     );
     return AnimatedBuilder(
-        animation: animationController,
-        builder: (context, _) {
-          double slide = maxSlide * animationController.value;
-          double scale = 1 - (animationController.value * 0.3);
-          return Stack(
-            children: [
-              myDrawer,
-              Transform(
-                child: myChild,
-                transform: Matrix4.identity()
-                  ..translate(slide)
-                  ..scale(scale),
-                alignment: Alignment.centerLeft,
-              ),
-            ],
-          );
-        });
+      animation: animationController,
+      builder: (context, _) {
+        double slide = maxSlide * animationController.value;
+        double scale = 1 - (animationController.value * 0.3);
+        return Stack(
+          children: [
+            myDrawer,
+            Transform(
+              child: myChild,
+              transform: Matrix4.identity()
+                ..translate(slide)
+                ..scale(scale),
+              alignment: Alignment.centerLeft,
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
-class DrawerBody extends StatelessWidget {
+class DrawerBody extends StatefulWidget {
   const DrawerBody({
     Key key,
   }) : super(key: key);
 
   @override
+  _DrawerBodyState createState() => _DrawerBodyState();
+}
+
+class _DrawerBodyState extends State<DrawerBody> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FlatButton.icon(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {},
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(0))),
-          label: Text(
-            'Edit Profile',
-            style: TextStyle(color: Colors.white),
-          ),
+        DrawerButton(
+          onpressed: () {},
+          label: "Edit Profile",
           icon: Icon(
             Icons.edit_outlined,
             color: Colors.white,
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).primaryColor,
         ),
-        FlatButton.icon(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {
+        DrawerButton(
+          onpressed: () {
             print("logout");
-            Constants.saveUserLoggedInSharedPreference(false);
+            Constants.prefs.setBool("loggedin", false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(0))),
-          label: Text(
-            'Log out',
-            style: TextStyle(color: Colors.white),
-          ),
+          label: 'Log out',
           icon: Icon(
             Icons.logout,
             color: Colors.white,
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).primaryColor,
         ),
-        FlatButton.icon(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-          onPressed: () {
-            print("go to more info");
-            Navigator.pushNamed(context, "/moreinfo");
-          },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(0))),
-          label: Text(
-            'More Info',
-            style: TextStyle(color: Colors.white),
-          ),
+        DrawerButton(
           icon: Icon(
             Icons.info_outline,
             color: Colors.white,
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).primaryColor,
+          onpressed: () {
+            print("go to more info");
+            Navigator.pushNamed(context, "/moreinfo");
+          },
+          label: "More Info",
+        ),
+        DrawerButton(
+          onpressed: () {},
+          label: 'About Us',
+          icon: Icon(
+            Icons.engineering_outlined,
+            color: Colors.white,
+          ),
         ),
       ],
     );
@@ -281,6 +253,26 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ],
                 ),
               ),
+            if (data['profileImage'] == null)
+              Container(
+                width: 150,
+                height: 150,
+                margin: EdgeInsets.only(top: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  image: DecorationImage(
+                    image: AssetImage("assets/ProfilePlaceholder.png"),
+                    fit: BoxFit.contain,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x3A353580),
+                      blurRadius: 20,
+                      offset: Offset(0, 10),
+                    ),
+                  ],
+                ),
+              ),
             //Name
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -306,15 +298,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             Expanded(
               child: TabBarView(
                 children: [
-                  PlaceholderWidget(),
-                  ListView.builder(
-                    itemBuilder: (context, position) {
-                      return Card(
-                        child: Text(widget.teamsList[position]),
-                      );
-                    },
-                    itemCount: widget.teamsList.length,
-                  ),
+                  ProfileTeamsList(widget: widget),
                   ProfileFriendsList(friendsList: widget.friendsList),
                 ],
               ),
@@ -322,6 +306,44 @@ class _ProfileBodyState extends State<ProfileBody> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProfileTeamsList extends StatelessWidget {
+  const ProfileTeamsList({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final ProfileBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            elevation: 2,
+            child: Container(
+              height: 80,
+              child: Center(
+                child: ListTile(
+                  title: Text(
+                    widget.teamsList[index],
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      itemCount: widget.teamsList.length,
     );
   }
 }
@@ -336,9 +358,9 @@ class Tabs extends StatelessWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(50.0),
       child: TabBar(
-        unselectedLabelColor: Colors.black,
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey,
         tabs: [
-          Tab(child: Text("Stats")),
           Tab(child: Text("Teams")),
           Tab(child: Text("Friends")),
         ],
@@ -361,54 +383,47 @@ class ProfileFriendsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      // Create a grid with 2 columns. If you change the scrollDirection to
-      // horizontal, this produces 2 rows.
-      crossAxisCount: 2,
-      // Generate 10 widgets that display their index in the List.
-      children: List.generate(
-        friendsList.length,
-        (index) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: GridView.count(
+        // Create a grid with 2 columns. If you change the scrollDirection to
+        // horizontal, this produces 2 rows.
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        // Generate 10 widgets that display their index in the List.
+        children: List.generate(
+          friendsList.length,
+          (index) {
+            return Card(
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x26000000),
-                    blurRadius: 6,
-                    offset: Offset(0, 1),
-                  ),
-                ],
               ),
-              child: Center(
+              elevation: 2,
+              child: Container(
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      '${friendsList[index]}',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        image: DecorationImage(
-                          image: AssetImage("assets/ProfilePlaceholder.png"),
-                          fit: BoxFit.contain,
+                    Center(
+                      child: ListTile(
+                        title: Text(
+                          friendsList[index],
+                          textAlign: TextAlign.center,
                         ),
+                      ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        "assets/ProfilePlaceholder.png",
+                        height: 100,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

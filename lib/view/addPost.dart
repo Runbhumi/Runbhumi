@@ -177,6 +177,7 @@ class _AddPostState extends State<AddPost> {
                   Button(
                     myText: "Invite Friends",
                     myColor: Theme.of(context).accentColor,
+                    onPressed: () {},
                   ),
                   Button(
                     myText: "Add Post",

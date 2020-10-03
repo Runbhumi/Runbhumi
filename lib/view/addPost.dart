@@ -68,6 +68,7 @@ class _AddPostState extends State<AddPost> {
   int _chosenSport;
   int _chosenPurpose;
   TextEditingController _descriptionController;
+  TextEditingController _datetime;
   @override
   Widget build(BuildContext context) {
     //sports
@@ -123,13 +124,13 @@ class _AddPostState extends State<AddPost> {
     return SafeArea(
       child: Scaffold(
         body: NestedScrollView(
-          headerSliverBuilder: addPastSliverAppBar,
+          headerSliverBuilder: addPostSliverAppBar,
           body: SingleChildScrollView(
             child: Center(
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 1.2,
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -144,7 +145,7 @@ class _AddPostState extends State<AddPost> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 1.2,
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -162,10 +163,8 @@ class _AddPostState extends State<AddPost> {
                     hintText: "description",
                     controller: _descriptionController,
                   ),
-                  //TODO: make this a date time input
-                  InputBox(
-                    hintText: "date & time",
-                    controller: _descriptionController,
+                  DateTimePicker(
+                    controller: _datetime,
                   ),
                   //TODO: make this is a location input
                   InputBox(
@@ -191,7 +190,7 @@ class _AddPostState extends State<AddPost> {
     );
   }
 
-  List<Widget> addPastSliverAppBar(
+  List<Widget> addPostSliverAppBar(
       BuildContext context, bool innerBoxIsScrolled) {
     return <Widget>[
       SliverAppBar(

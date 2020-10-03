@@ -1,11 +1,9 @@
-import 'package:Runbhumi/models/Events.dart';
+import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/view/profilePage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Runbhumi/services/auth.dart';
 
 String userId = getCurrentUserId();
-
 /*    
 locations = <String>[
       "Andhra Pradesh",
@@ -181,18 +179,14 @@ class _AddPostState extends State<AddPost> {
                     myText: "Add Post",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
-                      var newDoc =
-                          FirebaseFirestore.instance.collection('events').doc();
-                      String id = newDoc.id;
-                      newDoc.set(Events.newEvent(id, userId, "", _chosenSport,
-                              _chosenPurpose, [userId], DateTime.now())
-                          .toJson());
-                      FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(userId)
-                          .update({
-                        "eventsId": FieldValue.arrayUnion([id])
-                      });
+                      createNewEvent(
+                          getCurrentUserId(),
+                          userId,
+                          "",
+                          _chosenSport,
+                          _chosenPurpose,
+                          [userId],
+                          DateTime.now());
                     }, //FirebaseFirestore.instance.collection('events').add(
                     //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                   ),

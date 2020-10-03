@@ -5,15 +5,6 @@ class EventService {
   final CollectionReference _eventCollectionReference =
       FirebaseFirestore.instance.collection('events');
 
-  Future addPost(Events event) async {
-    try {
-      await _eventCollectionReference.add(event.toJson());
-      return true;
-    } catch (e) {
-      return e.toString();
-    }
-  }
-
   Future addPlayerToEvent(Events _event, String playerId) async {
     try {
       await _eventCollectionReference

@@ -30,7 +30,7 @@ class EventService {
 //id, userId, "", _chosenSport, _chosenPurpose,[userId], DateTime.now()
 
 void createNewEvent(
-    String eventId,
+    String eventName,
     String creatorId,
     String location,
     String sportName,
@@ -39,7 +39,7 @@ void createNewEvent(
     DateTime dateTime) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
-  newDoc.set(Events.newEvent(eventId, creatorId, location, sportName,
+  newDoc.set(Events.newEvent(id, eventName, creatorId, location, sportName,
           description, playersId, dateTime)
       .toJson());
   FirebaseFirestore.instance

@@ -33,47 +33,48 @@ class _NetworkState extends State<Network> {
       ),
       body: /*DefaultTabController(
         length: 3,
-        child:*/ Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                child: Text(
-                  'Schedule',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
+        child:*/
+          Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                'Schedule',
+                style: Theme.of(context).textTheme.headline6,
               ),
-              //schedule
-              Schedule(scheduleList: scheduleList),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 8.0,
-                ),
-                child: Text(
-                  'Chats',
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.start,
-                ),
+            ),
+            //schedule
+            Schedule(scheduleList: scheduleList),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 8.0,
               ),
-              //Chat Tabs
-              // ChatsTabs(),
-              // TODO: replace placeholders with actual UI
-              Expanded(
-                // child: TabBarView(
-                //   children: [
-                //     PlaceholderWidget(),
-                //     PlaceholderWidget(),
-                //     PlaceholderWidget(),
-                //   ],
-                // ),
-                child: PlaceholderWidget(),
+              child: Text(
+                'Chats',
+                style: Theme.of(context).textTheme.headline6,
+                textAlign: TextAlign.start,
               ),
-            ],
-          ),
+            ),
+            //Chat Tabs
+            // ChatsTabs(),
+            // TODO: replace placeholders with actual UI
+            Expanded(
+              // child: TabBarView(
+              //   children: [
+              //     PlaceholderWidget(),
+              //     PlaceholderWidget(),
+              //     PlaceholderWidget(),
+              //   ],
+              // ),
+              child: PlaceholderWidget(),
+            ),
+          ],
         ),
+      ),
       // ),
     );
   }
@@ -141,20 +142,13 @@ class Schedule extends StatelessWidget {
                             ),
                             //day
                             // Text(DateTime.now().weekday.toString()),
-                            if(DateTime.now().weekday==1)
-                              Text("MON"),
-                            if(DateTime.now().weekday==2)
-                              Text("TUE"),
-                            if(DateTime.now().weekday==3)
-                              Text("WED"),
-                            if(DateTime.now().weekday==4)
-                              Text("THU"),
-                            if(DateTime.now().weekday==5)
-                              Text("FRI"),
-                            if(DateTime.now().weekday==6)
-                              Text("SAT"),
-                            if(DateTime.now().weekday==7)
-                              Text("SUN"),
+                            if (DateTime.now().weekday == 1) Text("MON"),
+                            if (DateTime.now().weekday == 2) Text("TUE"),
+                            if (DateTime.now().weekday == 3) Text("WED"),
+                            if (DateTime.now().weekday == 4) Text("THU"),
+                            if (DateTime.now().weekday == 5) Text("FRI"),
+                            if (DateTime.now().weekday == 6) Text("SAT"),
+                            if (DateTime.now().weekday == 7) Text("SUN"),
                           ],
                         ),
                       ),

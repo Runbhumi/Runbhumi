@@ -31,9 +31,9 @@ class _NetworkState extends State<Network> {
         title: _buildTitle(context),
         automaticallyImplyLeading: false,
       ),
-      body: DefaultTabController(
+      body: /*DefaultTabController(
         length: 3,
-        child: Scaffold(
+        child:*/ Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -59,21 +59,22 @@ class _NetworkState extends State<Network> {
                 ),
               ),
               //Chat Tabs
-              ChatsTabs(),
+              // ChatsTabs(),
               // TODO: replace placeholders with actual UI
               Expanded(
-                child: TabBarView(
-                  children: [
-                    PlaceholderWidget(),
-                    PlaceholderWidget(),
-                    PlaceholderWidget(),
-                  ],
-                ),
+                // child: TabBarView(
+                //   children: [
+                //     PlaceholderWidget(),
+                //     PlaceholderWidget(),
+                //     PlaceholderWidget(),
+                //   ],
+                // ),
+                child: PlaceholderWidget(),
               ),
             ],
           ),
         ),
-      ),
+      // ),
     );
   }
 }
@@ -110,6 +111,7 @@ class Schedule extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
+                        isThreeLine: true,
                         title: Text(
                           scheduleList[index],
                           style: Theme.of(context).textTheme.headline6,
@@ -126,7 +128,35 @@ class Schedule extends StatelessWidget {
                             ),
                           ],
                         ),
-                        trailing: Text("6:00pm"),
+                        trailing: Column(
+                          children: [
+                            //time
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(DateTime.now().hour.toString()),
+                                Text(":"),
+                                Text(DateTime.now().minute.toString()),
+                              ],
+                            ),
+                            //day
+                            // Text(DateTime.now().weekday.toString()),
+                            if(DateTime.now().weekday==1)
+                              Text("MON"),
+                            if(DateTime.now().weekday==2)
+                              Text("TUE"),
+                            if(DateTime.now().weekday==3)
+                              Text("WED"),
+                            if(DateTime.now().weekday==4)
+                              Text("THU"),
+                            if(DateTime.now().weekday==5)
+                              Text("FRI"),
+                            if(DateTime.now().weekday==6)
+                              Text("SAT"),
+                            if(DateTime.now().weekday==7)
+                              Text("SUN"),
+                          ],
+                        ),
                       ),
                     ],
                   ),

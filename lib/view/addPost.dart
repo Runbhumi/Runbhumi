@@ -133,70 +133,75 @@ class _AddPostState extends State<AddPost> {
           headerSliverBuilder: addPostSliverAppBar,
           body: SingleChildScrollView(
             child: Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      decoration: BoxDecoration(
-                        borderRadius: new BorderRadius.circular(50),
-                        border: Border.all(),
-                        color: Color(0xffeeeeee),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: sportsList,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      decoration: BoxDecoration(
-                        borderRadius: new BorderRadius.circular(50),
-                        border: Border.all(),
-                        color: Color(0xffeeeeee),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: purposeList,
+              child: Form(
+                child: Column(
+                  children: [
+                    InputBox(
+                        controller: _nameController, hintText: "Event name"),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(50),
+                          border: Border.all(),
+                          color: Color(0xffeeeeee),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: sportsList,
+                        ),
                       ),
                     ),
-                  ),
-                  TextFormField(
-                    controller: _nameController,
-                  ),
-                  DateTimePicker(
-                    controller: _datetime,
-                  ),
-                  TextFormField(
-                    controller: _locationController,
-                  ),
-                  Button(
-                    myText: "Invite Friends",
-                    myColor: Theme.of(context).accentColor,
-                    onPressed: () {},
-                  ),
-                  Button(
-                    myText: "Add Post",
-                    myColor: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      print(DateTime.now());
-                      print(DateTime.parse(_datetime.text));
-                      createNewEvent(
-                          _nameController.text,
-                          userId,
-                          _locationController.text,
-                          _chosenSport,
-                          _chosenPurpose,
-                          [userId],
-                          DateTime.parse(_datetime.text));
-                    }, //FirebaseFirestore.instance.collection('events').add(
-                    //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(50),
+                          border: Border.all(),
+                          color: Color(0xffeeeeee),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: purposeList,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateTimePicker(
+                        controller: _datetime,
+                      ),
+                    ),
+                    InputBox(
+                      controller: _locationController,
+                      hintText: "Location",
+                    ),
+                    Button(
+                      myText: "Invite Friends",
+                      myColor: Theme.of(context).accentColor,
+                      onPressed: () {},
+                    ),
+                    Button(
+                      myText: "Add Post",
+                      myColor: Theme.of(context).primaryColor,
+                      onPressed: () {
+                        print(DateTime.now());
+                        print(DateTime.parse(_datetime.text));
+                        createNewEvent(
+                            _nameController.text,
+                            userId,
+                            _locationController.text,
+                            _chosenSport,
+                            _chosenPurpose,
+                            [userId],
+                            DateTime.parse(_datetime.text));
+                      }, //FirebaseFirestore.instance.collection('events').add(
+                      //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

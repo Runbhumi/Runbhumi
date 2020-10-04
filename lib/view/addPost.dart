@@ -178,11 +178,11 @@ class _AddPostState extends State<AddPost> {
                       controller: _locationController,
                       hintText: "Location",
                     ),
-                    Button(
-                      myText: "Invite Friends",
-                      myColor: Theme.of(context).accentColor,
-                      onPressed: () {},
-                    ),
+                    // Button(
+                    //   myText: "Invite Friends",
+                    //   myColor: Theme.of(context).accentColor,
+                    //   onPressed: () {},
+                    // ),removed for MVP
                     Button(
                       myText: "Add Post",
                       myColor: Theme.of(context).primaryColor,

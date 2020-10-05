@@ -10,7 +10,7 @@ class EventService {
   getCurrentFeed() async {
     return FirebaseFirestore.instance
         .collection("events")
-        .orderBy('dateTime')
+        .orderBy('dateTime', descending: true)
         .snapshots();
   }
 

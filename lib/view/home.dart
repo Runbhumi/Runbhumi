@@ -1,6 +1,7 @@
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,6 +18,10 @@ class _HomeState extends State<Home> {
   Stream currentFeed;
   void initState() {
     super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      setState(() {});
+    });
     _searchQuery = new TextEditingController();
     getUserInfoEvents();
   }

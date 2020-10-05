@@ -5,6 +5,7 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../widget/widgets.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -207,6 +208,10 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   void initState() {
     super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      setState(() {});
+    });
     sub = db
         .collection('users')
         .doc(getCurrentUserId())

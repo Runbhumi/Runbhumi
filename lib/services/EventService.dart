@@ -6,6 +6,14 @@ import 'package:Runbhumi/services/auth.dart';
 class EventService {
   CollectionReference _eventCollectionReference =
       FirebaseFirestore.instance.collection('events');
+
+  getCurrentFeed() async {
+    return FirebaseFirestore.instance
+        .collection("events")
+        .orderBy('dateTime')
+        .snapshots();
+  }
+
   Future addPlayerToEvent(Events _event, String playerId) async {
     try {
       await _eventCollectionReference

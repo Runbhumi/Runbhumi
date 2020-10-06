@@ -1,5 +1,8 @@
 // import 'package:Runbhumi/utils/Constants.dart';
 
+import 'package:Runbhumi/models/Friends.dart';
+import 'package:Runbhumi/models/TeamMini.dart';
+
 class UserProfile {
   String userId;
   String username;
@@ -8,8 +11,8 @@ class UserProfile {
   String location;
   String phoneNumber;
   String emailId;
-  List<String> friendsId;
-  List<String> teamId;
+  List<Friends> friendsId;
+  List<TeamView> teamId;
   List<String> eventsId;
   List<String> notificationId;
 

@@ -187,8 +187,6 @@ class _AddPostState extends State<AddPost> {
                       myText: "Add Post",
                       myColor: Theme.of(context).primaryColor,
                       onPressed: () {
-                        print(DateTime.now());
-                        print(DateTime.parse(_datetime.text));
                         createNewEvent(
                             _nameController.text,
                             userId,

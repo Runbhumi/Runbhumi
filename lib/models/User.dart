@@ -27,6 +27,20 @@ class UserProfile {
     this.notificationId,
   });
 
+  UserProfile.loadUser(
+    this.userId,
+    this.username,
+    this.name,
+    this.profileImage,
+    this.location,
+    this.phoneNumber,
+    this.emailId,
+    this.friendsId,
+    this.teamId,
+    this.eventsId,
+    this.notificationId,
+  );
+
   UserProfile.newuser(userId, username, name, profileImage, emailId) {
     this.userId = userId;
     this.username = username;

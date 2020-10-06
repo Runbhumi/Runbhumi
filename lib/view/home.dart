@@ -89,6 +89,7 @@ class _HomeState extends State<Home> {
       decoration: const InputDecoration(
         hintText: 'Search...',
         border: InputBorder.none,
+        focusedBorder: InputBorder.none,
         hintStyle: const TextStyle(color: Colors.grey),
       ),
       style: const TextStyle(color: Colors.black, fontSize: 16.0),

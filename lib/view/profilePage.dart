@@ -142,6 +142,16 @@ class _DrawerBodyState extends State<DrawerBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DrawerButton(
+          onpressed: () {
+            // scaffoldKey._currentIndex = 0;
+          },
+          label: "Home",
+          icon: Icon(
+            Icons.home_outlined,
+            color: Colors.white,
+          ),
+        ),
+        DrawerButton(
           onpressed: () {},
           label: "Edit Profile",
           icon: Icon(

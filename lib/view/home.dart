@@ -124,69 +124,114 @@ class _HomeState extends State<Home> {
 
   Widget feed() {
     return StreamBuilder(
-        stream: currentFeed,
-        builder: (context, asyncSnapshot) {
-          print("Working");
-          return asyncSnapshot.hasData
-              ? ListView.builder(
-                  itemCount: asyncSnapshot.data.documents.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                        title: Text(asyncSnapshot.data.documents[index]
-                            .get('eventName')),
-                        subtitle: Text(asyncSnapshot.data.documents[index]
-                            .get('description')),
-                        leading: Icon(Icons.play_arrow),
-                        trailing: asyncSnapshot.data.documents[index]
-                                    .get('description') ==
-                                "Looking for players in our team"
-                            ? GestureDetector(
-                                onTap: () {
-                                  //notification to be sent to the person who posted
-                                },
-                                child: Container(
-                                  child: Text("Join"),
-                                ),
-                              )
-                            : GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  child: Text("Accept"),
-                                ),
-                              ));
-                  })
-              : Container();
-        });
+      stream: currentFeed,
+      builder: (context, asyncSnapshot) {
+        print("Working");
+        return asyncSnapshot.hasData
+            ? ListView.builder(
+                itemCount: asyncSnapshot.data.documents.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      elevation: 2,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              title: Text(asyncSnapshot.data.documents[index]
+                                  .get('eventName')),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    asyncSnapshot.data.documents[index]
+                                        .get('description'),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        size: 18.0,
+                                      ),
+                                      Text(asyncSnapshot.data.documents[index].get('location'),
+                                        style:
+                                            Theme.of(context).textTheme.subtitle1,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              // leading: Icon(Icons.play_arrow),
+                              trailing: asyncSnapshot.data.documents[index]
+                                          .get('description') ==
+                                      "Looking for players in our team"
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        //notification to be sent to the person who posted
+                                      },
+                                      child: Container(
+                                        child: Text("Join"),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: Text("Accept"),
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )
+            : Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                ),
+              );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: new AppBar(
-            automaticallyImplyLeading: false,
-            leading: _isSearching ? BackButton() : null,
-            title: _isSearching ? _buildSearchField() : _buildTitle(context),
-            actions: _buildActions(),
-            bottom: new TabBar(
-              indicatorSize: TabBarIndicatorSize.tab,
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.grey,
-              tabs: [
-                Tab(child: Text("Today")),
-                Tab(child: Text("Tommorow")),
-                Tab(child: Text("Later")),
-              ],
-              indicator: new BubbleTabIndicator(
-                indicatorHeight: 30.0,
-                indicatorColor: Theme.of(context).primaryColor,
-                tabBarIndicatorSize: TabBarIndicatorSize.tab,
-              ),
+    return Scaffold(
+      appBar: new AppBar(
+        automaticallyImplyLeading: false,
+        leading: _isSearching ? BackButton() : null,
+        title: _isSearching ? _buildSearchField() : _buildTitle(context),
+        actions: _buildActions(),
+        /*bottom: new TabBar(
+            indicatorSize: TabBarIndicatorSize.tab,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(child: Text("Today")),
+              Tab(child: Text("Tommorow")),
+              Tab(child: Text("Later")),
+            ],
+            indicator: new BubbleTabIndicator(
+              indicatorHeight: 30.0,
+              indicatorColor: Theme.of(context).primaryColor,
+              tabBarIndicatorSize: TabBarIndicatorSize.tab,
             ),
-          ),
-          body: Container(child: Stack(children: <Widget>[feed()]))),
+          ),*/
+      ),
+      body: Container(
+        child: Stack(children: <Widget>[feed()]),
+      ),
     );
   }
 }

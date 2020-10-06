@@ -1,5 +1,6 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/auth/secondPage.dart';
+import 'package:Runbhumi/view/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       },
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      home: CustomSplashScreen(),
+      home: Splash(),
       debugShowCheckedModeBanner: false,
     );
   }

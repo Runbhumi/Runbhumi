@@ -245,13 +245,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
-                    // now only assets image
                     image: NetworkImage(data['profileImage']),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0x3A353580),
+                      color: Color(0x44005F8F),
                       blurRadius: 20,
                       offset: Offset(0, 10),
                     ),
@@ -333,7 +332,8 @@ class ProfileTeamsList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            elevation: 2,
+            shadowColor: Color(0x44005F8F),
+            elevation: 20,
             child: Container(
               height: 80,
               child: Center(
@@ -404,7 +404,8 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 2,
+              shadowColor: Color(0x44005F8F),
+              elevation: 20,
               child: Container(
                 child: Column(
                   children: [

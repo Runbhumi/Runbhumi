@@ -1,5 +1,5 @@
 import 'package:Runbhumi/services/EventService.dart';
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+// import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -141,10 +141,11 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16.0),
                     child: Card(
+                      shadowColor: Color(0x44005F8F),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
-                      elevation: 2,
+                      elevation: 20,
                       child: Column(
                         children: [
                           Padding(
@@ -165,32 +166,38 @@ class _HomeState extends State<Home> {
                                         Icons.location_on_outlined,
                                         size: 18.0,
                                       ),
-                                      Text(asyncSnapshot.data.documents[index].get('location'),
-                                        style:
-                                            Theme.of(context).textTheme.subtitle1,
+                                      Text(
+                                        asyncSnapshot.data.documents[index]
+                                            .get('location'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
                                       ),
                                     ],
                                   )
                                 ],
                               ),
-                              // leading: Icon(Icons.play_arrow),
-                              trailing: asyncSnapshot.data.documents[index]
-                                          .get('description') ==
-                                      "Looking for players in our team"
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        //notification to be sent to the person who posted
-                                      },
-                                      child: Container(
-                                        child: Text("Join"),
-                                      ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        child: Text("Accept"),
-                                      ),
-                                    ),
+                              trailing: Icon(Icons.play_arrow),
+                              // trailing: asyncSnapshot.data.documents[index]
+                              //             .get('description') ==
+                              //         "Looking for players in our team"
+                              //     ? GestureDetector(
+                              //         onTap: () {
+                              //           //notification to be sent to the person who posted
+                              //         },
+                              //         child: Container(
+                              //           child: Text("Join"),
+                              //         ),
+                              //       )
+                              //     : GestureDetector(
+                              //         onTap: () {},
+                              //         child: Container(
+                              //           child: Text("Accept"),
+                              //         ),
+                              //       ),
+                              // trailing: Text(asyncSnapshot.data.documents[index]
+                              //     .get('dateTime').toString()
+                              // ),
                             ),
                           ),
                         ],

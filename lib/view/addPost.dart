@@ -197,6 +197,7 @@ class _AddPostState extends State<AddPost> {
                             _chosenPurpose,
                             [userId],
                             DateTime.parse(_datetime.text));
+                            // Navigator.pushNamed(context, "/home");
                       }, //FirebaseFirestore.instance.collection('events').add(
                       //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                     ),

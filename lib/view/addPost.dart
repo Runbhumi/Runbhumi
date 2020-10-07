@@ -148,7 +148,6 @@ class _AddPostState extends State<AddPost> {
                         decoration: BoxDecoration(
                           borderRadius: new BorderRadius.circular(50),
                           border: Border.all(),
-                          color: Color(0xffeeeeee),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: sportsList,
@@ -163,7 +162,6 @@ class _AddPostState extends State<AddPost> {
                         decoration: BoxDecoration(
                           borderRadius: new BorderRadius.circular(50),
                           border: Border.all(),
-                          color: Color(0xffeeeeee),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: purposeList,

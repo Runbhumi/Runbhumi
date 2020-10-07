@@ -6,12 +6,17 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:splashscreen/splashscreen.dart';
+import 'view/mainapp.dart';
+import 'view/splash/splash.dart';
 import 'view/views.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Constants.prefs = await SharedPreferences.getInstance();
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+  ], child: MyApp()));
 }
 
 // _checkForUser() async {
@@ -38,8 +43,7 @@ class MyApp extends StatelessWidget {
         '/network': (context) => Network(),
         '/profile': (context) => Profile(),
       },
-      theme: ThemeConfig.lightTheme,
-      darkTheme: ThemeConfig.darkTheme,
+      theme: Provider.of<ThemeNotifier>(context).currentTheme,
       home: Splash(),
       debugShowCheckedModeBanner: false,
     );

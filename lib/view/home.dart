@@ -1,5 +1,4 @@
 import 'package:Runbhumi/services/EventService.dart';
-// import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -92,7 +91,7 @@ class _HomeState extends State<Home> {
         focusedBorder: InputBorder.none,
         hintStyle: const TextStyle(color: Colors.grey),
       ),
-      style: const TextStyle(color: Colors.black, fontSize: 16.0),
+      style: const TextStyle(fontSize: 16.0),
       onChanged: updateSearchQuery,
     );
   }
@@ -142,7 +141,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16.0),
                     child: Card(
-                      shadowColor: Color(0x44005F8F),
+                      shadowColor: Color(0x44393e46),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),

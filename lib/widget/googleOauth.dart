@@ -13,7 +13,7 @@ class GoogleOauth extends StatelessWidget {
         onTap: () async {
           Constants.prefs.setBool("loggedin", true);
           await signInWithGoogle().whenComplete(() {
-            Navigator.pushReplacementNamed(context, "/home");
+            Navigator.pushReplacementNamed(context, "/mainapp");
           });
         },
         child: Row(

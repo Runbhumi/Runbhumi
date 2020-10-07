@@ -176,6 +176,7 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
+        // More Info
         DrawerButton(
           icon: Icon(
             Icons.info_outline,
@@ -187,6 +188,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: "More Info",
         ),
+        //About US
         DrawerButton(
           onpressed: () {},
           label: 'About Us',
@@ -278,7 +280,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0x44005F8F),
+                      color: Color(0x44393e46),
                       blurRadius: 20,
                       offset: Offset(0, 10),
                     ),
@@ -360,7 +362,7 @@ class ProfileTeamsList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            shadowColor: Color(0x44005F8F),
+            shadowColor: Color(0x44393e46),
             elevation: 20,
             child: Container(
               height: 80,
@@ -432,7 +434,7 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              shadowColor: Color(0x44005F8F),
+              shadowColor: Color(0x44393e46),
               elevation: 20,
               child: Container(
                 child: Column(

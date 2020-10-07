@@ -71,7 +71,6 @@ class _MainAppState extends State<MainApp> {
   }
 }
 
-
 // import 'package:flutter/material.dart';
 // import 'views.dart';
 // /*
@@ -107,7 +106,7 @@ class _MainAppState extends State<MainApp> {
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       key: scaffoldKey,
-//       body: Navigator(key: _navigatorKey, 
+//       body: Navigator(key: _navigatorKey,
 //       initialRoute: '/',
 //       // child: _children[_currentIndex],
 //       onGenerateRoute: (RouteSettings settings) {
@@ -180,7 +179,6 @@ class _MainAppState extends State<MainApp> {
 //     );
 //   }
 // }
-
 
 /*
 import 'package:flutter/material.dart';

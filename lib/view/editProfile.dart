@@ -43,8 +43,8 @@ class EditProfile extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
                     // now only assets image
-                    image:
-                        NetworkImage("https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"),
+                    image: NetworkImage(
+                        "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [

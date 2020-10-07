@@ -23,9 +23,9 @@ class _SplashState extends State<Splash> {
   }
 
   changeScreen() async {
-    Constants.prefs.getBool("loggedin") == false ?
-    CRouter.pushPageWithFadeAnimation(context, SecondPage()):
-    CRouter.pushPageWithFadeAnimation(context, MainApp());
+    Constants.prefs.getBool("loggedin") == false
+        ? CRouter.pushPageWithFadeAnimation(context, SecondPage())
+        : CRouter.pushPageWithFadeAnimation(context, MainApp());
   }
 
   @override
@@ -41,7 +41,11 @@ class _SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Center(child: FlutterLogo(size: 150,),),
+            Center(
+              child: FlutterLogo(
+                size: 150,
+              ),
+            ),
             Center(
               child: Hero(
                 tag: 'appname',

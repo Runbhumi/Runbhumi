@@ -9,7 +9,8 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-  GlobalKey<NavigatorState> _pageNavigatorKey = GlobalKey<NavigatorState>(); 
+GlobalKey<NavigatorState> _pageNavigatorKey = GlobalKey<NavigatorState>();
+
 class _MainAppState extends State<MainApp> {
   static final GlobalKey<ScaffoldState> scaffoldKey =
       new GlobalKey<ScaffoldState>();
@@ -40,10 +41,9 @@ class _MainAppState extends State<MainApp> {
           print("used");
           print(settings.name);
           return MaterialPageRoute(
-            builder: (context)=>_children[_currentIndex]
-          );
+              builder: (context) => _children[_currentIndex]);
         },
-        ),
+      ),
       //bottom navbar
       bottomNavigationBar: buildBottomNavigationBar(),
     );

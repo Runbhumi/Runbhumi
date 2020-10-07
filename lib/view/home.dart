@@ -144,18 +144,17 @@ class _HomeState extends State<Home> {
                   IconData sportIcon;
                   switch (sportName) {
                     case "Volleyball":
-                      sportIcon=Icons.sports_volleyball;
+                      sportIcon = Icons.sports_volleyball;
                       break;
                     case "Basketball":
-                      sportIcon=Icons.sports_basketball;
+                      sportIcon = Icons.sports_basketball;
                       break;
                     case "Cricket":
-                      sportIcon=Icons.sports_cricket;
+                      sportIcon = Icons.sports_cricket;
                       break;
                     case "Football":
-                      sportIcon=Icons.sports_soccer;
+                      sportIcon = Icons.sports_soccer;
                       break;
-                    
                   }
                   return Padding(
                     padding: const EdgeInsets.symmetric(

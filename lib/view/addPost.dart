@@ -69,6 +69,7 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
+  GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
   String _chosenSport;
   String _chosenPurpose;
   TextEditingController _locationController = new TextEditingController();
@@ -134,6 +135,7 @@ class _AddPostState extends State<AddPost> {
           body: SingleChildScrollView(
             child: Center(
               child: Form(
+                key: _addpostkey,
                 child: Column(
                   children: [
                     InputBox(
@@ -197,7 +199,13 @@ class _AddPostState extends State<AddPost> {
                             _chosenPurpose,
                             [userId],
                             DateTime.parse(_datetime.text));
-                            // Navigator.pushNamed(context, "/home");
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return successDialog(context);
+                            });
+                        _addpostkey.currentState.reset();
+                        // Navigator.pushNamed(context, "/home");
                       }, //FirebaseFirestore.instance.collection('events').add(
                       //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                     ),
@@ -208,6 +216,20 @@ class _AddPostState extends State<AddPost> {
           ),
         ),
       ),
+    );
+  }
+
+  SimpleDialog successDialog(BuildContext context) {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Center(
+            child: Text("Post added",
+                style: Theme.of(context).textTheme.headline4)),
+        Image.asset("assets/sports-illustration1.png")
+      ],
     );
   }
 

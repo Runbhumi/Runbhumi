@@ -15,7 +15,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   // Timer to change the screen in 1.2 seconds
   startTimeout() {
-    return Timer(Duration(milliseconds: 3200), handleTimeout);
+    return Timer(Duration(milliseconds: 2200), handleTimeout);
   }
 
   void handleTimeout() {
@@ -37,25 +37,29 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Center(
-            child: Hero(
-              tag: 'appname',
-              child: Material(
-                type: MaterialType.transparency,
-                child: TypeWrite(
-                  word: 'Runbhumi',
-                  style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(child: FlutterLogo(size: 150,),),
+            Center(
+              child: Hero(
+                tag: 'appname',
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: TypeWrite(
+                    word: 'Runbhumi',
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    seconds: 1,
                   ),
-                  seconds: 1,
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

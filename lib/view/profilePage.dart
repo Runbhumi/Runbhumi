@@ -4,8 +4,11 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -138,6 +141,7 @@ class DrawerBody extends StatefulWidget {
 class _DrawerBodyState extends State<DrawerBody> {
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeNotifier>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -190,6 +194,20 @@ class _DrawerBodyState extends State<DrawerBody> {
             Icons.engineering_outlined,
             color: Colors.white,
           ),
+        ),
+
+        // Dark mode switch
+        DrawerButton(
+          onpressed: () {
+            theme.switchTheme();
+          },
+          label: 'Dark Mode',
+          icon: theme.myTheme == MyTheme.Light
+              ? Icon(
+                  Icons.wb_sunny,
+                  color: Colors.white,
+                )
+              : Icon(FontAwesomeIcons.solidMoon),
         ),
       ],
     );

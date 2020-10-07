@@ -30,7 +30,8 @@ dependencies:
   splashscreen: ^1.2.0
   datetime_picker_formfield: ^1.0.0
   bot_toast: ^3.0.4
-    
+  provider:
+  font_awesome_flutter:
   #firbase
   firebase_core: ^0.5.0
 

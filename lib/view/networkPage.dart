@@ -1,4 +1,4 @@
-import 'package:Runbhumi/view/placeholder_widget.dart';
+import 'package:Runbhumi/widget/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 

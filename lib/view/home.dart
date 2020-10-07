@@ -1,6 +1,7 @@
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -137,6 +138,25 @@ class _HomeState extends State<Home> {
                 itemCount: asyncSnapshot.data.documents.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  String sportName = asyncSnapshot.data.documents[index]
+                      .get('sportName')
+                      .toString();
+                  IconData sportIcon;
+                  switch (sportName) {
+                    case "Volleyball":
+                      sportIcon=Icons.sports_volleyball;
+                      break;
+                    case "Basketball":
+                      sportIcon=Icons.sports_basketball;
+                      break;
+                    case "Cricket":
+                      sportIcon=Icons.sports_cricket;
+                      break;
+                    case "Football":
+                      sportIcon=Icons.sports_soccer;
+                      break;
+                    
+                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16.0),
@@ -151,6 +171,10 @@ class _HomeState extends State<Home> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListTile(
+                              leading: Icon(
+                                sportIcon,
+                                size: 48,
+                              ),
                               title: Text(asyncSnapshot.data.documents[index]
                                   .get('eventName')),
                               subtitle: Column(
@@ -177,7 +201,11 @@ class _HomeState extends State<Home> {
                                   )
                                 ],
                               ),
-                              trailing: Icon(Icons.play_arrow),
+                              trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
+                                  .format(asyncSnapshot.data.documents[index]
+                                      .get('dateTime')
+                                      .toDate())
+                                  .toString()),
                               // trailing: asyncSnapshot.data.documents[index]
                               //             .get('description') ==
                               //         "Looking for players in our team"
@@ -242,7 +270,25 @@ class _HomeState extends State<Home> {
           ),*/
       ),
       body: Container(
-        child: Stack(children: <Widget>[feed()]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                'Nearby you',
+                style: Theme.of(context).textTheme.headline6,
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: <Widget>[feed()],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

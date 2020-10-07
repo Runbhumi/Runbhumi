@@ -3,9 +3,9 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/auth/secondPage.dart';
 import 'package:Runbhumi/view/splash/splash.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:splashscreen/splashscreen.dart';
+// import 'package:splashscreen/splashscreen.dart';
 import 'view/views.dart';
 
 Future main() async {

@@ -63,7 +63,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeNotifier>(context);
     var myDrawer = SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -196,6 +195,8 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
+
+        // Dark mode switch
         DrawerButton(
           onpressed: () {
             theme.switchTheme();

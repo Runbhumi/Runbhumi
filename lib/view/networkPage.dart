@@ -100,10 +100,11 @@ class Schedule extends StatelessWidget {
               horizontal: 8.0,
             ),
             child: Card(
+              shadowColor: Color(0x44393e46),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 2,
+              elevation: 5,
               child: Container(
                 width: 300,
                 child: Padding(

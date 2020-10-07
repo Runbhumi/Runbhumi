@@ -51,7 +51,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 
   //distance for profile to move right when the drawer is opened
-  final double maxSlide = 225.0;
+  static const double maxSlide = 250.0;
+  static const double minDragStartEdge = 60;
+  static const double maxDragStartEdge = maxSlide - 16;
+  bool _canBeDragged = false;
 
   final List teamsList = [
     "Chennai superKings",
@@ -107,25 +110,65 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (context, _) {
-        double slide = maxSlide * animationController.value;
-        double scale = 1 - (animationController.value * 0.3);
-        return Stack(
-          children: [
-            myDrawer,
-            Transform(
-              child: myChild,
-              transform: Matrix4.identity()
-                ..translate(slide)
-                ..scale(scale),
-              alignment: Alignment.centerLeft,
-            ),
-          ],
-        );
-      },
+    return GestureDetector(
+      onHorizontalDragStart: _onDragStart,
+      onHorizontalDragUpdate: _onDragUpdate,
+      onHorizontalDragEnd: _onDragEnd,
+      child: AnimatedBuilder(
+        animation: animationController,
+        builder: (context, _) {
+          double slide = maxSlide * animationController.value;
+          double scale = 1 - (animationController.value * 0.3);
+          return Stack(
+            children: [
+              myDrawer,
+              Transform(
+                child: myChild,
+                transform: Matrix4.identity()
+                  ..translate(slide)
+                  ..scale(scale),
+                alignment: Alignment.centerLeft,
+              ),
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  void _onDragStart(DragStartDetails details) {
+    bool isDragOpenFromLeft = animationController.isDismissed &&
+        details.globalPosition.dx < minDragStartEdge;
+    bool isDragCloseFromRight = animationController.isCompleted &&
+        details.globalPosition.dx > maxDragStartEdge;
+
+    _canBeDragged = isDragOpenFromLeft || isDragCloseFromRight;
+  }
+
+  void _onDragUpdate(DragUpdateDetails details) {
+    if (_canBeDragged) {
+      double delta = details.primaryDelta / maxSlide;
+      animationController.value += delta;
+    }
+  }
+
+  void _onDragEnd(DragEndDetails details) {
+    //I have no idea what it means, copied from Drawer
+    double _kMinFlingVelocity = 365.0;
+
+    if (animationController.isDismissed || animationController.isCompleted) {
+      return;
+    }
+    if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
+      double visualVelocity = details.velocity.pixelsPerSecond.dx /
+          MediaQuery.of(context).size.width;
+
+      animationController.fling(velocity: visualVelocity);
+    } else if (animationController.value < 0.5) {
+      animationController.reverse();
+    } else {
+      animationController.forward();
+    }
   }
 }
 
@@ -146,9 +189,7 @@ class _DrawerBodyState extends State<DrawerBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DrawerButton(
-          onpressed: () {
-            
-          },
+          onpressed: () {},
           label: "Home",
           icon: Icon(
             Icons.home_outlined,

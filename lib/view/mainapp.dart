@@ -9,7 +9,7 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-GlobalKey<NavigatorState> _pageNavigatorKey = GlobalKey<NavigatorState>();
+// GlobalKey<NavigatorState> _pageNavigatorKey = GlobalKey<NavigatorState>();
 
 class _MainAppState extends State<MainApp> {
   static final GlobalKey<ScaffoldState> scaffoldKey =

@@ -34,19 +34,10 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      body: Navigator(
-        key: _pageNavigatorKey,
-        onGenerateRoute: (settings) {
-          print("used");
-          print(settings.name);
-          return MaterialPageRoute(
-              builder: (context) => _children[_currentIndex]);
-        },
-      ),
-      //bottom navbar
-      bottomNavigationBar: buildBottomNavigationBar(),
-    );
+        key: scaffoldKey,
+        body: _children[_currentIndex],
+        //bottom navbar
+        bottomNavigationBar: buildBottomNavigationBar());
   }
 
   BottomNavigationBar buildBottomNavigationBar() {

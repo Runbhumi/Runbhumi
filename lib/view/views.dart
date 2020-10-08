@@ -9,3 +9,4 @@ export 'profilePage.dart';
 export 'networkPage.dart';
 export 'notificationsPage.dart';
 export 'moreInfo.dart';
+export 'editProfile.dart';

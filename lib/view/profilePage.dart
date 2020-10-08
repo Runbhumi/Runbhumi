@@ -4,8 +4,11 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -138,9 +141,20 @@ class DrawerBody extends StatefulWidget {
 class _DrawerBodyState extends State<DrawerBody> {
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeNotifier>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        DrawerButton(
+          onpressed: () {
+            // scaffoldKey._currentIndex = 0;
+          },
+          label: "Home",
+          icon: Icon(
+            Icons.home_outlined,
+            color: Colors.white,
+          ),
+        ),
         DrawerButton(
           onpressed: () {},
           label: "Edit Profile",
@@ -180,6 +194,20 @@ class _DrawerBodyState extends State<DrawerBody> {
             Icons.engineering_outlined,
             color: Colors.white,
           ),
+        ),
+
+        // Dark mode switch
+        DrawerButton(
+          onpressed: () {
+            theme.switchTheme();
+          },
+          label: 'Dark Mode',
+          icon: theme.myTheme == MyTheme.Light
+              ? Icon(
+                  Icons.wb_sunny,
+                  color: Colors.white,
+                )
+              : Icon(FontAwesomeIcons.solidMoon),
         ),
       ],
     );
@@ -245,13 +273,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                   image: DecorationImage(
-                    // now only assets image
                     image: NetworkImage(data['profileImage']),
                     fit: BoxFit.contain,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0x3A353580),
+                      color: Color(0x44005F8F),
                       blurRadius: 20,
                       offset: Offset(0, 10),
                     ),
@@ -333,7 +360,8 @@ class ProfileTeamsList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            elevation: 2,
+            shadowColor: Color(0x44005F8F),
+            elevation: 20,
             child: Container(
               height: 80,
               child: Center(
@@ -404,7 +432,8 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 2,
+              shadowColor: Color(0x44005F8F),
+              elevation: 20,
               child: Container(
                 child: Column(
                   children: [

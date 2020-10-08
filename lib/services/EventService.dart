@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/Events.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Runbhumi/services/auth.dart';
 //import 'package:Runbhumi/models/Events.dart';
@@ -52,7 +53,7 @@ void createNewEvent(
       .toJson());
   FirebaseFirestore.instance
       .collection('users')
-      .doc(getCurrentUserId())
+      .doc(Constants.prefs.get('userId'))
       .update({
     "eventsId": FieldValue.arrayUnion([id])
   });

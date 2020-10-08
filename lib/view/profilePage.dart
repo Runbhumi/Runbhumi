@@ -242,7 +242,7 @@ class _ProfileBodyState extends State<ProfileBody> {
     });
     sub = db
         .collection('users')
-        .doc(getCurrentUserId())
+        .doc(Constants.prefs.getString('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {

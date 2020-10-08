@@ -1,9 +1,9 @@
 import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/services/auth.dart';
 
-String userId = getCurrentUserId();
+String userId = Constants.prefs.getString('userId');
 /*    
 locations = <String>[
       "Andhra Pradesh",

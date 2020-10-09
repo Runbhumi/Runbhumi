@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Constants.prefs = await SharedPreferences.getInstance();
-  Constants.prefs.setBool("loggedin", false);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => ThemeNotifier()),
   ], child: MyApp()));

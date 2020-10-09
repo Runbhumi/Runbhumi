@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
@@ -192,8 +193,14 @@ class _DrawerBodyState extends State<DrawerBody> {
         Padding(
           padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
           child: Container(
-            child: Text("Hello,\nHayat Tamboli ",
-                style: Theme.of(context).textTheme.headline6),
+            child: Text(
+              "Hello,\nHayat Tamboli ",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         DrawerButton(
@@ -239,7 +246,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           onpressed: () {
             theme.switchTheme();
           },
-          label: 'Dark Mode',
+          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
           icon: theme.myTheme == MyTheme.Light
               ? Icon(
                   Icons.wb_sunny,

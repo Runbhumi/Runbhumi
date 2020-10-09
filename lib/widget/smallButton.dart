@@ -24,8 +24,6 @@ class SmallButton extends StatelessWidget {
                 Navigator.pushNamed(context, routeName);
               },
           child: Container(
-            height: 55,
-            width: 100,
             decoration: BoxDecoration(
                 color: myColor,
                 borderRadius: BorderRadius.circular(800),
@@ -36,9 +34,12 @@ class SmallButton extends StatelessWidget {
                       offset: Offset(0, 5))
                 ]),
             child: Center(
-              child: Text(
-                myText,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  myText,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
             ),
           )),

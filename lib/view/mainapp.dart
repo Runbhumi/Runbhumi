@@ -13,7 +13,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   int _currentIndex = 0;
-  final PageController _pageController = PageController();
+  final PageController pageController = PageController();
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
@@ -24,10 +24,12 @@ class _MainAppState extends State<MainApp> {
   ];
 
   void onTabTapped(int index) {
-    // setState(() {
-    //   _currentIndex = index;
-    // });
-    _pageController.jumpToPage(index);
+    setState(() {
+      _currentIndex = index;
+    });
+    pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic);
   }
 
   @override
@@ -35,7 +37,7 @@ class _MainAppState extends State<MainApp> {
     return Scaffold(
         // body: _children[_currentIndex],
         body: PageView.builder(
-          controller: _pageController,
+          controller: pageController,
           itemBuilder: (context, index) {
             return _children[index];
           },
@@ -45,7 +47,6 @@ class _MainAppState extends State<MainApp> {
               _currentIndex = index;
             });
           },
-          physics: NeverScrollableScrollPhysics(),
         ),
         //bottom navbar
         bottomNavigationBar: buildBottomNavigationBar());

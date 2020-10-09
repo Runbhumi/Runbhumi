@@ -275,6 +275,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
+  bool _loading = false;
 
   @override
   void initState() {
@@ -285,11 +286,12 @@ class _ProfileBodyState extends State<ProfileBody> {
     });
     sub = db
         .collection('users')
-        .doc(getCurrentUserId())
+        .doc(Constants.prefs.getString('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {
         data = snap.data();
+        _loading = true;
       });
     });
   }
@@ -302,86 +304,96 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if (data['profileImage'] != null)
-              Container(
-                width: 150,
-                height: 150,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  image: DecorationImage(
-                    image: NetworkImage(data['profileImage']),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x44393e46),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
+    if (_loading) {
+      return Center(
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (data['profileImage'] != null)
+                Container(
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: NetworkImage(data['profileImage']),
+                      fit: BoxFit.contain,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x44393e46),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              if (data['profileImage'] == null)
+                Container(
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: AssetImage("assets/ProfilePlaceholder.png"),
+                      fit: BoxFit.contain,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3A353580),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              //Name
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  data['name'],
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              //Bio
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 8.0,
+                  left: 16.0,
+                  right: 16.0,
+                ),
+                child: Text(
+                  data['username'],
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              //Tabs
+              Tabs(),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    ProfileTeamsList(widget: widget),
+                    ProfileFriendsList(friendsList: widget.friendsList),
                   ],
                 ),
               ),
-            if (data['profileImage'] == null)
-              Container(
-                width: 150,
-                height: 150,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  image: DecorationImage(
-                    image: AssetImage("assets/ProfilePlaceholder.png"),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3A353580),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-              ),
-            //Name
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                data['name'],
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
-            //Bio
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8.0,
-                left: 16.0,
-                right: 16.0,
-              ),
-              child: Text(
-                data['username'],
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            //Tabs
-            Tabs(),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  ProfileTeamsList(widget: widget),
-                  ProfileFriendsList(friendsList: widget.friendsList),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ),
+      );
+    }
   }
 }
 

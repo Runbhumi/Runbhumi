@@ -1,3 +1,4 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,6 +30,7 @@ Future signInWithGoogle() async {
         .collection('users')
         .where('UserId', isEqualTo: user.uid)
         .get();
+    Constants.prefs.setString("userId", user.uid);
     final List<QueryDocumentSnapshot> documents = result.docs;
     if (documents.length == 0) {
       print('User Signed Up');
@@ -55,9 +57,3 @@ Future<void> signOutGoogle() async {
 //   await Constants.saveUserId(uid);
 //   await Constants.saveUserName(username);
 // }
-
-String getCurrentUserId() {
-  final User user = _auth.currentUser;
-  final uid = user.uid;
-  return uid;
-}

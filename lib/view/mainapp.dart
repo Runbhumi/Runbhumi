@@ -15,7 +15,7 @@ class _MainAppState extends State<MainApp> {
   static final GlobalKey<ScaffoldState> scaffoldKey =
       new GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
-  // final PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
@@ -26,16 +26,27 @@ class _MainAppState extends State<MainApp> {
   ];
 
   void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+    // setState(() {
+    //   _currentIndex = index;
+    // });
+    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        body: _children[_currentIndex],
+        // body: _children[_currentIndex],
+        body: PageView(
+          controller: _pageController,
+          children: _children,
+          onPageChanged: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          physics: NeverScrollableScrollPhysics(),
+        ),
         //bottom navbar
         bottomNavigationBar: buildBottomNavigationBar());
   }

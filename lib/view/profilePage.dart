@@ -51,7 +51,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 
   //distance for profile to move right when the drawer is opened
-  final double maxSlide = 225.0;
+  static const double maxSlide = 250.0;
+  static const double minDragStartEdge = 60;
+  static const double maxDragStartEdge = maxSlide - 16;
+  bool _canBeDragged = false;
 
   final List teamsList = [
     "Chennai superKings",
@@ -107,25 +110,65 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (context, _) {
-        double slide = maxSlide * animationController.value;
-        double scale = 1 - (animationController.value * 0.3);
-        return Stack(
-          children: [
-            myDrawer,
-            Transform(
-              child: myChild,
-              transform: Matrix4.identity()
-                ..translate(slide)
-                ..scale(scale),
-              alignment: Alignment.centerLeft,
-            ),
-          ],
-        );
-      },
+    return GestureDetector(
+      onHorizontalDragStart: _onDragStart,
+      onHorizontalDragUpdate: _onDragUpdate,
+      onHorizontalDragEnd: _onDragEnd,
+      child: AnimatedBuilder(
+        animation: animationController,
+        builder: (context, _) {
+          double slide = maxSlide * animationController.value;
+          double scale = 1 - (animationController.value * 0.3);
+          return Stack(
+            children: [
+              myDrawer,
+              Transform(
+                child: myChild,
+                transform: Matrix4.identity()
+                  ..translate(slide)
+                  ..scale(scale),
+                alignment: Alignment.centerLeft,
+              ),
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  void _onDragStart(DragStartDetails details) {
+    bool isDragOpenFromLeft = animationController.isDismissed &&
+        details.globalPosition.dx < minDragStartEdge;
+    bool isDragCloseFromRight = animationController.isCompleted &&
+        details.globalPosition.dx > maxDragStartEdge;
+
+    _canBeDragged = isDragOpenFromLeft || isDragCloseFromRight;
+  }
+
+  void _onDragUpdate(DragUpdateDetails details) {
+    if (_canBeDragged) {
+      double delta = details.primaryDelta / maxSlide;
+      animationController.value += delta;
+    }
+  }
+
+  void _onDragEnd(DragEndDetails details) {
+    //I have no idea what it means, copied from Drawer
+    double _kMinFlingVelocity = 365.0;
+
+    if (animationController.isDismissed || animationController.isCompleted) {
+      return;
+    }
+    if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
+      double visualVelocity = details.velocity.pixelsPerSecond.dx /
+          MediaQuery.of(context).size.width;
+
+      animationController.fling(velocity: visualVelocity);
+    } else if (animationController.value < 0.5) {
+      animationController.reverse();
+    } else {
+      animationController.forward();
+    }
   }
 }
 
@@ -146,9 +189,7 @@ class _DrawerBodyState extends State<DrawerBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DrawerButton(
-          onpressed: () {
-            // scaffoldKey._currentIndex = 0;
-          },
+          onpressed: () {},
           label: "Home",
           icon: Icon(
             Icons.home_outlined,
@@ -176,6 +217,7 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
+        // More Info
         DrawerButton(
           icon: Icon(
             Icons.info_outline,
@@ -187,6 +229,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: "More Info",
         ),
+        //About US
         DrawerButton(
           onpressed: () {},
           label: 'About Us',
@@ -232,6 +275,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
+  bool _loading = false;
 
   @override
   void initState() {
@@ -242,11 +286,12 @@ class _ProfileBodyState extends State<ProfileBody> {
     });
     sub = db
         .collection('users')
-        .doc(getCurrentUserId())
+        .doc(Constants.prefs.getString('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {
         data = snap.data();
+        _loading = true;
       });
     });
   }
@@ -259,86 +304,96 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if (data['profileImage'] != null)
-              Container(
-                width: 150,
-                height: 150,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  image: DecorationImage(
-                    image: NetworkImage(data['profileImage']),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x44005F8F),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
+    if (_loading) {
+      return Center(
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (data['profileImage'] != null)
+                Container(
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: NetworkImage(data['profileImage']),
+                      fit: BoxFit.contain,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x44393e46),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              if (data['profileImage'] == null)
+                Container(
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: AssetImage("assets/ProfilePlaceholder.png"),
+                      fit: BoxFit.contain,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3A353580),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              //Name
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  data['name'],
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              //Bio
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 8.0,
+                  left: 16.0,
+                  right: 16.0,
+                ),
+                child: Text(
+                  data['username'],
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              //Tabs
+              Tabs(),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    ProfileTeamsList(widget: widget),
+                    ProfileFriendsList(friendsList: widget.friendsList),
                   ],
                 ),
               ),
-            if (data['profileImage'] == null)
-              Container(
-                width: 150,
-                height: 150,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  image: DecorationImage(
-                    image: AssetImage("assets/ProfilePlaceholder.png"),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3A353580),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-              ),
-            //Name
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                data['name'],
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
-            //Bio
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8.0,
-                left: 16.0,
-                right: 16.0,
-              ),
-              child: Text(
-                data['username'],
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            //Tabs
-            Tabs(),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  ProfileTeamsList(widget: widget),
-                  ProfileFriendsList(friendsList: widget.friendsList),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ),
+      );
+    }
   }
 }
 
@@ -360,7 +415,7 @@ class ProfileTeamsList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            shadowColor: Color(0x44005F8F),
+            shadowColor: Color(0x44393e46),
             elevation: 20,
             child: Container(
               height: 80,
@@ -432,7 +487,7 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              shadowColor: Color(0x44005F8F),
+              shadowColor: Color(0x44393e46),
               elevation: 20,
               child: Container(
                 child: Column(

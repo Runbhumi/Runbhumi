@@ -1,9 +1,9 @@
 import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/services/auth.dart';
 
-String userId = getCurrentUserId();
+String userId = Constants.prefs.getString('userId');
 /*    
 locations = <String>[
       "Andhra Pradesh",
@@ -47,18 +47,14 @@ locations = <String>[
 Widget _buildTitle(BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    color: Colors.white54,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'Add Post',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 25,
-          ),
+    child: Center(
+      child: const Text(
+        'Add Post',
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 25,
         ),
-      ],
+      ),
     ),
   );
 }

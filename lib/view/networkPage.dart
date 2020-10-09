@@ -1,4 +1,4 @@
-import 'package:Runbhumi/view/placeholder_widget.dart';
+import 'package:Runbhumi/widget/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -100,10 +100,11 @@ class Schedule extends StatelessWidget {
               horizontal: 8.0,
             ),
             child: Card(
+              shadowColor: Color(0x44393e46),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 2,
+              elevation: 5,
               child: Container(
                 width: 300,
                 child: Padding(

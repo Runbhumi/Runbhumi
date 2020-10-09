@@ -47,18 +47,14 @@ locations = <String>[
 Widget _buildTitle(BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    color: Colors.white54,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'Add Post',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 25,
-          ),
+    child: Center(
+      child: const Text(
+        'Add Post',
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 25,
         ),
-      ],
+      ),
     ),
   );
 }

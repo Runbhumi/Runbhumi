@@ -23,7 +23,6 @@ Future main() async {
 //   bool connectionResult = await Constants.getUserLoggedInSharedPreference();
 //   return connectionResult;
 // }
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override

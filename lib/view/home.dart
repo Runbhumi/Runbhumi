@@ -1,4 +1,5 @@
 import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
@@ -169,7 +170,16 @@ class _HomeState extends State<Home> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
+                            child: ExpansionTile(
+                              maintainState: true,
+                              onExpansionChanged: (expanded) {
+                                if (expanded) {
+                                } else {}
+                              },
+                              children: [
+                                SmallButton(
+                                    myColor: Colors.blue, myText: "Join"),
+                              ],
                               leading: Icon(
                                 sportIcon,
                                 size: 48,

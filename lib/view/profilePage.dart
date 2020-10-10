@@ -204,8 +204,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {
-          },
+          onpressed: () {},
           label: "Home",
           icon: Icon(
             Feather.home,
@@ -213,8 +212,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {
-          },
+          onpressed: () {},
           label: "Create or Join Teams",
           icon: Icon(
             Feather.user_plus,

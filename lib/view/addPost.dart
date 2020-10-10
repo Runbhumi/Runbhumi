@@ -235,8 +235,9 @@ class _AddPostState extends State<AddPost> {
         pinned: true,
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
-          title: Container(child: _buildTitle(context),
-          color: Theme.of(context).canvasColor.withOpacity(0.5)),
+          title: Container(
+              child: _buildTitle(context),
+              color: Theme.of(context).canvasColor.withOpacity(0.5)),
           background: Image(
             height: 200,
             image: AssetImage('assets/addpostillustration.png'),

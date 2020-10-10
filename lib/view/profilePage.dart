@@ -213,6 +213,15 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
+          onpressed: () {
+          },
+          label: "Create or Join Teams",
+          icon: Icon(
+            Feather.user_plus,
+            color: Colors.white,
+          ),
+        ),
+        DrawerButton(
           onpressed: () {},
           label: "Edit Profile",
           icon: Icon(
@@ -271,7 +280,7 @@ class _DrawerBodyState extends State<DrawerBody> {
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },
-          label: 'Log out',
+          label: 'Log Out',
           icon: Icon(
             Feather.log_out,
             color: Colors.white,

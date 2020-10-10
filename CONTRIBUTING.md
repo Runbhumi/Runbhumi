@@ -6,8 +6,6 @@ Feel free to [submit an issue](https://github.com/Runbhumi/Runbhumi/issues/new).
 
 Fill the provided `ISSUE_TEMPLATE` when creating an issue.
 
-## Pull request to be submittied by org members, this repo will be open sourced after October
-
 ### How to submit a pull request?
 
 1. Fork [this repository](https://github.com/Runbhumi/Runbhumi/fork).

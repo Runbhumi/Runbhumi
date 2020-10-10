@@ -4,15 +4,11 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widget/widgets.dart';
-
-final FirebaseAuth auth = FirebaseAuth.instance;
-String getCurrentUserId() {
-  final User user = auth.currentUser;
-  final uid = user.uid;
-  return uid;
-}
+import 'package:firebase_core/firebase_core.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -55,7 +51,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 
   //distance for profile to move right when the drawer is opened
-  final double maxSlide = 225.0;
+  static const double maxSlide = 250.0;
+  static const double minDragStartEdge = 60;
+  static const double maxDragStartEdge = maxSlide - 16;
+  bool _canBeDragged = false;
 
   final List teamsList = [
     "Chennai superKings",
@@ -111,25 +110,65 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (context, _) {
-        double slide = maxSlide * animationController.value;
-        double scale = 1 - (animationController.value * 0.3);
-        return Stack(
-          children: [
-            myDrawer,
-            Transform(
-              child: myChild,
-              transform: Matrix4.identity()
-                ..translate(slide)
-                ..scale(scale),
-              alignment: Alignment.centerLeft,
-            ),
-          ],
-        );
-      },
+    return GestureDetector(
+      onHorizontalDragStart: _onDragStart,
+      onHorizontalDragUpdate: _onDragUpdate,
+      onHorizontalDragEnd: _onDragEnd,
+      child: AnimatedBuilder(
+        animation: animationController,
+        builder: (context, _) {
+          double slide = maxSlide * animationController.value;
+          double scale = 1 - (animationController.value * 0.3);
+          return Stack(
+            children: [
+              myDrawer,
+              Transform(
+                child: myChild,
+                transform: Matrix4.identity()
+                  ..translate(slide)
+                  ..scale(scale),
+                alignment: Alignment.centerLeft,
+              ),
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  void _onDragStart(DragStartDetails details) {
+    bool isDragOpenFromLeft = animationController.isDismissed &&
+        details.globalPosition.dx < minDragStartEdge;
+    bool isDragCloseFromRight = animationController.isCompleted &&
+        details.globalPosition.dx > maxDragStartEdge;
+
+    _canBeDragged = isDragOpenFromLeft || isDragCloseFromRight;
+  }
+
+  void _onDragUpdate(DragUpdateDetails details) {
+    if (_canBeDragged) {
+      double delta = details.primaryDelta / maxSlide;
+      animationController.value += delta;
+    }
+  }
+
+  void _onDragEnd(DragEndDetails details) {
+    //I have no idea what it means, copied from Drawer
+    double _kMinFlingVelocity = 365.0;
+
+    if (animationController.isDismissed || animationController.isCompleted) {
+      return;
+    }
+    if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
+      double visualVelocity = details.velocity.pixelsPerSecond.dx /
+          MediaQuery.of(context).size.width;
+
+      animationController.fling(velocity: visualVelocity);
+    } else if (animationController.value < 0.5) {
+      animationController.reverse();
+    } else {
+      animationController.forward();
+    }
   }
 }
 
@@ -145,9 +184,18 @@ class DrawerBody extends StatefulWidget {
 class _DrawerBodyState extends State<DrawerBody> {
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeNotifier>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        DrawerButton(
+          onpressed: () {},
+          label: "Home",
+          icon: Icon(
+            Icons.home_outlined,
+            color: Colors.white,
+          ),
+        ),
         DrawerButton(
           onpressed: () {},
           label: "Edit Profile",
@@ -169,6 +217,7 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
+        // More Info
         DrawerButton(
           icon: Icon(
             Icons.info_outline,
@@ -180,6 +229,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: "More Info",
         ),
+        //About US
         DrawerButton(
           onpressed: () {},
           label: 'About Us',
@@ -187,6 +237,20 @@ class _DrawerBodyState extends State<DrawerBody> {
             Icons.engineering_outlined,
             color: Colors.white,
           ),
+        ),
+
+        // Dark mode switch
+        DrawerButton(
+          onpressed: () {
+            theme.switchTheme();
+          },
+          label: 'Dark Mode',
+          icon: theme.myTheme == MyTheme.Light
+              ? Icon(
+                  Icons.wb_sunny,
+                  color: Colors.white,
+                )
+              : Icon(FontAwesomeIcons.solidMoon),
         ),
       ],
     );
@@ -211,17 +275,23 @@ class _ProfileBodyState extends State<ProfileBody> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      setState(() {});
+    });
     sub = db
         .collection('users')
-        .doc(getCurrentUserId())
+        .doc(Constants.prefs.getString('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {
         data = snap.data();
+        _loading = true;
       });
     });
   }
@@ -234,87 +304,96 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if (data['profileImage'] != null)
-              Container(
-                width: 150,
-                height: 150,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  image: DecorationImage(
-                    // now only assets image
-                    image: NetworkImage(data['profileImage']),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3A353580),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
+    if (_loading) {
+      return Center(
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (data['profileImage'] != null)
+                Container(
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: NetworkImage(data['profileImage']),
+                      fit: BoxFit.contain,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x44393e46),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              if (data['profileImage'] == null)
+                Container(
+                  width: 150,
+                  height: 150,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    image: DecorationImage(
+                      image: AssetImage("assets/ProfilePlaceholder.png"),
+                      fit: BoxFit.contain,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3A353580),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              //Name
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  data['name'],
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              //Bio
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 8.0,
+                  left: 16.0,
+                  right: 16.0,
+                ),
+                child: Text(
+                  data['username'],
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+              //Tabs
+              Tabs(),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    ProfileTeamsList(widget: widget),
+                    ProfileFriendsList(friendsList: widget.friendsList),
                   ],
                 ),
               ),
-            if (data['profileImage'] == null)
-              Container(
-                width: 150,
-                height: 150,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
-                  image: DecorationImage(
-                    image: AssetImage("assets/ProfilePlaceholder.png"),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x3A353580),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-              ),
-            //Name
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                data['name'],
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
-            //Bio
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8.0,
-                left: 16.0,
-                right: 16.0,
-              ),
-              child: Text(
-                data['username'],
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            //Tabs
-            Tabs(),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  ProfileTeamsList(widget: widget),
-                  ProfileFriendsList(friendsList: widget.friendsList),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ),
+      );
+    }
   }
 }
 
@@ -336,7 +415,8 @@ class ProfileTeamsList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            elevation: 2,
+            shadowColor: Color(0x44393e46),
+            elevation: 20,
             child: Container(
               height: 80,
               child: Center(
@@ -407,7 +487,8 @@ class ProfileFriendsList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 2,
+              shadowColor: Color(0x44393e46),
+              elevation: 20,
               child: Container(
                 child: Column(
                   children: [

@@ -1,5 +1,7 @@
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:Runbhumi/services/EventService.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,9 +15,24 @@ class _HomeState extends State<Home> {
 
   String searchQuery = "";
 
+  Stream currentFeed;
   void initState() {
     super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      setState(() {});
+    });
     _searchQuery = new TextEditingController();
+    getUserInfoEvents();
+  }
+
+  getUserInfoEvents() async {
+    EventService().getCurrentFeed().then((snapshots) {
+      setState(() {
+        currentFeed = snapshots;
+        print("we got the data + ${currentFeed.toString()} ");
+      });
+    });
   }
 
   void _startSearch() {
@@ -26,6 +43,11 @@ class _HomeState extends State<Home> {
     setState(() {
       _isSearching = true;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void _stopSearching() {
@@ -67,9 +89,10 @@ class _HomeState extends State<Home> {
       decoration: const InputDecoration(
         hintText: 'Search...',
         border: InputBorder.none,
+        focusedBorder: InputBorder.none,
         hintStyle: const TextStyle(color: Colors.grey),
       ),
-      style: const TextStyle(color: Colors.black, fontSize: 16.0),
+      style: const TextStyle(fontSize: 16.0),
       onChanged: updateSearchQuery,
     );
   }
@@ -105,17 +128,131 @@ class _HomeState extends State<Home> {
     ];
   }
 
+  Widget feed() {
+    return StreamBuilder(
+      stream: currentFeed,
+      builder: (context, asyncSnapshot) {
+        print("Working");
+        return asyncSnapshot.hasData
+            ? ListView.builder(
+                itemCount: asyncSnapshot.data.documents.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  String sportName = asyncSnapshot.data.documents[index]
+                      .get('sportName')
+                      .toString();
+                  IconData sportIcon;
+                  switch (sportName) {
+                    case "Volleyball":
+                      sportIcon = Icons.sports_volleyball;
+                      break;
+                    case "Basketball":
+                      sportIcon = Icons.sports_basketball;
+                      break;
+                    case "Cricket":
+                      sportIcon = Icons.sports_cricket;
+                      break;
+                    case "Football":
+                      sportIcon = Icons.sports_soccer;
+                      break;
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: Card(
+                      shadowColor: Color(0x44393e46),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      elevation: 20,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              leading: Icon(
+                                sportIcon,
+                                size: 48,
+                              ),
+                              title: Text(asyncSnapshot.data.documents[index]
+                                  .get('eventName')),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    asyncSnapshot.data.documents[index]
+                                        .get('description'),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        size: 18.0,
+                                      ),
+                                      Text(
+                                        asyncSnapshot.data.documents[index]
+                                            .get('location'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
+                                  .format(asyncSnapshot.data.documents[index]
+                                      .get('dateTime')
+                                      .toDate())
+                                  .toString()),
+                              // trailing: asyncSnapshot.data.documents[index]
+                              //             .get('description') ==
+                              //         "Looking for players in our team"
+                              //     ? GestureDetector(
+                              //         onTap: () {
+                              //           //notification to be sent to the person who posted
+                              //         },
+                              //         child: Container(
+                              //           child: Text("Join"),
+                              //         ),
+                              //       )
+                              //     : GestureDetector(
+                              //         onTap: () {},
+                              //         child: Container(
+                              //           child: Text("Accept"),
+                              //         ),
+                              //       ),
+                              // trailing: Text(asyncSnapshot.data.documents[index]
+                              //     .get('dateTime').toString()
+                              // ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )
+            : Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                ),
+              );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: new AppBar(
-          automaticallyImplyLeading: false,
-          leading: _isSearching ? BackButton() : null,
-          title: _isSearching ? _buildSearchField() : _buildTitle(context),
-          actions: _buildActions(),
-          bottom: new TabBar(
+    return Scaffold(
+      appBar: new AppBar(
+        automaticallyImplyLeading: false,
+        leading: _isSearching ? BackButton() : null,
+        title: _isSearching ? _buildSearchField() : _buildTitle(context),
+        actions: _buildActions(),
+        /*bottom: new TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.grey,
@@ -129,13 +266,26 @@ class _HomeState extends State<Home> {
               indicatorColor: Theme.of(context).primaryColor,
               tabBarIndicatorSize: TabBarIndicatorSize.tab,
             ),
-          ),
-        ),
-        body: TabBarView(
+          ),*/
+      ),
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.directions_car, size: 50),
-            Icon(Icons.directions_transit, size: 50),
-            Icon(Icons.directions_bike, size: 50),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                'Nearby you',
+                style: Theme.of(context).textTheme.headline6,
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: <Widget>[feed()],
+              ),
+            ),
           ],
         ),
       ),

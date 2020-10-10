@@ -1,5 +1,6 @@
-import 'package:Runbhumi/widget/button.dart';
-import 'package:Runbhumi/widget/dividingOr.dart';
+import 'dart:ui';
+
+import '../../widget/widgets.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +21,12 @@ class _SecondPageState extends State<SecondPage> {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
-              child: Image(image: AssetImage('assets/login.png')),
+              child: Image(
+                // image: AssetImage('assets/login.png'),
+                image: AssetImage('assets/sports-illustration1.png'),
+              ),
             ),
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
@@ -56,7 +60,29 @@ class _SecondPageState extends State<SecondPage> {
               myColor: Theme.of(context).accentColor,
               routeName: "/signup",
             ),
-            DividingOr(),
+            DividingOr(),*/
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+              child: Text(
+                "Connecting people through sports",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60.0),
+              child: Text(
+                "join the community of sports players nearby you",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
             GoogleOauth(),
             SizedBox(
               height: 20,

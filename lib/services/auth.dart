@@ -1,3 +1,4 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,15 +30,15 @@ Future signInWithGoogle() async {
         .collection('users')
         .where('UserId', isEqualTo: user.uid)
         .get();
+    Constants.prefs.setString("userId", user.uid);
     final List<QueryDocumentSnapshot> documents = result.docs;
     if (documents.length == 0) {
+      print('User Signed Up');
       String _username = generateusername(user.email);
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
           UserProfile.newuser(user.uid, _username, user.displayName,
                   user.photoURL, user.email)
               .toJson());
-      // saveToSharedPreference(
-      //     user.uid, _username, user.displayName, user.photoURL, user.email);
     }
   }
 }
@@ -45,7 +46,6 @@ Future signInWithGoogle() async {
 Future<void> signOutGoogle() async {
   await FirebaseAuth.instance.signOut();
   await googleSignIn.disconnect();
-  await googleSignIn.signOut();
   print("User Signed Out");
 }
 

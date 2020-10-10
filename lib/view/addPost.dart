@@ -1,5 +1,9 @@
+import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+
+String userId = Constants.prefs.getString('userId');
 /*    
 locations = <String>[
       "Andhra Pradesh",
@@ -43,18 +47,14 @@ locations = <String>[
 Widget _buildTitle(BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    color: Colors.white54,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'Add Post',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 25,
-          ),
+    child: Center(
+      child: const Text(
+        'Add Post',
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 25,
         ),
-      ],
+      ),
     ),
   );
 }
@@ -65,10 +65,12 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
-  int _chosenSport;
-  int _chosenPurpose;
-  TextEditingController _descriptionController;
-  TextEditingController _datetime;
+  GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
+  String _chosenSport;
+  String _chosenPurpose;
+  TextEditingController _locationController = new TextEditingController();
+  TextEditingController _datetime = new TextEditingController();
+  TextEditingController _nameController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     //sports
@@ -78,18 +80,19 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text("Basketball"),
-          value: 1,
+          value: "Basketball",
         ),
         DropdownMenuItem(
           child: Text("Football"),
-          value: 2,
+          value: "Football",
         ),
-        DropdownMenuItem(child: Text("Volleyball"), value: 3),
-        DropdownMenuItem(child: Text("Cricket"), value: 4)
+        DropdownMenuItem(child: Text("Volleyball"), value: "Volleyball"),
+        DropdownMenuItem(child: Text("Cricket"), value: "Cricket")
       ],
       onChanged: (value) {
         setState(
           () {
+            print(value);
             _chosenSport = value;
           },
         );
@@ -102,15 +105,15 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text("Want to join a team"),
-          value: 1,
+          value: "Want to join a team",
         ),
         DropdownMenuItem(
           child: Text("Looking for an opponent"),
-          value: 2,
+          value: "Looking for an opponent",
         ),
         DropdownMenuItem(
           child: Text("Looking for players in our team"),
-          value: 3,
+          value: "Looking for players in our team",
         ),
       ],
       onChanged: (value) {
@@ -127,66 +130,98 @@ class _AddPostState extends State<AddPost> {
           headerSliverBuilder: addPostSliverAppBar,
           body: SingleChildScrollView(
             child: Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      decoration: BoxDecoration(
-                        borderRadius: new BorderRadius.circular(50),
-                        border: Border.all(),
-                        color: Color(0xffeeeeee),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: sportsList,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      decoration: BoxDecoration(
-                        borderRadius: new BorderRadius.circular(50),
-                        border: Border.all(),
-                        color: Color(0xffeeeeee),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: purposeList,
+              child: Form(
+                key: _addpostkey,
+                child: Column(
+                  children: [
+                    InputBox(
+                        controller: _nameController, hintText: "Event name"),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(50),
+                          border: Border.all(),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: sportsList,
+                        ),
                       ),
                     ),
-                  ),
-                  InputBox(
-                    hintText: "description",
-                    controller: _descriptionController,
-                  ),
-                  DateTimePicker(
-                    controller: _datetime,
-                  ),
-                  //TODO: make this is a location input
-                  InputBox(
-                    hintText: "Location",
-                    controller: _descriptionController,
-                  ),
-                  Button(
-                    myText: "Invite Friends",
-                    myColor: Theme.of(context).accentColor,
-                  ),
-                  //TODO: complete Add post button
-                  Button(
-                    myText: "Add Post",
-                    myColor: Theme.of(context).primaryColor,
-                    onPressed: () {},
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          borderRadius: new BorderRadius.circular(50),
+                          border: Border.all(),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: purposeList,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateTimePicker(
+                        controller: _datetime,
+                      ),
+                    ),
+                    InputBox(
+                      controller: _locationController,
+                      hintText: "Location",
+                    ),
+                    // Button(
+                    //   myText: "Invite Friends",
+                    //   myColor: Theme.of(context).accentColor,
+                    //   onPressed: () {},
+                    // ),removed for MVP
+                    Button(
+                      myText: "Add Post",
+                      myColor: Theme.of(context).primaryColor,
+                      onPressed: () {
+                        createNewEvent(
+                            _nameController.text,
+                            userId,
+                            _locationController.text,
+                            _chosenSport,
+                            _chosenPurpose,
+                            [userId],
+                            DateTime.parse(_datetime.text));
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return successDialog(context);
+                            });
+                        _addpostkey.currentState.reset();
+                        // Navigator.pushNamed(context, "/home");
+                      }, //FirebaseFirestore.instance.collection('events').add(
+                      //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  SimpleDialog successDialog(BuildContext context) {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Center(
+            child: Text("Post added",
+                style: Theme.of(context).textTheme.headline4)),
+        Image.asset("assets/sports-illustration1.png")
+      ],
     );
   }
 
@@ -213,3 +248,6 @@ class _AddPostState extends State<AddPost> {
     ];
   }
 }
+
+//TODO: make this is a location input
+//TODO: complete Add post button

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateTimePicker extends StatelessWidget {
-  final format = DateFormat("dd-MM-yyyy HH:mm");
+  final format = DateFormat('yyyy-MM-dd kk:mm:ss');
   final TextEditingController controller;
   DateTimePicker({
     this.controller,

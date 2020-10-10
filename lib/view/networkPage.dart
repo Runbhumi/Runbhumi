@@ -1,4 +1,4 @@
-import 'package:Runbhumi/view/placeholder_widget.dart';
+import 'package:Runbhumi/widget/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -31,49 +31,51 @@ class _NetworkState extends State<Network> {
         title: _buildTitle(context),
         automaticallyImplyLeading: false,
       ),
-      body: DefaultTabController(
+      body: /*DefaultTabController(
         length: 3,
-        child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                child: Text(
-                  'Schedule',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
+        child:*/
+          Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                'Schedule',
+                style: Theme.of(context).textTheme.headline6,
               ),
-              //schedule
-              Schedule(scheduleList: scheduleList),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 8.0,
-                ),
-                child: Text(
-                  'Chats',
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.start,
-                ),
+            ),
+            //schedule
+            Schedule(scheduleList: scheduleList),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 8.0,
               ),
-              //Chat Tabs
-              ChatsTabs(),
-              // TODO: replace placeholders with actual UI
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    PlaceholderWidget(),
-                    PlaceholderWidget(),
-                    PlaceholderWidget(),
-                  ],
-                ),
+              child: Text(
+                'Chats',
+                style: Theme.of(context).textTheme.headline6,
+                textAlign: TextAlign.start,
               ),
-            ],
-          ),
+            ),
+            //Chat Tabs
+            // ChatsTabs(),
+            // TODO: replace placeholders with actual UI
+            Expanded(
+              // child: TabBarView(
+              //   children: [
+              //     PlaceholderWidget(),
+              //     PlaceholderWidget(),
+              //     PlaceholderWidget(),
+              //   ],
+              // ),
+              child: PlaceholderWidget(),
+            ),
+          ],
         ),
       ),
+      // ),
     );
   }
 }
@@ -98,10 +100,11 @@ class Schedule extends StatelessWidget {
               horizontal: 8.0,
             ),
             child: Card(
+              shadowColor: Color(0x44393e46),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              elevation: 2,
+              elevation: 5,
               child: Container(
                 width: 300,
                 child: Padding(
@@ -110,6 +113,7 @@ class Schedule extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
+                        isThreeLine: true,
                         title: Text(
                           scheduleList[index],
                           style: Theme.of(context).textTheme.headline6,
@@ -126,7 +130,28 @@ class Schedule extends StatelessWidget {
                             ),
                           ],
                         ),
-                        trailing: Text("6:00pm"),
+                        trailing: Column(
+                          children: [
+                            //time
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(DateTime.now().hour.toString()),
+                                Text(":"),
+                                Text(DateTime.now().minute.toString()),
+                              ],
+                            ),
+                            //day
+                            // Text(DateTime.now().weekday.toString()),
+                            if (DateTime.now().weekday == 1) Text("MON"),
+                            if (DateTime.now().weekday == 2) Text("TUE"),
+                            if (DateTime.now().weekday == 3) Text("WED"),
+                            if (DateTime.now().weekday == 4) Text("THU"),
+                            if (DateTime.now().weekday == 5) Text("FRI"),
+                            if (DateTime.now().weekday == 6) Text("SAT"),
+                            if (DateTime.now().weekday == 7) Text("SUN"),
+                          ],
+                        ),
                       ),
                     ],
                   ),

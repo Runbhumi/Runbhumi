@@ -113,18 +113,12 @@ SOFTWARE.''',
                                 cardList[index].name.isNotEmpty
                                     ? Text(
                                         cardList[index].name,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14),
+                                        style: Theme.of(context).textTheme.headline6,
                                       )
                                     : SizedBox(),
                                 Text(
                                   cardList[index].userName,
-                                  style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14),
+                                  style: Theme.of(context).textTheme.subtitle1,
                                 ),
                                 SizedBox(
                                   height: 5,
@@ -135,11 +129,7 @@ SOFTWARE.''',
                                     cardList[index].desc == ''
                                         ? 'Contributor'
                                         : cardList[index].desc,
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                    ),
+                                    style: Theme.of(context).textTheme.subtitle2,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -156,7 +146,7 @@ SOFTWARE.''',
                                           ),
                                           Text(
                                             cardList[index].location,
-                                            style: TextStyle(fontSize: 12),
+                                            style: TextStyle(fontSize: 14),
                                           ),
                                         ],
                                       )
@@ -193,7 +183,7 @@ SOFTWARE.''',
                                             Text(
                                               cardList[index].twitterUsername,
                                               style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 14,
                                                   color: Colors.blueAccent),
                                             ),
                                           ],
@@ -205,49 +195,8 @@ SOFTWARE.''',
                           ],
                         ),
                       ),
-                    ));
-              }),
-//       bottom: Center(
-//         child: Column(
-//           children: [
-//             Button(
-//               myText: "More info",
-//               myColor: Theme.of(context).primaryColor,
-//               onPressed: () {
-//                 showDialog(
-//                   context: context,
-//                   builder: (context) => AboutDialog(
-//                     applicationName: "Runbhumi",
-//                     applicationVersion: "v0.0.5",
-//                     applicationLegalese: '''
-// MIT License
-
-// Copyright (c) 2020 Runbhumi
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.''',
-//                   ),
-//                 );
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
+                    ),);
+              },),
     );
   }
 

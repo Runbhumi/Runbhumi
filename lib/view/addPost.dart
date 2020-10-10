@@ -235,13 +235,11 @@ class _AddPostState extends State<AddPost> {
         pinned: true,
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
-          title: _buildTitle(context),
-          background: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image(
-              width: 200,
-              image: AssetImage('assets/addpostillustration.png'),
-            ),
+          title: Container(child: _buildTitle(context),
+          color: Theme.of(context).canvasColor.withOpacity(0.5)),
+          background: Image(
+            height: 200,
+            image: AssetImage('assets/addpostillustration.png'),
           ),
         ),
       ),
@@ -250,4 +248,3 @@ class _AddPostState extends State<AddPost> {
 }
 
 //TODO: make this is a location input
-//TODO: complete Add post button

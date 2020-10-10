@@ -2,6 +2,7 @@ import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
@@ -109,7 +110,7 @@ class _HomeState extends State<Home> {
     if (_isSearching) {
       return <Widget>[
         new IconButton(
-          icon: const Icon(Icons.clear),
+          icon: const Icon(Feather.x),
           onPressed: () {
             if (_searchQuery == null || _searchQuery.text.isEmpty) {
               Navigator.pop(context);
@@ -123,7 +124,7 @@ class _HomeState extends State<Home> {
 
     return <Widget>[
       new IconButton(
-        icon: const Icon(Icons.search, size: 30),
+        icon: const Icon(Feather.search),
         onPressed: _startSearch,
       ),
     ];
@@ -196,8 +197,8 @@ class _HomeState extends State<Home> {
                                   Row(
                                     children: [
                                       Icon(
-                                        Icons.location_on_outlined,
-                                        size: 18.0,
+                                        Feather.map_pin,
+                                        size: 16.0,
                                       ),
                                       Text(
                                         asyncSnapshot.data.documents[index]

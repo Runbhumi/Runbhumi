@@ -5,7 +5,7 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import '../widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
@@ -76,7 +76,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             builder: (BuildContext context) {
               return IconButton(
                 icon: const Icon(
-                  Icons.clear,
+                  Feather.x,
                   color: Colors.white,
                 ),
                 onPressed: toggle,
@@ -98,7 +98,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             builder: (BuildContext context) {
               return IconButton(
                 icon: const Icon(
-                  Icons.menu,
+                  Feather.menu,
                 ),
                 onPressed: toggle,
               );
@@ -204,10 +204,11 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {},
+          onpressed: () {
+          },
           label: "Home",
           icon: Icon(
-            Icons.home_outlined,
+            Feather.home,
             color: Colors.white,
           ),
         ),
@@ -215,14 +216,14 @@ class _DrawerBodyState extends State<DrawerBody> {
           onpressed: () {},
           label: "Edit Profile",
           icon: Icon(
-            Icons.edit_outlined,
+            Feather.edit,
             color: Colors.white,
           ),
         ),
         // More Info
         DrawerButton(
           icon: Icon(
-            Icons.info_outline,
+            Feather.info,
             color: Colors.white,
           ),
           onpressed: () {
@@ -249,10 +250,10 @@ class _DrawerBodyState extends State<DrawerBody> {
           label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
           icon: theme.myTheme == MyTheme.Light
               ? Icon(
-                  Icons.wb_sunny,
+                  Feather.sun,
                   color: Colors.white,
                 )
-              : Icon(FontAwesomeIcons.solidMoon),
+              : Icon(Feather.moon),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -272,7 +273,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: 'Log out',
           icon: Icon(
-            Icons.logout,
+            Feather.log_out,
             color: Colors.white,
           ),
         ),

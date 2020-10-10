@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'views.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 /*
   this has the bottom navigation bar of the app
 */
@@ -60,28 +61,28 @@ class _MainAppState extends State<MainApp> {
       showUnselectedLabels: false,
       items: [
         new BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          activeIcon: Icon(Icons.home),
+          icon: Icon(Feather.home),
+          activeIcon: Icon(Feather.home),
           label: 'Home',
         ),
         new BottomNavigationBarItem(
-          icon: Icon(Icons.people_outline),
-          activeIcon: Icon(Icons.people),
+          icon: Icon(Feather.users),
+          activeIcon: Icon(Feather.users),
           label: 'Network',
         ),
         new BottomNavigationBarItem(
-          icon: Icon(Icons.add_circle_outline),
-          activeIcon: Icon(Icons.add_circle),
+          icon: Icon(Feather.plus_circle),
+          activeIcon: Icon(Feather.plus_circle),
           label: 'Add Post',
         ),
         new BottomNavigationBarItem(
-          icon: Icon(Icons.notifications_outlined),
-          activeIcon: Icon(Icons.notifications),
+          icon: Icon(Feather.bell),
+          activeIcon: Icon(Feather.bell),
           label: 'Notifications',
         ),
         new BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          activeIcon: Icon(Icons.person),
+          icon: Icon(Feather.user),
+          activeIcon: Icon(Feather.user),
           label: 'Profile',
         ),
       ],

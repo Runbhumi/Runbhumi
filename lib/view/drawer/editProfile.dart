@@ -10,7 +10,10 @@ class EditProfile extends StatelessWidget {
         children: <Widget>[
           const Text(
             'Edit Profile',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 25,
+            ),
           ),
         ],
       ),

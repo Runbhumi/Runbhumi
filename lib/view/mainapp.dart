@@ -12,10 +12,8 @@ class MainApp extends StatefulWidget {
 // GlobalKey<NavigatorState> _pageNavigatorKey = GlobalKey<NavigatorState>();
 
 class _MainAppState extends State<MainApp> {
-  static final GlobalKey<ScaffoldState> scaffoldKey =
-      new GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
-  // final PageController _pageController = PageController();
+  final PageController pageController = PageController();
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
@@ -29,13 +27,27 @@ class _MainAppState extends State<MainApp> {
     setState(() {
       _currentIndex = index;
     });
+    pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        body: _children[_currentIndex],
+        // body: _children[_currentIndex],
+        body: PageView.builder(
+          controller: pageController,
+          itemBuilder: (context, index) {
+            return _children[index];
+          },
+          // children: _children,
+          onPageChanged: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+        ),
         //bottom navbar
         bottomNavigationBar: buildBottomNavigationBar());
   }

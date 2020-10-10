@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
@@ -186,8 +187,22 @@ class _DrawerBodyState extends State<DrawerBody> {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
+          child: Container(
+            child: Text(
+              "Hello,\nHayat Tamboli ",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
         DrawerButton(
           onpressed: () {},
           label: "Home",
@@ -204,19 +219,6 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
-        DrawerButton(
-          onpressed: () {
-            print("logout");
-            Constants.prefs.setBool("loggedin", false);
-            signOutGoogle();
-            Navigator.pushReplacementNamed(context, "/secondpage");
-          },
-          label: 'Log out',
-          icon: Icon(
-            Icons.logout,
-            color: Colors.white,
-          ),
-        ),
         // More Info
         DrawerButton(
           icon: Icon(
@@ -230,27 +232,49 @@ class _DrawerBodyState extends State<DrawerBody> {
           label: "More Info",
         ),
         //About US
-        DrawerButton(
-          onpressed: () {},
-          label: 'About Us',
-          icon: Icon(
-            Icons.engineering_outlined,
-            color: Colors.white,
-          ),
-        ),
+        // DrawerButton(
+        //   onpressed: () {},
+        //   label: 'About Us',
+        //   icon: Icon(
+        //     Icons.engineering_outlined,
+        //     color: Colors.white,
+        //   ),
+        // ),
 
         // Dark mode switch
         DrawerButton(
           onpressed: () {
             theme.switchTheme();
           },
-          label: 'Dark Mode',
+          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
           icon: theme.myTheme == MyTheme.Light
               ? Icon(
                   Icons.wb_sunny,
                   color: Colors.white,
                 )
               : Icon(FontAwesomeIcons.solidMoon),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Container(
+            color: Colors.white54,
+            height: 2,
+            width: 150,
+          ),
+        ),
+        //log out
+        DrawerButton(
+          onpressed: () {
+            print("logout");
+            Constants.prefs.setBool("loggedin", false);
+            signOutGoogle();
+            Navigator.pushReplacementNamed(context, "/secondpage");
+          },
+          label: 'Log out',
+          icon: Icon(
+            Icons.logout,
+            color: Colors.white,
+          ),
         ),
       ],
     );

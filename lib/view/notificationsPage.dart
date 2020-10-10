@@ -1,3 +1,4 @@
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
 class Notifications extends StatefulWidget {
@@ -28,6 +29,29 @@ class _NotificationsState extends State<Notifications> {
       appBar: AppBar(
         title: _buildTitle(context),
         automaticallyImplyLeading: false,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Text(
+              'Friend requests',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          Expanded(child: PlaceholderWidget()),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Text(
+              'Team join requests',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          Expanded(child: PlaceholderWidget()),
+        ],
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import '../widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
@@ -68,27 +68,30 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var myDrawer = SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(
-                  Icons.clear,
-                  color: Colors.white,
-                ),
-                onPressed: toggle,
-              );
-            },
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(
+                    Feather.x,
+                    color: Colors.white,
+                  ),
+                  onPressed: toggle,
+                );
+              },
+            ),
           ),
+          body: DrawerBody(),
         ),
-        body: DrawerBody(),
       ),
     );
     var myChild = DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: _buildTitle(context),
@@ -98,11 +101,25 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             builder: (BuildContext context) {
               return IconButton(
                 icon: const Icon(
-                  Icons.menu,
+                  Feather.menu,
                 ),
                 onPressed: toggle,
               );
             },
+          ),
+          bottom: TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(child: Text("Profile")),
+              Tab(child: Text("Teams")),
+              Tab(child: Text("Friends")),
+            ],
+            indicator: new BubbleTabIndicator(
+              indicatorHeight: 30.0,
+              indicatorColor: Theme.of(context).primaryColor,
+              tabBarIndicatorSize: TabBarIndicatorSize.tab,
+            ),
           ),
         ),
         body: ProfileBody(
@@ -207,7 +224,15 @@ class _DrawerBodyState extends State<DrawerBody> {
           onpressed: () {},
           label: "Home",
           icon: Icon(
-            Icons.home_outlined,
+            Feather.home,
+            color: Colors.white,
+          ),
+        ),
+        DrawerButton(
+          onpressed: () {},
+          label: "Create or Join Teams",
+          icon: Icon(
+            Feather.user_plus,
             color: Colors.white,
           ),
         ),
@@ -215,14 +240,14 @@ class _DrawerBodyState extends State<DrawerBody> {
           onpressed: () {},
           label: "Edit Profile",
           icon: Icon(
-            Icons.edit_outlined,
+            Feather.edit,
             color: Colors.white,
           ),
         ),
         // More Info
         DrawerButton(
           icon: Icon(
-            Icons.info_outline,
+            Feather.info,
             color: Colors.white,
           ),
           onpressed: () {
@@ -249,10 +274,10 @@ class _DrawerBodyState extends State<DrawerBody> {
           label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
           icon: theme.myTheme == MyTheme.Light
               ? Icon(
-                  Icons.wb_sunny,
+                  Feather.sun,
                   color: Colors.white,
                 )
-              : Icon(FontAwesomeIcons.solidMoon),
+              : Icon(Feather.moon),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -270,9 +295,9 @@ class _DrawerBodyState extends State<DrawerBody> {
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },
-          label: 'Log out',
+          label: 'Log Out',
           icon: Icon(
-            Icons.logout,
+            Feather.log_out,
             color: Colors.white,
           ),
         ),
@@ -335,71 +360,10 @@ class _ProfileBodyState extends State<ProfileBody> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (data['profileImage'] != null)
-                Container(
-                  width: 150,
-                  height: 150,
-                  margin: EdgeInsets.only(top: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    image: DecorationImage(
-                      image: NetworkImage(data['profileImage']),
-                      fit: BoxFit.contain,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x44393e46),
-                        blurRadius: 20,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                ),
-              if (data['profileImage'] == null)
-                Container(
-                  width: 150,
-                  height: 150,
-                  margin: EdgeInsets.only(top: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    image: DecorationImage(
-                      image: AssetImage("assets/ProfilePlaceholder.png"),
-                      fit: BoxFit.contain,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x3A353580),
-                        blurRadius: 20,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                ),
-              //Name
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  data['name'],
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-              //Bio
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                  left: 16.0,
-                  right: 16.0,
-                ),
-                child: Text(
-                  data['username'],
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
-              //Tabs
-              Tabs(),
               Expanded(
                 child: TabBarView(
                   children: [
+                    MainUserProfile(data: data),
                     ProfileTeamsList(widget: widget),
                     ProfileFriendsList(friendsList: widget.friendsList),
                   ],
@@ -418,6 +382,61 @@ class _ProfileBodyState extends State<ProfileBody> {
         ),
       );
     }
+  }
+}
+
+class MainUserProfile extends StatelessWidget {
+  const MainUserProfile({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
+  final Map data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      if (data['profileImage'] != null)
+        Container(
+          width: 150,
+          height: 150,
+          margin: EdgeInsets.only(top: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(40)),
+            image: DecorationImage(
+              image: NetworkImage(data['profileImage']),
+              fit: BoxFit.contain,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x44393e46),
+                blurRadius: 20,
+                offset: Offset(0, 10),
+              ),
+            ],
+          ),
+        ),
+      //Name
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          data['name'],
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+      //Bio
+      Padding(
+        padding: const EdgeInsets.only(
+          bottom: 8.0,
+          left: 16.0,
+          right: 16.0,
+        ),
+        child: Text(
+          data['username'],
+          style: TextStyle(fontSize: 14),
+        ),
+      ),
+    ]);
   }
 }
 
@@ -460,31 +479,31 @@ class ProfileTeamsList extends StatelessWidget {
   }
 }
 
-class Tabs extends StatelessWidget {
-  const Tabs({
-    Key key,
-  }) : super(key: key);
+// class Tabs extends StatelessWidget {
+//   const Tabs({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(50.0),
-      child: TabBar(
-        labelColor: Colors.white,
-        unselectedLabelColor: Colors.grey,
-        tabs: [
-          Tab(child: Text("Teams")),
-          Tab(child: Text("Friends")),
-        ],
-        indicator: new BubbleTabIndicator(
-          indicatorHeight: 30.0,
-          indicatorColor: Theme.of(context).primaryColor,
-          tabBarIndicatorSize: TabBarIndicatorSize.tab,
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return PreferredSize(
+//       preferredSize: Size.fromHeight(50.0),
+//       child: TabBar(
+//         labelColor: Colors.white,
+//         unselectedLabelColor: Colors.grey,
+//         tabs: [
+//           Tab(child: Text("Teams")),
+//           Tab(child: Text("Friends")),
+//         ],
+//         indicator: new BubbleTabIndicator(
+//           indicatorHeight: 30.0,
+//           indicatorColor: Theme.of(context).primaryColor,
+//           tabBarIndicatorSize: TabBarIndicatorSize.tab,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class ProfileFriendsList extends StatelessWidget {
   final List friendsList;

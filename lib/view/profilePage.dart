@@ -441,7 +441,7 @@ class MainUserProfile extends StatelessWidget {
   }
 }
 
-class ProfileTeamsList extends StatelessWidget {
+class ProfileTeamsList extends StatefulWidget {
   const ProfileTeamsList({
     Key key,
     @required this.widget,
@@ -449,6 +449,11 @@ class ProfileTeamsList extends StatelessWidget {
 
   final ProfileBody widget;
 
+  @override
+  _ProfileTeamsListState createState() => _ProfileTeamsListState();
+}
+
+class _ProfileTeamsListState extends State<ProfileTeamsList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -466,7 +471,7 @@ class ProfileTeamsList extends StatelessWidget {
               child: Center(
                 child: ListTile(
                   title: Text(
-                    widget.teamsList[index],
+                    widget.widget.teamsList[index],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
@@ -475,7 +480,7 @@ class ProfileTeamsList extends StatelessWidget {
           ),
         );
       },
-      itemCount: widget.teamsList.length,
+      itemCount: widget.widget.teamsList.length,
     );
   }
 }
@@ -513,13 +518,23 @@ class ProfileFriendsList extends StatefulWidget {
 
 class _ProfileFriendsListState extends State<ProfileFriendsList> {
   Stream userFriend;
+  TextEditingController friendsSearch;
+  String searchQuery = "";
   void initState() {
     super.initState();
     // Firebase.initializeApp().whenComplete(() {
     //   print("completed");
     //   setState(() {});
     // });
+    friendsSearch = new TextEditingController();
     getUserFriends();
+  }
+
+  void updateSearchQuery(String newQuery) {
+    setState(() {
+      searchQuery = newQuery;
+    });
+    print("searched " + newQuery);
   }
 
   getUserFriends() async {
@@ -537,16 +552,56 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
       builder: (context, asyncSnapshot) {
         print("Working");
         return asyncSnapshot.hasData
-            ? ListView.builder(
-                itemCount: asyncSnapshot.data.documents.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                      title: Text(
-                    asyncSnapshot.data.documents[index].get('name'),
-                  ));
-                })
-            : Container(
+            ? asyncSnapshot.data.documents.length > 0
+                ? ListView.builder(
+                    itemCount: asyncSnapshot.data.documents.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12.0),
+                                child: ListTile(
+                                    leading: Container(
+                                      height: 100,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        child: Image.network(
+                                          asyncSnapshot.data.documents[index]
+                                              .get('profileImage'),
+                                          height: 100, // not working
+                                        ),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      asyncSnapshot.data.documents[index]
+                                          .get('name'),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    })
+                : //if you have no friends you will get this illustration
+                Container(
+                    child: Center(
+                        child: Image.asset("assets/sports-illustration1.png")))
+            : // loading
+            Container(
                 child: Center(
                   child: CircularProgressIndicator(
                     backgroundColor: Theme.of(context).primaryColor,
@@ -571,6 +626,27 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Container(
+              child: TextField(
+                controller: friendsSearch,
+                decoration: const InputDecoration(
+                  hintText: 'Search friends...',
+                  border: InputBorder.none,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    borderSide: BorderSide(color: Color(00000000)),
+                  ),
+                  suffixIcon: Icon(Feather.search),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    borderSide: BorderSide(color: Color(00000000)),
+                  ),
+                  hintStyle: const TextStyle(color: Colors.grey),
+                ),
+                style: const TextStyle(fontSize: 16.0),
+                onChanged: updateSearchQuery,
+              ),
+            ),
           ),
           Expanded(
             child: Stack(

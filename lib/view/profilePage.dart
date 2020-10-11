@@ -537,7 +537,8 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
       builder: (context, asyncSnapshot) {
         print("Working");
         return asyncSnapshot.hasData
-            ? ListView.builder(
+            ? asyncSnapshot.data.documents.length>0 ?
+            ListView.builder(
                 itemCount: asyncSnapshot.data.documents.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -546,7 +547,12 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     asyncSnapshot.data.documents[index].get('name'),
                   ));
                 })
-            : Container(
+                : //if you have no friends you will get this illustration
+                Container(
+                  child: Center(child: Image.asset("assets/sports-illustration1.png"))
+                )
+            : // loading
+            Container(
                 child: Center(
                   child: CircularProgressIndicator(
                     backgroundColor: Theme.of(context).primaryColor,

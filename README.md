@@ -18,6 +18,11 @@
 
 ### ✨ [Demo](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
 
+### 💪Motivation/Inspiration
+
+<img src="./documentation/Problem_statement_by_tanmay_bhat.jpeg" height="500" />
+
+
 ## 📥 Install
 
 ```sh
@@ -50,9 +55,8 @@ flutter test
   - [x] Login Screen
   - [x] SignUp Screen
   - [x] Forgot Password Screen
-  - [ ] Home Screen
-  - [ ] Networks Screen
-  - [ ] Add Event Screen
+  - [x] Home Screen
+  - [x] Add Event Screen
   - [ ] Notification Screen
   - [x] Profile Screen
   - [ ] Chat Screen
@@ -66,11 +70,6 @@ flutter test
 
 - Github: [@Runbhumi](https://github.com/Runbhumi)
 
-<details><summary> <strong>💪Motivation/Inspiration</strong> </summary>
-
-<img src="./documentation/Problem_statement_by_tanmay_bhat.jpeg" />
-
-</details>
 
 ## 🤝 Contributing
 

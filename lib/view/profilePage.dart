@@ -236,7 +236,9 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {},
+          onpressed: () {
+            Navigator.pushNamed(context, "/editprofile");
+          },
           label: "Edit Profile",
           icon: Icon(
             Feather.edit,

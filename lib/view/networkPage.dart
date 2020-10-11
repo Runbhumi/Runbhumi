@@ -1,6 +1,7 @@
 import 'package:Runbhumi/widget/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 /*
   Code For Network Page
@@ -121,8 +122,8 @@ class Schedule extends StatelessWidget {
                         subtitle: Row(
                           children: [
                             Icon(
-                              Icons.location_on_outlined,
-                              size: 18.0,
+                              Feather.map_pin,
+                              size: 16.0,
                             ),
                             Text(
                               "Bahrain",

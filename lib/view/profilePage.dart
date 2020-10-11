@@ -636,7 +636,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
                     borderSide: BorderSide(color: Color(00000000)),
                   ),
-                  suffixIcon: Icon(Feather.search),
+                  prefixIcon: Icon(Feather.search),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
                     borderSide: BorderSide(color: Color(00000000)),

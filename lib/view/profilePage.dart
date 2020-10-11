@@ -211,7 +211,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
           child: Container(
             child: Text(
-              "Hello,\nHayat Tamboli ",
+              "Hello,\n" + Constants.prefs.getString('name'),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,

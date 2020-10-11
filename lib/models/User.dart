@@ -6,7 +6,7 @@ class UserProfile {
   String location;
   String age;
   String bio;
-  String phoneNumber;
+  Map<String, bool> phoneNumber;
   String emailId;
 
   UserProfile(
@@ -29,7 +29,7 @@ class UserProfile {
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
-    this.phoneNumber = '';
+    this.phoneNumber = {};
     this.emailId = emailId;
     this.bio =
         'I couldn’t find the sports car of my dreams, so I built it myself.';

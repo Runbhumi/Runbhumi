@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
@@ -63,7 +64,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     "Delhi dare devils",
     "Manchester united"
   ];
-  final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
         body: ProfileBody(
           teamsList: teamsList,
-          friendsList: friendsList,
         ),
       ),
     );
@@ -211,7 +210,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
           child: Container(
             child: Text(
-              "Hello,\nHayat Tamboli ",
+              "Hello,\n" + Constants.prefs.getString('name'),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -237,7 +236,9 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {},
+          onpressed: () {
+            Navigator.pushNamed(context, "/editprofile");
+          },
           label: "Edit Profile",
           icon: Icon(
             Feather.edit,
@@ -365,7 +366,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   children: [
                     MainUserProfile(data: data),
                     ProfileTeamsList(widget: widget),
-                    ProfileFriendsList(friendsList: widget.friendsList),
+                    ProfileFriendsList(),
                   ],
                 ),
               ),
@@ -505,57 +506,78 @@ class ProfileTeamsList extends StatelessWidget {
 //   }
 // }
 
-class ProfileFriendsList extends StatelessWidget {
-  final List friendsList;
-  const ProfileFriendsList({
-    this.friendsList = const [],
-    Key key,
-  }) : super(key: key);
+class ProfileFriendsList extends StatefulWidget {
+  @override
+  _ProfileFriendsListState createState() => _ProfileFriendsListState();
+}
+
+class _ProfileFriendsListState extends State<ProfileFriendsList> {
+  Stream userFriend;
+  void initState() {
+    super.initState();
+    // Firebase.initializeApp().whenComplete(() {
+    //   print("completed");
+    //   setState(() {});
+    // });
+    getUserFriends();
+  }
+
+  getUserFriends() async {
+    UserService().getFriends().then((snapshots) {
+      setState(() {
+        userFriend = snapshots;
+        print("we got the data + ${userFriend.toString()} ");
+      });
+    });
+  }
+
+  Widget friends() {
+    return StreamBuilder(
+      stream: userFriend,
+      builder: (context, asyncSnapshot) {
+        print("Working");
+        return asyncSnapshot.hasData
+            ? ListView.builder(
+                itemCount: asyncSnapshot.data.documents.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      title: Text(
+                    asyncSnapshot.data.documents[index].get('name'),
+                  ));
+                })
+            : Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                ),
+              );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-        // Generate 10 widgets that display their index in the List.
-        children: List.generate(
-          friendsList.length,
-          (index) {
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              shadowColor: Color(0x44393e46),
-              elevation: 20,
-              child: Container(
-                child: Column(
-                  children: [
-                    Center(
-                      child: ListTile(
-                        title: Text(
-                          friendsList[index],
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        "assets/ProfilePlaceholder.png",
-                        height: 100,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+          ),
+          Expanded(
+            child: Stack(
+              children: <Widget>[friends()],
+            ),
+          ),
+        ],
       ),
     );
   }

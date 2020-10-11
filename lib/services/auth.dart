@@ -26,13 +26,13 @@ Future signInWithGoogle() async {
   final User user = authResult.user;
 
   if (user != null) {
-    final QuerySnapshot result = await FirebaseFirestore.instance
+    var result = await FirebaseFirestore.instance
         .collection('users')
-        .where('UserId', isEqualTo: user.uid)
+        .doc(user.uid)
         .get();
-    Constants.prefs.setString("userId", user.uid);
-    final List<QueryDocumentSnapshot> documents = result.docs;
-    if (documents.length == 0) {
+    if (!result.exists) {
+      Constants.prefs.setString("userId", user.uid);
+      Constants.prefs.setString("name", user.displayName);
       print('User Signed Up');
       String _username = generateusername(user.email);
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(

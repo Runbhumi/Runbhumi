@@ -53,7 +53,7 @@ void createNewEvent(
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
-      .update({
+      .set({
     "eventsId": FieldValue.arrayUnion([id])
-  });
+  }, SetOptions(merge: true));
 }

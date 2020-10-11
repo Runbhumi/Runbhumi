@@ -171,14 +171,15 @@ class ThemeNotifier extends ChangeNotifier {
         fillColor: Color(0xffeeeeee),
         hoverColor: Colors.white,
         alignLabelWithHint: true,
-        border: OutlineInputBorder(
-          borderRadius: new BorderRadius.circular(50),
-          borderSide: BorderSide(
-            color: Color(0xff00adb5),
-            width: 2.0,
-          ),
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderSide: BorderSide(color: Color(00000000)),
         ),
-        // focusedBorder: focusedBorder(context),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderSide: BorderSide(color: Color(00000000)),
+        ),
       ),
       bottomAppBarTheme: BottomAppBarTheme(
         color: Colors.white,
@@ -223,14 +224,15 @@ class ThemeNotifier extends ChangeNotifier {
         filled: true,
         fillColor: Colors.black,
         alignLabelWithHint: true,
-        border: OutlineInputBorder(
-          borderRadius: new BorderRadius.circular(50),
-          borderSide: BorderSide(
-            color: Color(0xffB3ABAB),
-            width: 2.0,
-          ),
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderSide: BorderSide(color: Color(00000000)),
         ),
-        // focusedBorder: focusedBorder(context),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderSide: BorderSide(color: Color(00000000)),
+        ),
       ),
       primaryColor: Color(0xff00adb5),
       primaryColorLight: Color(0xff00adb5),

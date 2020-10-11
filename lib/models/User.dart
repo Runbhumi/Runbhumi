@@ -9,6 +9,8 @@ class UserProfile {
   String name;
   String profileImage;
   String location;
+  int age;
+  String bio;
   String phoneNumber;
   String emailId;
   List<Friends> friendsId;

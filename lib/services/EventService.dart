@@ -14,6 +14,15 @@ class EventService {
         .snapshots();
   }
 
+  getCurrentUserFeed() async {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(Constants.prefs.get('userId'))
+        .collection('userEvent')
+        .orderBy('dateTime')
+        .snapshots();
+  }
+
   Future addPlayerToEvent(Events _event, String playerId) async {
     try {
       await _eventCollectionReference

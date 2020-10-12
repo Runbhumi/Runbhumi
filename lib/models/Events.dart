@@ -39,6 +39,23 @@ class Events {
     this.dateTime = dateTime;
   }
 
+  Events.miniView(String eventId, String eventName, String sportName,
+      String location, DateTime dateTime) {
+    this.eventId = eventId;
+    this.eventName = eventName;
+    this.location = location;
+    this.dateTime = dateTime;
+    this.sportName = sportName;
+  }
+
+  Map<String, dynamic> minitoJson() => {
+        'eventId': eventId,
+        'eventName': eventName,
+        'location': location,
+        'sportName': sportName,
+        'dateTime': dateTime
+      };
+
   Map<String, dynamic> toJson() => {
         'eventId': eventId,
         'eventName': eventName,

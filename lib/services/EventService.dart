@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/Events.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:Runbhumi/models/Events.dart';
 
@@ -10,6 +11,15 @@ class EventService {
     return FirebaseFirestore.instance
         .collection("events")
         .orderBy('dateTime', descending: true)
+        .snapshots();
+  }
+
+  getCurrentUserFeed() async {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(Constants.prefs.get('userId'))
+        .collection('userEvent')
+        .orderBy('dateTime')
         .snapshots();
   }
 
@@ -49,11 +59,15 @@ void createNewEvent(
   newDoc.set(Events.newEvent(id, eventName, creatorId, location, sportName,
           description, playersId, dateTime)
       .toJson());
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(Constants.prefs.get('userId'))
+      .collection('userEvent')
+      .doc(id)
+      .set(Events.miniView(id, eventName, sportName, location, dateTime)
+          .minitoJson());
 }
 
-// FirebaseFirestore.instance
-//     .collection('users')
-//     .doc(Constants.prefs.get('userId'))
-//     .set({
-//   "eventsId": FieldValue.arrayUnion([id])
-// }, SetOptions(merge: true));
+// .set({
+//    "eventsId": FieldValue.arrayUnion([id])
+//  }, SetOptions(merge: true));

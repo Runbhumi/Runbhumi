@@ -4,6 +4,8 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:intl/intl.dart';
+import '../widget/widgets.dart';
 
 /*
   Code For Network Page
@@ -27,8 +29,6 @@ class _NetworkState extends State<Network> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: make this schedule list connect to firebase
-    // final List scheduleList = ["hayat", "manas", "rohan", "mohit"];
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
@@ -62,7 +62,6 @@ class _NetworkState extends State<Network> {
                 textAlign: TextAlign.start,
               ),
             ),
-            //Chat Tabs
             // ChatsTabs(),
             // TODO: replace placeholders with actual UI
             Expanded(
@@ -176,33 +175,16 @@ class _ScheduleState extends State<Schedule> {
                                       children: [
                                         //time
                                         Row(
-                                          // TODO:Change the date to asyncSnapshot.data.documents[index].get('dateTime')
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Text(
-                                                DateTime.now().hour.toString()),
-                                            Text(":"),
-                                            Text(DateTime.now()
-                                                .minute
+                                            Text(DateFormat('E\ndd/MM\nkk:mm')
+                                                .format(asyncSnapshot
+                                                    .data.documents[index]
+                                                    .get('dateTime')
+                                                    .toDate())
                                                 .toString()),
                                           ],
                                         ),
-                                        //day
-                                        // Text(DateTime.now().weekday.toString()),
-                                        if (DateTime.now().weekday == 1)
-                                          Text("MON"),
-                                        if (DateTime.now().weekday == 2)
-                                          Text("TUE"),
-                                        if (DateTime.now().weekday == 3)
-                                          Text("WED"),
-                                        if (DateTime.now().weekday == 4)
-                                          Text("THU"),
-                                        if (DateTime.now().weekday == 5)
-                                          Text("FRI"),
-                                        if (DateTime.now().weekday == 6)
-                                          Text("SAT"),
-                                        if (DateTime.now().weekday == 7)
-                                          Text("SUN"),
                                       ],
                                     ),
                                   ),
@@ -216,17 +198,11 @@ class _ScheduleState extends State<Schedule> {
                   )
                 : //if you have no events you will get this illustration
                 Container(
-                    child:
-                        // TODO:Add a illustration
-                        Center()) //child: Image.asset("assets/sports-illustration1.png")))
-            : // loading
-            Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-              );
+                    child: Center(
+                      child: Image.asset("assets/events.png", height: 200),
+                    ),
+                  )
+            : Loader();
       },
     );
   }

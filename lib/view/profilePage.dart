@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:Runbhumi/services/UserServices.dart';
-import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import '../widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:provider/provider.dart';
+import 'views.dart';
+import '../widget/widgets.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -53,6 +51,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 
   //distance for profile to move right when the drawer is opened
+  //variables for drawer animations
   static const double maxSlide = 250.0;
   static const double minDragStartEdge = 60;
   static const double maxDragStartEdge = maxSlide - 16;
@@ -74,6 +73,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
+            // to close drawer
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
@@ -122,9 +122,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
-        body: ProfileBody(
-          teamsList: teamsList,
-        ),
+        body: ProfileBody(teamsList: teamsList),
       ),
     );
     return GestureDetector(
@@ -189,133 +187,13 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 }
 
-class DrawerBody extends StatefulWidget {
-  const DrawerBody({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _DrawerBodyState createState() => _DrawerBodyState();
-}
-
-class _DrawerBodyState extends State<DrawerBody> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeNotifier>(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
-          child: Container(
-            child: Text(
-              "Hello,\n" + Constants.prefs.getString('name'),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        DrawerButton(
-          onpressed: () {},
-          label: "Home",
-          icon: Icon(
-            Feather.home,
-            color: Colors.white,
-          ),
-        ),
-        DrawerButton(
-          onpressed: () {},
-          label: "Create or Join Teams",
-          icon: Icon(
-            Feather.user_plus,
-            color: Colors.white,
-          ),
-        ),
-        DrawerButton(
-          onpressed: () {
-            Navigator.pushNamed(context, "/editprofile");
-          },
-          label: "Edit Profile",
-          icon: Icon(
-            Feather.edit,
-            color: Colors.white,
-          ),
-        ),
-        // More Info
-        DrawerButton(
-          icon: Icon(
-            Feather.info,
-            color: Colors.white,
-          ),
-          onpressed: () {
-            print("go to more info");
-            Navigator.pushNamed(context, "/moreinfo");
-          },
-          label: "More Info",
-        ),
-        //About US
-        // DrawerButton(
-        //   onpressed: () {},
-        //   label: 'About Us',
-        //   icon: Icon(
-        //     Icons.engineering_outlined,
-        //     color: Colors.white,
-        //   ),
-        // ),
-
-        // Dark mode switch
-        DrawerButton(
-          onpressed: () {
-            theme.switchTheme();
-          },
-          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
-          icon: theme.myTheme == MyTheme.Light
-              ? Icon(
-                  Feather.sun,
-                  color: Colors.white,
-                )
-              : Icon(Feather.moon),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Container(
-            color: Colors.white54,
-            height: 2,
-            width: 150,
-          ),
-        ),
-        //log out
-        DrawerButton(
-          onpressed: () {
-            print("logout");
-            Constants.prefs.setBool("loggedin", false);
-            signOutGoogle();
-            Navigator.pushReplacementNamed(context, "/secondpage");
-          },
-          label: 'Log Out',
-          icon: Icon(
-            Feather.log_out,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
     Key key,
     this.teamsList,
-    this.friendsList,
   }) : super(key: key);
 
   final List teamsList;
-  final List friendsList;
 
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
@@ -358,7 +236,6 @@ class _ProfileBodyState extends State<ProfileBody> {
       return Center(
         child: Container(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
@@ -375,13 +252,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         ),
       );
     } else {
-      return Container(
-        child: Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-        ),
-      );
+      return Loader();
     }
   }
 }
@@ -396,48 +267,176 @@ class MainUserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      if (data['profileImage'] != null)
-        Container(
-          width: 150,
-          height: 150,
-          margin: EdgeInsets.only(top: 15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(40)),
-            image: DecorationImage(
-              image: NetworkImage(data['profileImage']),
-              fit: BoxFit.contain,
+    return Column(
+      children: [
+        //profile image
+        if (data['profileImage'] != null)
+          Container(
+            width: 150,
+            height: 150,
+            margin: EdgeInsets.only(top: 15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(40)),
+              image: DecorationImage(
+                image: NetworkImage(data['profileImage']),
+                fit: BoxFit.contain,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x44393e46),
+                  blurRadius: 20,
+                  offset: Offset(0, 10),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x44393e46),
-                blurRadius: 20,
-                offset: Offset(0, 10),
+          ),
+        //Name
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            data['name'],
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          ),
+        ),
+        //Bio
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: 8.0,
+            left: 32.0,
+            right: 32.0,
+          ),
+          child: Center(
+            child: Text(
+              data['bio'],
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        //stats
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Container(
+            color: Colors.grey.withOpacity(0.1),
+            width: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "23",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("events"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "2",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("teams"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "200",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("friends"),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        //details
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.user,
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    data["age"],
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.map_pin,
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    data["location"],
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.mail,
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    data["emailId"],
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.phone,
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    "+91 123456789",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
               ),
             ],
           ),
         ),
-      //Name
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          data['name'],
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-      //Bio
-      Padding(
-        padding: const EdgeInsets.only(
-          bottom: 8.0,
-          left: 16.0,
-          right: 16.0,
-        ),
-        child: Text(
-          data['username'],
-          style: TextStyle(fontSize: 14),
-        ),
-      ),
-    ]);
+      ],
+    );
   }
 }
 
@@ -485,32 +484,6 @@ class _ProfileTeamsListState extends State<ProfileTeamsList> {
   }
 }
 
-// class Tabs extends StatelessWidget {
-//   const Tabs({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return PreferredSize(
-//       preferredSize: Size.fromHeight(50.0),
-//       child: TabBar(
-//         labelColor: Colors.white,
-//         unselectedLabelColor: Colors.grey,
-//         tabs: [
-//           Tab(child: Text("Teams")),
-//           Tab(child: Text("Friends")),
-//         ],
-//         indicator: new BubbleTabIndicator(
-//           indicatorHeight: 30.0,
-//           indicatorColor: Theme.of(context).primaryColor,
-//           tabBarIndicatorSize: TabBarIndicatorSize.tab,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class ProfileFriendsList extends StatefulWidget {
   @override
   _ProfileFriendsListState createState() => _ProfileFriendsListState();
@@ -522,10 +495,6 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
   String searchQuery = "";
   void initState() {
     super.initState();
-    // Firebase.initializeApp().whenComplete(() {
-    //   print("completed");
-    //   setState(() {});
-    // });
     friendsSearch = new TextEditingController();
     getUserFriends();
   }
@@ -599,15 +568,10 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                 : //if you have no friends you will get this illustration
                 Container(
                     child: Center(
-                        child: Image.asset("assets/sports-illustration1.png")))
-            : // loading
-            Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-              );
+                      child: Image.asset("assets/add-friends.png"),
+                    ),
+                  )
+            : Loader();
       },
     );
   }
@@ -627,6 +591,41 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Container(
+              // TypeAheadField(
+              //   itemBuilder: (context, suggestion) {
+              //     return ListTile(
+              //       leading: Icon(Icons.shopping_cart),
+              //       title: Text(suggestion['name']),
+              //       subtitle: Text('\$${suggestion['price']}'),
+              //     );
+              //   },
+              //   suggestionsCallback: (pattern) async {
+              //     // return await BackendService.getSuggestions(pattern);
+              //   },
+              //   onSuggestionSelected: (suggestion) {
+              //     // Navigator.of(context).push(MaterialPageRoute(
+              //     //     builder: (context) => ProductPage(product: suggestion)));
+              //   },
+              //   textFieldConfiguration: TextFieldConfiguration(
+              //     controller: friendsSearch,
+              //     decoration: const InputDecoration(
+              //       hintText: 'Search friends...',
+              //       border: InputBorder.none,
+              //       enabledBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              //         borderSide: BorderSide(color: Color(00000000)),
+              //       ),
+              //       prefixIcon: Icon(Feather.search),
+              //       focusedBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              //         borderSide: BorderSide(color: Color(00000000)),
+              //       ),
+              //       hintStyle: const TextStyle(color: Colors.grey),
+              //     ),
+              //     style: const TextStyle(fontSize: 16.0),
+              //     onChanged: updateSearchQuery,
+              //   ),
+              // ),
               child: TextField(
                 controller: friendsSearch,
                 decoration: const InputDecoration(
@@ -636,7 +635,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
                     borderSide: BorderSide(color: Color(00000000)),
                   ),
-                  suffixIcon: Icon(Feather.search),
+                  prefixIcon: Icon(Feather.search),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
                     borderSide: BorderSide(color: Color(00000000)),
@@ -658,3 +657,29 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
     );
   }
 }
+
+// class Tabs extends StatelessWidget {
+//   const Tabs({
+//     Key key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return PreferredSize(
+//       preferredSize: Size.fromHeight(50.0),
+//       child: TabBar(
+//         labelColor: Colors.white,
+//         unselectedLabelColor: Colors.grey,
+//         tabs: [
+//           Tab(child: Text("Teams")),
+//           Tab(child: Text("Friends")),
+//         ],
+//         indicator: new BubbleTabIndicator(
+//           indicatorHeight: 30.0,
+//           indicatorColor: Theme.of(context).primaryColor,
+//           tabBarIndicatorSize: TabBarIndicatorSize.tab,
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -8,5 +8,6 @@ export 'home.dart';
 export 'profilePage.dart';
 export 'networkPage.dart';
 export 'notificationsPage.dart';
+export 'drawer/drawer.dart';
 export 'drawer/moreInfo.dart';
 export 'drawer/editProfile.dart';

@@ -378,7 +378,8 @@ class MainUserProfile extends StatelessWidget {
                       size: 24.0,
                     ),
                   ),
-                  Text(data["age"],
+                  Text(
+                    data["age"],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
@@ -393,7 +394,8 @@ class MainUserProfile extends StatelessWidget {
                       size: 24.0,
                     ),
                   ),
-                  Text(data["location"],
+                  Text(
+                    data["location"],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
@@ -408,7 +410,8 @@ class MainUserProfile extends StatelessWidget {
                       size: 24.0,
                     ),
                   ),
-                  Text(data["emailId"],
+                  Text(
+                    data["emailId"],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],

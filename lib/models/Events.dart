@@ -7,7 +7,6 @@ class Events {
   String location;
   String sportName;
   String description;
-  List<String> playersId;
   DateTime dateTime;
 
   Events(
@@ -17,7 +16,6 @@ class Events {
       this.location,
       this.sportName,
       this.description,
-      this.playersId,
       this.dateTime});
 
   Events.newEvent(
@@ -27,7 +25,6 @@ class Events {
       String location,
       String sportName,
       String description,
-      List<String> playersId,
       DateTime dateTime) {
     this.eventId = eventId;
     this.eventName = eventName;
@@ -35,7 +32,6 @@ class Events {
     this.location = location;
     this.sportName = sportName;
     this.description = description;
-    this.playersId = playersId;
     this.dateTime = dateTime;
   }
 
@@ -63,7 +59,6 @@ class Events {
         'location': location,
         'sportName': sportName,
         'description': description,
-        'playersId': playersId,
         'dateTime': dateTime
       };
   Events.fromSnapshot(DocumentSnapshot snapshot)
@@ -73,6 +68,5 @@ class Events {
         location = snapshot.data()['location'],
         sportName = snapshot.data()['sportName'],
         description = snapshot.data()['desscription'],
-        playersId = snapshot.data()['playerId'],
         dateTime = snapshot.data()['dateTime'].toDate();
 }

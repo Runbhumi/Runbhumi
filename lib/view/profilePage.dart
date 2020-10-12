@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:Runbhumi/services/UserServices.dart';
-import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import '../widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:provider/provider.dart';
+import 'views.dart';
+import '../widget/widgets.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -53,6 +51,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 
   //distance for profile to move right when the drawer is opened
+  //variables for drawer animations
   static const double maxSlide = 250.0;
   static const double minDragStartEdge = 60;
   static const double maxDragStartEdge = maxSlide - 16;
@@ -74,6 +73,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
+            // to close drawer
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
@@ -122,9 +122,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
-        body: ProfileBody(
-          teamsList: teamsList,
-        ),
+        body: ProfileBody(teamsList: teamsList),
       ),
     );
     return GestureDetector(
@@ -189,133 +187,13 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   }
 }
 
-class DrawerBody extends StatefulWidget {
-  const DrawerBody({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _DrawerBodyState createState() => _DrawerBodyState();
-}
-
-class _DrawerBodyState extends State<DrawerBody> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeNotifier>(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
-          child: Container(
-            child: Text(
-              "Hello,\n" + Constants.prefs.getString('name'),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        DrawerButton(
-          onpressed: () {},
-          label: "Home",
-          icon: Icon(
-            Feather.home,
-            color: Colors.white,
-          ),
-        ),
-        DrawerButton(
-          onpressed: () {},
-          label: "Create or Join Teams",
-          icon: Icon(
-            Feather.user_plus,
-            color: Colors.white,
-          ),
-        ),
-        DrawerButton(
-          onpressed: () {
-            Navigator.pushNamed(context, "/editprofile");
-          },
-          label: "Edit Profile",
-          icon: Icon(
-            Feather.edit,
-            color: Colors.white,
-          ),
-        ),
-        // More Info
-        DrawerButton(
-          icon: Icon(
-            Feather.info,
-            color: Colors.white,
-          ),
-          onpressed: () {
-            print("go to more info");
-            Navigator.pushNamed(context, "/moreinfo");
-          },
-          label: "More Info",
-        ),
-        //About US
-        // DrawerButton(
-        //   onpressed: () {},
-        //   label: 'About Us',
-        //   icon: Icon(
-        //     Icons.engineering_outlined,
-        //     color: Colors.white,
-        //   ),
-        // ),
-
-        // Dark mode switch
-        DrawerButton(
-          onpressed: () {
-            theme.switchTheme();
-          },
-          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
-          icon: theme.myTheme == MyTheme.Light
-              ? Icon(
-                  Feather.sun,
-                  color: Colors.white,
-                )
-              : Icon(Feather.moon),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Container(
-            color: Colors.white54,
-            height: 2,
-            width: 150,
-          ),
-        ),
-        //log out
-        DrawerButton(
-          onpressed: () {
-            print("logout");
-            Constants.prefs.setBool("loggedin", false);
-            signOutGoogle();
-            Navigator.pushReplacementNamed(context, "/secondpage");
-          },
-          label: 'Log Out',
-          icon: Icon(
-            Feather.log_out,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
     Key key,
     this.teamsList,
-    this.friendsList,
   }) : super(key: key);
 
   final List teamsList;
-  final List friendsList;
 
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
@@ -358,7 +236,6 @@ class _ProfileBodyState extends State<ProfileBody> {
       return Center(
         child: Container(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
@@ -375,13 +252,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         ),
       );
     } else {
-      return Container(
-        child: Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-        ),
-      );
+      return Loader();
     }
   }
 }
@@ -498,11 +369,30 @@ class MainUserProfile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    Feather.map_pin,
-                    size: 24.0,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.user,
+                      size: 24.0,
+                    ),
+                  ),
+                  Text(
+                    "under 19",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.map_pin,
+                      size: 24.0,
+                    ),
                   ),
                   Text(
                     "somewhere on earth",
@@ -511,11 +401,14 @@ class MainUserProfile extends StatelessWidget {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    Feather.mail,
-                    size: 24.0,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.mail,
+                      size: 24.0,
+                    ),
                   ),
                   Text(
                     "hayat.tamboli@gmail.com",
@@ -524,11 +417,14 @@ class MainUserProfile extends StatelessWidget {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
-                    Feather.phone,
-                    size: 24.0,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Feather.phone,
+                      size: 24.0,
+                    ),
                   ),
                   Text(
                     "+91 123456789",
@@ -676,15 +572,10 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                 : //if you have no friends you will get this illustration
                 Container(
                     child: Center(
-                        child: Image.asset("assets/sports-illustration1.png")))
-            : // loading
-            Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-              );
+                      child: Image.asset("assets/sports-illustration1.png"),
+                    ),
+                  )
+            : Loader();
       },
     );
   }

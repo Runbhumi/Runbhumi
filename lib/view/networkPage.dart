@@ -218,7 +218,10 @@ class _ScheduleState extends State<Schedule> {
                 Container(
                     child:
                         // TODO:Add a illustration
-                        Center()) //child: Image.asset("assets/sports-illustration1.png")))
+                        Center(
+                            child: Image.asset("assets/events.png",
+                                height:
+                                    200))) //child: Image.asset("assets/sports-illustration1.png")))
             : // loading
             Container(
                 child: Center(

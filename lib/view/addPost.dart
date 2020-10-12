@@ -222,7 +222,7 @@ class _AddPostState extends State<AddPost> {
         Center(
             child: Text("Post added",
                 style: Theme.of(context).textTheme.headline4)),
-        Image.asset("assets/sports-illustration1.png")
+        Image.asset("assets/confirmation-illustration.png")
       ],
     );
   }

@@ -396,48 +396,151 @@ class MainUserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      if (data['profileImage'] != null)
-        Container(
-          width: 150,
-          height: 150,
-          margin: EdgeInsets.only(top: 15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(40)),
-            image: DecorationImage(
-              image: NetworkImage(data['profileImage']),
-              fit: BoxFit.contain,
+    return Column(
+      children: [
+        //profile image
+        if (data['profileImage'] != null)
+          Container(
+            width: 150,
+            height: 150,
+            margin: EdgeInsets.only(top: 15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(40)),
+              image: DecorationImage(
+                image: NetworkImage(data['profileImage']),
+                fit: BoxFit.contain,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x44393e46),
+                  blurRadius: 20,
+                  offset: Offset(0, 10),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x44393e46),
-                blurRadius: 20,
-                offset: Offset(0, 10),
+          ),
+        //Name
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            data['name'],
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          ),
+        ),
+        //Bio
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: 8.0,
+            left: 32.0,
+            right: 32.0,
+          ),
+          child: Center(
+            child: Text(
+              data['bio'],
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        //stats
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Container(
+            color: Colors.grey.withOpacity(0.1),
+            width: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "23",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("events"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "2",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("teams"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "200",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("friends"),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        //details
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Feather.map_pin,
+                    size: 24.0,
+                  ),
+                  Text(
+                    "somewhere on earth",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Feather.mail,
+                    size: 24.0,
+                  ),
+                  Text(
+                    "hayat.tamboli@gmail.com",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Feather.phone,
+                    size: 24.0,
+                  ),
+                  Text(
+                    "+91 123456789",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
               ),
             ],
           ),
         ),
-      //Name
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          data['name'],
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-      //Bio
-      Padding(
-        padding: const EdgeInsets.only(
-          bottom: 8.0,
-          left: 16.0,
-          right: 16.0,
-        ),
-        child: Text(
-          data['username'],
-          style: TextStyle(fontSize: 14),
-        ),
-      ),
-    ]);
+      ],
+    );
   }
 }
 
@@ -484,32 +587,6 @@ class _ProfileTeamsListState extends State<ProfileTeamsList> {
     );
   }
 }
-
-// class Tabs extends StatelessWidget {
-//   const Tabs({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return PreferredSize(
-//       preferredSize: Size.fromHeight(50.0),
-//       child: TabBar(
-//         labelColor: Colors.white,
-//         unselectedLabelColor: Colors.grey,
-//         tabs: [
-//           Tab(child: Text("Teams")),
-//           Tab(child: Text("Friends")),
-//         ],
-//         indicator: new BubbleTabIndicator(
-//           indicatorHeight: 30.0,
-//           indicatorColor: Theme.of(context).primaryColor,
-//           tabBarIndicatorSize: TabBarIndicatorSize.tab,
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class ProfileFriendsList extends StatefulWidget {
   @override
@@ -658,3 +735,29 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
     );
   }
 }
+
+// class Tabs extends StatelessWidget {
+//   const Tabs({
+//     Key key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return PreferredSize(
+//       preferredSize: Size.fromHeight(50.0),
+//       child: TabBar(
+//         labelColor: Colors.white,
+//         unselectedLabelColor: Colors.grey,
+//         tabs: [
+//           Tab(child: Text("Teams")),
+//           Tab(child: Text("Friends")),
+//         ],
+//         indicator: new BubbleTabIndicator(
+//           indicatorHeight: 30.0,
+//           indicatorColor: Theme.of(context).primaryColor,
+//           tabBarIndicatorSize: TabBarIndicatorSize.tab,
+//         ),
+//       ),
+//     );
+//   }
+// }

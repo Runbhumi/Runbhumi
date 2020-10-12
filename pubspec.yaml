@@ -30,6 +30,7 @@ dependencies:
   datetime_picker_formfield: ^1.0.0
   provider:
   bubble_tab_indicator: "^0.1.4"
+  flutter_typeahead: ^1.8.8
 
   #icons
   flutter_icons: ^1.1.0

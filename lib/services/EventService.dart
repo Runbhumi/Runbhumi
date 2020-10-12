@@ -23,17 +23,6 @@ class EventService {
         .snapshots();
   }
 
-  Future addPlayerToEvent(Events _event, String playerId) async {
-    try {
-      await _eventCollectionReference
-          .doc(_event.eventId)
-          .update({"playerId": FieldValue.arrayUnion(_event.playersId)});
-      return true;
-    } catch (e) {
-      return e.toString();
-    }
-  }
-
   Future getEventDetails(String eventId) async {
     try {
       var eventsData = await _eventCollectionReference.doc(eventId).get();
@@ -56,9 +45,14 @@ void createNewEvent(
     DateTime dateTime) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
-  newDoc.set(Events.newEvent(id, eventName, creatorId, location, sportName,
-          description, playersId, dateTime)
+  newDoc.set(Events.newEvent(
+          id, eventName, creatorId, location, sportName, description, dateTime)
       .toJson());
+  addEventToUser(id, eventName, sportName, location, dateTime);
+}
+
+addEventToUser(String id, String eventName, String sportName, String location,
+    DateTime dateTime) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
@@ -66,6 +60,11 @@ void createNewEvent(
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime)
           .minitoJson());
+}
+
+registerUserToEvent(String id, String eventName, String sportName,
+    String location, DateTime dateTime) {
+  addEventToUser(id, eventName, sportName, location, dateTime);
 }
 
 // .set({

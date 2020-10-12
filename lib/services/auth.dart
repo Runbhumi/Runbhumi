@@ -30,8 +30,10 @@ Future signInWithGoogle() async {
         .collection('users')
         .doc(user.uid)
         .get();
+
     if (!result.exists) {
       Constants.prefs.setString("userId", user.uid);
+      Constants.prefs.setString("profileImage", user.photoURL);
       Constants.prefs.setString("name", user.displayName);
       print('User Signed Up');
       String _username = generateusername(user.email);
@@ -39,6 +41,11 @@ Future signInWithGoogle() async {
           UserProfile.newuser(user.uid, _username, user.displayName,
                   user.photoURL, user.email)
               .toJson());
+    } else {
+      if (Constants.prefs.get('name') == null)
+        Constants.prefs.setString("name", user.displayName);
+      if (Constants.prefs.get('profileImage') == null)
+        Constants.prefs.setString("profileImage", user.photoURL);
     }
   }
 }

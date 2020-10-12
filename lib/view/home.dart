@@ -179,7 +179,21 @@ class _HomeState extends State<Home> {
                               },
                               children: [
                                 SmallButton(
-                                    myColor: Colors.blue, myText: "Join"),
+                                  myColor: Colors.blue,
+                                  myText: "Join",
+                                  onPressed: registerUserToEvent(
+                                      asyncSnapshot.data.documents[index]
+                                          .get('eventId'),
+                                      asyncSnapshot.data.documents[index]
+                                          .get('eventName'),
+                                      asyncSnapshot.data.documents[index]
+                                          .get('sportName'),
+                                      asyncSnapshot.data.documents[index]
+                                          .get('location'),
+                                      asyncSnapshot.data.documents[index]
+                                          .get('dateTime')
+                                          .toDate()),
+                                )
                               ],
                               leading: Icon(
                                 sportIcon,

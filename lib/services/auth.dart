@@ -42,10 +42,11 @@ Future signInWithGoogle() async {
                   user.photoURL, user.email)
               .toJson());
     } else {
-      if (Constants.prefs.get('name') == null)
+      if (Constants.prefs.get('userId') != user.uid) {
+        Constants.prefs.setString('userId', user.uid);
         Constants.prefs.setString("name", user.displayName);
-      if (Constants.prefs.get('profileImage') == null)
         Constants.prefs.setString("profileImage", user.photoURL);
+      }
     }
   }
 }

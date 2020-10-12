@@ -25,12 +25,7 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_outlined),
-          onPressed: () {
-            Navigator.pushNamed(context, "/home");
-          },
-        ),
+        leading: BackButton(),
       ),
       body: Center(
         child: Container(

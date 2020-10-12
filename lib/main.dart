@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/moreinfo': (context) => MoreInfo(),
         '/network': (context) => Network(),
         '/profile': (context) => Profile(),
+        '/editprofile': (context) => EditProfile(),
       },
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
       home: Splash(),

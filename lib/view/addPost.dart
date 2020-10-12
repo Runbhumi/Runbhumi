@@ -196,6 +196,8 @@ class _AddPostState extends State<AddPost> {
                             builder: (context) {
                               return successDialog(context);
                             });
+                        _nameController.clear();
+                        _datetime.clear();
                         _addpostkey.currentState.reset();
                         // Navigator.pushNamed(context, "/home");
                       }, //FirebaseFirestore.instance.collection('events').add(

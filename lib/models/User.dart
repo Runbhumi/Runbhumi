@@ -1,48 +1,27 @@
-// import 'package:Runbhumi/utils/Constants.dart';
-
-import 'package:Runbhumi/models/Friends.dart';
-import 'package:Runbhumi/models/TeamMini.dart';
-
 class UserProfile {
   String userId;
   String username;
   String name;
   String profileImage;
   String location;
-  String phoneNumber;
+  String age;
+  String bio;
+  Map<String, bool> phoneNumber;
   String emailId;
-  List<Friends> friendsId;
-  List<TeamView> teamId;
-  List<String> eventsId;
-  List<String> notificationId;
 
-  UserProfile({
-    this.userId,
-    this.username,
-    this.name,
-    this.profileImage,
-    this.location,
-    this.phoneNumber,
-    this.emailId,
-    this.friendsId,
-    this.teamId,
-    this.eventsId,
-    this.notificationId,
-  });
+  UserProfile(
+      {this.userId,
+      this.username,
+      this.name,
+      this.profileImage,
+      this.location,
+      this.phoneNumber,
+      this.emailId,
+      this.bio,
+      this.age});
 
-  UserProfile.loadUser(
-    this.userId,
-    this.username,
-    this.name,
-    this.profileImage,
-    this.location,
-    this.phoneNumber,
-    this.emailId,
-    this.friendsId,
-    this.teamId,
-    this.eventsId,
-    this.notificationId,
-  );
+  UserProfile.loadUser(this.userId, this.username, this.name, this.profileImage,
+      this.location, this.phoneNumber, this.emailId, this.bio, this.age);
 
   UserProfile.newuser(userId, username, name, profileImage, emailId) {
     this.userId = userId;
@@ -50,12 +29,11 @@ class UserProfile {
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
-    this.phoneNumber = '';
+    this.phoneNumber = {};
     this.emailId = emailId;
-    this.friendsId = [];
-    this.teamId = [];
-    this.eventsId = [];
-    this.notificationId = [];
+    this.bio =
+        'I couldn’t find the sports car of my dreams, so I built it myself.';
+    this.age = '';
   }
 
   Map<String, dynamic> toJson() => {
@@ -66,10 +44,8 @@ class UserProfile {
         'location': location,
         'phoneNumber': phoneNumber,
         'emailId': emailId,
-        'friendsId': friendsId,
-        'teamId': teamId,
-        'eventsId': eventsId,
-        'notificationId': notificationId
+        'bio': bio,
+        'age': age
       };
 
   factory UserProfile.fromMap(Map data) {
@@ -80,11 +56,7 @@ class UserProfile {
         profileImage: data['profileImage'] ?? "",
         location: data['location'] ?? "",
         phoneNumber: data['phoneNumber'] ?? "",
-        emailId: data['emailId'] ?? "",
-        friendsId: data['friendsId'] ?? [],
-        teamId: data['teamId'] ?? [],
-        eventsId: data['eventsId'] ?? [],
-        notificationId: data['notificationId'] ?? []);
+        emailId: data['emailId'] ?? "");
   }
 }
 

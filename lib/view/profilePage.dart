@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
@@ -63,7 +64,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     "Delhi dare devils",
     "Manchester united"
   ];
-  final List friendsList = ["cupcake", "lolipop", "oreo", "Pie"];
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         ),
         body: ProfileBody(
           teamsList: teamsList,
-          friendsList: friendsList,
         ),
       ),
     );
@@ -211,7 +210,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
           child: Container(
             child: Text(
-              "Hello,\nHayat Tamboli ",
+              "Hello,\n" + Constants.prefs.getString('name'),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -237,7 +236,9 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {},
+          onpressed: () {
+            Navigator.pushNamed(context, "/editprofile");
+          },
           label: "Edit Profile",
           icon: Icon(
             Feather.edit,
@@ -365,7 +366,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   children: [
                     MainUserProfile(data: data),
                     ProfileTeamsList(widget: widget),
-                    ProfileFriendsList(friendsList: widget.friendsList),
+                    ProfileFriendsList(),
                   ],
                 ),
               ),
@@ -440,7 +441,7 @@ class MainUserProfile extends StatelessWidget {
   }
 }
 
-class ProfileTeamsList extends StatelessWidget {
+class ProfileTeamsList extends StatefulWidget {
   const ProfileTeamsList({
     Key key,
     @required this.widget,
@@ -448,6 +449,11 @@ class ProfileTeamsList extends StatelessWidget {
 
   final ProfileBody widget;
 
+  @override
+  _ProfileTeamsListState createState() => _ProfileTeamsListState();
+}
+
+class _ProfileTeamsListState extends State<ProfileTeamsList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -465,7 +471,7 @@ class ProfileTeamsList extends StatelessWidget {
               child: Center(
                 child: ListTile(
                   title: Text(
-                    widget.teamsList[index],
+                    widget.widget.teamsList[index],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
@@ -474,7 +480,7 @@ class ProfileTeamsList extends StatelessWidget {
           ),
         );
       },
-      itemCount: widget.teamsList.length,
+      itemCount: widget.widget.teamsList.length,
     );
   }
 }
@@ -505,57 +511,149 @@ class ProfileTeamsList extends StatelessWidget {
 //   }
 // }
 
-class ProfileFriendsList extends StatelessWidget {
-  final List friendsList;
-  const ProfileFriendsList({
-    this.friendsList = const [],
-    Key key,
-  }) : super(key: key);
+class ProfileFriendsList extends StatefulWidget {
+  @override
+  _ProfileFriendsListState createState() => _ProfileFriendsListState();
+}
+
+class _ProfileFriendsListState extends State<ProfileFriendsList> {
+  Stream userFriend;
+  TextEditingController friendsSearch;
+  String searchQuery = "";
+  void initState() {
+    super.initState();
+    // Firebase.initializeApp().whenComplete(() {
+    //   print("completed");
+    //   setState(() {});
+    // });
+    friendsSearch = new TextEditingController();
+    getUserFriends();
+  }
+
+  void updateSearchQuery(String newQuery) {
+    setState(() {
+      searchQuery = newQuery;
+    });
+    print("searched " + newQuery);
+  }
+
+  getUserFriends() async {
+    UserService().getFriends().then((snapshots) {
+      setState(() {
+        userFriend = snapshots;
+        print("we got the data + ${userFriend.toString()} ");
+      });
+    });
+  }
+
+  Widget friends() {
+    return StreamBuilder(
+      stream: userFriend,
+      builder: (context, asyncSnapshot) {
+        print("Working");
+        return asyncSnapshot.hasData
+            ? asyncSnapshot.data.documents.length > 0
+                ? ListView.builder(
+                    itemCount: asyncSnapshot.data.documents.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12.0),
+                                child: ListTile(
+                                    leading: Container(
+                                      height: 100,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        child: Image.network(
+                                          asyncSnapshot.data.documents[index]
+                                              .get('profileImage'),
+                                          height: 100, // not working
+                                        ),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      asyncSnapshot.data.documents[index]
+                                          .get('name'),
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    })
+                : //if you have no friends you will get this illustration
+                Container(
+                    child: Center(
+                        child: Image.asset("assets/sports-illustration1.png")))
+            : // loading
+            Container(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                ),
+              );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-        // Generate 10 widgets that display their index in the List.
-        children: List.generate(
-          friendsList.length,
-          (index) {
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              shadowColor: Color(0x44393e46),
-              elevation: 20,
-              child: Container(
-                child: Column(
-                  children: [
-                    Center(
-                      child: ListTile(
-                        title: Text(
-                          friendsList[index],
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        "assets/ProfilePlaceholder.png",
-                        height: 100,
-                      ),
-                    ),
-                  ],
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Container(
+              child: TextField(
+                controller: friendsSearch,
+                decoration: const InputDecoration(
+                  hintText: 'Search friends...',
+                  border: InputBorder.none,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    borderSide: BorderSide(color: Color(00000000)),
+                  ),
+                  suffixIcon: Icon(Feather.search),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    borderSide: BorderSide(color: Color(00000000)),
+                  ),
+                  hintStyle: const TextStyle(color: Colors.grey),
                 ),
+                style: const TextStyle(fontSize: 16.0),
+                onChanged: updateSearchQuery,
               ),
-            );
-          },
-        ),
+            ),
+          ),
+          Expanded(
+            child: Stack(
+              children: <Widget>[friends()],
+            ),
+          ),
+        ],
       ),
     );
   }

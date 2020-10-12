@@ -378,8 +378,7 @@ class MainUserProfile extends StatelessWidget {
                       size: 24.0,
                     ),
                   ),
-                  Text(
-                    "under 19",
+                  Text(data["age"],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
@@ -394,8 +393,7 @@ class MainUserProfile extends StatelessWidget {
                       size: 24.0,
                     ),
                   ),
-                  Text(
-                    "somewhere on earth",
+                  Text(data["location"],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
@@ -410,8 +408,7 @@ class MainUserProfile extends StatelessWidget {
                       size: 24.0,
                     ),
                   ),
-                  Text(
-                    "hayat.tamboli@gmail.com",
+                  Text(data["emailId"],
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
@@ -495,10 +492,6 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
   String searchQuery = "";
   void initState() {
     super.initState();
-    // Firebase.initializeApp().whenComplete(() {
-    //   print("completed");
-    //   setState(() {});
-    // });
     friendsSearch = new TextEditingController();
     getUserFriends();
   }
@@ -572,7 +565,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                 : //if you have no friends you will get this illustration
                 Container(
                     child: Center(
-                      child: Image.asset("assets/sports-illustration1.png"),
+                      child: Image.asset("assets/add-friends.png"),
                     ),
                   )
             : Loader();
@@ -595,6 +588,41 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Container(
+              // TypeAheadField(
+              //   itemBuilder: (context, suggestion) {
+              //     return ListTile(
+              //       leading: Icon(Icons.shopping_cart),
+              //       title: Text(suggestion['name']),
+              //       subtitle: Text('\$${suggestion['price']}'),
+              //     );
+              //   },
+              //   suggestionsCallback: (pattern) async {
+              //     // return await BackendService.getSuggestions(pattern);
+              //   },
+              //   onSuggestionSelected: (suggestion) {
+              //     // Navigator.of(context).push(MaterialPageRoute(
+              //     //     builder: (context) => ProductPage(product: suggestion)));
+              //   },
+              //   textFieldConfiguration: TextFieldConfiguration(
+              //     controller: friendsSearch,
+              //     decoration: const InputDecoration(
+              //       hintText: 'Search friends...',
+              //       border: InputBorder.none,
+              //       enabledBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              //         borderSide: BorderSide(color: Color(00000000)),
+              //       ),
+              //       prefixIcon: Icon(Feather.search),
+              //       focusedBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              //         borderSide: BorderSide(color: Color(00000000)),
+              //       ),
+              //       hintStyle: const TextStyle(color: Colors.grey),
+              //     ),
+              //     style: const TextStyle(fontSize: 16.0),
+              //     onChanged: updateSearchQuery,
+              //   ),
+              // ),
               child: TextField(
                 controller: friendsSearch,
                 decoration: const InputDecoration(

@@ -27,8 +27,6 @@ class _NetworkState extends State<Network> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: make this schedule list connect to firebase
-    // final List scheduleList = ["hayat", "manas", "rohan", "mohit"];
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
@@ -62,7 +60,6 @@ class _NetworkState extends State<Network> {
                 textAlign: TextAlign.start,
               ),
             ),
-            //Chat Tabs
             // ChatsTabs(),
             // TODO: replace placeholders with actual UI
             Expanded(
@@ -216,12 +213,10 @@ class _ScheduleState extends State<Schedule> {
                   )
                 : //if you have no events you will get this illustration
                 Container(
-                    child:
-                        // TODO:Add a illustration
-                        Center(
-                            child: Image.asset("assets/events.png",
-                                height:
-                                    200))) //child: Image.asset("assets/sports-illustration1.png")))
+                    child: Center(
+                      child: Image.asset("assets/events.png", height: 200),
+                    ),
+                  )
             : // loading
             Container(
                 child: Center(

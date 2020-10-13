@@ -6,6 +6,9 @@ class UserProfile {
   String location;
   String age;
   String bio;
+  int friendCount;
+  int eventCount;
+  int teamsCount;
   Map<String, bool> phoneNumber;
   String emailId;
 
@@ -34,7 +37,19 @@ class UserProfile {
     this.bio =
         'I couldn’t find the sports car of my dreams, so I built it myself.';
     this.age = '';
+    this.friendCount = 0;
+    this.teamsCount = 0;
+    this.eventCount = 0;
   }
+
+  UserProfile.miniView(String userId, String name, String profileImage) {
+    this.userId = userId;
+    this.name = name;
+    this.profileImage = profileImage;
+  }
+
+  Map<String, dynamic> miniJson() =>
+      {'userId': userId, 'name': name, 'profileImage': profileImage};
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
@@ -45,7 +60,10 @@ class UserProfile {
         'phoneNumber': phoneNumber,
         'emailId': emailId,
         'bio': bio,
-        'age': age
+        'age': age,
+        'friendCount': friendCount,
+        'teamsCount': teamsCount,
+        'eventCount': eventCount
       };
 
   factory UserProfile.fromMap(Map data) {

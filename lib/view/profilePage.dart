@@ -330,7 +330,7 @@ class MainUserProfile extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "23",
+                            data['eventCount'].toString(),
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
@@ -340,7 +340,7 @@ class MainUserProfile extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "2",
+                            data['teamsCount'].toString(),
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
@@ -350,7 +350,7 @@ class MainUserProfile extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "200",
+                            data['friendCount'].toString(),
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),

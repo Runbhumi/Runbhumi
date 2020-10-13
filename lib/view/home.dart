@@ -6,6 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../utils/theme_config.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -181,7 +182,32 @@ class _HomeState extends State<Home> {
                               },
                               children: [
                                 SmallButton(
-                                    myColor: Colors.blue, myText: "Join"),
+                                    myColor: Colors.blue,
+                                    myText: "Join",
+                                    onPressed: () {
+                                      if (!asyncSnapshot.data.documents[index]
+                                          .get('playersId')
+                                          .contains(Constants.prefs
+                                              .getString('userId'))) {
+                                        registerUserToEvent(
+                                            asyncSnapshot.data.documents[index]
+                                                .get('eventId'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('eventName'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('sportName'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('location'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('dateTime')
+                                                .toDate());
+                                        print("User Registered");
+                                        // TODO:User Registered Success Notification
+                                      } else {
+                                        // TODO:User Already Registered
+                                        print("Already Registered");
+                                      }
+                                    })
                               ],
                               leading: Icon(
                                 sportIcon,

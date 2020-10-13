@@ -201,9 +201,11 @@ class _HomeState extends State<Home> {
                                             asyncSnapshot.data.documents[index]
                                                 .get('dateTime')
                                                 .toDate());
-                                        print("Yeah maine kya kiya");
+                                        print("User Registered");
+                                        // TODO:User Registered Success Notification
                                       } else {
-                                        print("hack found");
+                                        // TODO:User Already Registered
+                                        print("Already Registered");
                                       }
                                     })
                               ],

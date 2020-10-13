@@ -526,44 +526,11 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12.0),
-                                child: ListTile(
-                                    leading: Container(
-                                      height: 100,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        child: Image.network(
-                                          asyncSnapshot.data.documents[index]
-                                              .get('profileImage'),
-                                          height: 100, // not working
-                                        ),
-                                      ),
-                                    ),
-                                    title: Text(
-                                      asyncSnapshot.data.documents[index]
-                                          .get('name'),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      return SingleFriendCard(
+                          imageLink: asyncSnapshot.data.documents[index]
+                              .get('profileImage'),
+                          name:
+                              asyncSnapshot.data.documents[index].get('name'));
                     })
                 : //if you have no friends you will get this illustration
                 Container(
@@ -627,6 +594,9 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
               //   ),
               // ),
               child: TextField(
+                onTap: () {
+                  // showShearch();
+                },
                 controller: friendsSearch,
                 decoration: const InputDecoration(
                   hintText: 'Search friends...',
@@ -657,6 +627,8 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
     );
   }
 }
+
+// class UserSearch extends SearchDelegate<>
 
 // class Tabs extends StatelessWidget {
 //   const Tabs({

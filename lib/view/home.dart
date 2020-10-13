@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../utils/theme_config.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -130,7 +132,7 @@ class _HomeState extends State<Home> {
     ];
   }
 
-  Widget feed() {
+  Widget feed({ThemeNotifier theme}) {
     return StreamBuilder(
       stream: currentFeed,
       builder: (context, asyncSnapshot) {
@@ -198,15 +200,24 @@ class _HomeState extends State<Home> {
                               leading: Icon(
                                 sportIcon,
                                 size: 48,
+                                color: theme.currentTheme.backgroundColor,
                               ),
-                              title: Text(asyncSnapshot.data.documents[index]
-                                  .get('eventName')),
+                              title: Text(
+                                asyncSnapshot.data.documents[index]
+                                    .get('eventName'),
+                                style: TextStyle(
+                                  color: theme.currentTheme.backgroundColor,
+                                ),
+                              ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     asyncSnapshot.data.documents[index]
                                         .get('description'),
+                                    style: TextStyle(
+                                      color: theme.currentTheme.backgroundColor,
+                                    ),
                                   ),
                                   Row(
                                     children: [
@@ -271,6 +282,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
       appBar: new AppBar(
         automaticallyImplyLeading: false,
@@ -308,7 +320,7 @@ class _HomeState extends State<Home> {
             ),
             Expanded(
               child: Stack(
-                children: <Widget>[feed()],
+                children: <Widget>[feed(theme: theme)],
               ),
             ),
           ],

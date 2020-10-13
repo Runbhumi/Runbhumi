@@ -1,11 +1,19 @@
 import 'package:Runbhumi/models/Events.dart';
+import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 //import 'package:Runbhumi/models/Events.dart';
 
 class EventService {
   CollectionReference _eventCollectionReference =
       FirebaseFirestore.instance.collection('events');
+
+  addUserToEvent(String id) {
+    _eventCollectionReference.doc(id).set({
+      "playersId": FieldValue.arrayUnion([Constants.prefs.getString('userId')])
+    }, SetOptions(merge: true));
+  }
 
   getCurrentFeed() async {
     return FirebaseFirestore.instance
@@ -60,6 +68,8 @@ addEventToUser(String id, String eventName, String sportName, String location,
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime)
           .minitoJson());
+  UserService().updateEventCount();
+  EventService().addUserToEvent(id);
 }
 
 registerUserToEvent(String id, String eventName, String sportName,

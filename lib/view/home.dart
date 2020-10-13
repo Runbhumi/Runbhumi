@@ -6,6 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../utils/theme_config.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -181,21 +182,30 @@ class _HomeState extends State<Home> {
                               },
                               children: [
                                 SmallButton(
-                                  myColor: Colors.blue,
-                                  myText: "Join",
-                                  onPressed: registerUserToEvent(
-                                      asyncSnapshot.data.documents[index]
-                                          .get('eventId'),
-                                      asyncSnapshot.data.documents[index]
-                                          .get('eventName'),
-                                      asyncSnapshot.data.documents[index]
-                                          .get('sportName'),
-                                      asyncSnapshot.data.documents[index]
-                                          .get('location'),
-                                      asyncSnapshot.data.documents[index]
-                                          .get('dateTime')
-                                          .toDate()),
-                                )
+                                    myColor: Colors.blue,
+                                    myText: "Join",
+                                    onPressed: () {
+                                      if (!asyncSnapshot.data.documents[index]
+                                          .get('playersId')
+                                          .contains(Constants.prefs
+                                              .getString('userId'))) {
+                                        registerUserToEvent(
+                                            asyncSnapshot.data.documents[index]
+                                                .get('eventId'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('eventName'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('sportName'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('location'),
+                                            asyncSnapshot.data.documents[index]
+                                                .get('dateTime')
+                                                .toDate());
+                                        print("Yeah maine kya kiya");
+                                      } else {
+                                        print("hack found");
+                                      }
+                                    })
                               ],
                               leading: Icon(
                                 sportIcon,

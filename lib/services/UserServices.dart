@@ -15,14 +15,14 @@ class UserService {
     _db
         .collection('users')
         .doc(Constants.prefs.get('userId'))
-        .update({'friendCount': FieldValue.increment(1)});
+        .set({'friendCount': FieldValue.increment(1)}, SetOptions(merge: true));
   }
 
   updateTeamsCount() {
     _db
         .collection('users')
         .doc(Constants.prefs.get('userId'))
-        .update({'teamsCount': FieldValue.increment(1)});
+        .set({'teamsCount': FieldValue.increment(1)}, SetOptions(merge: true));
   }
 
   Future<UserProfile> getUserProfile(String id) async {

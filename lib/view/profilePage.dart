@@ -380,7 +380,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["age"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -396,7 +396,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["location"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -412,7 +412,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["emailId"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -428,7 +428,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     "+91 123456789",
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),

@@ -57,6 +57,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   static const double maxDragStartEdge = maxSlide - 16;
   bool _canBeDragged = false;
 
+  //TODO: connect this with real firestore data
   final List teamsList = [
     "Chennai superKings",
     "Rajasthan Royals",
@@ -380,7 +381,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["age"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -396,7 +397,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["location"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -412,7 +413,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["emailId"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -428,7 +429,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     "+91 123456789",
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -526,44 +527,11 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12.0),
-                                child: ListTile(
-                                    leading: Container(
-                                      height: 100,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        child: Image.network(
-                                          asyncSnapshot.data.documents[index]
-                                              .get('profileImage'),
-                                          height: 100, // not working
-                                        ),
-                                      ),
-                                    ),
-                                    title: Text(
-                                      asyncSnapshot.data.documents[index]
-                                          .get('name'),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      return SingleFriendCard(
+                          imageLink: asyncSnapshot.data.documents[index]
+                              .get('profileImage'),
+                          name:
+                              asyncSnapshot.data.documents[index].get('name'));
                     })
                 : //if you have no friends you will get this illustration
                 Container(
@@ -627,6 +595,9 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
               //   ),
               // ),
               child: TextField(
+                onTap: () {
+                  showSearch(context: context, delegate: UserSearch());
+                },
                 controller: friendsSearch,
                 decoration: const InputDecoration(
                   hintText: 'Search friends...',
@@ -655,6 +626,45 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
         ],
       ),
     );
+  }
+}
+
+class UserSearch extends SearchDelegate<ListView> {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          close(context, null);
+        });
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    return Container();
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    return Container();
+    // throw UnimplementedError();
   }
 }
 

@@ -42,6 +42,15 @@ class UserProfile {
     this.eventCount = 0;
   }
 
+  UserProfile.miniView(String userId, String name, String profileImage) {
+    this.userId = userId;
+    this.name = name;
+    this.profileImage = profileImage;
+  }
+
+  Map<String, dynamic> miniJson() =>
+      {'userId': userId, 'name': name, 'profileImage': profileImage};
+
   Map<String, dynamic> toJson() => {
         'userId': userId,
         'username': username,

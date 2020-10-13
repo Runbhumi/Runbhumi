@@ -4,6 +4,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  updateEventCount() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(Constants.prefs.get('userId'))
+        .set({'eventCount': FieldValue.increment(1)}, SetOptions(merge: true));
+  }
+
+  updateFriendCount() {
+    _db
+        .collection('users')
+        .doc(Constants.prefs.get('userId'))
+        .set({'friendCount': FieldValue.increment(1)}, SetOptions(merge: true));
+  }
+
+  updateTeamsCount() {
+    _db
+        .collection('users')
+        .doc(Constants.prefs.get('userId'))
+        .set({'teamsCount': FieldValue.increment(1)}, SetOptions(merge: true));
+  }
 
   Future<UserProfile> getUserProfile(String id) async {
     var snap = await _db.collection('users').doc(id).get();

@@ -7,6 +7,7 @@ class Events {
   String location;
   String sportName;
   String description;
+  List<String> playersId;
   DateTime dateTime;
 
   Events(
@@ -31,6 +32,7 @@ class Events {
     this.creatorId = creatorId;
     this.location = location;
     this.sportName = sportName;
+    this.playersId = [creatorId];
     this.description = description;
     this.dateTime = dateTime;
   }
@@ -59,6 +61,7 @@ class Events {
         'location': location,
         'sportName': sportName,
         'description': description,
+        'playersId': playersId,
         'dateTime': dateTime
       };
   Events.fromSnapshot(DocumentSnapshot snapshot)

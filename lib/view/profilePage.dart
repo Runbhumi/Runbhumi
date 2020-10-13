@@ -57,6 +57,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   static const double maxDragStartEdge = maxSlide - 16;
   bool _canBeDragged = false;
 
+  //TODO: connect this with real firestore data
   final List teamsList = [
     "Chennai superKings",
     "Rajasthan Royals",
@@ -595,7 +596,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
               // ),
               child: TextField(
                 onTap: () {
-                  // showShearch();
+                  showSearch(context: context, delegate: UserSearch());
                 },
                 controller: friendsSearch,
                 decoration: const InputDecoration(
@@ -628,7 +629,44 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
   }
 }
 
-// class UserSearch extends SearchDelegate<>
+class UserSearch extends SearchDelegate<ListView> {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          close(context, null);
+        });
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    return Container();
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    return Container();
+    // throw UnimplementedError();
+  }
+}
 
 // class Tabs extends StatelessWidget {
 //   const Tabs({

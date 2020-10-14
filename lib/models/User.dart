@@ -6,7 +6,11 @@ class UserProfile {
   String location;
   String age;
   String bio;
+  int friendCount;
+  int eventCount;
+  int teamsCount;
   Map<String, bool> phoneNumber;
+  List<String> userSearchIndex;
   String emailId;
 
   UserProfile(
@@ -34,7 +38,19 @@ class UserProfile {
     this.bio =
         'I couldn’t find the sports car of my dreams, so I built it myself.';
     this.age = '';
+    this.friendCount = 0;
+    this.teamsCount = 0;
+    this.eventCount = 0;
   }
+
+  UserProfile.miniView(String userId, String name, String profileImage) {
+    this.userId = userId;
+    this.name = name;
+    this.profileImage = profileImage;
+  }
+
+  Map<String, dynamic> miniJson() =>
+      {'userId': userId, 'name': name, 'profileImage': profileImage};
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
@@ -45,7 +61,11 @@ class UserProfile {
         'phoneNumber': phoneNumber,
         'emailId': emailId,
         'bio': bio,
-        'age': age
+        'age': age,
+        'friendCount': friendCount,
+        'teamsCount': teamsCount,
+        'eventCount': eventCount,
+        "userSearchParam": setSearchParam(username)
       };
 
   factory UserProfile.fromMap(Map data) {
@@ -69,6 +89,15 @@ String generateusername(String email) {
   return result;
 }
 
+setSearchParam(String username) {
+  List<String> userSearchList = List();
+  String temp = "";
+  for (int i = 0; i < username.length; i++) {
+    temp = temp + username[i];
+    userSearchList.add(temp);
+  }
+  return userSearchList;
+}
 // getImageURL() async {
 //   final String profileImage = await Constants.getProfileImage();
 //   return profileImage;

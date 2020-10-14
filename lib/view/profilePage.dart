@@ -57,6 +57,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   static const double maxDragStartEdge = maxSlide - 16;
   bool _canBeDragged = false;
 
+  //TODO: connect this with real firestore data
   final List teamsList = [
     "Chennai superKings",
     "Rajasthan Royals",
@@ -329,7 +330,7 @@ class MainUserProfile extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "23",
+                            data['eventCount'].toString(),
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
@@ -339,7 +340,7 @@ class MainUserProfile extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "2",
+                            data['teamsCount'].toString(),
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
@@ -349,7 +350,7 @@ class MainUserProfile extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "200",
+                            data['friendCount'].toString(),
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
@@ -380,7 +381,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["age"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -396,7 +397,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["location"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -412,7 +413,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     data["emailId"],
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -428,7 +429,7 @@ class MainUserProfile extends StatelessWidget {
                   ),
                   Text(
                     "+91 123456789",
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -526,44 +527,11 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12.0),
-                                child: ListTile(
-                                    leading: Container(
-                                      height: 100,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        child: Image.network(
-                                          asyncSnapshot.data.documents[index]
-                                              .get('profileImage'),
-                                          height: 100, // not working
-                                        ),
-                                      ),
-                                    ),
-                                    title: Text(
-                                      asyncSnapshot.data.documents[index]
-                                          .get('name'),
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      return SingleFriendCard(
+                          imageLink: asyncSnapshot.data.documents[index]
+                              .get('profileImage'),
+                          name:
+                              asyncSnapshot.data.documents[index].get('name'));
                     })
                 : //if you have no friends you will get this illustration
                 Container(
@@ -627,6 +595,9 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
               //   ),
               // ),
               child: TextField(
+                onTap: () {
+                  showSearch(context: context, delegate: UserSearch());
+                },
                 controller: friendsSearch,
                 decoration: const InputDecoration(
                   hintText: 'Search friends...',
@@ -657,6 +628,102 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
     );
   }
 }
+
+class UserSearch extends SearchDelegate<ListView> {
+  getUser(String query) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: query)
+        .limit(1)
+        .snapshots();
+  }
+
+  getUserFeed(String query) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("userSearchParam", arrayContains: query)
+        .limit(5)
+        .snapshots();
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+    // throw UnimplementedError();
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          close(context, null);
+        });
+    // throw UnimplementedError();
+  }
+
+//TODO: A button to be added to view profie of the user
+  @override
+  Widget buildResults(BuildContext context) {
+    return StreamBuilder(
+        //TODO : Add a Card View to the stream builder
+        stream: getUserFeed(query),
+        builder: (context, asyncSnapshot) {
+          return asyncSnapshot.hasData
+              ? ListView.builder(
+                  itemCount: asyncSnapshot.data.documents.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.person),
+                      title:
+                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    );
+                  })
+              //TODO: Add a no such user Illustration
+              : Container(child: Text("no result found"));
+        });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return StreamBuilder(
+        //TODO : Add a Card View to the stream builder
+        stream: getUserFeed(query),
+        builder: (context, asyncSnapshot) {
+          print("Working");
+          return asyncSnapshot.hasData
+              ? ListView.builder(
+                  itemCount: asyncSnapshot.data.documents.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.person),
+                      title:
+                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    );
+                  })
+              //TODO: Add a no user Found animation / Illustration
+              : Container(child: Text("no result found"));
+        });
+    // throw UnimplementedError();
+    // return Container();
+  }
+}
+
+/*
+
+use asyncSnapshot.data.documents[index].get('profileImage'); => To get user Profile Image
+use asyncSnapshot.data.documents[index].get('username'); => To get the username of the user
+Text Spanning can be used to give user a feeling of auto completion
+*/
 
 // class Tabs extends StatelessWidget {
 //   const Tabs({

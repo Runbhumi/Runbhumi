@@ -10,6 +10,7 @@ class UserProfile {
   int eventCount;
   int teamsCount;
   Map<String, bool> phoneNumber;
+  List<String> userSearchIndex;
   String emailId;
 
   UserProfile(
@@ -63,7 +64,8 @@ class UserProfile {
         'age': age,
         'friendCount': friendCount,
         'teamsCount': teamsCount,
-        'eventCount': eventCount
+        'eventCount': eventCount,
+        "userSearchParam": setSearchParam(username)
       };
 
   factory UserProfile.fromMap(Map data) {
@@ -87,6 +89,15 @@ String generateusername(String email) {
   return result;
 }
 
+setSearchParam(String username) {
+  List<String> userSearchList = List();
+  String temp = "";
+  for (int i = 0; i < username.length; i++) {
+    temp = temp + username[i];
+    userSearchList.add(temp);
+  }
+  return userSearchList;
+}
 // getImageURL() async {
 //   final String profileImage = await Constants.getProfileImage();
 //   return profileImage;

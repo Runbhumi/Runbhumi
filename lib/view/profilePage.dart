@@ -596,6 +596,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
 
 class UserSearch extends SearchDelegate<ListView> {
   getUser(String query) {
+    print("getUser");
     return FirebaseFirestore.instance
         .collection("users")
         .where("username", isEqualTo: query)
@@ -604,6 +605,7 @@ class UserSearch extends SearchDelegate<ListView> {
   }
 
   getUserFeed(String query) {
+    print("getUserFeed");
     return FirebaseFirestore.instance
         .collection("users")
         .where("userSearchParam", arrayContains: query)
@@ -615,7 +617,7 @@ class UserSearch extends SearchDelegate<ListView> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: Icon(Feather.x),
         onPressed: () {
           query = '';
         },
@@ -638,29 +640,39 @@ class UserSearch extends SearchDelegate<ListView> {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder(
-        //TODO : Add a Card View to the stream builder
-        stream: getUserFeed(query),
+        stream: getUser(query),
         builder: (context, asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
                   itemCount: asyncSnapshot.data.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        child: ListTile(
-                          leading: Image(
-                            image: NetworkImage(asyncSnapshot
-                                .data.documents[index]
-                                .get('profileImage')
-                                .toString()),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical:4.0, horizontal: 16.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          title: Text(
-                            asyncSnapshot.data.documents[index].get('name'),
-                          ),
-                          subtitle: Text(
-                            asyncSnapshot.data.documents[index].get('username'),
+                          elevation: 20,
+                          child: ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Image(
+                                image: NetworkImage(
+                                  asyncSnapshot.data.documents[index]
+                                      .get('profileImage'),
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              asyncSnapshot.data.documents[index].get('name'),
+                            ),
+                            subtitle: Text(
+                              asyncSnapshot.data.documents[index].get('username'),
+                            ),
                           ),
                         ),
                       ),
@@ -674,7 +686,6 @@ class UserSearch extends SearchDelegate<ListView> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder(
-        //TODO : Add a Card View to the stream builder
         stream: getUserFeed(query),
         builder: (context, asyncSnapshot) {
           print("Working");
@@ -683,20 +694,31 @@ class UserSearch extends SearchDelegate<ListView> {
                   itemCount: asyncSnapshot.data.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        child: ListTile(
-                          leading: Image(
-                            image: NetworkImage(asyncSnapshot
-                                .data.documents[index]
-                                .get('profileImage')
-                                .toString()),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical:4.0, horizontal: 16.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          title: Text(
-                              asyncSnapshot.data.documents[index].get('name')),
-                          subtitle: Text(
-                            asyncSnapshot.data.documents[index].get('username'),
+                          elevation: 20,
+                          child: ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Image(
+                                image: NetworkImage(asyncSnapshot
+                                    .data.documents[index]
+                                    .get('profileImage')
+                                    .toString()),
+                              ),
+                            ),
+                            title: Text(
+                                asyncSnapshot.data.documents[index].get('name')),
+                            subtitle: Text(
+                              asyncSnapshot.data.documents[index].get('username'),
+                            ),
                           ),
                         ),
                       ),

@@ -1,7 +1,9 @@
 import 'package:Runbhumi/models/message.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:Runbhumi/models/Events.dart';
 
-class chatroomService {
+class ChatroomService {
   searchByName(String searchField) {
     return FirebaseFirestore.instance
         .collection("users")
@@ -13,7 +15,7 @@ class chatroomService {
     return FirebaseFirestore.instance.collection("users").snapshots();
   }
 
-  Future<bool> addChatRoom(chatRoom, chatRoomId) {
+  addChatRoom(chatRoom, chatRoomId) {
     FirebaseFirestore.instance
         .collection("DirectChats")
         .doc(chatRoomId)
@@ -45,7 +47,7 @@ class chatroomService {
   }
 
   getUsersDirectChats(String itIsMyName) async {
-    return await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("ChatRoom")
         .where('users', arrayContains: itIsMyName)
         .snapshots();

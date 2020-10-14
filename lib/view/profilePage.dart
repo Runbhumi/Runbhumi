@@ -669,9 +669,11 @@ class UserSearch extends SearchDelegate<ListView> {
     // throw UnimplementedError();
   }
 
+//TODO: A button to be added to view profie of the user
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder(
+        //TODO : Add a Card View to the stream builder
         stream: getUserFeed(query),
         builder: (context, asyncSnapshot) {
           return asyncSnapshot.hasData
@@ -685,6 +687,7 @@ class UserSearch extends SearchDelegate<ListView> {
                           Text(asyncSnapshot.data.documents[index].get('name')),
                     );
                   })
+              //TODO: Add a no such user Illustration
               : Container(child: Text("no result found"));
         });
   }
@@ -692,6 +695,7 @@ class UserSearch extends SearchDelegate<ListView> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder(
+        //TODO : Add a Card View to the stream builder
         stream: getUserFeed(query),
         builder: (context, asyncSnapshot) {
           print("Working");
@@ -706,12 +710,20 @@ class UserSearch extends SearchDelegate<ListView> {
                           Text(asyncSnapshot.data.documents[index].get('name')),
                     );
                   })
+              //TODO: Add a no user Found animation / Illustration
               : Container(child: Text("no result found"));
         });
     // throw UnimplementedError();
     // return Container();
   }
 }
+
+/*
+
+use asyncSnapshot.data.documents[index].get('profileImage'); => To get user Profile Image
+use asyncSnapshot.data.documents[index].get('username'); => To get the username of the user
+Text Spanning can be used to give user a feeling of auto completion
+*/
 
 // class Tabs extends StatelessWidget {
 //   const Tabs({

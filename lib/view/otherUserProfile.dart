@@ -280,6 +280,11 @@ class MainUserProfile extends StatelessWidget {
             ),
           ),
         ),
+        Button(
+          myColor: Theme.of(context).primaryColor,
+          myText: "Add Friend",
+          onPressed: () {},
+        ),
         //stats
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),

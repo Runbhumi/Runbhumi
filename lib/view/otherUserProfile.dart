@@ -8,6 +8,12 @@ import 'views.dart';
 import '../widget/widgets.dart';
 
 class OtherUserProfile extends StatefulWidget {
+  const OtherUserProfile({
+    @required this.userID,
+    Key key,
+  }) : super(key: key);
+  final String userID;
+
   @override
   _OtherUserProfileState createState() => _OtherUserProfileState();
 }
@@ -85,14 +91,18 @@ class _OtherUserProfileState extends State<OtherUserProfile>
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(
-                Feather.menu,
+                Feather.arrow_left,
               ),
-              onPressed: toggle,
+              onPressed: () {
+                Navigator.pop(context);
+              },
             );
           },
         ),
       ),
-      body: ProfileBody(),
+      body: ProfileBody(
+        userID: widget.userID,
+      ),
     );
     return GestureDetector(
       onHorizontalDragStart: _onDragStart,
@@ -158,8 +168,10 @@ class _OtherUserProfileState extends State<OtherUserProfile>
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
+    @required this.userID,
     Key key,
   }) : super(key: key);
+  final String userID;
 
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
@@ -178,11 +190,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       print("completed");
       setState(() {});
     });
-    sub = db
-        .collection('users')
-        .doc(Constants.prefs.getString('userId'))
-        .snapshots()
-        .listen((snap) {
+    sub = db.collection('users').doc(widget.userID).snapshots().listen((snap) {
       setState(() {
         data = snap.data();
         _loading = true;
@@ -273,6 +281,13 @@ class MainUserProfile extends StatelessWidget {
             ),
           ),
         ),
+        if (!(data['userId'] == Constants.prefs.getString('userId')))
+          Button(
+            myColor: Theme.of(context).primaryColor,
+            myText: "Add Friend",
+            onPressed: () {},
+            // TODO: add friend logic ☝
+          ),
         //stats
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),

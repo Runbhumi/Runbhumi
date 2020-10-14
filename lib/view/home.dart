@@ -1,5 +1,4 @@
 import 'package:Runbhumi/services/EventService.dart';
-import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -7,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../utils/theme_config.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import '../widget/widgets.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -300,13 +300,7 @@ class _HomeState extends State<Home> {
                   );
                 },
               )
-            : Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-              );
+            : Loader();
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -280,11 +281,12 @@ class MainUserProfile extends StatelessWidget {
             ),
           ),
         ),
-        Button(
-          myColor: Theme.of(context).primaryColor,
-          myText: "Add Friend",
-          onPressed: () {},
-        ),
+        if (!(data['userId'] == Constants.prefs.getString('userId')))
+          Button(
+            myColor: Theme.of(context).primaryColor,
+            myText: "Add Friend",
+            onPressed: () {},
+          ),
         //stats
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),

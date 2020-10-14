@@ -648,7 +648,8 @@ class UserSearch extends SearchDelegate<ListView> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical:4.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 16.0),
                       child: GestureDetector(
                         onTap: () {},
                         child: Card(
@@ -671,7 +672,8 @@ class UserSearch extends SearchDelegate<ListView> {
                               asyncSnapshot.data.documents[index].get('name'),
                             ),
                             subtitle: Text(
-                              asyncSnapshot.data.documents[index].get('username'),
+                              asyncSnapshot.data.documents[index]
+                                  .get('username'),
                             ),
                           ),
                         ),
@@ -695,7 +697,8 @@ class UserSearch extends SearchDelegate<ListView> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical:4.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 16.0),
                       child: GestureDetector(
                         onTap: () {},
                         child: Card(
@@ -714,10 +717,11 @@ class UserSearch extends SearchDelegate<ListView> {
                                     .toString()),
                               ),
                             ),
-                            title: Text(
-                                asyncSnapshot.data.documents[index].get('name')),
+                            title: Text(asyncSnapshot.data.documents[index]
+                                .get('name')),
                             subtitle: Text(
-                              asyncSnapshot.data.documents[index].get('username'),
+                              asyncSnapshot.data.documents[index]
+                                  .get('username'),
                             ),
                           ),
                         ),

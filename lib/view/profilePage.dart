@@ -680,8 +680,13 @@ class UserSearch extends SearchDelegate<ListView> {
                       ),
                     );
                   })
-              //TODO: Add a no such user Illustration
-              : Container(child: Center(child: Text("no result found")));
+              : Container(
+                  child: Center(
+                    child: Image(
+                      image: AssetImage("assets/search-illustration.png"),
+                    ),
+                  ),
+                );
         });
   }
 
@@ -738,15 +743,19 @@ class UserSearch extends SearchDelegate<ListView> {
                       ),
                     );
                   })
-              //TODO: Add a no user Found animation / Illustration
-              : Container(child: Center(child: Text("no result found")));
+              : Container(
+                  child: Center(
+                    child: Image(
+                      image: AssetImage("assets/search-illustration.png"),
+                    ),
+                  ),
+                );
         });
     // throw UnimplementedError();
   }
 }
 
 /*
-use asyncSnapshot.data.documents[index].get('username'); => To get the username of the user
 Text Spanning can be used to give user a feeling of auto completion
 */
 

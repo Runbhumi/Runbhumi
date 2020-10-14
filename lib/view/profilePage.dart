@@ -630,6 +630,22 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
 }
 
 class UserSearch extends SearchDelegate<ListView> {
+  getUser(String query) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: query)
+        .limit(1)
+        .snapshots();
+  }
+
+  getUserFeed(String query) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("userSearchParam", arrayContains: query)
+        .limit(5)
+        .snapshots();
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -655,16 +671,45 @@ class UserSearch extends SearchDelegate<ListView> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    return Container();
-    // throw UnimplementedError();
+    return StreamBuilder(
+        stream: getUserFeed(query),
+        builder: (context, asyncSnapshot) {
+          return asyncSnapshot.hasData
+              ? ListView.builder(
+                  itemCount: asyncSnapshot.data.documents.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.person),
+                      title:
+                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    );
+                  })
+              : Container(child: Text("no result found"));
+        });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return Container();
+    return StreamBuilder(
+        stream: getUserFeed(query),
+        builder: (context, asyncSnapshot) {
+          print("Working");
+          return asyncSnapshot.hasData
+              ? ListView.builder(
+                  itemCount: asyncSnapshot.data.documents.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.person),
+                      title:
+                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    );
+                  })
+              : Container(child: Text("no result found"));
+        });
     // throw UnimplementedError();
+    // return Container();
   }
 }
 

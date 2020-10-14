@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -8,6 +7,12 @@ import 'views.dart';
 import '../widget/widgets.dart';
 
 class OtherUserProfile extends StatefulWidget {
+  const OtherUserProfile({
+    @required this.userID,
+    Key key,
+  }) : super(key: key);
+  final String userID;
+
   @override
   _OtherUserProfileState createState() => _OtherUserProfileState();
 }
@@ -85,14 +90,18 @@ class _OtherUserProfileState extends State<OtherUserProfile>
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(
-                Feather.menu,
+                Feather.arrow_left,
               ),
-              onPressed: toggle,
+              onPressed: () {
+                Navigator.pop(context);
+              },
             );
           },
         ),
       ),
-      body: ProfileBody(),
+      body: ProfileBody(
+        userID: widget.userID,
+      ),
     );
     return GestureDetector(
       onHorizontalDragStart: _onDragStart,
@@ -158,8 +167,10 @@ class _OtherUserProfileState extends State<OtherUserProfile>
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
+    @required this.userID,
     Key key,
   }) : super(key: key);
+  final String userID;
 
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
@@ -178,11 +189,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       print("completed");
       setState(() {});
     });
-    sub = db
-        .collection('users')
-        .doc(Constants.prefs.getString('userId'))
-        .snapshots()
-        .listen((snap) {
+    sub = db.collection('users').doc(widget.userID).snapshots().listen((snap) {
       setState(() {
         data = snap.data();
         _loading = true;

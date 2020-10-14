@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/otherUserProfile.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -700,7 +701,17 @@ class UserSearch extends SearchDelegate<ListView> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 4.0, horizontal: 16.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OtherUserProfile(
+                                      userID: asyncSnapshot
+                                          .data.documents[index]
+                                          .get('userId'),
+                                    )),
+                          );
+                        },
                         child: Card(
                           shadowColor: Color(0x44393e46),
                           shape: RoundedRectangleBorder(
@@ -732,7 +743,6 @@ class UserSearch extends SearchDelegate<ListView> {
               : Container(child: Center(child: Text("no result found")));
         });
     // throw UnimplementedError();
-    // return Container();
   }
 }
 

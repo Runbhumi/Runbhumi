@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class Button extends StatefulWidget {
   const Button({
     @required this.myText,
     @required this.myColor,
@@ -14,30 +14,35 @@ class Button extends StatelessWidget {
   final Function onPressed;
 
   @override
+  _ButtonState createState() => _ButtonState();
+}
+
+class _ButtonState extends State<Button> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-          onTap: onPressed ??
+          onTap: widget.onPressed ??
               () {
-                print("going to " + routeName);
-                Navigator.pushNamed(context, routeName);
+                print("going to " + widget.routeName);
+                Navigator.pushNamed(context, widget.routeName);
               },
           child: Container(
             height: 55,
             width: 300,
             decoration: BoxDecoration(
-                color: myColor,
+                color: widget.myColor,
                 borderRadius: BorderRadius.circular(800),
                 boxShadow: [
                   BoxShadow(
-                      color: myColor.withOpacity(.4),
+                      color: widget.myColor.withOpacity(.4),
                       blurRadius: 6,
                       offset: Offset(0, 5))
                 ]),
             child: Center(
               child: Text(
-                myText,
+                widget.myText,
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),

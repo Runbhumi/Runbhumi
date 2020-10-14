@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/otherUserProfile.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -559,41 +560,6 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Container(
-              // TypeAheadField(
-              //   itemBuilder: (context, suggestion) {
-              //     return ListTile(
-              //       leading: Icon(Icons.shopping_cart),
-              //       title: Text(suggestion['name']),
-              //       subtitle: Text('\$${suggestion['price']}'),
-              //     );
-              //   },
-              //   suggestionsCallback: (pattern) async {
-              //     // return await BackendService.getSuggestions(pattern);
-              //   },
-              //   onSuggestionSelected: (suggestion) {
-              //     // Navigator.of(context).push(MaterialPageRoute(
-              //     //     builder: (context) => ProductPage(product: suggestion)));
-              //   },
-              //   textFieldConfiguration: TextFieldConfiguration(
-              //     controller: friendsSearch,
-              //     decoration: const InputDecoration(
-              //       hintText: 'Search friends...',
-              //       border: InputBorder.none,
-              //       enabledBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              //         borderSide: BorderSide(color: Color(00000000)),
-              //       ),
-              //       prefixIcon: Icon(Feather.search),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              //         borderSide: BorderSide(color: Color(00000000)),
-              //       ),
-              //       hintStyle: const TextStyle(color: Colors.grey),
-              //     ),
-              //     style: const TextStyle(fontSize: 16.0),
-              //     onChanged: updateSearchQuery,
-              //   ),
-              // ),
               child: TextField(
                 onTap: () {
                   showSearch(context: context, delegate: UserSearch());
@@ -631,6 +597,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
 
 class UserSearch extends SearchDelegate<ListView> {
   getUser(String query) {
+    print("getUser");
     return FirebaseFirestore.instance
         .collection("users")
         .where("username", isEqualTo: query)
@@ -639,6 +606,7 @@ class UserSearch extends SearchDelegate<ListView> {
   }
 
   getUserFeed(String query) {
+    print("getUserFeed");
     return FirebaseFirestore.instance
         .collection("users")
         .where("userSearchParam", arrayContains: query)
@@ -650,7 +618,7 @@ class UserSearch extends SearchDelegate<ListView> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: Icon(Feather.x),
         onPressed: () {
           query = '';
         },
@@ -669,33 +637,62 @@ class UserSearch extends SearchDelegate<ListView> {
     // throw UnimplementedError();
   }
 
-//TODO: A button to be added to view profie of the user
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder(
-        //TODO : Add a Card View to the stream builder
-        stream: getUserFeed(query),
+        stream: getUser(query),
         builder: (context, asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
                   itemCount: asyncSnapshot.data.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Icon(Icons.person),
-                      title:
-                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 16.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Image(
+                                image: NetworkImage(
+                                  asyncSnapshot.data.documents[index]
+                                      .get('profileImage'),
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              asyncSnapshot.data.documents[index].get('name'),
+                            ),
+                            subtitle: Text(
+                              asyncSnapshot.data.documents[index]
+                                  .get('username'),
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   })
-              //TODO: Add a no such user Illustration
-              : Container(child: Text("no result found"));
+              : Container(
+                  child: Center(
+                    child: Image(
+                      image: AssetImage("assets/search-illustration.png"),
+                    ),
+                  ),
+                );
         });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder(
-        //TODO : Add a Card View to the stream builder
         stream: getUserFeed(query),
         builder: (context, asyncSnapshot) {
           print("Working");
@@ -704,24 +701,61 @@ class UserSearch extends SearchDelegate<ListView> {
                   itemCount: asyncSnapshot.data.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Icon(Icons.person),
-                      title:
-                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 16.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OtherUserProfile(
+                                      userID: asyncSnapshot
+                                          .data.documents[index]
+                                          .get('userId'),
+                                    )),
+                          );
+                        },
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Image(
+                                image: NetworkImage(asyncSnapshot
+                                    .data.documents[index]
+                                    .get('profileImage')
+                                    .toString()),
+                              ),
+                            ),
+                            title: Text(asyncSnapshot.data.documents[index]
+                                .get('name')),
+                            subtitle: Text(
+                              asyncSnapshot.data.documents[index]
+                                  .get('username'),
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   })
-              //TODO: Add a no user Found animation / Illustration
-              : Container(child: Text("no result found"));
+              : Container(
+                  child: Center(
+                    child: Image(
+                      image: AssetImage("assets/search-illustration.png"),
+                    ),
+                  ),
+                );
         });
     // throw UnimplementedError();
-    // return Container();
   }
 }
 
 /*
-
-use asyncSnapshot.data.documents[index].get('profileImage'); => To get user Profile Image
-use asyncSnapshot.data.documents[index].get('username'); => To get the username of the user
 Text Spanning can be used to give user a feeling of auto completion
 */
 

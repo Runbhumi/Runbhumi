@@ -1,5 +1,4 @@
 import 'package:Runbhumi/services/EventService.dart';
-import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -7,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../utils/theme_config.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import '../widget/widgets.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -29,6 +29,20 @@ class _HomeState extends State<Home> {
     });
     _searchQuery = new TextEditingController();
     getUserInfoEvents();
+  }
+
+  SimpleDialog successDialog(BuildContext context) {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Center(
+            child: Text("You Have been added",
+                style: Theme.of(context).textTheme.headline4)),
+        Image.asset("assets/confirmation-illustration.png")
+      ],
+    );
   }
 
   getUserInfoEvents() async {
@@ -161,6 +175,11 @@ class _HomeState extends State<Home> {
                       sportIcon = Icons.sports_soccer;
                       break;
                   }
+                  bool registrationCondition = asyncSnapshot
+                      .data.documents[index]
+                      .get('playersId')
+                      .contains(Constants.prefs.getString('userId'));
+                  var eventData = asyncSnapshot.data.documents[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16.0),
@@ -182,29 +201,28 @@ class _HomeState extends State<Home> {
                               },
                               children: [
                                 SmallButton(
-                                    myColor: Colors.blue,
-                                    myText: "Join",
+                                    myColor: !registrationCondition
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context).accentColor,
+                                    myText: !registrationCondition
+                                        ? "Join"
+                                        : "Already Registered",
                                     onPressed: () {
-                                      if (!asyncSnapshot.data.documents[index]
-                                          .get('playersId')
-                                          .contains(Constants.prefs
-                                              .getString('userId'))) {
+                                      if (!registrationCondition) {
                                         registerUserToEvent(
-                                            asyncSnapshot.data.documents[index]
-                                                .get('eventId'),
-                                            asyncSnapshot.data.documents[index]
-                                                .get('eventName'),
-                                            asyncSnapshot.data.documents[index]
-                                                .get('sportName'),
-                                            asyncSnapshot.data.documents[index]
-                                                .get('location'),
-                                            asyncSnapshot.data.documents[index]
-                                                .get('dateTime')
-                                                .toDate());
+                                          eventData.get('eventId'),
+                                          eventData.get('eventName'),
+                                          eventData.get('sportName'),
+                                          eventData.get('location'),
+                                          eventData.get('dateTime').toDate(),
+                                        );
                                         print("User Registered");
-                                        // TODO:User Registered Success Notification
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return successDialog(context);
+                                            });
                                       } else {
-                                        // TODO:User Already Registered
                                         print("Already Registered");
                                       }
                                     })
@@ -281,13 +299,7 @@ class _HomeState extends State<Home> {
                   );
                 },
               )
-            : Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
-                ),
-              );
+            : Loader();
       },
     );
   }

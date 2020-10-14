@@ -223,7 +223,6 @@ class _HomeState extends State<Home> {
                                               return successDialog(context);
                                             });
                                       } else {
-                                        // TODO:User Already Registered
                                         print("Already Registered");
                                       }
                                     })

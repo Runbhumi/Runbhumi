@@ -637,7 +637,6 @@ class UserSearch extends SearchDelegate<ListView> {
     // throw UnimplementedError();
   }
 
-//TODO: A button to be added to view profie of the user
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder(

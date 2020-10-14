@@ -286,6 +286,7 @@ class MainUserProfile extends StatelessWidget {
             myColor: Theme.of(context).primaryColor,
             myText: "Add Friend",
             onPressed: () {},
+            // TODO: add friend logic ☝ 
           ),
         //stats
         Padding(

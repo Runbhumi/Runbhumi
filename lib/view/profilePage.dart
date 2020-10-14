@@ -630,6 +630,22 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
 }
 
 class UserSearch extends SearchDelegate<ListView> {
+  getUser(String query) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: query)
+        .limit(1)
+        .snapshots();
+  }
+
+  getUserFeed(String query) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .where("userSearchParam", arrayContains: query)
+        .limit(5)
+        .snapshots();
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -653,20 +669,61 @@ class UserSearch extends SearchDelegate<ListView> {
     // throw UnimplementedError();
   }
 
+//TODO: A button to be added to view profie of the user
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    return Container();
-    // throw UnimplementedError();
+    return StreamBuilder(
+        //TODO : Add a Card View to the stream builder
+        stream: getUserFeed(query),
+        builder: (context, asyncSnapshot) {
+          return asyncSnapshot.hasData
+              ? ListView.builder(
+                  itemCount: asyncSnapshot.data.documents.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.person),
+                      title:
+                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    );
+                  })
+              //TODO: Add a no such user Illustration
+              : Container(child: Text("no result found"));
+        });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return Container();
+    return StreamBuilder(
+        //TODO : Add a Card View to the stream builder
+        stream: getUserFeed(query),
+        builder: (context, asyncSnapshot) {
+          print("Working");
+          return asyncSnapshot.hasData
+              ? ListView.builder(
+                  itemCount: asyncSnapshot.data.documents.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.person),
+                      title:
+                          Text(asyncSnapshot.data.documents[index].get('name')),
+                    );
+                  })
+              //TODO: Add a no user Found animation / Illustration
+              : Container(child: Text("no result found"));
+        });
     // throw UnimplementedError();
+    // return Container();
   }
 }
+
+/*
+
+use asyncSnapshot.data.documents[index].get('profileImage'); => To get user Profile Image
+use asyncSnapshot.data.documents[index].get('username'); => To get the username of the user
+Text Spanning can be used to give user a feeling of auto completion
+*/
 
 // class Tabs extends StatelessWidget {
 //   const Tabs({

@@ -657,7 +657,11 @@ class UserSearch extends SearchDelegate<ListView> {
                                 .toString()),
                           ),
                           title: Text(
-                              asyncSnapshot.data.documents[index].get('name')),
+                            asyncSnapshot.data.documents[index].get('name'),
+                          ),
+                          subtitle: Text(
+                            asyncSnapshot.data.documents[index].get('username'),
+                          ),
                         ),
                       ),
                     );
@@ -691,6 +695,9 @@ class UserSearch extends SearchDelegate<ListView> {
                           ),
                           title: Text(
                               asyncSnapshot.data.documents[index].get('name')),
+                          subtitle: Text(
+                            asyncSnapshot.data.documents[index].get('username'),
+                          ),
                         ),
                       ),
                     );
@@ -704,8 +711,6 @@ class UserSearch extends SearchDelegate<ListView> {
 }
 
 /*
-
-use asyncSnapshot.data.documents[index].get('profileImage'); => To get user Profile Image
 use asyncSnapshot.data.documents[index].get('username'); => To get the username of the user
 Text Spanning can be used to give user a feeling of auto completion
 */

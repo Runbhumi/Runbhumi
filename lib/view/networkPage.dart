@@ -1,7 +1,6 @@
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/widget/placeholder_widget.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -76,7 +75,7 @@ class _NetworkState extends State<Network> {
               //     PlaceholderWidget(),
               //   ],
               // ),
-              child: directChats(),
+              child: DirectChats(),
             ),
           ],
         ),
@@ -86,17 +85,17 @@ class _NetworkState extends State<Network> {
   }
 }
 
-class directChats extends StatefulWidget {
+class DirectChats extends StatefulWidget {
   @override
-  _directChatsState createState() => _directChatsState();
+  _DirectChatsState createState() => _DirectChatsState();
 }
 
-class _directChatsState extends State<directChats> {
+class _DirectChatsState extends State<DirectChats> {
   Stream userDirectChats;
   TextEditingController friendsSearch;
   String searchQuery = "";
   void initState() {
-    getUserFriends();
+    getUserChats(); //Getting the chats of the particular user
     super.initState();
     friendsSearch = new TextEditingController();
   }
@@ -108,7 +107,7 @@ class _directChatsState extends State<directChats> {
     print("searched " + newQuery);
   }
 
-  getUserFriends() async {
+  getUserChats() async {
     print("got here");
     ChatroomService().getUsersDirectChats().then((snapshots) {
       setState(() {
@@ -131,7 +130,9 @@ class _directChatsState extends State<directChats> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
+                        //TODO: UI for the list of chats.
                         onTap: () {
+                          //Sending the user to the chat room
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -350,6 +351,8 @@ class UserSearchDirect extends SearchDelegate<ListView> {
                       child: GestureDetector(
                         onTap: () {
                           print("creating a chat room");
+                          //Creating a chatroom for the user he searched for
+                          // Can get any information of that other user here.
                           createChatRoom(
                               asyncSnapshot.data.documents[index].get('userId'),
                               context,

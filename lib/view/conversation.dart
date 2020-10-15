@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class Conversation extends StatefulWidget {
   final String chatRoomId;
+  //chatRoomId is used to identify which chat room we are in
   Conversation({this.chatRoomId});
   @override
   _ConversationState createState() => _ConversationState();
@@ -14,6 +15,7 @@ class _ConversationState extends State<Conversation> {
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   addMessage() {
+    //adding the message typed by the user
     if (messageEditingController.text.isNotEmpty) {
       ChatroomService().sendNewMessage(
           DateTime.now(),
@@ -27,6 +29,7 @@ class _ConversationState extends State<Conversation> {
   }
 
   Widget chatMessages() {
+    //displaying previous chats
     return StreamBuilder(
       stream: chats,
       builder: (context, snapshot) {
@@ -35,6 +38,7 @@ class _ConversationState extends State<Conversation> {
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   return MessageTile(
+                    //decides who sent the message and accordingly aligns the text
                     message: snapshot.data.documents[index].get('message'),
                     sendByMe: Constants.prefs.getString('userId') ==
                         snapshot.data.documents[index].get('sentby'),
@@ -59,6 +63,7 @@ class _ConversationState extends State<Conversation> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Making the chat box look like the prototype.
     return Scaffold(
       appBar: AppBar(
         title: Text("ChatBox"),
@@ -109,6 +114,7 @@ class _ConversationState extends State<Conversation> {
 class MessageTile extends StatelessWidget {
   final String message;
   final bool sendByMe;
+  //sendByMe boolean to check if the currentuser sent the message before.
 
   MessageTile({@required this.message, @required this.sendByMe});
 

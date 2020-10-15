@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/message.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:Runbhumi/models/Events.dart';
@@ -42,14 +43,15 @@ class ChatroomService {
         .collection("DirectChats")
         .doc(chatRoomId)
         .collection("chats")
-        .orderBy('time')
+        .orderBy('dateTime')
         .snapshots();
   }
 
-  getUsersDirectChats(String itIsMyName) async {
+  getUsersDirectChats() async {
+    print("I am here");
     return FirebaseFirestore.instance
-        .collection("ChatRoom")
-        .where('users', arrayContains: itIsMyName)
+        .collection("DirectChats")
+        .where('users', arrayContains: Constants.prefs.getString('userId'))
         .snapshots();
   }
 }

@@ -2,7 +2,7 @@
 // import 'package:Runbhumi/models/Notification.dart';
 
 // class FriendRequest {
-//   // this request will create a friend request
+//  this request will create a friend request
 
 //   Future<void> createFriendRequest(String senderId, String recieverId) async {
 //     try {
@@ -76,7 +76,7 @@
 //     }
 //   }
 
-//   // Logic for rejecting a friend Request
+//    Logic for rejecting a friend Request
 
 //   Future<void> rejectFriendRequest(String notificationId) async {
 //     try {
@@ -95,7 +95,7 @@
 //     }
 //   }
 
-// //Logic For removing a friend
+// Logic For removing a friend
 
 //   Future<void> removeFriend(String notificationId) async {
 //     try {} catch (e) {
@@ -103,3 +103,55 @@
 //     }
 //   }
 // }
+
+import 'package:Runbhumi/models/Friends.dart';
+import 'package:Runbhumi/models/Notification.dart';
+import 'package:Runbhumi/services/UserServices.dart';
+import 'package:Runbhumi/utils/Constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class FriendRequest {
+  createRequest(String friendId) {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendId)
+        .collection('friendReq');
+    var doc = db.doc();
+    String id = doc.id;
+    doc.set(FriendRequestNotification.createNewRequest(
+            id,
+            Constants.prefs.getString('userId'),
+            Constants.prefs.getString('name'),
+            Constants.prefs.getString('profileImage'))
+        .toJson());
+  }
+
+  declineFriendRequest(String _id) {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(Constants.prefs.getString('userId'))
+        .collection('friendReq');
+    db.doc(_id).delete();
+  }
+
+  acceptFriendRequest(String id, String name, String profileImage) {
+    var db = FirebaseFirestore.instance.collection('users');
+    String _id = Constants.prefs.getString('userId');
+    String _name = Constants.prefs.getString('name');
+    String _profileImage = Constants.prefs.getString('profileImage');
+    db
+        .doc(_id)
+        .collection('friends')
+        .doc(id)
+        .set(Friends.newFriend(id, name, profileImage).toJson());
+    db
+        .doc(id)
+        .collection('friends')
+        .doc(_id)
+        .set(Friends.newFriend(_id, _name, _profileImage).toJson());
+    declineFriendRequest(id);
+
+    UserService().updateMyFriendCount();
+    UserService().updateFriendCount(id);
+  }
+}

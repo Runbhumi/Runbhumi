@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
+// TODO: add text controllers and a form
+//TODO: connect to backend
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -51,7 +53,10 @@ class _EditProfileState extends State<EditProfile> {
             children: [
               //The photo Stack
               GestureDetector(
-                onTap: () {},
+                //TODO: upload image funtion
+                onTap: () {
+                  print("upload image");
+                },
                 child: Stack(
                   children: [
                     Container(

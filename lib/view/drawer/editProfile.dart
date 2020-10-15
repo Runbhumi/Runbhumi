@@ -50,6 +50,7 @@ class _EditProfileState extends State<EditProfile> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              //The photo Stack
               Stack(
                 children: [
                   Container(
@@ -111,6 +112,8 @@ class _EditProfileState extends State<EditProfile> {
                 textInputType: TextInputType.number,
                 hintText: 'Age',
               ),
+
+              //Phone Number switch row
               Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -150,6 +153,8 @@ class _EditProfileState extends State<EditProfile> {
                 textInputType: TextInputType.streetAddress,
                 hintText: 'Location',
               ),
+
+              //Switch button
               Button(
                 myText: 'Save Profile',
                 myColor: Color(0xFF00ADB5),

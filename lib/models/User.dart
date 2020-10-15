@@ -9,7 +9,7 @@ class UserProfile {
   int friendCount;
   int eventCount;
   int teamsCount;
-  Map<String, bool> phoneNumber;
+  Map<String, dynamic> phoneNumber;
   List<String> userSearchIndex;
   String emailId;
 
@@ -33,7 +33,7 @@ class UserProfile {
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
-    this.phoneNumber = {};
+    this.phoneNumber = {'show': false, 'ph': ""};
     this.emailId = emailId;
     this.bio =
         'I couldn’t find the sports car of my dreams, so I built it myself.';

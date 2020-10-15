@@ -6,6 +6,11 @@ class Friends {
   String friendId;
 
   Friends(this.friendId, this.name, this.profileImage);
+  Friends.newFriend(String id, String name, String profileImage) {
+    this.friendId = id;
+    this.name = name;
+    this.profileImage = profileImage;
+  }
   Map<String, dynamic> toJson() =>
       {'friendId': friendId, 'name': name, 'profileImage': profileImage};
   Friends.fromSnapshot(DocumentSnapshot snapshot)

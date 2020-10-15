@@ -418,22 +418,23 @@ class MainUserProfile extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Feather.phone,
-                      size: 24.0,
+              if (data['phoneNumber']['show'])
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Feather.phone,
+                        size: 24.0,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "+91 123456789",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
+                    Text(
+                      data['phoneNumber']['ph'],
+                      style: Theme.of(context).textTheme.headline6,
+                    )
+                  ],
+                ),
             ],
           ),
         ),

@@ -11,10 +11,17 @@ class UserService {
         .set({'eventCount': FieldValue.increment(1)}, SetOptions(merge: true));
   }
 
-  updateFriendCount() {
+  updateMyFriendCount() {
     _db
         .collection('users')
         .doc(Constants.prefs.get('userId'))
+        .set({'friendCount': FieldValue.increment(1)}, SetOptions(merge: true));
+  }
+
+  updateFriendCount(String uid) {
+    _db
+        .collection('users')
+        .doc(uid)
         .set({'friendCount': FieldValue.increment(1)}, SetOptions(merge: true));
   }
 

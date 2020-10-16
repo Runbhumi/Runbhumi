@@ -49,7 +49,6 @@ class _ScheduleState extends State<Schedule> {
                 ? ListView.builder(
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(

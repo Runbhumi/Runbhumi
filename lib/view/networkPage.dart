@@ -3,7 +3,6 @@ import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';

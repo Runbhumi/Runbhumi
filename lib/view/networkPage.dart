@@ -21,7 +21,7 @@ class _NetworkState extends State<Network> {
     return new Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: const Text(
-        'Network',
+        'Message',
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
       ),
     );

@@ -22,7 +22,7 @@ class EventService {
         .snapshots();
   }
 
-  getCurrentUserFeed() async{
+  getCurrentUserFeed() async {
     return FirebaseFirestore.instance
         .collection("users")
         .doc(Constants.prefs.get('userId'))

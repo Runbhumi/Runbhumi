@@ -37,50 +37,49 @@ class _NetworkState extends State<Network> {
         title: _buildTitle(context),
         automaticallyImplyLeading: false,
       ),
-      body: /*DefaultTabController(
+      body: DefaultTabController(
         length: 3,
-        child:*/
-          Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Text(
-                'Schedule',
-                style: Theme.of(context).textTheme.headline6,
+        child: Scaffold(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                child: Text(
+                  'Schedule',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
               ),
-            ),
-            //schedule
-            Schedule(), //scheduleList: scheduleList)
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 8.0,
+              //schedule
+              Schedule(), //scheduleList: scheduleList)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: 8.0,
+                ),
+                child: Text(
+                  'Chats',
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.start,
+                ),
               ),
-              child: Text(
-                'Chats',
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.start,
+              ChatsTabs(),
+              // TODO: replace placeholders with actual UI
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    DirectChats(),
+                    PlaceholderWidget(),
+                    PlaceholderWidget(),
+                  ],
+                ),
+                // child: DirectChats(),
               ),
-            ),
-            // ChatsTabs(),
-            // TODO: replace placeholders with actual UI
-            Expanded(
-              // child: TabBarView(
-              //   children: [
-              //     PlaceholderWidget(),
-              //     PlaceholderWidget(),
-              //     PlaceholderWidget(),
-              //   ],
-              // ),
-              child: DirectChats(),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      // ),
     );
   }
 }

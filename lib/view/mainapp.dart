@@ -19,7 +19,7 @@ class _MainAppState extends State<MainApp> {
   final List<Widget> _children = [
     Home(),
     Network(),
-    // AddPost(),
+    AddPost(),
     Notifications(),
     Profile(),
   ];
@@ -36,33 +36,21 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: _children[_currentIndex],
-      body: PageView.builder(
-        controller: pageController,
-        itemBuilder: (context, index) {
-          return _children[index];
-        },
-        // children: _children,
-        onPageChanged: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
-      //bottom navbar
-      bottomNavigationBar: buildBottomNavigationBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/addpost");
-        },
-        child: Icon(Icons.add),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+        // body: _children[_currentIndex],
+        body: PageView.builder(
+          controller: pageController,
+          itemBuilder: (context, index) {
+            return _children[index];
+          },
+          // children: _children,
+          onPageChanged: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
         ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-    );
+        //bottom navbar
+        bottomNavigationBar: buildBottomNavigationBar());
   }
 
   BottomNavigationBar buildBottomNavigationBar() {
@@ -82,11 +70,11 @@ class _MainAppState extends State<MainApp> {
           activeIcon: Icon(Feather.users),
           label: 'Network',
         ),
-        // new BottomNavigationBarItem(
-        //   icon: Icon(Feather.plus_circle),
-        //   activeIcon: Icon(Feather.plus_circle),
-        //   label: 'Add Post',
-        // ),
+        new BottomNavigationBarItem(
+          icon: Icon(Feather.plus_circle),
+          activeIcon: Icon(Feather.plus_circle),
+          label: 'Add Post',
+        ),
         new BottomNavigationBarItem(
           icon: Icon(Feather.bell),
           activeIcon: Icon(Feather.bell),

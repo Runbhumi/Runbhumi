@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -185,9 +183,6 @@ class _AddPostState extends State<AddPost> {
                       myText: "Add Post",
                       myColor: Theme.of(context).primaryColor,
                       onPressed: () {
-                        // this funtion writes in the DB and adds an
-                        // event when manually testing anything,
-                        // just comment this function
                         createNewEvent(
                             _nameController.text,
                             userId,
@@ -196,20 +191,15 @@ class _AddPostState extends State<AddPost> {
                             _chosenPurpose,
                             [userId],
                             DateTime.parse(_datetime.text));
-                        // to show success dialog
-                        // TODO: dialog not showing before navigating
                         showDialog(
                             context: context,
-                            useRootNavigator: false,
                             builder: (context) {
-                              _addpostkey.currentState.reset();
-                              _datetime.clear();
                               return successDialog(context);
                             });
-                        //wait for 3 sec
-                        sleep(Duration(seconds: 3));
+                        _nameController.clear();
+                        _datetime.clear();
                         _addpostkey.currentState.reset();
-                        Navigator.pushNamed(context, "/mainapp");
+                        // Navigator.pushNamed(context, "/home");
                       }, //FirebaseFirestore.instance.collection('events').add(
                       //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
                     ),
@@ -242,7 +232,6 @@ class _AddPostState extends State<AddPost> {
     return <Widget>[
       SliverAppBar(
         expandedHeight: 250.0,
-        leading: BackButton(),
         elevation: 0,
         floating: false,
         pinned: true,
@@ -260,3 +249,5 @@ class _AddPostState extends State<AddPost> {
     ];
   }
 }
+
+//TODO: make this is a location input

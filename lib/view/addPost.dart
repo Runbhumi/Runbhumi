@@ -212,7 +212,8 @@ class _AddPostState extends State<AddPost> {
                             Future.delayed(Duration(seconds: 3), () {
                               Navigator.pushNamed(context, "/mainapp");
                             });
-                            _datetime.clear(); //this widget is causing exception I reccomend to remove this line as it works without it.
+                            _datetime
+                                .clear(); //this widget is causing exception I reccomend to remove this line as it works without it.
                             return successDialog(context);
                           });
                       //wait for 3 sec

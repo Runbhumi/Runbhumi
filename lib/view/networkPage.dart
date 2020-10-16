@@ -113,7 +113,7 @@ class _DirectChatsState extends State<DirectChats> {
       setState(() {
         print("got here");
         userDirectChats = snapshots;
-        print("we got the data + ${userDirectChats.toString()} ");
+        print("we got the data");
       });
     });
   }
@@ -414,10 +414,6 @@ class _ScheduleState extends State<Schedule> {
   Stream currentFeed;
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      setState(() {});
-    });
     getUserInfoEvents();
   }
 
@@ -439,7 +435,6 @@ class _ScheduleState extends State<Schedule> {
     return StreamBuilder(
       stream: currentFeed,
       builder: (context, asyncSnapshot) {
-        print("Working");
         return asyncSnapshot.hasData
             ? asyncSnapshot.data.documents.length > 0
                 ? ListView.builder(

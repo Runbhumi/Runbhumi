@@ -271,26 +271,6 @@ class _HomeState extends State<Home> {
                                       .get('dateTime')
                                       .toDate())
                                   .toString()),
-                              // trailing: asyncSnapshot.data.documents[index]
-                              //             .get('description') ==
-                              //         "Looking for players in our team"
-                              //     ? GestureDetector(
-                              //         onTap: () {
-                              //           //notification to be sent to the person who posted
-                              //         },
-                              //         child: Container(
-                              //           child: Text("Join"),
-                              //         ),
-                              //       )
-                              //     : GestureDetector(
-                              //         onTap: () {},
-                              //         child: Container(
-                              //           child: Text("Accept"),
-                              //         ),
-                              //       ),
-                              // trailing: Text(asyncSnapshot.data.documents[index]
-                              //     .get('dateTime').toString()
-                              // ),
                             ),
                           ),
                         ],
@@ -349,6 +329,17 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/addpost");
+        },
+        child: Icon(Icons.add),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

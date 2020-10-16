@@ -40,27 +40,6 @@ class _NetworkState extends State<Network> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              //   child: Text(
-              //     'Schedule',
-              //     style: Theme.of(context).textTheme.headline6,
-              //   ),
-              // ),
-              // //schedule
-              // Schedule(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 8.0,
-                ),
-                child: Text(
-                  'Chats',
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.start,
-                ),
-              ),
               ChatsTabs(),
               Expanded(
                 child: TabBarView(

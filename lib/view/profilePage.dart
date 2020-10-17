@@ -17,15 +17,6 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   AnimationController animationController;
-  Widget _buildTitle(BuildContext context) {
-    return new Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: const Text(
-        'Profile',
-        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
-      ),
-    );
-  }
 
   @override
   void initState() {
@@ -78,7 +69,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: _buildTitle(context),
+          title: buildTitle(context,"Profile"),
           centerTitle: true,
           elevation: 0,
           leading: Builder(

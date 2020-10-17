@@ -184,29 +184,12 @@ class _NotificationsState extends State<Notifications> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Text(
-              'Friend requests',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
           Container(
             height: 200,
             child: Stack(
               children: <Widget>[notificationList()],
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Text(
-              'Team join requests',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          Expanded(child: PlaceholderWidget()),
         ],
       ),
       floatingActionButton: FloatingActionButton(

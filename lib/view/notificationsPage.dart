@@ -166,6 +166,17 @@ class _NotificationsState extends State<Notifications> {
           Expanded(child: PlaceholderWidget()),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/addpost");
+        },
+        child: Icon(Icons.add),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
     );
   }
 }

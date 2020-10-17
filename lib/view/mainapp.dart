@@ -51,17 +51,6 @@ class _MainAppState extends State<MainApp> {
       ),
       //bottom navbar
       bottomNavigationBar: buildBottomNavigationBar(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, "/addpost");
-      //   },
-      //   child: Icon(Icons.add),
-      //   foregroundColor: Colors.white,
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.all(Radius.circular(20)),
-      //   ),
-      //   backgroundColor: Theme.of(context).primaryColor,
-      // ),
     );
   }
 
@@ -71,6 +60,7 @@ class _MainAppState extends State<MainApp> {
       type: BottomNavigationBarType.fixed,
       currentIndex: _currentIndex,
       showUnselectedLabels: false,
+      unselectedItemColor: Theme.of(context).primaryColor.withOpacity(0.4),
       items: [
         new BottomNavigationBarItem(
           icon: Icon(Feather.home),
@@ -78,9 +68,9 @@ class _MainAppState extends State<MainApp> {
           label: 'Home',
         ),
         new BottomNavigationBarItem(
-          icon: Icon(Feather.users),
-          activeIcon: Icon(Feather.users),
-          label: 'Network',
+          icon: Icon(Feather.message_square),
+          activeIcon: Icon(Feather.message_square),
+          label: 'Message',
         ),
         // new BottomNavigationBarItem(
         //   icon: Icon(Feather.plus_circle),

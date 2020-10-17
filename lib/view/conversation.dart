@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class Conversation extends StatefulWidget {
   final String chatRoomId;
+  final List<String> usersNames;
   //chatRoomId is used to identify which chat room we are in
-  Conversation({this.chatRoomId});
+  Conversation({@required this.chatRoomId, @required this.usersNames});
   @override
   _ConversationState createState() => _ConversationState();
 }
@@ -66,7 +67,9 @@ class _ConversationState extends State<Conversation> {
     //TODO: Making the chat box look like the prototype.
     return Scaffold(
       appBar: AppBar(
-        title: Text("ChatBox"),
+        title: Constants.prefs.getString('name') == widget.usersNames[0]
+            ? Text(widget.usersNames[1])
+            : Text(widget.usersNames[0]),
       ),
       body: Container(
         child: Stack(

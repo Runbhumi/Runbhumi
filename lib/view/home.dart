@@ -85,22 +85,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Widget _buildTitle(BuildContext context) {
-    return new Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'My Feed',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSearchField() {
     return new TextField(
       controller: _searchQuery,
@@ -291,7 +275,7 @@ class _HomeState extends State<Home> {
       appBar: new AppBar(
         automaticallyImplyLeading: false,
         leading: _isSearching ? BackButton() : null,
-        title: _isSearching ? _buildSearchField() : _buildTitle(context),
+        title: _isSearching ? _buildSearchField() : buildTitle(context,"My Feed"),
         actions: _buildActions(),
         /*bottom: new TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
@@ -307,7 +291,7 @@ class _HomeState extends State<Home> {
               indicatorColor: Theme.of(context).primaryColor,
               tabBarIndicatorSize: TabBarIndicatorSize.tab,
             ),
-          ),*/
+          ),Removed for MVP*/
       ),
       body: Container(
         child: Column(
@@ -324,7 +308,9 @@ class _HomeState extends State<Home> {
             ),
             Expanded(
               child: Stack(
-                children: <Widget>[feed(theme: theme)],
+                children: <Widget>[
+                  feed(theme: theme),
+                ],
               ),
             ),
           ],

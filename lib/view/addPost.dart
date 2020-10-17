@@ -4,60 +4,6 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
 String userId = Constants.prefs.getString('userId');
-/*    
-locations = <String>[
-      "Andhra Pradesh",
-      "Arunachal Pradesh",
-      "Assam",
-      "Bihar",
-      "Chhattisgarh",
-      "Goa",
-      "Gujarat",
-      "Haryana",
-      "Himachal Pradesh",
-      "Jammu and Kashmir",
-      "Jharkhand",
-      "Karnataka",
-      "Kerala",
-      "Madhya Pradesh",
-      "Maharashtra",
-      "Manipur",
-      "Meghalaya",
-      "Mizoram",
-      "Nagaland",
-      "Odisha",
-      "Punjab",
-      "Rajasthan",
-      "Sikkim",
-      "Tamil Nadu",
-      "Telangana",
-      "Tripura",
-      "Uttarakhand",
-      "Uttar Pradesh",
-      "West Bengal",
-      "Andaman and Nicobar Islands",
-      "Chandigarh",
-      "Dadra and Nagar Haveli",
-      "Daman and Diu",
-      "Delhi",
-      "Lakshadweep",
-      "Puducherry"
-      */
-
-Widget _buildTitle(BuildContext context) {
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    child: Center(
-      child: const Text(
-        'Add Post',
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 25,
-        ),
-      ),
-    ),
-  );
-}
 
 class AddPost extends StatefulWidget {
   @override
@@ -250,7 +196,7 @@ class _AddPostState extends State<AddPost> {
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
           title: Container(
-              child: _buildTitle(context),
+              child: buildTitle(context,"Add Post"),
               color: Theme.of(context).canvasColor.withOpacity(0.5)),
           background: Image(
             height: 200,

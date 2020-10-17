@@ -16,22 +16,11 @@ class Network extends StatefulWidget {
 }
 
 class _NetworkState extends State<Network> {
-  // for Title
-  Widget _buildTitle(BuildContext context) {
-    return new Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: const Text(
-        'Message',
-        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _buildTitle(context),
+        title: buildTitle(context,"Message"),
         automaticallyImplyLeading: false,
       ),
       body: DefaultTabController(

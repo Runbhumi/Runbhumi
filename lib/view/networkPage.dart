@@ -57,17 +57,17 @@ class _NetworkState extends State<Network> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/addpost");
-        },
-        child: Icon(Icons.add),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, "/addpost");
+      //   },
+      //   child: Icon(Icons.add),
+      //   foregroundColor: Colors.white,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.all(Radius.circular(20)),
+      //   ),
+      //   backgroundColor: Theme.of(context).primaryColor,
+      // ),
     );
   }
 }
@@ -121,16 +121,16 @@ class _DirectChatsState extends State<DirectChats> {
                         onTap: () {
                           //Sending the user to the chat room
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Conversation(
-                                      chatRoomId: asyncSnapshot
-                                          .data.documents[index]
-                                          .get('chatRoomId'),
-                                      usersNames: asyncSnapshot
-                                          .data.documents[index]
-                                          .get('usersNames'))));
-
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Conversation(
+                                chatRoomId: asyncSnapshot.data.documents[index]
+                                    .get('chatRoomId'),
+                                usersNames: asyncSnapshot.data.documents[index]
+                                    .get('usersNames'),
+                              ),
+                            ),
+                          );
                         },
                         title: Constants.prefs.getString('name') ==
                                 asyncSnapshot.data.documents[index]
@@ -142,7 +142,8 @@ class _DirectChatsState extends State<DirectChats> {
                         leading: Icon(Icons.person),
                         trailing: Icon(Icons.send),
                       );
-                    })
+                    },
+                  )
                 : //if you have no friends you will get this illustration
                 Container(
                     child: Center(
@@ -394,7 +395,6 @@ class UserSearchDirect extends SearchDelegate<ListView> {
     // throw UnimplementedError();
   }
 }
-
 
 class ChatsTabs extends StatelessWidget {
   const ChatsTabs({

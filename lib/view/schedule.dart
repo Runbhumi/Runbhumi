@@ -129,10 +129,10 @@ class _ScheduleState extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height / 5,
-        child: Stack(
-          children: <Widget>[feed()],
-        ),
-      );
+      height: MediaQuery.of(context).size.height / 5,
+      child: Stack(
+        children: <Widget>[feed()],
+      ),
+    );
   }
 }

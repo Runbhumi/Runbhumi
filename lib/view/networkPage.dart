@@ -8,7 +8,7 @@ import '../widget/widgets.dart';
 import 'conversation.dart';
 
 /*
-  Code For Network Page
+  Code For Message Page
 */
 class Network extends StatefulWidget {
   @override

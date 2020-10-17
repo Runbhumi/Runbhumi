@@ -63,6 +63,7 @@ class _NotificationsState extends State<Notifications> {
                               builder: (context) => OtherUserProfile(
                                 // userID:
                                 //     Constants.prefs.getString('userId'),
+                                // TODO: I need this feild in DB
                                 userID: data.get('userId'),
                               ),
                             ),
@@ -81,10 +82,11 @@ class _NotificationsState extends State<Notifications> {
                                     BorderRadius.all(Radius.circular(20)),
                                 child: Image(
                                     height: 75,
-                                    image: NetworkImage(
-                                        data.get("profileImage"))),
+                                    image:
+                                        NetworkImage(data.get("profileImage"))),
                               ),
-                              Text(data.get('name'),style: Theme.of(context).textTheme.headline5),
+                              Text(data.get('name'),
+                                  style: Theme.of(context).textTheme.headline5),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -108,12 +110,7 @@ class _NotificationsState extends State<Notifications> {
                       ),
                     );
                   })
-              // child: ListView.builder(
-              //   //notification count
-              //   itemBuilder: (BuildContext context, int index) {
-              //     return Container(
-              //       child: GestureDetector(
-              //         onTap: () {
+
               //           Navigator.push(
               //             context,
               //             MaterialPageRoute(
@@ -122,54 +119,6 @@ class _NotificationsState extends State<Notifications> {
               //                       // userID: asyncSnapshot.data.documents[index]
               //                       //     .get('userId'),
               //                     )),
-              //           );
-              //         },
-              //         child: Card(
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: Column(
-              //               children: [
-              //                 ClipRRect(
-              //                   borderRadius:
-              //                       BorderRadius.all(Radius.circular(20)),
-              //                   child: Image(
-              //                     height: 100,
-              //                     //image link
-              //                     image: NetworkImage(
-              //                       "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg",
-              //                     ),
-              //                   ),
-              //                 ),
-              //                 //name
-              //                 Text(
-              //                   "Hayat Tamboli",
-              //                   style: TextStyle(
-              //                       fontWeight: FontWeight.w500, fontSize: 16),
-              //                 ),
-              //                 Row(
-              //                   children: [
-              //                     SmallButton(
-              //                       myText: "accept",
-              //                       myColor: Theme.of(context).primaryColor,
-              //                       //aceept friend funtionality
-              //                       onPressed: () {},
-              //                     ),
-              //                     SmallButton(
-              //                       myText: "decline",
-              //                       myColor: Theme.of(context).accentColor,
-              //                       //decline funtionality
-              //                       onPressed: () {},
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
               : Loader();
         });
   }

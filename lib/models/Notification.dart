@@ -50,18 +50,20 @@
 //         status = snapshot.data()['status'];
 // }
 
-class FriendRequestNotification {
+class Notification {
   String senderId;
   String senderName;
   String senderProfieImage;
   String notificationId;
+  String type;
 
-  FriendRequestNotification.createNewRequest(String nortificationId,
+  Notification.createNewRequest(String type, String nortificationId,
       String senderId, String senderName, String senderProfileImage) {
     this.notificationId = nortificationId;
     this.senderId = senderId;
     this.senderName = senderName;
     this.senderProfieImage = senderProfileImage;
+    this.type = type;
   }
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +71,6 @@ class FriendRequestNotification {
         'senderId': senderId,
         'name': senderName,
         'profileImage': senderProfieImage,
+        'type': type
       };
 }

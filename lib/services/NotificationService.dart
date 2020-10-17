@@ -110,28 +110,28 @@ import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FriendRequest {
-  String _id = Constants.prefs.getString('userId');
-  String _name = Constants.prefs.getString('name');
-  String _profileImage = Constants.prefs.getString('profileImage');
+class NotificationServices {
+  final String _id = Constants.prefs.getString('userId');
+  final String _name = Constants.prefs.getString('name');
+  final String _profileImage = Constants.prefs.getString('profileImage');
 
   createRequest(String friendId) {
     var db = FirebaseFirestore.instance
         .collection('users')
         .doc(friendId)
-        .collection('friendReq');
+        .collection('notification');
     var doc = db.doc();
     String id = doc.id;
-    doc.set(FriendRequestNotification.createNewRequest(
-            id, _id, _name, _profileImage)
-        .toJson());
+    doc.set(
+        Notification.createNewRequest("friend", id, _id, _name, _profileImage)
+            .toJson());
   }
 
-  declineFriendRequest(String id) {
+  declineRequest(String id) {
     var db = FirebaseFirestore.instance
         .collection('users')
         .doc(_id)
-        .collection('friendReq');
+        .collection('notification');
     db.doc(id).delete();
   }
 
@@ -148,9 +148,18 @@ class FriendRequest {
         .collection('friends')
         .doc(_id)
         .set(Friends.newFriend(_id, _name, _profileImage).toJson());
-    declineFriendRequest(notificationID);
+    declineRequest(notificationID);
 
     UserService().updateMyFriendCount();
     UserService().updateFriendCount(id);
+  }
+
+  getNotification() async {
+    print(_id);
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(_id)
+        .collection('notification')
+        .snapshots();
   }
 }

@@ -37,10 +37,12 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         DrawerButton(
-          onpressed: () {},
-          label: "Home",
+          onpressed: () {
+            Navigator.pushNamed(context, "/addpost");
+          },
+          label: "Add Post",
           icon: Icon(
-            Feather.home,
+            Feather.plus_circle,
             color: Colors.white,
           ),
         ),

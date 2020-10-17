@@ -51,17 +51,17 @@ class _MainAppState extends State<MainApp> {
       ),
       //bottom navbar
       bottomNavigationBar: buildBottomNavigationBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/addpost");
-        },
-        child: Icon(Icons.add),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, "/addpost");
+      //   },
+      //   child: Icon(Icons.add),
+      //   foregroundColor: Colors.white,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.all(Radius.circular(20)),
+      //   ),
+      //   backgroundColor: Theme.of(context).primaryColor,
+      // ),
     );
   }
 

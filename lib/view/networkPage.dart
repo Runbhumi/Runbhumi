@@ -136,11 +136,20 @@ class _DirectChatsState extends State<DirectChats> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Conversation(
-                                        chatRoomId: asyncSnapshot
-                                            .data.documents[index]
-                                            .get('chatRoomId'),
-                                      )));
+                                      chatRoomId: asyncSnapshot
+                                          .data.documents[index]
+                                          .get('chatRoomId'),
+                                      usersNames: asyncSnapshot
+                                          .data.documents[index]
+                                          .get('usersNames'))));
                         },
+                        title: Constants.prefs.getString('name') ==
+                                asyncSnapshot.data.documents[index]
+                                    .get('usersNames')[0]
+                            ? Text(asyncSnapshot.data.documents[index]
+                                .get('usersNames')[1])
+                            : Text(asyncSnapshot.data.documents[index]
+                                .get('usersNames')[0]),
                         leading: Icon(Icons.person),
                         trailing: Icon(Icons.send),
                       );
@@ -308,18 +317,19 @@ class UserSearchDirect extends SearchDelegate<ListView> {
       List<String> users = [userId, Constants.prefs.getString('userId')];
       String chatRoomId =
           getUsersInvolved(userId, Constants.prefs.getString('userId'));
+      List<String> usersNames = [username, Constants.prefs.getString('name')];
 
       Map<String, dynamic> chatRoom = {
         "users": users,
         "chatRoomId": chatRoomId,
+        "usersNames": usersNames,
       };
       ChatroomService().addChatRoom(chatRoom, chatRoomId);
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => Conversation(
-                    chatRoomId: chatRoomId,
-                  )));
+                  chatRoomId: chatRoomId, usersNames: usersNames)));
     } else {
       print("Cannot do that");
     }
@@ -355,8 +365,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
                           createChatRoom(
                               asyncSnapshot.data.documents[index].get('userId'),
                               context,
-                              asyncSnapshot.data.documents[index]
-                                  .get('username'));
+                              asyncSnapshot.data.documents[index].get('name'));
                         },
                         child: Card(
                           shadowColor: Color(0x44393e46),

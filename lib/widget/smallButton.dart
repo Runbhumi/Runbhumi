@@ -38,7 +38,7 @@ class SmallButton extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   myText,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ),
             ),

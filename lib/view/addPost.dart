@@ -1,3 +1,4 @@
+import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
@@ -193,31 +194,26 @@ class _AddPostState extends State<AddPost> {
                       // this funtion writes in the DB and adds an
                       // event when manually testing anything,
                       // just comment this function
-                      // createNewEvent(
-                      //     _nameController.text,
-                      //     userId,
-                      //     _locationController.text,
-                      //     _chosenSport,
-                      //     _chosenPurpose,
-                      //     [userId],
-                      //     DateTime.parse(_datetime.text));
+                      createNewEvent(
+                          _nameController.text,
+                          userId,
+                          _locationController.text,
+                          _chosenSport,
+                          _chosenPurpose,
+                          [userId],
+                          DateTime.parse(_datetime.text));
                       // to show success dialog
-                      // TODO: dialog not showing before navigating
                       showDialog(
-                          context: context,
-                          builder: (context) {
-                            Future.delayed(Duration(seconds: 3), () {
-                              Navigator.pushNamed(context, "/mainapp");
-                            });
-                            _datetime
-                                .clear(); //this widget is causing exception I reccomend to remove this line as it works without it.
-                            return successDialog(context);
+                        context: context,
+                        builder: (context) {
+                          //wait for 3 sec
+                          Future.delayed(Duration(seconds: 3), () {
+                            Navigator.pushNamed(context, "/mainapp");
                           });
-                      //wait for 3 sec
-                      // // // _addpostkey.currentState.reset();
-                      //  Navigator.pushNamed(context, "/mainapp");
-                    }, //FirebaseFirestore.instance.collection('events').add(
-                    //Events.newEvent((doc.id,userId,,"","","","",[userId],"").toJson());
+                          return successDialog(context);
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

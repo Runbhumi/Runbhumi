@@ -1,4 +1,5 @@
 import 'package:Runbhumi/services/NotificationService.dart';
+import 'package:Runbhumi/view/otherUserProfile.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -51,11 +52,73 @@ class _NotificationsState extends State<Notifications> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var data = asyncSnapshot.data.documents[index];
-                    return ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text(data.get('name')),
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 4.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OtherUserProfile(
+                                // userID:
+                                //     Constants.prefs.getString('userId'),
+                                // TODO: I need this feild in DB
+                                userID: data.get('userId'),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                child: Image(
+                                    height: 75,
+                                    image:
+                                        NetworkImage(data.get("profileImage"))),
+                              ),
+                              Text(data.get('name'),
+                                  style: Theme.of(context).textTheme.headline5),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SmallButton(
+                                    myText: "decline",
+                                    myColor: Theme.of(context).accentColor,
+                                    //decline funtionality
+                                    onPressed: () {},
+                                  ),
+                                  SmallButton(
+                                    myText: "accept",
+                                    myColor: Theme.of(context).primaryColor,
+                                    //aceept friend funtionality
+                                    onPressed: () {},
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     );
                   })
+
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => OtherUserProfile(
+              //                       userID: Constants.prefs.getString('userId'),
+              //                       // userID: asyncSnapshot.data.documents[index]
+              //                       //     .get('userId'),
+              //                     )),
               : Loader();
         });
   }
@@ -70,112 +133,13 @@ class _NotificationsState extends State<Notifications> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Text(
-              'Friend requests',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
           Container(
             height: 200,
             child: Stack(
               children: <Widget>[notificationList()],
             ),
-            // child: ListView.builder(
-            //   //notification count
-            //   itemCount: 2,
-            //   scrollDirection: Axis.horizontal,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return Container(
-            //       padding: const EdgeInsets.symmetric(
-            //           horizontal: 4.0, vertical: 4.0),
-            //       child: GestureDetector(
-            //         onTap: () {
-            //           Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) => OtherUserProfile(
-            //                       userID: Constants.prefs.getString('userId'),
-            //                       // userID: asyncSnapshot.data.documents[index]
-            //                       //     .get('userId'),
-            //                     )),
-            //           );
-            //         },
-            //         child: Card(
-            //           shadowColor: Color(0x44393e46),
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.all(Radius.circular(20)),
-            //           ),
-            //           elevation: 20,
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(8.0),
-            //             child: Column(
-            //               children: [
-            //                 ClipRRect(
-            //                   borderRadius:
-            //                       BorderRadius.all(Radius.circular(20)),
-            //                   child: Image(
-            //                     height: 100,
-            //                     //image link
-            //                     image: NetworkImage(
-            //                       "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg",
-            //                     ),
-            //                   ),
-            //                 ),
-            //                 //name
-            //                 Text(
-            //                   "Hayat Tamboli",
-            //                   style: TextStyle(
-            //                       fontWeight: FontWeight.w500, fontSize: 16),
-            //                 ),
-            //                 Row(
-            //                   children: [
-            //                     SmallButton(
-            //                       myText: "accept",
-            //                       myColor: Theme.of(context).primaryColor,
-            //                       //aceept friend funtionality
-            //                       onPressed: () {},
-            //                     ),
-            //                     SmallButton(
-            //                       myText: "decline",
-            //                       myColor: Theme.of(context).accentColor,
-            //                       //decline funtionality
-            //                       onPressed: () {},
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Text(
-              'Team join requests',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          Expanded(child: PlaceholderWidget()),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/addpost");
-        },
-        child: Icon(Icons.add),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

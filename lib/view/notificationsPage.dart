@@ -49,9 +49,6 @@ class _NotificationsState extends State<Notifications> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => OtherUserProfile(
-                                  // userID:
-                                  //     Constants.prefs.getString('userId'),
-                                  // TODO: I need this feild in DB
                                   userID: id,
                                 ),
                               ),

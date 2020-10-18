@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     Firebase.initializeApp().whenComplete(() {
-      print("completed");
+      print("firebase initialized");
       setState(() {});
     });
     _searchQuery = new TextEditingController();
@@ -39,6 +39,7 @@ class _HomeState extends State<Home> {
       children: [
         Center(
             child: Text("You Have been added",
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4)),
         Image.asset("assets/confirmation-illustration.png")
       ],
@@ -49,7 +50,8 @@ class _HomeState extends State<Home> {
     EventService().getCurrentFeed().then((snapshots) {
       setState(() {
         currentFeed = snapshots;
-        print("we got the data + ${currentFeed.toString()} ");
+        // print("we got the data + ${currentFeed.toString()} ");
+        print("we got the data for UserInfoEvents");
       });
     });
   }
@@ -135,7 +137,7 @@ class _HomeState extends State<Home> {
     return StreamBuilder(
       stream: currentFeed,
       builder: (context, asyncSnapshot) {
-        print("Working");
+        print("Feed loading");
         return asyncSnapshot.hasData
             ? ListView.builder(
                 itemCount: asyncSnapshot.data.documents.length,
@@ -275,7 +277,8 @@ class _HomeState extends State<Home> {
       appBar: new AppBar(
         automaticallyImplyLeading: false,
         leading: _isSearching ? BackButton() : null,
-        title: _isSearching ? _buildSearchField() : buildTitle(context,"My Feed"),
+        title:
+            _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
         actions: _buildActions(),
         /*bottom: new TabBar(
             indicatorSize: TabBarIndicatorSize.tab,

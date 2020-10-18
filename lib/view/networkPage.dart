@@ -20,7 +20,7 @@ class _NetworkState extends State<Network> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: buildTitle(context,"Message"),
+        title: buildTitle(context, "Message"),
         automaticallyImplyLeading: false,
       ),
       body: DefaultTabController(

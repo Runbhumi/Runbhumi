@@ -196,7 +196,7 @@ class _AddPostState extends State<AddPost> {
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
           title: Container(
-              child: buildTitle(context,"Add Post"),
+              child: buildTitle(context, "Add Post"),
               color: Theme.of(context).canvasColor.withOpacity(0.5)),
           background: Image(
             height: 200,

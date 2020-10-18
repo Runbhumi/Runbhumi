@@ -419,10 +419,12 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return SingleFriendCard(
-                          imageLink: asyncSnapshot.data.documents[index]
-                              .get('profileImage'),
-                          name:
-                              asyncSnapshot.data.documents[index].get('name'));
+                        imageLink: asyncSnapshot.data.documents[index]
+                            .get('profileImage'),
+                        name: asyncSnapshot.data.documents[index].get('name'),
+                        userId:
+                            asyncSnapshot.data.documents[index].get('friendId'),
+                      );
                     })
                 : //if you have no friends you will get this illustration
                 Container(

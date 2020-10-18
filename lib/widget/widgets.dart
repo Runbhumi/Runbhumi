@@ -8,3 +8,4 @@ export 'placeholder_widget.dart';
 export 'smallButton.dart';
 export 'loader.dart';
 export 'singleFriendCard.dart';
+export 'buildTitle.dart';

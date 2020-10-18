@@ -52,6 +52,10 @@ class _NotificationsState extends State<Notifications> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var data = asyncSnapshot.data.documents[index];
+                    String notificationId = data.get('notificationId');
+                    String id = data.get('senderId');
+                    String profileImage = data.get("profileImage");
+                    String name = data.get("name");
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 4.0),
@@ -64,7 +68,7 @@ class _NotificationsState extends State<Notifications> {
                                 // userID:
                                 //     Constants.prefs.getString('userId'),
                                 // TODO: I need this feild in DB
-                                userID: data.get('userId'),
+                                userID: id,
                               ),
                             ),
                           );
@@ -82,10 +86,9 @@ class _NotificationsState extends State<Notifications> {
                                     BorderRadius.all(Radius.circular(20)),
                                 child: Image(
                                     height: 75,
-                                    image:
-                                        NetworkImage(data.get("profileImage"))),
+                                    image: NetworkImage(profileImage)),
                               ),
-                              Text(data.get('name'),
+                              Text(name,
                                   style: Theme.of(context).textTheme.headline5),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -94,13 +97,20 @@ class _NotificationsState extends State<Notifications> {
                                     myText: "decline",
                                     myColor: Theme.of(context).accentColor,
                                     //decline funtionality
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      NotificationServices()
+                                          .declineRequest(notificationId);
+                                    },
                                   ),
                                   SmallButton(
                                     myText: "accept",
                                     myColor: Theme.of(context).primaryColor,
                                     //aceept friend funtionality
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      NotificationServices()
+                                          .acceptFriendRequest(notificationId,
+                                              id, name, profileImage);
+                                    },
                                   ),
                                 ],
                               ),

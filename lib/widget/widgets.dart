@@ -9,3 +9,4 @@ export 'smallButton.dart';
 export 'loader.dart';
 export 'singleFriendCard.dart';
 export 'buildTitle.dart';
+export 'buildBottomNavigationBar.dart';

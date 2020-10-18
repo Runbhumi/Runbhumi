@@ -36,63 +36,76 @@ class _NotificationsState extends State<Notifications> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   var data = asyncSnapshot.data.documents[index];
+                  String notificationId = data.get('notificationId');
+                  String id = data.get('senderId');
+                  String profileImage = data.get("profileImage");
+                  String name = data.get("name");
                   return Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 4.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OtherUserProfile(
-                              // userID:
-                              //     Constants.prefs.getString('userId'),
-                              // TODO: I need this feild in DB
-                              userID: data.get('userId'),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        shadowColor: Color(0x44393e46),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        elevation: 20,
-                        child: Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              child: Image(
-                                  height: 75,
-                                  image:
-                                      NetworkImage(data.get("profileImage"))),
-                            ),
-                            Text(data.get('name'),
-                                style: Theme.of(context).textTheme.headline5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SmallButton(
-                                  myText: "decline",
-                                  myColor: Theme.of(context).accentColor,
-                                  //decline funtionality
-                                  onPressed: () {},
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 4.0),
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OtherUserProfile(
+                                  // userID:
+                                  //     Constants.prefs.getString('userId'),
+                                  // TODO: I need this feild in DB
+                                  userID: id,
                                 ),
-                                SmallButton(
-                                  myText: "accept",
-                                  myColor: Theme.of(context).primaryColor,
-                                  //aceept friend funtionality
-                                  onPressed: () {},
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                              ),
+                            );
+                          },
+                          child: Card(
+                              shadowColor: Color(0x44393e46),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              elevation: 20,
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    child: Image(
+                                        height: 75,
+                                        image: NetworkImage(profileImage)),
+                                  ),
+                                  Text(name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SmallButton(
+                                        myText: "decline",
+                                        myColor: Theme.of(context).accentColor,
+                                        //decline funtionality
+                                        onPressed: () {
+                                          NotificationServices()
+                                              .declineRequest(notificationId);
+                                        },
+                                      ),
+                                      SmallButton(
+                                        myText: "accept",
+                                        myColor: Theme.of(context).primaryColor,
+                                        //aceept friend funtionality
+                                        onPressed: () {
+                                          NotificationServices()
+                                              .acceptFriendRequest(
+                                                  notificationId,
+                                                  id,
+                                                  name,
+                                                  profileImage);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ))));
                 },
               )
             : Loader();

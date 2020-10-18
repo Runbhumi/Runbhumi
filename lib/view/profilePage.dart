@@ -58,14 +58,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   static const double maxDragStartEdge = maxSlide - 16;
   bool _canBeDragged = false;
 
-  //TODO: connect this with real firestore data
-  final List teamsList = [
-    "Chennai superKings",
-    "Rajasthan Royals",
-    "Delhi dare devils",
-    "Manchester united"
-  ];
-
   @override
   Widget build(BuildContext context) {
     var myDrawer = SafeArea(
@@ -114,8 +106,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(child: Text("Profile")),
-              Tab(child: Text("Teams")),
               Tab(child: Text("Friends")),
+              Tab(child: Text("Schedule")),
             ],
             indicator: new BubbleTabIndicator(
               indicatorHeight: 30.0,
@@ -124,7 +116,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
-        body: ProfileBody(teamsList: teamsList),
+        body: ProfileBody(),
       ),
     );
     return GestureDetector(
@@ -192,10 +184,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 class ProfileBody extends StatefulWidget {
   const ProfileBody({
     Key key,
-    this.teamsList,
   }) : super(key: key);
-
-  final List teamsList;
 
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
@@ -244,8 +233,8 @@ class _ProfileBodyState extends State<ProfileBody> {
                 child: TabBarView(
                   children: [
                     MainUserProfile(data: data),
-                    ProfileTeamsList(widget: widget),
                     ProfileFriendsList(),
+                    Schedule(),
                   ],
                 ),
               ),
@@ -439,50 +428,6 @@ class MainUserProfile extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ProfileTeamsList extends StatefulWidget {
-  const ProfileTeamsList({
-    Key key,
-    @required this.widget,
-  }) : super(key: key);
-
-  final ProfileBody widget;
-
-  @override
-  _ProfileTeamsListState createState() => _ProfileTeamsListState();
-}
-
-class _ProfileTeamsListState extends State<ProfileTeamsList> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-            shadowColor: Color(0x44393e46),
-            elevation: 20,
-            child: Container(
-              height: 80,
-              child: Center(
-                child: ListTile(
-                  title: Text(
-                    widget.widget.teamsList[index],
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-      itemCount: widget.widget.teamsList.length,
     );
   }
 }

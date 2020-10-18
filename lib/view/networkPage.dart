@@ -18,18 +18,32 @@ class Network extends StatefulWidget {
 class _NetworkState extends State<Network> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: buildTitle(context, "Message"),
-        automaticallyImplyLeading: false,
-      ),
-      body: DefaultTabController(
-        length: 3,
-        child: Scaffold(
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: buildTitle(context, "Message"),
+          automaticallyImplyLeading: false,
+          bottom: TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(child: Text("Direct")),
+              Tab(child: Text("Team")),
+              Tab(child: Text("B/W Teams")),
+            ],
+            indicator: new BubbleTabIndicator(
+              indicatorHeight: 30.0,
+              indicatorColor: Theme.of(context).primaryColor,
+              tabBarIndicatorSize: TabBarIndicatorSize.tab,
+            ),
+          ),
+        ),
+        body: Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              ChatsTabs(),
+              // ChatsTabs(),
               Expanded(
                 child: TabBarView(
                   children: [
@@ -45,18 +59,18 @@ class _NetworkState extends State<Network> {
             ],
           ),
         ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, "/addpost");
+        //   },
+        //   child: Icon(Icons.add),
+        //   foregroundColor: Colors.white,
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.all(Radius.circular(20)),
+        //   ),
+        //   backgroundColor: Theme.of(context).primaryColor,
+        // ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, "/addpost");
-      //   },
-      //   child: Icon(Icons.add),
-      //   foregroundColor: Colors.white,
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.all(Radius.circular(20)),
-      //   ),
-      //   backgroundColor: Theme.of(context).primaryColor,
-      // ),
     );
   }
 }
@@ -385,45 +399,45 @@ class UserSearchDirect extends SearchDelegate<ListView> {
   }
 }
 
-class ChatsTabs extends StatelessWidget {
-  const ChatsTabs({
-    Key key,
-  }) : super(key: key);
+// class ChatsTabs extends StatelessWidget {
+//   const ChatsTabs({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x29000000),
-            blurRadius: 6,
-            offset: Offset(0, -1),
-          ),
-        ],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      child: PreferredSize(
-        preferredSize: Size.fromHeight(50.0),
-        child: TabBar(
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.grey,
-          tabs: [
-            Tab(child: Text("Direct")),
-            Tab(child: Text("Team")),
-            Tab(child: Text("B/W Teams")),
-          ],
-          indicator: new BubbleTabIndicator(
-            indicatorHeight: 30.0,
-            indicatorColor: Theme.of(context).primaryColor,
-            tabBarIndicatorSize: TabBarIndicatorSize.tab,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         boxShadow: [
+//           BoxShadow(
+//             color: Color(0x29000000),
+//             blurRadius: 6,
+//             offset: Offset(0, -1),
+//           ),
+//         ],
+//         borderRadius: BorderRadius.only(
+//           topLeft: Radius.circular(20),
+//           topRight: Radius.circular(20),
+//         ),
+//       ),
+//       child: PreferredSize(
+//         preferredSize: Size.fromHeight(50.0),
+//         child: TabBar(
+//           labelColor: Colors.white,
+//           unselectedLabelColor: Colors.grey,
+//           tabs: [
+//             Tab(child: Text("Direct")),
+//             Tab(child: Text("Team")),
+//             Tab(child: Text("B/W Teams")),
+//           ],
+//           indicator: new BubbleTabIndicator(
+//             indicatorHeight: 30.0,
+//             indicatorColor: Theme.of(context).primaryColor,
+//             tabBarIndicatorSize: TabBarIndicatorSize.tab,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

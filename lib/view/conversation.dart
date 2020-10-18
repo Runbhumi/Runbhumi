@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class Conversation extends StatefulWidget {
   final String chatRoomId;
-  final List<String> usersNames;
+  final List<dynamic> usersNames;
   //chatRoomId is used to identify which chat room we are in
   Conversation({@required this.chatRoomId, @required this.usersNames});
   @override

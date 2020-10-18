@@ -127,11 +127,16 @@ class _DirectChatsState extends State<DirectChats> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => Conversation(
-                                chatRoomId: asyncSnapshot.data.documents[index]
-                                    .get('chatRoomId'),
-                                usersNames: asyncSnapshot.data.documents[index]
-                                    .get('usersNames'),
-                              ),
+                                  chatRoomId: asyncSnapshot
+                                      .data.documents[index]
+                                      .get('chatRoomId'),
+                                  usersNames: asyncSnapshot
+                                      .data.documents[index]
+                                      .get('usersNames'),
+                                  users: asyncSnapshot.data.documents[index]
+                                      .get('users'),
+                                  usersPics: asyncSnapshot.data.documents[index]
+                                      .get('usersPics')),
                             ),
                           );
                         },
@@ -142,7 +147,20 @@ class _DirectChatsState extends State<DirectChats> {
                                 .get('usersNames')[1])
                             : Text(asyncSnapshot.data.documents[index]
                                 .get('usersNames')[0]),
-                        leading: Icon(Icons.person),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image(
+                            image: NetworkImage(
+                              Constants.prefs.getString('profileImage') ==
+                                      asyncSnapshot.data.documents[index]
+                                          .get('usersPics')[0]
+                                  ? asyncSnapshot.data.documents[index]
+                                      .get('usersPics')[1]
+                                  : asyncSnapshot.data.documents[index]
+                                      .get('usersPics')[0],
+                            ),
+                          ),
+                        ),
                         trailing: Icon(Icons.send),
                       );
                     },
@@ -303,7 +321,8 @@ class UserSearchDirect extends SearchDelegate<ListView> {
         });
   }
 
-  createChatRoom(String userId, BuildContext context, String username) {
+  createChatRoom(String userId, BuildContext context, String username,
+      String userProfile) {
     print(userId);
     print(Constants.prefs.getString('userId'));
     if (userId != Constants.prefs.getString('userId')) {
@@ -311,18 +330,27 @@ class UserSearchDirect extends SearchDelegate<ListView> {
       String chatRoomId =
           getUsersInvolved(userId, Constants.prefs.getString('userId'));
       List<String> usersNames = [username, Constants.prefs.getString('name')];
+      List<String> usersPics = [
+        Constants.prefs.getString('profileImage'),
+        userProfile
+      ];
 
       Map<String, dynamic> chatRoom = {
         "users": users,
         "chatRoomId": chatRoomId,
         "usersNames": usersNames,
+        "usersPics": usersPics,
       };
       ChatroomService().addChatRoom(chatRoom, chatRoomId);
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => Conversation(
-                  chatRoomId: chatRoomId, usersNames: usersNames)));
+                    chatRoomId: chatRoomId,
+                    usersNames: usersNames,
+                    users: users,
+                    usersPics: usersPics,
+                  )));
     } else {
       print("Cannot do that");
     }
@@ -358,7 +386,9 @@ class UserSearchDirect extends SearchDelegate<ListView> {
                           createChatRoom(
                               asyncSnapshot.data.documents[index].get('userId'),
                               context,
-                              asyncSnapshot.data.documents[index].get('name'));
+                              asyncSnapshot.data.documents[index].get('name'),
+                              asyncSnapshot.data.documents[index]
+                                  .get('profileImage'));
                         },
                         child: Card(
                           shadowColor: Color(0x44393e46),

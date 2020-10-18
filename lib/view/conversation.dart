@@ -3,11 +3,19 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'chatSchedule.dart';
+
 class Conversation extends StatefulWidget {
   final String chatRoomId;
   final List<dynamic> usersNames;
+  final List<dynamic> users;
+  final List<dynamic> usersPics;
   //chatRoomId is used to identify which chat room we are in
-  Conversation({@required this.chatRoomId, @required this.usersNames});
+  Conversation(
+      {@required this.chatRoomId,
+      @required this.usersNames,
+      @required this.users,
+      @required this.usersPics});
   @override
   _ConversationState createState() => _ConversationState();
 }
@@ -70,6 +78,23 @@ class _ConversationState extends State<Conversation> {
         title: Constants.prefs.getString('name') == widget.usersNames[0]
             ? Text(widget.usersNames[1])
             : Text(widget.usersNames[0]),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatSchedule(
+                          chatRoomId: widget.chatRoomId,
+                          usersNames: widget.usersNames,
+                          users: widget.users,
+                          usersPics: widget.usersPics)));
+            },
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Icon(Icons.add_box)),
+          )
+        ],
       ),
       body: Container(
         child: Stack(
@@ -80,7 +105,7 @@ class _ConversationState extends State<Conversation> {
               width: MediaQuery.of(context).size.width,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                color: Colors.green,
+                color: Theme.of(context).primaryColor,
                 child: Row(
                   children: [
                     Expanded(

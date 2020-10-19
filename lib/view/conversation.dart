@@ -75,9 +75,29 @@ class _ConversationState extends State<Conversation> {
     //TODO: Making the chat box look like the prototype.
     return Scaffold(
       appBar: AppBar(
-        title: Constants.prefs.getString('name') == widget.usersNames[0]
-            ? Text(widget.usersNames[1])
-            : Text(widget.usersNames[0]),
+        title: GestureDetector(
+          onTap: () {},
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image(
+                    height: 40,
+                    image: NetworkImage(
+                      Constants.prefs.getString('name') == widget.usersNames[0]
+                          ? widget.usersPics[0]
+                          : widget.usersPics[1],
+                    )),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Constants.prefs.getString('name') == widget.usersNames[0]
+                  ? Text(widget.usersNames[1])
+                  : Text(widget.usersNames[0]),
+            ],
+          ),
+        ),
         actions: [
           GestureDetector(
             onTap: () {
@@ -91,8 +111,9 @@ class _ConversationState extends State<Conversation> {
                           usersPics: widget.usersPics)));
             },
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.add_box)),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Icon(Icons.add_circle),
+            ),
           )
         ],
       ),

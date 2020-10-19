@@ -100,11 +100,14 @@ class _ConversationState extends State<Conversation> {
         child: Stack(
           children: [
             chatMessages(),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               width: MediaQuery.of(context).size.width,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: EdgeInsets.all(8),
                 child: Row(
                   children: [
                     Expanded(
@@ -113,20 +116,28 @@ class _ConversationState extends State<Conversation> {
                       decoration: InputDecoration(
                           hintText: "Message ...",
                           hintStyle: TextStyle(
-                            color: Colors.black,
+                            color: Colors.grey,
                             fontSize: 16,
                           ),
                           border: InputBorder.none),
                     )),
                     SizedBox(
-                      width: 16,
+                      width: 8,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        addMessage();
-                      },
-                      child: Icon(Icons.send),
-                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      ),
+                      child: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                          addMessage();
+                        },
+                        color: Colors.white,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -165,7 +176,9 @@ class MessageTile extends StatelessWidget {
                   topLeft: Radius.circular(23),
                   topRight: Radius.circular(23),
                   bottomRight: Radius.circular(23)),
-          color: sendByMe ? Color(0xff393e46).withOpacity(0.8) : Color(0xff00adb5).withOpacity(0.8),
+          color: sendByMe
+              ? Color(0xff393e46).withOpacity(0.8)
+              : Color(0xff00adb5).withOpacity(0.8),
         ),
         child: Text(message,
             textAlign: TextAlign.start,

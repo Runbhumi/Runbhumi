@@ -104,8 +104,7 @@ class _ConversationState extends State<Conversation> {
               alignment: Alignment.bottomCenter,
               width: MediaQuery.of(context).size.width,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                color: Theme.of(context).primaryColor,
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 child: Row(
                   children: [
                     Expanded(
@@ -157,26 +156,23 @@ class MessageTile extends StatelessWidget {
             sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
         padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
-            borderRadius: sendByMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomLeft: Radius.circular(23))
-                : BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomRight: Radius.circular(23)),
-            gradient: LinearGradient(
-                colors: sendByMe
-                    ? [const Color(0xff007EF4), const Color(0xff2A75BC)]
-                    : [Colors.red, Colors.red])),
+          borderRadius: sendByMe
+              ? BorderRadius.only(
+                  topLeft: Radius.circular(23),
+                  topRight: Radius.circular(23),
+                  bottomLeft: Radius.circular(23))
+              : BorderRadius.only(
+                  topLeft: Radius.circular(23),
+                  topRight: Radius.circular(23),
+                  bottomRight: Radius.circular(23)),
+          color: sendByMe ? Color(0xff393e46).withOpacity(0.8) : Color(0xff00adb5).withOpacity(0.8),
+        ),
         child: Text(message,
             textAlign: TextAlign.start,
             style: TextStyle(
                 color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'OverpassRegular',
-                fontWeight: FontWeight.w300)),
+                fontSize: 18,
+                fontWeight: FontWeight.w400)),
       ),
     );
   }

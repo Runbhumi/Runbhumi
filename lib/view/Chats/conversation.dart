@@ -2,8 +2,7 @@ import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import 'chatSchedule.dart';
+import '../views.dart';
 
 class Conversation extends StatefulWidget {
   final String chatRoomId;

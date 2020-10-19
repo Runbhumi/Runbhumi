@@ -2,8 +2,7 @@ import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import 'chatSchedule.dart';
+import '../views.dart';
 
 class Conversation extends StatefulWidget {
   final String chatRoomId;
@@ -75,9 +74,29 @@ class _ConversationState extends State<Conversation> {
     //TODO: Making the chat box look like the prototype.
     return Scaffold(
       appBar: AppBar(
-        title: Constants.prefs.getString('name') == widget.usersNames[0]
-            ? Text(widget.usersNames[1])
-            : Text(widget.usersNames[0]),
+        title: GestureDetector(
+          onTap: () {},
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image(
+                    height: 40,
+                    image: NetworkImage(
+                      Constants.prefs.getString('name') == widget.usersNames[0]
+                          ? widget.usersPics[0]
+                          : widget.usersPics[1],
+                    )),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Constants.prefs.getString('name') == widget.usersNames[0]
+                  ? Text(widget.usersNames[1])
+                  : Text(widget.usersNames[0]),
+            ],
+          ),
+        ),
         actions: [
           GestureDetector(
             onTap: () {
@@ -91,8 +110,9 @@ class _ConversationState extends State<Conversation> {
                           usersPics: widget.usersPics)));
             },
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.add_box)),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Icon(Icons.add_circle),
+            ),
           )
         ],
       ),
@@ -100,12 +120,14 @@ class _ConversationState extends State<Conversation> {
         child: Stack(
           children: [
             chatMessages(),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               width: MediaQuery.of(context).size.width,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                color: Theme.of(context).primaryColor,
+                padding: EdgeInsets.all(8),
                 child: Row(
                   children: [
                     Expanded(
@@ -114,20 +136,28 @@ class _ConversationState extends State<Conversation> {
                       decoration: InputDecoration(
                           hintText: "Message ...",
                           hintStyle: TextStyle(
-                            color: Colors.black,
+                            color: Colors.grey,
                             fontSize: 16,
                           ),
                           border: InputBorder.none),
                     )),
                     SizedBox(
-                      width: 16,
+                      width: 8,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        addMessage();
-                      },
-                      child: Icon(Icons.send),
-                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      ),
+                      child: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                          addMessage();
+                        },
+                        color: Colors.white,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -157,26 +187,25 @@ class MessageTile extends StatelessWidget {
             sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
         padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
-            borderRadius: sendByMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomLeft: Radius.circular(23))
-                : BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomRight: Radius.circular(23)),
-            gradient: LinearGradient(
-                colors: sendByMe
-                    ? [const Color(0xff007EF4), const Color(0xff2A75BC)]
-                    : [Colors.red, Colors.red])),
+          borderRadius: sendByMe
+              ? BorderRadius.only(
+                  topLeft: Radius.circular(23),
+                  topRight: Radius.circular(23),
+                  bottomLeft: Radius.circular(23))
+              : BorderRadius.only(
+                  topLeft: Radius.circular(23),
+                  topRight: Radius.circular(23),
+                  bottomRight: Radius.circular(23)),
+          color: sendByMe
+              ? Color(0xff393e46).withOpacity(0.8)
+              : Color(0xff00adb5).withOpacity(0.8),
+        ),
         child: Text(message,
             textAlign: TextAlign.start,
             style: TextStyle(
                 color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'OverpassRegular',
-                fontWeight: FontWeight.w300)),
+                fontSize: 18,
+                fontWeight: FontWeight.w400)),
       ),
     );
   }

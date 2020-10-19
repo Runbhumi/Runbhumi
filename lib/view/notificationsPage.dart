@@ -2,6 +2,7 @@ import 'package:Runbhumi/services/NotificationService.dart';
 import 'package:Runbhumi/view/otherUserProfile.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:Runbhumi/models/Notification.dart';
 
 class Notifications extends StatefulWidget {
   @override
@@ -35,11 +36,14 @@ class _NotificationsState extends State<Notifications> {
                 itemCount: asyncSnapshot.data.documents.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  var data = asyncSnapshot.data.documents[index];
-                  String notificationId = data.get('notificationId');
-                  String id = data.get('senderId');
-                  String profileImage = data.get("profileImage");
-                  String name = data.get("name");
+                  NotificationClass notificationData =
+                      new NotificationClass.fromJson(
+                          asyncSnapshot.data.documents[index]);
+
+                  // String notificationId = data.get('notificationId');
+                  // String id = data.get('senderId');
+                  // String profileImage = data.get("profileImage");
+                  // String name = data.get("name");
                   return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 4.0),
@@ -52,7 +56,7 @@ class _NotificationsState extends State<Notifications> {
                                   // userID:
                                   //     Constants.prefs.getString('userId'),
                                   // TODO: I need this feild in DB
-                                  userID: id,
+                                  userID: notificationData.senderId,
                                 ),
                               ),
                             );
@@ -71,9 +75,10 @@ class _NotificationsState extends State<Notifications> {
                                         BorderRadius.all(Radius.circular(20)),
                                     child: Image(
                                         height: 75,
-                                        image: NetworkImage(profileImage)),
+                                        image: NetworkImage(notificationData
+                                            .senderProfieImage)),
                                   ),
-                                  Text(name,
+                                  Text(notificationData.senderName,
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline5),
@@ -85,8 +90,8 @@ class _NotificationsState extends State<Notifications> {
                                         myColor: Theme.of(context).accentColor,
                                         //decline funtionality
                                         onPressed: () {
-                                          NotificationServices()
-                                              .declineRequest(notificationId);
+                                          NotificationServices().declineRequest(
+                                              notificationData.notificationId);
                                         },
                                       ),
                                       SmallButton(
@@ -96,10 +101,11 @@ class _NotificationsState extends State<Notifications> {
                                         onPressed: () {
                                           NotificationServices()
                                               .acceptFriendRequest(
-                                                  notificationId,
-                                                  id,
-                                                  name,
-                                                  profileImage);
+                                                  notificationData);
+                                          // notificationId,
+                                          // id,
+                                          // name,
+                                          // profileImage);
                                         },
                                       ),
                                     ],

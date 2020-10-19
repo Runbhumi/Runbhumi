@@ -122,9 +122,9 @@ class NotificationServices {
         .collection('notification');
     var doc = db.doc();
     String id = doc.id;
-    doc.set(
-        Notification.createNewRequest("friend", id, _id, _name, _profileImage)
-            .toJson());
+    doc.set(NotificationClass.createNewRequest(
+            "friend", id, _id, _name, _profileImage)
+        .toJson());
   }
 
   declineRequest(String id) {
@@ -135,23 +135,21 @@ class NotificationServices {
     db.doc(id).delete();
   }
 
-  acceptFriendRequest(
-      String notificationID, String id, String name, String profileImage) {
+  acceptFriendRequest(NotificationClass data) {
+    // String notificationID, String id, String name, String profileImage) {
     var db = FirebaseFirestore.instance.collection('users');
+    db.doc(_id).collection('friends').doc(data.senderId).set(Friends.newFriend(
+            data.senderId, data.senderName, data.senderProfieImage)
+        .toJson());
     db
-        .doc(_id)
-        .collection('friends')
-        .doc(id)
-        .set(Friends.newFriend(id, name, profileImage).toJson());
-    db
-        .doc(id)
+        .doc(data.senderId)
         .collection('friends')
         .doc(_id)
         .set(Friends.newFriend(_id, _name, _profileImage).toJson());
-    declineRequest(notificationID);
+    declineRequest(data.notificationId);
 
     UserService().updateMyFriendCount();
-    UserService().updateFriendCount(id);
+    UserService().updateFriendCount(data.senderId);
   }
 
   getNotification() async {

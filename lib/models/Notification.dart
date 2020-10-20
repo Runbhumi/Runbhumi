@@ -50,14 +50,16 @@
 //         status = snapshot.data()['status'];
 // }
 
-class Notification {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class NotificationClass {
   String senderId;
   String senderName;
   String senderProfieImage;
   String notificationId;
   String type;
 
-  Notification.createNewRequest(String type, String nortificationId,
+  NotificationClass.createNewRequest(String type, String nortificationId,
       String senderId, String senderName, String senderProfileImage) {
     this.notificationId = nortificationId;
     this.senderId = senderId;
@@ -73,4 +75,21 @@ class Notification {
         'profileImage': senderProfieImage,
         'type': type
       };
+
+  NotificationClass(
+      {this.notificationId,
+      this.senderId,
+      this.senderName,
+      this.senderProfieImage,
+      this.type});
+
+  factory NotificationClass.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    return NotificationClass(
+        notificationId: parsedJson['notificationId'],
+        senderId: parsedJson['senderId'],
+        senderName: parsedJson['name'],
+        senderProfieImage: parsedJson['profileImage'],
+        type: parsedJson['type']);
+  }
 }

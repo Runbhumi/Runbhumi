@@ -22,18 +22,20 @@ class Conversation extends StatefulWidget {
 class _ConversationState extends State<Conversation> {
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
+  ScrollController _controller = ScrollController();
   addMessage() {
     //adding the message typed by the user
-    if (messageEditingController.text.isNotEmpty) {
+    if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessage(
           DateTime.now(),
           Constants.prefs.getString('userId'),
-          messageEditingController.text,
+          messageEditingController.text.trim(),
           widget.chatRoomId);
       setState(() {
         messageEditingController.text = "";
       });
     }
+    _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
   Widget chatMessages() {
@@ -43,6 +45,7 @@ class _ConversationState extends State<Conversation> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
+                controller: _controller,
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   return MessageTile(
@@ -52,8 +55,10 @@ class _ConversationState extends State<Conversation> {
                         snapshot.data.documents[index].get('sentby'),
                   );
                 })
-            : Container(
-                child: Text("Start taliking"),
+            : Center(
+                child: Container(
+                  child: Text("Start taliking"),
+                ),
               );
       },
     );
@@ -67,6 +72,9 @@ class _ConversationState extends State<Conversation> {
       });
     });
     super.initState();
+    Future.delayed(Duration(milliseconds: 400), () {
+      _controller.jumpTo(_controller.position.maxScrollExtent);
+    });
   }
 
   @override
@@ -132,6 +140,10 @@ class _ConversationState extends State<Conversation> {
                   children: [
                     Expanded(
                         child: TextField(
+                      onTap: () {
+                        _controller
+                            .jumpTo(_controller.position.maxScrollExtent);
+                      },
                       controller: messageEditingController,
                       decoration: InputDecoration(
                           hintText: "Message ...",

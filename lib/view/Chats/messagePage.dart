@@ -119,49 +119,69 @@ class _DirectChatsState extends State<DirectChats> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        //TODO: UI for the list of chats.
-                        onTap: () {
-                          //Sending the user to the chat room
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Conversation(
-                                  chatRoomId: asyncSnapshot
-                                      .data.documents[index]
-                                      .get('chatRoomId'),
-                                  usersNames: asyncSnapshot
-                                      .data.documents[index]
-                                      .get('usersNames'),
-                                  users: asyncSnapshot.data.documents[index]
-                                      .get('users'),
-                                  usersPics: asyncSnapshot.data.documents[index]
-                                      .get('usersPics')),
-                            ),
-                          );
-                        },
-                        title: Constants.prefs.getString('name') ==
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[0]
-                            ? Text(asyncSnapshot.data.documents[index]
-                                .get('usersNames')[1])
-                            : Text(asyncSnapshot.data.documents[index]
-                                .get('usersNames')[0]),
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image(
-                            image: NetworkImage(
-                              Constants.prefs.getString('profileImage') ==
+                      return Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: ListTile(
+                              onTap: () {
+                                //Sending the user to the chat room
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Conversation(
+                                        chatRoomId: asyncSnapshot
+                                            .data.documents[index]
+                                            .get('chatRoomId'),
+                                        usersNames: asyncSnapshot
+                                            .data.documents[index]
+                                            .get('usersNames'),
+                                        users: asyncSnapshot
+                                            .data.documents[index]
+                                            .get('users'),
+                                        usersPics: asyncSnapshot
+                                            .data.documents[index]
+                                            .get('usersPics')),
+                                  ),
+                                );
+                              },
+                              title: Constants.prefs.getString('name') ==
                                       asyncSnapshot.data.documents[index]
-                                          .get('usersPics')[0]
-                                  ? asyncSnapshot.data.documents[index]
-                                      .get('usersPics')[1]
-                                  : asyncSnapshot.data.documents[index]
-                                      .get('usersPics')[0],
+                                          .get('usersNames')[0]
+                                  ? Text(
+                                      asyncSnapshot.data.documents[index]
+                                          .get('usersNames')[1],
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  : Text(
+                                      asyncSnapshot.data.documents[index]
+                                          .get('usersNames')[0],
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: Image(
+                                  image: NetworkImage(
+                                    Constants.prefs.getString('profileImage') ==
+                                            asyncSnapshot.data.documents[index]
+                                                .get('usersPics')[0]
+                                        ? asyncSnapshot.data.documents[index]
+                                            .get('usersPics')[1]
+                                        : asyncSnapshot.data.documents[index]
+                                            .get('usersPics')[0],
+                                  ),
+                                ),
+                              ),
+                              // trailing: Icon(Icons.send),
                             ),
                           ),
                         ),
-                        trailing: Icon(Icons.send),
                       );
                     },
                   )

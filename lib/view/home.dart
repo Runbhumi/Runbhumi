@@ -139,132 +139,144 @@ class _HomeState extends State<Home> {
       builder: (context, asyncSnapshot) {
         print("Feed loading");
         return asyncSnapshot.hasData
-            ? ListView.builder(
-                itemCount: asyncSnapshot.data.documents.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  String sportName = asyncSnapshot.data.documents[index]
-                      .get('sportName')
-                      .toString();
-                  IconData sportIcon;
-                  switch (sportName) {
-                    case "Volleyball":
-                      sportIcon = Icons.sports_volleyball;
-                      break;
-                    case "Basketball":
-                      sportIcon = Icons.sports_basketball;
-                      break;
-                    case "Cricket":
-                      sportIcon = Icons.sports_cricket;
-                      break;
-                    case "Football":
-                      sportIcon = Icons.sports_soccer;
-                      break;
-                  }
-                  bool registrationCondition = asyncSnapshot
-                      .data.documents[index]
-                      .get('playersId')
-                      .contains(Constants.prefs.getString('userId'));
-                  var eventData = asyncSnapshot.data.documents[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
-                    child: Card(
-                      shadowColor: Color(0x44393e46),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      elevation: 20,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ExpansionTile(
-                              maintainState: true,
-                              onExpansionChanged: (expanded) {
-                                if (expanded) {
-                                } else {}
-                              },
-                              children: [
-                                SmallButton(
-                                    myColor: !registrationCondition
-                                        ? Theme.of(context).primaryColor
-                                        : Theme.of(context).accentColor,
-                                    myText: !registrationCondition
-                                        ? "Join"
-                                        : "Already Registered",
-                                    onPressed: () {
-                                      if (!registrationCondition) {
-                                        registerUserToEvent(
-                                          eventData.get('eventId'),
-                                          eventData.get('eventName'),
-                                          eventData.get('sportName'),
-                                          eventData.get('location'),
-                                          eventData.get('dateTime').toDate(),
-                                        );
-                                        print("User Registered");
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return successDialog(context);
-                                            });
-                                      } else {
-                                        print("Already Registered");
-                                      }
-                                    })
-                              ],
-                              leading: Icon(
-                                sportIcon,
-                                size: 48,
-                                color: theme.currentTheme.backgroundColor,
-                              ),
-                              title: Text(
-                                asyncSnapshot.data.documents[index]
-                                    .get('eventName'),
-                                style: TextStyle(
-                                  color: theme.currentTheme.backgroundColor,
-                                ),
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
+            ? asyncSnapshot.data.documents.length > 0
+                ? ListView.builder(
+                    itemCount: asyncSnapshot.data.documents.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      String sportName = asyncSnapshot.data.documents[index]
+                          .get('sportName')
+                          .toString();
+                      IconData sportIcon;
+                      switch (sportName) {
+                        case "Volleyball":
+                          sportIcon = Icons.sports_volleyball;
+                          break;
+                        case "Basketball":
+                          sportIcon = Icons.sports_basketball;
+                          break;
+                        case "Cricket":
+                          sportIcon = Icons.sports_cricket;
+                          break;
+                        case "Football":
+                          sportIcon = Icons.sports_soccer;
+                          break;
+                      }
+                      bool registrationCondition = asyncSnapshot
+                          .data.documents[index]
+                          .get('playersId')
+                          .contains(Constants.prefs.getString('userId'));
+                      var eventData = asyncSnapshot.data.documents[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Card(
+                          shadowColor: Color(0x44393e46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          elevation: 20,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ExpansionTile(
+                                  maintainState: true,
+                                  onExpansionChanged: (expanded) {
+                                    if (expanded) {
+                                    } else {}
+                                  },
+                                  children: [
+                                    SmallButton(
+                                        myColor: !registrationCondition
+                                            ? Theme.of(context).primaryColor
+                                            : Theme.of(context).accentColor,
+                                        myText: !registrationCondition
+                                            ? "Join"
+                                            : "Already Registered",
+                                        onPressed: () {
+                                          if (!registrationCondition) {
+                                            registerUserToEvent(
+                                              eventData.get('eventId'),
+                                              eventData.get('eventName'),
+                                              eventData.get('sportName'),
+                                              eventData.get('location'),
+                                              eventData
+                                                  .get('dateTime')
+                                                  .toDate(),
+                                            );
+                                            print("User Registered");
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return successDialog(context);
+                                                });
+                                          } else {
+                                            print("Already Registered");
+                                          }
+                                        })
+                                  ],
+                                  leading: Icon(
+                                    sportIcon,
+                                    size: 48,
+                                    color: theme.currentTheme.backgroundColor,
+                                  ),
+                                  title: Text(
                                     asyncSnapshot.data.documents[index]
-                                        .get('description'),
+                                        .get('eventName'),
                                     style: TextStyle(
                                       color: theme.currentTheme.backgroundColor,
                                     ),
                                   ),
-                                  Row(
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Icon(
-                                        Feather.map_pin,
-                                        size: 16.0,
-                                      ),
                                       Text(
                                         asyncSnapshot.data.documents[index]
-                                            .get('location'),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
+                                            .get('description'),
+                                        style: TextStyle(
+                                          color: theme
+                                              .currentTheme.backgroundColor,
+                                        ),
                                       ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Feather.map_pin,
+                                            size: 16.0,
+                                          ),
+                                          Text(
+                                            asyncSnapshot.data.documents[index]
+                                                .get('location'),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
+                                          ),
+                                        ],
+                                      )
                                     ],
-                                  )
-                                ],
+                                  ),
+                                  trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
+                                      .format(asyncSnapshot
+                                          .data.documents[index]
+                                          .get('dateTime')
+                                          .toDate())
+                                      .toString()),
+                                ),
                               ),
-                              trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
-                                  .format(asyncSnapshot.data.documents[index]
-                                      .get('dateTime')
-                                      .toDate())
-                                  .toString()),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      );
+                    },
+                  )
+                : // if there is no event in the DB you will get this illustration
+                Container(
+                    child: Center(
+                      child: Image.asset("assets/notification.png"),
                     ),
-                  );
-                },
-              )
+                  )
             : Loader();
       },
     );

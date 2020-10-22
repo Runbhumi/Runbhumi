@@ -105,7 +105,8 @@ class _NotificationsState extends State<Notifications> {
                       );
                     },
                   )
-                : Container(
+                : // if there is no notification you will get this illustration
+                Container(
                     child: Center(
                       child: Image.asset("assets/notification.png"),
                     ),

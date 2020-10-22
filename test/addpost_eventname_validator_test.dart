@@ -7,7 +7,7 @@ void main() {
     expect(result, 'This is Required!');
   });
   test('Invalid event name Test', () {
-    var result =  Validations.validateNonEmpty('@#sdgfh');
+    var result = Validations.validateNonEmpty('@#sdgfh');
     expect(result, 'Please enter only alphabetical characters.');
   });
   test('Valid Email Test', () {

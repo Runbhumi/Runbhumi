@@ -50,6 +50,7 @@ class _ScheduleState extends State<Schedule> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      var data = asyncSnapshot.data.documents[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
@@ -70,8 +71,7 @@ class _ScheduleState extends State<Schedule> {
                                   ListTile(
                                     isThreeLine: true,
                                     title: Text(
-                                      asyncSnapshot.data.documents[index].get(
-                                          'eventName'), // widget.scheduleList[index][],
+                                      data.get('eventName'),
                                       style:
                                           Theme.of(context).textTheme.headline6,
                                     ),
@@ -82,8 +82,7 @@ class _ScheduleState extends State<Schedule> {
                                           size: 16.0,
                                         ),
                                         Text(
-                                          asyncSnapshot.data.documents[index]
-                                              .get('location'),
+                                          data.get('location'),
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle1,
@@ -97,8 +96,7 @@ class _ScheduleState extends State<Schedule> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(DateFormat('E\ndd/MM\nkk:mm')
-                                                .format(asyncSnapshot
-                                                    .data.documents[index]
+                                                .format(data
                                                     .get('dateTime')
                                                     .toDate())
                                                 .toString()),

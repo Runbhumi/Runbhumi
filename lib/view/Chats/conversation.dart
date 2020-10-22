@@ -79,7 +79,6 @@ class _ConversationState extends State<Conversation> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Making the chat box look like the prototype.
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(

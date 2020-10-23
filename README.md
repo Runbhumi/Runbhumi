@@ -18,7 +18,7 @@
 
 ### ✨ [Demo](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
 
-### 💪Motivation/Inspiration
+### 💪 Motivation/Inspiration
 
 <img src="./documentation/Problem_statement_by_tanmay_bhat.jpeg" height="500" />
 
@@ -48,19 +48,9 @@ flutter analyze .
 flutter test
 ```
 
-<details><summary>List of Screens</summary>
+<details><summary>Block Diagram of Runbhumi</summary>
   
-  - [x] Splash Screen
-  - [x] Pre-Authorization Screen
-  - [x] Login Screen
-  - [x] SignUp Screen
-  - [x] Forgot Password Screen
-  - [x] Home Screen
-  - [x] Add Event Screen
-  - [ ] Notification Screen
-  - [x] Profile Screen
-  - [ ] Chat Screen
-  - [ ] Schedule Screen
+
   
 </details>
 

@@ -50,7 +50,7 @@ flutter test
 
 <details><summary>Block Diagram of Runbhumi</summary>
   
-
+<img src="./documentation/block diagram.png" height="500" />
   
 </details>
 

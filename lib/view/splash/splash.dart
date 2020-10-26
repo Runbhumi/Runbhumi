@@ -44,7 +44,7 @@ class _SplashState extends State<Splash> {
           children: <Widget>[
             Center(
                 child: Image(
-              image: AssetImage('assets/icon/icon.png'),
+              image: AssetImage('assets/icon.png'),
               width: 150,
             )),
             Center(

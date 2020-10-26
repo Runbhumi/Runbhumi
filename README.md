@@ -1,5 +1,6 @@
+<p align="center"><img align="center" src="./assets/icon/icon.png" height="128" /></p>
 <h1 align="center">Welcome to Runbhumi 👋</h1>
-<p>
+<p align="center">
   <a href="../Runbhumi/documentation/auth.md" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>

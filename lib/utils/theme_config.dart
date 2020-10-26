@@ -30,8 +30,8 @@ class ThemeNotifier extends ChangeNotifier {
           elevation: 0,
         ),
         appBarTheme: AppBarTheme(
-          // color: ,
-          elevation: 4,
+          color: Colors.white,
+          elevation: 0,
           brightness: Brightness.light,
           centerTitle: true,
           iconTheme: IconThemeData(
@@ -51,6 +51,7 @@ class ThemeNotifier extends ChangeNotifier {
     ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       appBarTheme: AppBarTheme(
+        color: Color((0xff121212)),
         elevation: 0,
         brightness: Brightness.dark,
         centerTitle: true,
@@ -89,6 +90,7 @@ class ThemeNotifier extends ChangeNotifier {
       ),
       fontFamily: 'Montserrat',
       brightness: Brightness.dark,
+      backgroundColor: Color(0xffffffff),
     ),
   ];
 

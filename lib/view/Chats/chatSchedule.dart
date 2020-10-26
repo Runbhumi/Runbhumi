@@ -24,7 +24,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
   // Use widget.userNames for displaying the names og the people in the chat Id
   // Use widget.users fot the users ID's to be put into the backend.
   //Use the widget.usersPics for the Url for the pictures of the Partiipants.
-  //TODO: Make UI for this page, backend to be discussed.
+  //TODO:backend to be discussed.
   GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
   String _chosenSport;
   String _chosenPurpose;

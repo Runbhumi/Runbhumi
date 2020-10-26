@@ -43,10 +43,10 @@ class _SplashState extends State<Splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: FlutterLogo(
-                size: 150,
-              ),
-            ),
+                child: Image(
+              image: AssetImage('assets/icon.png'),
+              width: 150,
+            )),
             Center(
               child: Hero(
                 tag: 'appname',

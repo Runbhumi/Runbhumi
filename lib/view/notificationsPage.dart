@@ -126,8 +126,7 @@ class _NotificationsState extends State<Notifications> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 200,
+          Expanded(
             child: Stack(
               children: <Widget>[
                 notificationList(),

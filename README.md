@@ -17,7 +17,7 @@
 
 ### 🏠 [Homepage](https://runbhumi.github.io/our-team/)
 
-### ✨ [Demo](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
+### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=3%3A198&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down)
 
 ### 💪 Motivation/Inspiration
 

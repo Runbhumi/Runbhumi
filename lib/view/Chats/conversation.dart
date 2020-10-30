@@ -128,7 +128,10 @@ class _ConversationState extends State<Conversation> {
         child: Expanded(
             child: Stack(
           children: [
-            chatMessages(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 70.0),
+              child: chatMessages(),
+            ),
             SizedBox(
               height: 20,
             ),

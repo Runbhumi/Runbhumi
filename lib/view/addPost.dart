@@ -1,8 +1,10 @@
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 String userId = Constants.prefs.getString('userId');
 
@@ -21,6 +23,7 @@ class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     //sports
+    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     var sportsList = DropdownButton(
       hint: Text("Sport"),
       value: _chosenSport,
@@ -95,7 +98,7 @@ class _AddPostState extends State<AddPost> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           decoration: BoxDecoration(
                             borderRadius: new BorderRadius.circular(50),
-                            color: Color(0xffeeeeee),
+                            color: theme.currentTheme.primaryColorLight,
                             border: Border.all(color: Color(0x00000000)),
                           ),
                           child: DropdownButtonHideUnderline(
@@ -110,7 +113,7 @@ class _AddPostState extends State<AddPost> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           decoration: BoxDecoration(
                             borderRadius: new BorderRadius.circular(50),
-                            color: Color(0xffeeeeee),
+                            color: theme.currentTheme.primaryColorLight,
                             border: Border.all(color: Color(0x00000000)),
                           ),
                           child: DropdownButtonHideUnderline(

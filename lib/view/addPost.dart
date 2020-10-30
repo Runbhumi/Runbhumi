@@ -144,6 +144,7 @@ class _AddPostState extends State<AddPost> {
                     // this funtion writes in the DB and adds an
                     // event when manually testing anything,
                     // just comment this function
+                    int maxMembers;
                     createNewEvent(
                         _nameController.text,
                         userId,
@@ -151,7 +152,8 @@ class _AddPostState extends State<AddPost> {
                         _chosenSport,
                         _chosenPurpose,
                         [userId],
-                        DateTime.parse(_datetime.text));
+                        DateTime.parse(_datetime.text),
+                        maxMembers);
                     // to show success dialog
                     showDialog(
                       context: context,

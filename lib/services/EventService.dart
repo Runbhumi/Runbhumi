@@ -50,11 +50,12 @@ void createNewEvent(
     String sportName,
     String description,
     List<String> playersId,
-    DateTime dateTime) {
+    DateTime dateTime,
+    int maxMembers) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
-  newDoc.set(Events.newEvent(
-          id, eventName, creatorId, location, sportName, description, dateTime)
+  newDoc.set(Events.newEvent(id, eventName, creatorId, location, sportName,
+          description, dateTime, maxMembers)
       .toJson());
   addEventToUser(id, eventName, sportName, location, dateTime);
 }

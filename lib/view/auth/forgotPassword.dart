@@ -1,6 +1,5 @@
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/view/auth/loginPage.dart';
-import '../views.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
 

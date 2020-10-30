@@ -1,3 +1,4 @@
+import 'package:Runbhumi/models/Events.dart';
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -144,11 +145,13 @@ class _HomeState extends State<Home> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      String sportName = asyncSnapshot.data.documents[index]
-                          .get('sportName')
-                          .toString();
+                      Events data = new Events.fromJson(
+                          asyncSnapshot.data.documents[index]);
+                      // String sportName = asyncSnapshot.data.documents[index]
+                      //     .get('sportName')
+                      //     .toString();
                       IconData sportIcon;
-                      switch (sportName) {
+                      switch (data.sportName) {
                         case "Volleyball":
                           sportIcon = Icons.sports_volleyball;
                           break;
@@ -162,11 +165,10 @@ class _HomeState extends State<Home> {
                           sportIcon = Icons.sports_soccer;
                           break;
                       }
-                      bool registrationCondition = asyncSnapshot
-                          .data.documents[index]
-                          .get('playersId')
-                          .contains(Constants.prefs.getString('userId'));
-                      var eventData = asyncSnapshot.data.documents[index];
+                      bool registrationCondition = data.playersId.contains(
+                          Constants.prefs.getString('userId')); //asyncSnapshot
+                      // .data.documents[index]
+                      // .get('playersId')
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
@@ -197,14 +199,11 @@ class _HomeState extends State<Home> {
                                         onPressed: () {
                                           if (!registrationCondition) {
                                             registerUserToEvent(
-                                              eventData.get('eventId'),
-                                              eventData.get('eventName'),
-                                              eventData.get('sportName'),
-                                              eventData.get('location'),
-                                              eventData
-                                                  .get('dateTime')
-                                                  .toDate(),
-                                            );
+                                                data.eventId,
+                                                data.eventName,
+                                                data.sportName,
+                                                data.location,
+                                                data.dateTime);
                                             print("User Registered");
                                             showDialog(
                                                 context: context,
@@ -222,8 +221,7 @@ class _HomeState extends State<Home> {
                                     color: theme.currentTheme.backgroundColor,
                                   ),
                                   title: Text(
-                                    asyncSnapshot.data.documents[index]
-                                        .get('eventName'),
+                                    data.eventName,
                                     style: TextStyle(
                                       color: theme.currentTheme.backgroundColor,
                                     ),
@@ -233,8 +231,7 @@ class _HomeState extends State<Home> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        asyncSnapshot.data.documents[index]
-                                            .get('description'),
+                                        data.description,
                                         style: TextStyle(
                                           color: theme
                                               .currentTheme.backgroundColor,
@@ -247,8 +244,7 @@ class _HomeState extends State<Home> {
                                             size: 16.0,
                                           ),
                                           Text(
-                                            asyncSnapshot.data.documents[index]
-                                                .get('location'),
+                                            data.location,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -258,10 +254,7 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                   trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
-                                      .format(asyncSnapshot
-                                          .data.documents[index]
-                                          .get('dateTime')
-                                          .toDate())
+                                      .format(data.dateTime)
                                       .toString()),
                                 ),
                               ),

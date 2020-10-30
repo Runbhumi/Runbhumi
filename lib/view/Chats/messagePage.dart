@@ -18,59 +18,56 @@ class Network extends StatefulWidget {
 class _NetworkState extends State<Network> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: buildTitle(context, "Message"),
-          automaticallyImplyLeading: false,
-          bottom: TabBar(
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey,
-            tabs: [
-              Tab(child: Text("Direct")),
-              Tab(child: Text("Team")),
-              Tab(child: Text("B/W Teams")),
-            ],
-            indicator: new BubbleTabIndicator(
-              indicatorHeight: 30.0,
-              indicatorColor: Theme.of(context).primaryColor,
-              tabBarIndicatorSize: TabBarIndicatorSize.tab,
-            ),
-          ),
-        ),
-        body: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              // ChatsTabs(),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    //direct chats
-                    DirectChats(),
-                    //teams chat
-                    PlaceholderWidget(),
-                    // b/w teams chat
-                    PlaceholderWidget(),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, "/addpost");
-        //   },
-        //   child: Icon(Icons.add),
-        //   foregroundColor: Colors.white,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.all(Radius.circular(20)),
+    return Scaffold(
+      appBar: AppBar(
+        title: buildTitle(context, "Message"),
+        automaticallyImplyLeading: false,
+        // bottom: TabBar(
+        //   labelColor: Colors.white,
+        //   unselectedLabelColor: Colors.grey,
+        //   tabs: [
+        //     Tab(child: Text("Direct")),
+        //     Tab(child: Text("Team")),
+        //     Tab(child: Text("B/W Teams")),
+        //   ],
+        //   indicator: new BubbleTabIndicator(
+        //     indicatorHeight: 30.0,
+        //     indicatorColor: Theme.of(context).primaryColor,
+        //     tabBarIndicatorSize: TabBarIndicatorSize.tab,
         //   ),
-        //   backgroundColor: Theme.of(context).primaryColor,
         // ),
       ),
+      body: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(child: DirectChats()),
+            // Expanded(
+            //   child: TabBarView(
+            //     children: [
+            //       //direct chats
+            //       DirectChats(),
+            //       //teams chat
+            //       PlaceholderWidget(),
+            //       // b/w teams chat
+            //       PlaceholderWidget(),
+            //     ],
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, "/addpost");
+      //   },
+      //   child: Icon(Icons.add),
+      //   foregroundColor: Colors.white,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.all(Radius.circular(20)),
+      //   ),
+      //   backgroundColor: Theme.of(context).primaryColor,
+      // ),
     );
   }
 }

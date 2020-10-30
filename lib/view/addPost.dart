@@ -144,7 +144,7 @@ class _AddPostState extends State<AddPost> {
                     // this funtion writes in the DB and adds an
                     // event when manually testing anything,
                     // just comment this function
-                    int maxMembers;
+                    int maxMembers = 0;
                     createNewEvent(
                         _nameController.text,
                         userId,

@@ -7,9 +7,8 @@ class Events {
   String location;
   String sportName;
   String description;
-  List<dynamic> playersId;
+  List<String> playersId;
   DateTime dateTime;
-  int maxMembers;
 
   Events(
       {this.eventId,
@@ -18,9 +17,7 @@ class Events {
       this.location,
       this.sportName,
       this.description,
-      this.playersId,
-      this.dateTime,
-      this.maxMembers});
+      this.dateTime});
 
   Events.newEvent(
       String eventId,
@@ -29,8 +26,7 @@ class Events {
       String location,
       String sportName,
       String description,
-      DateTime dateTime,
-      int maxMembers) {
+      DateTime dateTime) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.creatorId = creatorId;
@@ -39,7 +35,6 @@ class Events {
     this.playersId = [creatorId];
     this.description = description;
     this.dateTime = dateTime;
-    this.maxMembers = maxMembers;
   }
 
   Events.miniView(String eventId, String eventName, String sportName,
@@ -67,20 +62,14 @@ class Events {
         'sportName': sportName,
         'description': description,
         'playersId': playersId,
-        'dateTime': dateTime,
-        'max': maxMembers
+        'dateTime': dateTime
       };
-  factory Events.fromJson(QueryDocumentSnapshot snapshot) {
-    var data = snapshot.data();
-    return Events(
-        eventId: data['eventId'],
-        eventName: data['eventName'],
-        creatorId: data['creatorId'],
-        location: data['location'],
-        sportName: data['sportName'],
-        description: data['description'],
-        playersId: data['playersId'],
-        dateTime: data['dateTime'].toDate(),
-        maxMembers: data['max']);
-  }
+  Events.fromSnapshot(DocumentSnapshot snapshot)
+      : eventId = snapshot.data()['eventId'],
+        eventName = snapshot.data()['eventName'],
+        creatorId = snapshot.data()['creatorId'],
+        location = snapshot.data()['location'],
+        sportName = snapshot.data()['sportName'],
+        description = snapshot.data()['desscription'],
+        dateTime = snapshot.data()['dateTime'].toDate();
 }

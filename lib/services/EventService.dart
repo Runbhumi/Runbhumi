@@ -31,14 +31,14 @@ class EventService {
         .snapshots();
   }
 
-  // Future getEventDetails(String eventId) async {
-  //   try {
-  //     var eventsData = await _eventCollectionReference.doc(eventId).get();
-  //     return Events.fromSnapshot(eventsData);
-  //   } catch (e) {
-  //     return e.message;
-  //   }
-  // }
+  Future getEventDetails(String eventId) async {
+    try {
+      var eventsData = await _eventCollectionReference.doc(eventId).get();
+      return Events.fromSnapshot(eventsData);
+    } catch (e) {
+      return e.message;
+    }
+  }
 }
 
 //id, userId, "", _chosenSport, _chosenPurpose,[userId], DateTime.now()
@@ -50,12 +50,11 @@ void createNewEvent(
     String sportName,
     String description,
     List<String> playersId,
-    DateTime dateTime,
-    int maxMembers) {
+    DateTime dateTime) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
-  newDoc.set(Events.newEvent(id, eventName, creatorId, location, sportName,
-          description, dateTime, maxMembers)
+  newDoc.set(Events.newEvent(
+          id, eventName, creatorId, location, sportName, description, dateTime)
       .toJson());
   addEventToUser(id, eventName, sportName, location, dateTime);
 }

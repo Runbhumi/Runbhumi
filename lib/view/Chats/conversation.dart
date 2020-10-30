@@ -45,8 +45,7 @@ class _ConversationState extends State<Conversation> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-                reverse: true,
-                //controller: _controller,
+                controller: _controller,
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   return MessageTile(
@@ -80,6 +79,7 @@ class _ConversationState extends State<Conversation> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Making the chat box look like the prototype.
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
@@ -125,13 +125,9 @@ class _ConversationState extends State<Conversation> {
         ],
       ),
       body: Container(
-        child: Expanded(
-            child: Stack(
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 70.0),
-              child: chatMessages(),
-            ),
+            chatMessages(),
             SizedBox(
               height: 20,
             ),
@@ -179,7 +175,7 @@ class _ConversationState extends State<Conversation> {
               ),
             ),
           ],
-        )),
+        ),
       ),
     );
   }

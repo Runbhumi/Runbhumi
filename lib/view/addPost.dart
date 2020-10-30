@@ -1,10 +1,7 @@
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 String userId = Constants.prefs.getString('userId');
 
@@ -23,7 +20,6 @@ class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     //sports
-    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     var sportsList = DropdownButton(
       hint: Text("Sport"),
       value: _chosenSport,
@@ -74,103 +70,99 @@ class _AddPostState extends State<AddPost> {
         );
       },
     );
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: addPostSliverAppBar,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Form(
-                  key: _addpostkey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    children: [
-                      InputBox(
-                        controller: _nameController,
-                        hintText: "Event name",
-                        validateFunction: Validations.validateNonEmpty,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 1.2,
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          decoration: BoxDecoration(
-                            borderRadius: new BorderRadius.circular(50),
-                            color: theme.currentTheme.primaryColorLight,
-                            border: Border.all(color: Color(0x00000000)),
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: sportsList,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 1.2,
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          decoration: BoxDecoration(
-                            borderRadius: new BorderRadius.circular(50),
-                            color: theme.currentTheme.primaryColorLight,
-                            border: Border.all(color: Color(0x00000000)),
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: purposeList,
+    return SafeArea(
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: addPostSliverAppBar,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Form(
+                    key: _addpostkey,
+                    child: Column(
+                      children: [
+                        InputBox(
+                            controller: _nameController,
+                            hintText: "Event name"),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            decoration: BoxDecoration(
+                              borderRadius: new BorderRadius.circular(50),
+                              border: Border.all(),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: sportsList,
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DateTimePicker(
-                          controller: _datetime,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            decoration: BoxDecoration(
+                              borderRadius: new BorderRadius.circular(50),
+                              border: Border.all(),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: purposeList,
+                            ),
+                          ),
                         ),
-                      ),
-                      InputBox(
-                        controller: _locationController,
-                        hintText: "Location",
-                        validateFunction: Validations.validateNonEmpty,
-                      ),
-                      // Button(
-                      //   myText: "Invite Friends",
-                      //   myColor: Theme.of(context).accentColor,
-                      //   onPressed: () {},
-                      // ),removed for MVP
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DateTimePicker(
+                            controller: _datetime,
+                          ),
+                        ),
+                        InputBox(
+                          controller: _locationController,
+                          hintText: "Location",
+                        ),
+                        // Button(
+                        //   myText: "Invite Friends",
+                        //   myColor: Theme.of(context).accentColor,
+                        //   onPressed: () {},
+                        // ),removed for MVP
+                      ],
+                    ),
                   ),
-                ),
-                Button(
-                  myText: "Add Post",
-                  myColor: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    // this funtion writes in the DB and adds an
-                    // event when manually testing anything,
-                    // just comment this function
-                    int maxMembers = 0;
-                    createNewEvent(
-                        _nameController.text,
-                        userId,
-                        _locationController.text,
-                        _chosenSport,
-                        _chosenPurpose,
-                        [userId],
-                        DateTime.parse(_datetime.text),
-                        maxMembers);
-                    // to show success dialog
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        //wait for 3 sec
-                        Future.delayed(Duration(seconds: 3), () {
-                          Navigator.pushNamed(context, "/mainapp");
-                        });
-                        return successDialog(context);
-                      },
-                    );
-                  },
-                ),
-              ],
+                  Button(
+                    myText: "Add Post",
+                    myColor: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      // this funtion writes in the DB and adds an
+                      // event when manually testing anything,
+                      // just comment this function
+                      createNewEvent(
+                          _nameController.text,
+                          userId,
+                          _locationController.text,
+                          _chosenSport,
+                          _chosenPurpose,
+                          [userId],
+                          DateTime.parse(_datetime.text));
+                      // to show success dialog
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          //wait for 3 sec
+                          Future.delayed(Duration(seconds: 3), () {
+                            Navigator.pushNamed(context, "/mainapp");
+                          });
+                          return successDialog(context);
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

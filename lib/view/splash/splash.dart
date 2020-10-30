@@ -13,7 +13,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  // Timer to change the screen in 1.2 seconds
+  // Timer to change the screen in 2.2 seconds
   startTimeout() {
     return Timer(Duration(milliseconds: 2200), handleTimeout);
   }
@@ -43,10 +43,10 @@ class _SplashState extends State<Splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: FlutterLogo(
-                size: 150,
-              ),
-            ),
+                child: Image(
+              image: AssetImage('assets/icon.png'),
+              width: 150,
+            )),
             Center(
               child: Hero(
                 tag: 'appname',

@@ -5,8 +5,8 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-// import 'package:Runbhumi/components/googleOauth.dart';
-import 'package:Runbhumi/widget/inputBox.dart';
+// import 'package:Runbhumi/view/views.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -30,20 +30,34 @@ import 'package:flutter_test/flutter_test.dart';
 // }
 
 void main() {
-  MaterialApp app = MaterialApp(
+  MaterialApp inp = MaterialApp(
     home: Scaffold(
       body: InputBox(hintText: "inp"),
     ),
   );
+  // MaterialApp secondPageUI = MaterialApp(
+  //   home: Scaffold(body: SafeArea(child: SecondPage())),
+  // );
+  // MaterialApp googleOauthBigUI = MaterialApp(
+  //   home: Scaffold(
+  //     body: GoogleOauth(),
+  //   ),
+  // );
   testWidgets('input box UI Test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(app);
+    await tester.pumpWidget(inp);
 
     expect(find.byType(TextFormField), findsNWidgets(1));
   });
+  // testWidgets('secondPageUI test', (WidgetTester tester) async {
+  //   // Build our app and trigger a frame.
+  //   await tester.pumpWidget(secondPageUI);
+
+  //   expect(find.byType(Column), findsNWidgets(1));
+  // });
   // testWidgets('GoogleOauthBig UI Test', (WidgetTester tester) async {
   //   // Build our app and trigger a frame.
-  //   await tester.pumpWidget(app);
+  //   await tester.pumpWidget(googleOauthBigUI);
 
   //   expect(find.byType(Text), findsNWidgets(1));
   // });

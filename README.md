@@ -1,5 +1,6 @@
+<p align="center"><img align="center" src="./assets/icon/icon.png" height="128" /></p>
 <h1 align="center">Welcome to Runbhumi 👋</h1>
-<p>
+<p align="center">
   <a href="../Runbhumi/documentation/auth.md" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -16,9 +17,9 @@
 
 ### 🏠 [Homepage](https://runbhumi.github.io/our-team/)
 
-### ✨ [Demo](https://xd.adobe.com/view/94f928d5-ae2f-4def-8fc8-0b3d7db66514-c1aa/)
+### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=3%3A198&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down)
 
-### 💪Motivation/Inspiration
+### 💪 Motivation/Inspiration
 
 <img src="./documentation/Problem_statement_by_tanmay_bhat.jpeg" height="500" />
 
@@ -48,19 +49,9 @@ flutter analyze .
 flutter test
 ```
 
-<details><summary>List of Screens</summary>
+<details><summary>Block Diagram of Runbhumi</summary>
   
-  - [x] Splash Screen
-  - [x] Pre-Authorization Screen
-  - [x] Login Screen
-  - [x] SignUp Screen
-  - [x] Forgot Password Screen
-  - [x] Home Screen
-  - [x] Add Event Screen
-  - [ ] Notification Screen
-  - [x] Profile Screen
-  - [ ] Chat Screen
-  - [ ] Schedule Screen
+<img src="./documentation/block diagram.png" height="500" />
   
 </details>
 

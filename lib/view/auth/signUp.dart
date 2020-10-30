@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUp> {
                     enabled: !loading,
                     hintText: "Full name",
                     icon: Icon(Icons.contacts_outlined),
-                    validateFunction: Validations.validateName,
+                    validateFunction: Validations.validateNonEmpty,
                     textInputAction: TextInputAction.done,
                     onSaved: (String val) {
                       fullName = val;

@@ -45,7 +45,8 @@ class _ConversationState extends State<Conversation> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-                controller: _controller,
+                reverse: true,
+                //controller: _controller,
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   return MessageTile(
@@ -124,7 +125,8 @@ class _ConversationState extends State<Conversation> {
         ],
       ),
       body: Container(
-        child: Stack(
+        child: Expanded(
+            child: Stack(
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 70.0),
@@ -177,7 +179,7 @@ class _ConversationState extends State<Conversation> {
               ),
             ),
           ],
-        ),
+        )),
       ),
     );
   }

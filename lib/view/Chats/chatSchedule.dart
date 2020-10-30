@@ -31,6 +31,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     //sports
@@ -149,6 +150,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
                       // this funtion writes in the DB and adds an
                       // event when manually testing anything,
                       // just comment this function
+                      int maxMembers;
                       createNewEvent(
                           _nameController.text,
                           _userId,
@@ -156,7 +158,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                           _chosenSport,
                           _chosenPurpose,
                           [_userId],
-                          DateTime.parse(_datetime.text));
+                          DateTime.parse(_datetime.text),
+                          maxMembers);
                       // to show success dialog
                       showDialog(
                         context: context,

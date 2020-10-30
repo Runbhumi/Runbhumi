@@ -7,7 +7,7 @@ class Events {
   String location;
   String sportName;
   String description;
-  List<String> playersId;
+  List<dynamic> playersId;
   DateTime dateTime;
   int maxMembers;
 
@@ -18,6 +18,7 @@ class Events {
       this.location,
       this.sportName,
       this.description,
+      this.playersId,
       this.dateTime,
       this.maxMembers});
 
@@ -69,13 +70,17 @@ class Events {
         'dateTime': dateTime,
         'max': maxMembers
       };
-  Events.fromSnapshot(DocumentSnapshot snapshot)
-      : eventId = snapshot.data()['eventId'],
-        eventName = snapshot.data()['eventName'],
-        creatorId = snapshot.data()['creatorId'],
-        location = snapshot.data()['location'],
-        sportName = snapshot.data()['sportName'],
-        description = snapshot.data()['desscription'],
-        dateTime = snapshot.data()['dateTime'].toDate(),
-        maxMembers = snapshot.data()['max'];
+  factory Events.fromJson(QueryDocumentSnapshot snapshot) {
+    var data = snapshot.data();
+    return Events(
+        eventId: data['eventId'],
+        eventName: data['eventName'],
+        creatorId: data['creatorId'],
+        location: data['location'],
+        sportName: data['sportName'],
+        description: data['description'],
+        playersId: data['playersId'],
+        dateTime: data['dateTime'].toDate(),
+        maxMembers: data['max']);
+  }
 }

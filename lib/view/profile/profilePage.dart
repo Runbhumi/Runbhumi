@@ -378,10 +378,6 @@ class MainUserProfile extends StatelessWidget {
   }
 }
 
-
-
-
-
 /*
 Text Spanning can be used to give user a feeling of auto completion
 */

@@ -1,8 +1,9 @@
 import 'package:Runbhumi/services/NotificationService.dart';
-import 'package:Runbhumi/view/otherUserProfile.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/models/Notification.dart';
+
+import 'views.dart';
 
 class Notifications extends StatefulWidget {
   @override

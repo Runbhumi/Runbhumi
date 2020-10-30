@@ -46,7 +46,7 @@ class _ConversationState extends State<Conversation> {
         return snapshot.hasData
             ? ListView.builder(
                 reverse: true,
-                //controller: _controller,
+                controller: _controller,
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
                   return MessageTile(
@@ -125,8 +125,7 @@ class _ConversationState extends State<Conversation> {
         ],
       ),
       body: Container(
-        child: Expanded(
-            child: Stack(
+        child: Stack(
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 70.0),
@@ -143,20 +142,21 @@ class _ConversationState extends State<Conversation> {
                 child: Row(
                   children: [
                     Expanded(
-                        child: TextField(
-                      onTap: () {
-                        _controller
-                            .jumpTo(_controller.position.maxScrollExtent);
-                      },
-                      controller: messageEditingController,
-                      decoration: InputDecoration(
-                          hintText: "Message ...",
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                          ),
-                          border: InputBorder.none),
-                    )),
+                      child: TextField(
+                        onTap: () {
+                          _controller
+                              .jumpTo(_controller.position.maxScrollExtent);
+                        },
+                        controller: messageEditingController,
+                        decoration: InputDecoration(
+                            hintText: "Message ...",
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                            ),
+                            border: InputBorder.none),
+                      ),
+                    ),
                     SizedBox(
                       width: 8,
                     ),
@@ -179,7 +179,7 @@ class _ConversationState extends State<Conversation> {
               ),
             ),
           ],
-        )),
+        ),
       ),
     );
   }

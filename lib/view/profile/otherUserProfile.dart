@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:Runbhumi/services/NotificationService.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'views.dart';
-import '../widget/widgets.dart';
+import '../views.dart';
 
 class OtherUserProfile extends StatefulWidget {
   const OtherUserProfile({
@@ -101,7 +101,7 @@ class _OtherUserProfileState extends State<OtherUserProfile>
           },
         ),
       ),
-      body: ProfileBody(
+      body: OtherProfileBody(
         userID: widget.userID,
       ),
     );
@@ -167,18 +167,18 @@ class _OtherUserProfileState extends State<OtherUserProfile>
   }
 }
 
-class ProfileBody extends StatefulWidget {
-  const ProfileBody({
+class OtherProfileBody extends StatefulWidget {
+  const OtherProfileBody({
     @required this.userID,
     Key key,
   }) : super(key: key);
   final String userID;
 
   @override
-  _ProfileBodyState createState() => _ProfileBodyState();
+  _OtherProfileBodyState createState() => _OtherProfileBodyState();
 }
 
-class _ProfileBodyState extends State<ProfileBody> {
+class _OtherProfileBodyState extends State<OtherProfileBody> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
@@ -214,7 +214,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: MainUserProfile(data: data),
+                child: UserProfile(data: data),
               ),
             ],
           ),
@@ -226,8 +226,8 @@ class _ProfileBodyState extends State<ProfileBody> {
   }
 }
 
-class MainUserProfile extends StatelessWidget {
-  const MainUserProfile({
+class UserProfile extends StatelessWidget {
+  const UserProfile({
     Key key,
     @required this.data,
   }) : super(key: key);

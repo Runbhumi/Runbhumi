@@ -148,8 +148,8 @@ class NotificationServices {
         .set(Friends.newFriend(_id, _name, _profileImage).toJson());
     declineRequest(data.notificationId);
 
-    UserService().updateMyFriendCount();
-    UserService().updateFriendCount(data.senderId);
+    UserService().updateMyFriendCount(1);
+    UserService().updateFriendCount(data.senderId, 1);
   }
 
   getNotification() async {

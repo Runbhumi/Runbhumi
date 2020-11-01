@@ -1,8 +1,18 @@
+import 'dart:async';
+
+import 'package:Runbhumi/models/User.dart';
+import 'package:Runbhumi/utils/Constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 // TODO: add text controllers and a form
 //TODO: connect to backend
@@ -13,6 +23,14 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   bool _hiddenSwitch = true;
+  TextEditingController nameTextEditingController = new TextEditingController();
+  TextEditingController bioTextEditingController = new TextEditingController();
+  TextEditingController ageTextEditingController = new TextEditingController();
+  TextEditingController phoneNumberTextEditingController =
+      new TextEditingController();
+  TextEditingController locationTextEditingController =
+      new TextEditingController();
+  int age = 0;
 
   Widget _buildTitle(BuildContext context) {
     return new Padding(
@@ -56,6 +74,8 @@ class _EditProfileState extends State<EditProfile> {
                 //TODO: upload image funtion
                 onTap: () {
                   print("upload image");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ImageCapture()));
                 },
                 child: Stack(
                   children: [
@@ -69,7 +89,7 @@ class _EditProfileState extends State<EditProfile> {
                         image: DecorationImage(
                           // now only assets image
                           image: NetworkImage(
-                              "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"),
+                              Constants.prefs.getString('profileImage')),
                           fit: BoxFit.fill,
                         ),
                         boxShadow: [
@@ -119,15 +139,18 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
               InputBox(
+                controller: nameTextEditingController,
                 textInputType: TextInputType.name,
                 hintText: 'Name',
               ),
               InputBox(
+                controller: bioTextEditingController,
                 textInputType: TextInputType.multiline,
                 helpertext: 'Use at max 200 characters',
                 hintText: 'Bio',
               ),
               InputBox(
+                controller: ageTextEditingController,
                 textInputType: TextInputType.number,
                 hintText: 'Age',
               ),
@@ -138,6 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                 children: [
                   Flexible(
                     child: InputBox(
+                      controller: phoneNumberTextEditingController,
                       obscureText: _hiddenSwitch,
                       textInputType: TextInputType.phone,
                       hintText: 'Phone Number',
@@ -169,6 +193,7 @@ class _EditProfileState extends State<EditProfile> {
                 ],
               ),
               InputBox(
+                controller: locationTextEditingController,
                 textInputType: TextInputType.streetAddress,
                 hintText: 'Location',
               ),
@@ -177,11 +202,163 @@ class _EditProfileState extends State<EditProfile> {
               Button(
                 myText: 'Save Profile',
                 myColor: Theme.of(context).primaryColor,
+                onPressed: () {
+                  Map<String, dynamic> phoneNumber = {
+                    "ph": phoneNumberTextEditingController.text,
+                    "show": _hiddenSwitch,
+                  };
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(Constants.prefs.get('userId'))
+                      .update({
+                    'name': nameTextEditingController.text,
+                    'bio': bioTextEditingController.text,
+                    'age': ageTextEditingController.text,
+                    'phoneNumber': phoneNumber,
+                    'location': locationTextEditingController.text,
+                  });
+                  setState(() {
+                    nameTextEditingController.text = '';
+                    bioTextEditingController.text = '';
+                    ageTextEditingController.text = '';
+                    locationTextEditingController.text = '';
+                    phoneNumberTextEditingController.text = '';
+                  });
+                },
               )
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class ImageCapture extends StatefulWidget {
+  @override
+  _ImageCaptureState createState() => _ImageCaptureState();
+}
+
+class _ImageCaptureState extends State<ImageCapture> {
+  File _imageFile;
+
+  Future<void> _pickImage(ImageSource source) async {
+    File selected = await ImagePicker.pickImage(source: source);
+    setState(() {
+      _imageFile = selected;
+    });
+  }
+
+  Future<void> _cropImage() async {
+    File cropped = await ImageCropper.cropImage(sourcePath: _imageFile.path);
+    setState(() {
+      _imageFile = cropped ?? _imageFile;
+    });
+  }
+
+  void _clear() {
+    setState(() {
+      _imageFile = null;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.camera),
+              onPressed: () {
+                _pickImage(ImageSource.camera);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.picture_in_picture),
+              onPressed: () {
+                _pickImage(ImageSource.gallery);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: _imageFile != null
+          ? ListView(
+              children: [
+                Image.file(_imageFile),
+                Row(
+                  children: [
+                    FlatButton(
+                      child: Icon(Icons.crop),
+                      onPressed: _cropImage,
+                    ),
+                    FlatButton(
+                      child: Icon(Icons.clear),
+                      onPressed: _clear,
+                    ),
+                  ],
+                ),
+                Uploader(file: _imageFile)
+              ],
+            )
+          : Container(),
+    );
+  }
+}
+
+class Uploader extends StatefulWidget {
+  final File file;
+  Uploader({Key key, this.file}) : super(key: key);
+  @override
+  _UploaderState createState() => _UploaderState();
+}
+
+class _UploaderState extends State<Uploader> {
+  final FirebaseStorage _storage =
+      FirebaseStorage(storageBucket: 'gs://runbhumi-574fe.appspot.com');
+
+  StorageUploadTask _uploadTask;
+  void _startUpload() {
+    String filePath = 'images/${Constants.prefs.get('userId')}.png';
+    setState(() {
+      _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_uploadTask != null) {
+      return StreamBuilder<StorageTaskEvent>(
+        stream: _uploadTask.events,
+        builder: (context, snapshot) {
+          var event = snapshot?.data?.snapshot;
+          double uploadpercent =
+              event != null ? event.bytesTransferred / event.totalByteCount : 0;
+          return Column(
+            children: [
+              if (_uploadTask.isComplete) Text("done"),
+              if (_uploadTask.isInProgress)
+                FlatButton(
+                  child: Icon(Icons.clear),
+                  onPressed: _uploadTask.pause,
+                ),
+              if (_uploadTask.isPaused)
+                FlatButton(
+                  child: Icon(Icons.play_arrow),
+                  onPressed: _uploadTask.resume,
+                ),
+              LinearProgressIndicator(
+                value: uploadpercent,
+              ),
+              Text('${(uploadpercent * 100).toStringAsFixed(2)}%'),
+            ],
+          );
+        },
+      );
+    } else {
+      return FlatButton(
+          onPressed: _startUpload, child: Icon(Icons.upload_file));
+    }
   }
 }

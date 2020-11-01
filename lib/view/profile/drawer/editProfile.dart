@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:Runbhumi/models/User.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -72,11 +70,11 @@ class _EditProfileState extends State<EditProfile> {
               //The photo Stack
               GestureDetector(
                 //TODO: upload image funtion
-                onTap: () {
-                  print("upload image");
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ImageCapture()));
-                },
+                // onTap: () {
+                //   print("upload image");
+                //   Navigator.push(context,
+                //       MaterialPageRoute(builder: (context) => ImageCapture()));
+                // },
                 child: Stack(
                   children: [
                     Container(
@@ -234,131 +232,131 @@ class _EditProfileState extends State<EditProfile> {
   }
 }
 
-class ImageCapture extends StatefulWidget {
-  @override
-  _ImageCaptureState createState() => _ImageCaptureState();
-}
+// class ImageCapture extends StatefulWidget {
+//   @override
+//   _ImageCaptureState createState() => _ImageCaptureState();
+// }
 
-class _ImageCaptureState extends State<ImageCapture> {
-  File _imageFile;
+// class _ImageCaptureState extends State<ImageCapture> {
+//   File _imageFile;
 
-  Future<void> _pickImage(ImageSource source) async {
-    File selected = await ImagePicker.pickImage(source: source);
-    setState(() {
-      _imageFile = selected;
-    });
-  }
+//   Future<void> _pickImage(ImageSource source) async {
+//     File selected =  await ImagePicker.platform.pickImage(source: source);
+//     setState(() {
+//       _imageFile = selected;
+//     });
+//   }
 
-  Future<void> _cropImage() async {
-    File cropped = await ImageCropper.cropImage(sourcePath: _imageFile.path);
-    setState(() {
-      _imageFile = cropped ?? _imageFile;
-    });
-  }
+//   Future<void> _cropImage() async {
+//     File cropped = await ImageCropper.cropImage(sourcePath: _imageFile.path);
+//     setState(() {
+//       _imageFile = cropped ?? _imageFile;
+//     });
+//   }
 
-  void _clear() {
-    setState(() {
-      _imageFile = null;
-    });
-  }
+//   void _clear() {
+//     setState(() {
+//       _imageFile = null;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.camera),
-              onPressed: () {
-                _pickImage(ImageSource.camera);
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.picture_in_picture),
-              onPressed: () {
-                _pickImage(ImageSource.gallery);
-              },
-            ),
-          ],
-        ),
-      ),
-      body: _imageFile != null
-          ? ListView(
-              children: [
-                Image.file(_imageFile),
-                Row(
-                  children: [
-                    FlatButton(
-                      child: Icon(Icons.crop),
-                      onPressed: _cropImage,
-                    ),
-                    FlatButton(
-                      child: Icon(Icons.clear),
-                      onPressed: _clear,
-                    ),
-                  ],
-                ),
-                Uploader(file: _imageFile)
-              ],
-            )
-          : Container(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       bottomNavigationBar: BottomAppBar(
+//         child: Row(
+//           children: [
+//             IconButton(
+//               icon: Icon(Icons.camera),
+//               onPressed: () {
+//                 _pickImage(ImageSource.camera);
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(Icons.picture_in_picture),
+//               onPressed: () {
+//                 _pickImage(ImageSource.gallery);
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
+//       body: _imageFile != null
+//           ? ListView(
+//               children: [
+//                 Image.file(_imageFile),
+//                 Row(
+//                   children: [
+//                     FlatButton(
+//                       child: Icon(Icons.crop),
+//                       onPressed: _cropImage,
+//                     ),
+//                     FlatButton(
+//                       child: Icon(Icons.clear),
+//                       onPressed: _clear,
+//                     ),
+//                   ],
+//                 ),
+//                 Uploader(file: _imageFile)
+//               ],
+//             )
+//           : Container(),
+//     );
+//   }
+// }
 
-class Uploader extends StatefulWidget {
-  final File file;
-  Uploader({Key key, this.file}) : super(key: key);
-  @override
-  _UploaderState createState() => _UploaderState();
-}
+// class Uploader extends StatefulWidget {
+//   final File file;
+//   Uploader({Key key, this.file}) : super(key: key);
+//   @override
+//   _UploaderState createState() => _UploaderState();
+// }
 
-class _UploaderState extends State<Uploader> {
-  final FirebaseStorage _storage =
-      FirebaseStorage(storageBucket: 'gs://runbhumi-574fe.appspot.com');
+// class _UploaderState extends State<Uploader> {
+//   final FirebaseStorage _storage =
+//       FirebaseStorage(storageBucket: 'gs://runbhumi-574fe.appspot.com');
 
-  StorageUploadTask _uploadTask;
-  void _startUpload() {
-    String filePath = 'images/${Constants.prefs.get('userId')}.png';
-    setState(() {
-      _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
-    });
-  }
+//   StorageUploadTask _uploadTask;
+//   void _startUpload() {
+//     String filePath = 'images/${Constants.prefs.get('userId')}.png';
+//     setState(() {
+//       _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_uploadTask != null) {
-      return StreamBuilder<StorageTaskEvent>(
-        stream: _uploadTask.events,
-        builder: (context, snapshot) {
-          var event = snapshot?.data?.snapshot;
-          double uploadpercent =
-              event != null ? event.bytesTransferred / event.totalByteCount : 0;
-          return Column(
-            children: [
-              if (_uploadTask.isComplete) Text("done"),
-              if (_uploadTask.isInProgress)
-                FlatButton(
-                  child: Icon(Icons.clear),
-                  onPressed: _uploadTask.pause,
-                ),
-              if (_uploadTask.isPaused)
-                FlatButton(
-                  child: Icon(Icons.play_arrow),
-                  onPressed: _uploadTask.resume,
-                ),
-              LinearProgressIndicator(
-                value: uploadpercent,
-              ),
-              Text('${(uploadpercent * 100).toStringAsFixed(2)}%'),
-            ],
-          );
-        },
-      );
-    } else {
-      return FlatButton(
-          onPressed: _startUpload, child: Icon(Icons.upload_file));
-    }
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     if (_uploadTask != null) {
+//       return StreamBuilder<StorageTaskEvent>(
+//         stream: _uploadTask.events,
+//         builder: (context, snapshot) {
+//           var event = snapshot?.data?.snapshot;
+//           double uploadpercent =
+//               event != null ? event.bytesTransferred / event.totalByteCount : 0;
+//           return Column(
+//             children: [
+//               if (_uploadTask.isComplete) Text("done"),
+//               if (_uploadTask.isInProgress)
+//                 FlatButton(
+//                   child: Icon(Icons.clear),
+//                   onPressed: _uploadTask.pause,
+//                 ),
+//               if (_uploadTask.isPaused)
+//                 FlatButton(
+//                   child: Icon(Icons.play_arrow),
+//                   onPressed: _uploadTask.resume,
+//                 ),
+//               LinearProgressIndicator(
+//                 value: uploadpercent,
+//               ),
+//               Text('${(uploadpercent * 100).toStringAsFixed(2)}%'),
+//             ],
+//           );
+//         },
+//       );
+//     } else {
+//       return FlatButton(
+//           onPressed: _startUpload, child: Icon(Icons.upload_file));
+//     }
+//   }
+// }

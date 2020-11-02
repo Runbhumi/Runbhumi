@@ -69,7 +69,7 @@ addEventToUser(String id, String eventName, String sportName, String location,
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime)
           .minitoJson());
-  UserService().updateEventCount();
+  UserService().updateEventCount(1);
   EventService().addUserToEvent(id);
 }
 
@@ -81,3 +81,20 @@ registerUserToEvent(String id, String eventName, String sportName,
 // .set({
 //    "eventsId": FieldValue.arrayUnion([id])
 //  }, SetOptions(merge: true));
+
+// leaving a event logic
+
+leaveEvent(id, fate) {
+  var userId = Constants.prefs.get('userId');
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .collection('userEvent')
+      .doc(id)
+      .delete();
+  FirebaseFirestore.instance
+      .collection('events')
+      .doc(id)
+      .update({'playersId': FieldValue.arrayRemove(userId)});
+  UserService().updateEventCount(-1);
+}

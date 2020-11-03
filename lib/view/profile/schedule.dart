@@ -1,3 +1,4 @@
+import 'package:Runbhumi/models/Events.dart';
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,8 @@ class _ScheduleState extends State<Schedule> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      var data = asyncSnapshot.data.documents[index];
+                      Events data = new Events.fromMiniJson(
+                          asyncSnapshot.data.documents[index]);
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
@@ -68,10 +70,15 @@ class _ScheduleState extends State<Schedule> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  FlatButton(
+                                    child: const Text("Leave"),
+                                    onPressed: () =>
+                                        {leaveEvent(data.eventId, 1)},
+                                  ),
                                   ListTile(
                                     isThreeLine: true,
                                     title: Text(
-                                      data.get('eventName'),
+                                      data.eventName,
                                       style:
                                           Theme.of(context).textTheme.headline6,
                                     ),
@@ -82,7 +89,7 @@ class _ScheduleState extends State<Schedule> {
                                           size: 16.0,
                                         ),
                                         Text(
-                                          data.get('location'),
+                                          data.location,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle1,
@@ -96,9 +103,7 @@ class _ScheduleState extends State<Schedule> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(DateFormat('E\ndd/MM\nkk:mm')
-                                                .format(data
-                                                    .get('dateTime')
-                                                    .toDate())
+                                                .format(data.dateTime)
                                                 .toString()),
                                           ],
                                         ),
@@ -134,3 +139,33 @@ class _ScheduleState extends State<Schedule> {
     );
   }
 }
+
+// logic for removing a event
+
+/*
+
+Remove the event from collection in user
+
+Firestore.instance.collection("users").document("userid")  
+    .collection("events").document(docid)
+    .delete();
+
+Remove the player from the event
+
+if(playersId.remove(userId)) => true means its successfuly removed from event // user id can be taken from the shared preferences
+else not success
+
+
+If the user is a captain then allow him to pass his captainship to other player
+ownership will be transfered
+
+A new page will be required to show the details of all the players
+to transfer his cap to the others
+
+if(playerId == creatorId)
+{
+  // remove him with the same logic just show him a page
+  from where he can transfer the captainship to other player
+}
+
+*/

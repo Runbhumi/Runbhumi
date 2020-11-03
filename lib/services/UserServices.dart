@@ -4,32 +4,32 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  updateEventCount() {
+  updateEventCount(int n) {
     FirebaseFirestore.instance
         .collection('users')
         .doc(Constants.prefs.get('userId'))
-        .set({'eventCount': FieldValue.increment(1)}, SetOptions(merge: true));
+        .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
-  updateMyFriendCount() {
+  updateMyFriendCount(int n) {
     _db
         .collection('users')
         .doc(Constants.prefs.get('userId'))
-        .set({'friendCount': FieldValue.increment(1)}, SetOptions(merge: true));
+        .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
-  updateFriendCount(String uid) {
+  updateFriendCount(String uid, int n) {
     _db
         .collection('users')
         .doc(uid)
-        .set({'friendCount': FieldValue.increment(1)}, SetOptions(merge: true));
+        .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
-  updateTeamsCount() {
+  updateTeamsCount(int n) {
     _db
         .collection('users')
         .doc(Constants.prefs.get('userId'))
-        .set({'teamsCount': FieldValue.increment(1)}, SetOptions(merge: true));
+        .set({'teamsCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
   Future<UserProfile> getUserProfile(String id) async {

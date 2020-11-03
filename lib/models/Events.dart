@@ -42,6 +42,13 @@ class Events {
     this.maxMembers = maxMembers;
   }
 
+  Events.miniEvent(
+      {this.eventId,
+      this.eventName,
+      this.location,
+      this.dateTime,
+      this.sportName});
+
   Events.miniView(String eventId, String eventName, String sportName,
       String location, DateTime dateTime) {
     this.eventId = eventId;
@@ -58,6 +65,18 @@ class Events {
         'sportName': sportName,
         'dateTime': dateTime
       };
+
+  factory Events.fromMiniJson(QueryDocumentSnapshot snapshot) {
+    var data = snapshot.data();
+    return Events(
+      eventId: data['eventId'],
+      eventName: data['eventName'],
+      creatorId: data['creatorId'],
+      location: data['location'],
+      sportName: data['sportName'],
+      dateTime: data['dateTime'].toDate(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'eventId': eventId,

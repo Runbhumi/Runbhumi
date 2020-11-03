@@ -43,7 +43,7 @@ class ChatroomService {
         .collection("DirectChats")
         .doc(chatRoomId)
         .collection("chats")
-        .orderBy('dateTime')
+        .orderBy('dateTime', descending: true)
         .snapshots();
   }
 

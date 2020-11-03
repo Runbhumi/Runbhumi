@@ -47,27 +47,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class CustomSplashScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SplashScreen(
-//       seconds: 5,
-//       navigateAfterSeconds: Constants.prefs.getBool("loggedin") == false
-//           ? SecondPage()
-//           : MainApp(),
-//       title: new Text(
-//         'Runbhumi',
-//         style: TextStyle(
-//           fontSize: 24,
-//           fontWeight: FontWeight.w600,
-//         ),
-//         textScaleFactor: 1.5,
-//       ),
-//       image: new Image(image: AssetImage('assets/welcome.png')),
-//       loadingText: Text(""),
-//       photoSize: 100.0,
-//       loaderColor: Theme.of(context).primaryColor,
-//     );
-//   }
-// }

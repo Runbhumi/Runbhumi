@@ -7,6 +7,8 @@ import 'package:Runbhumi/utils/router.dart';
 
 import '../views.dart';
 
+String userId = Constants.prefs.getString('userId');
+
 class Splash extends StatefulWidget {
   @override
   _SplashState createState() => _SplashState();
@@ -23,7 +25,7 @@ class _SplashState extends State<Splash> {
   }
 
   changeScreen() async {
-    Constants.prefs.getBool("loggedin") == false
+    userId == null
         ? CRouter.pushPageWithFadeAnimation(context, SecondPage())
         : CRouter.pushPageWithFadeAnimation(context, MainApp());
     // CRouter.pushPageWithFadeAnimation(context, SecondPage());

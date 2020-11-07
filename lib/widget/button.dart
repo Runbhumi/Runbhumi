@@ -20,34 +20,17 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
-    // return Padding(
-    //   padding: const EdgeInsets.all(8.0),
-    //   child: FlatButton(
-    //     color: widget.myColor,
-    //     height: 54,
-    //     minWidth: 300,
-    //     onPressed: widget.onPressed ??
-    //         () {
-    //           print("going to " + widget.routeName);
-    //           Navigator.pushNamed(context, widget.routeName);
-    //         },
-    //     child: Center(
-    //       child: Text(
-    //         widget.myText,
-    //         style: TextStyle(
-    //             color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
-    //       ),
-    //     ),
-    //   ),
-    // );
     return RaisedButton(
       textColor: Colors.white,
       elevation: 0,
       color: widget.myColor,
-      child: Text(
-        widget.myText,
-        style: TextStyle(
-            color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          widget.myText,
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+        ),
       ),
       onPressed: widget.onPressed ??
           () {

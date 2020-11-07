@@ -70,13 +70,7 @@ class _ScheduleState extends State<Schedule> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FlatButton(
-                                    child: const Text("Leave"),
-                                    onPressed: () =>
-                                        {leaveEvent(data.eventId, 1)},
-                                  ),
-                                  ListTile(
-                                    isThreeLine: true,
+                                  ExpansionTile(
                                     title: Text(
                                       data.eventName,
                                       style:
@@ -106,6 +100,11 @@ class _ScheduleState extends State<Schedule> {
                                                 .format(data.dateTime)
                                                 .toString()),
                                           ],
+                                        ),
+                                        FlatButton(
+                                          child: const Text("Leave"),
+                                          onPressed: () =>
+                                              {leaveEvent(data.eventId, 1)},
                                         ),
                                       ],
                                     ),

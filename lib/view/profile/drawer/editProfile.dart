@@ -223,6 +223,9 @@ class _EditProfileState extends State<EditProfile> {
                     phoneNumberTextEditingController.text = '';
                   });
                 },
+              ),
+              SizedBox(
+                height: 16,
               )
             ],
           ),

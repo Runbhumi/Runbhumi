@@ -1,3 +1,4 @@
+import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -49,11 +50,13 @@ class _ConversationState extends State<Conversation> {
                 controller: _controller,
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
+                  Message data =
+                      new Message.fromJson(snapshot.data.documents[index]);
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
-                    message: snapshot.data.documents[index].get('message'),
-                    sendByMe: Constants.prefs.getString('userId') ==
-                        snapshot.data.documents[index].get('sentby'),
+                    message: data.message,
+                    sendByMe:
+                        Constants.prefs.getString('userId') == data.sentby,
                   );
                 })
             : Center(

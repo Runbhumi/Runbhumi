@@ -95,6 +95,6 @@ leaveEvent(id, fate) {
   FirebaseFirestore.instance
       .collection('events')
       .doc(id)
-      .update({'playersId': FieldValue.arrayRemove(userId)});
+      .set({'playersId': FieldValue.arrayRemove([userId])},SetOptions(merge: true));
   UserService().updateEventCount(-1);
 }

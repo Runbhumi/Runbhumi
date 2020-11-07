@@ -20,33 +20,43 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-          onTap: widget.onPressed ??
-              () {
-                print("going to " + widget.routeName);
-                Navigator.pushNamed(context, widget.routeName);
-              },
-          child: Container(
-            height: 55,
-            width: 300,
-            decoration: BoxDecoration(
-                color: widget.myColor,
-                borderRadius: BorderRadius.circular(800),
-                boxShadow: [
-                  BoxShadow(
-                      color: widget.myColor.withOpacity(.4),
-                      blurRadius: 6,
-                      offset: Offset(0, 5))
-                ]),
-            child: Center(
-              child: Text(
-                widget.myText,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          )),
+    // return Padding(
+    //   padding: const EdgeInsets.all(8.0),
+    //   child: FlatButton(
+    //     color: widget.myColor,
+    //     height: 54,
+    //     minWidth: 300,
+    //     onPressed: widget.onPressed ??
+    //         () {
+    //           print("going to " + widget.routeName);
+    //           Navigator.pushNamed(context, widget.routeName);
+    //         },
+    //     child: Center(
+    //       child: Text(
+    //         widget.myText,
+    //         style: TextStyle(
+    //             color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+    //       ),
+    //     ),
+    //   ),
+    // );
+    return RaisedButton(
+      textColor: Colors.white,
+      elevation: 0,
+      color: widget.myColor,
+      child: Text(
+        widget.myText,
+        style: TextStyle(
+            color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+      ),
+      onPressed: widget.onPressed ??
+          () {
+            print("going to " + widget.routeName);
+            Navigator.pushNamed(context, widget.routeName);
+          },
+      shape: new RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(30.0),
+      ),
     );
   }
 }

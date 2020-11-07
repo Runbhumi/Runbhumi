@@ -18,31 +18,37 @@ class SmallButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-          onTap: onPressed ??
-              () {
-                print("going to " + routeName);
-                Navigator.pushNamed(context, routeName);
-              },
-          child: Container(
-            decoration: BoxDecoration(
-                color: myColor,
-                borderRadius: BorderRadius.circular(800),
-                boxShadow: [
-                  BoxShadow(
-                      color: myColor.withOpacity(.4),
-                      blurRadius: 6,
-                      offset: Offset(0, 5))
-                ]),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  myText,
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+        onTap: onPressed ??
+            () {
+              print("going to " + routeName);
+              Navigator.pushNamed(context, routeName);
+            },
+        child: Container(
+          decoration: BoxDecoration(
+            color: myColor,
+            borderRadius: BorderRadius.circular(800),
+            // boxShadow: [
+            //   BoxShadow(
+            //       color: myColor.withOpacity(.4),
+            //       blurRadius: 6,
+            //       offset: Offset(0, 5))
+            // ],
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                myText,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

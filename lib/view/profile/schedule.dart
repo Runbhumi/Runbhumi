@@ -55,8 +55,7 @@ class _ScheduleState extends State<Schedule> {
                           asyncSnapshot.data.documents[index]);
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                        ),
+                            vertical: 8.0, horizontal: 16.0),
                         child: Card(
                           shadowColor: Color(0x44393e46),
                           shape: RoundedRectangleBorder(
@@ -64,13 +63,20 @@ class _ScheduleState extends State<Schedule> {
                           ),
                           elevation: 5,
                           child: Container(
-                            width: 300,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ExpansionTile(
+                                    children: [
+                                      SmallButton(
+                                        myColor: Color(0xffEB4758),
+                                        myText: "Leave",
+                                        onPressed: () =>
+                                            {leaveEvent(data.eventId, 1)},
+                                      ),
+                                    ],
                                     title: Text(
                                       data.eventName,
                                       style:
@@ -100,11 +106,6 @@ class _ScheduleState extends State<Schedule> {
                                                 .format(data.dateTime)
                                                 .toString()),
                                           ],
-                                        ),
-                                        FlatButton(
-                                          child: const Text("Leave"),
-                                          onPressed: () =>
-                                              {leaveEvent(data.eventId, 1)},
                                         ),
                                       ],
                                     ),

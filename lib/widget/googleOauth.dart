@@ -9,48 +9,50 @@ class GoogleOauth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () async {
-          Constants.prefs.setBool("loggedin", true);
-          await signInWithGoogle().whenComplete(() {
-            Navigator.pushReplacementNamed(context, "/mainapp");
-          });
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 55,
-              width: 300,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).buttonColor,
-                  borderRadius: BorderRadius.circular(800),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Theme.of(context).buttonColor.withOpacity(.4),
-                        blurRadius: 6,
-                        offset: Offset(0, 5))
-                  ]),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Image(image: AssetImage('assets/googleicon.png')),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        "Continue with Google",
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                    ),
-                  ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RaisedButton(
+          onPressed: () async {
+            Constants.prefs.setBool("loggedin", true);
+            await signInWithGoogle().whenComplete(() {
+              Navigator.pushReplacementNamed(context, "/mainapp");
+            });
+          },
+          elevation: 0,
+          // height: 54,
+          // decoration: BoxDecoration(
+          //     color: Theme.of(context).buttonColor,
+          //     borderRadius: BorderRadius.circular(800),
+          //     boxShadow: [
+          //       BoxShadow(
+          //           color: Theme.of(context).buttonColor.withOpacity(.4),
+          //           blurRadius: 6,
+          //           offset: Offset(0, 5))
+          //     ]),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, top: 8, bottom: 8),
+                  child: Image(image: AssetImage('assets/googleicon.png')),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "Continue with Google",
+                    style: TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(30.0),
+          ),
+        ),
+      ],
+    );
   }
 }

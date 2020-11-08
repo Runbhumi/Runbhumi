@@ -15,3 +15,4 @@ export 'profile/schedule.dart';
 export 'profile/drawer/drawer.dart';
 export 'profile/drawer/moreInfo.dart';
 export 'profile/drawer/editProfile.dart';
+export 'profile/drawer/testPage.dart';

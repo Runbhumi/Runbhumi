@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         '/network': (context) => Network(),
         '/profile': (context) => Profile(),
         '/editprofile': (context) => EditProfile(),
+        '/testing': (context) => Testing(),
       },
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
       home: Splash(),

@@ -277,7 +277,7 @@ class UserProfile extends StatelessWidget {
           child: Center(
             child: Text(
               data['bio'],
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 14),
               textAlign: TextAlign.center,
             ),
           ),
@@ -292,7 +292,7 @@ class UserProfile extends StatelessWidget {
           ),
         //stats
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
           child: Container(
             color: Colors.grey.withOpacity(0.1),
             width: MediaQuery.of(context).size.height,
@@ -308,7 +308,7 @@ class UserProfile extends StatelessWidget {
                           Text(
                             data['eventCount'].toString(),
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
+                                fontSize: 22, fontWeight: FontWeight.w500),
                           ),
                           Text("events"),
                         ],
@@ -318,7 +318,7 @@ class UserProfile extends StatelessWidget {
                           Text(
                             data['teamsCount'].toString(),
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
+                                fontSize: 22, fontWeight: FontWeight.w500),
                           ),
                           Text("teams"),
                         ],
@@ -328,7 +328,7 @@ class UserProfile extends StatelessWidget {
                           Text(
                             data['friendCount'].toString(),
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
+                                fontSize: 22, fontWeight: FontWeight.w500),
                           ),
                           Text("friends"),
                         ],
@@ -342,74 +342,78 @@ class UserProfile extends StatelessWidget {
         ),
         //details
         Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Feather.user,
-                      size: 24.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (data["age"] != "")
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Feather.user,
+                          size: 24.0,
+                        ),
+                      ),
+                      Text(
+                        data["age"],
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  ),
+                if (data["location"] != "")
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Feather.map_pin,
+                          size: 24.0,
+                        ),
+                      ),
+                      Text(
+                        data["location"],
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Feather.mail,
+                        size: 24.0,
+                      ),
                     ),
-                  ),
-                  Text(
-                    data["age"],
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Feather.map_pin,
-                      size: 24.0,
+                    Text(
+                      data["emailId"],
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                  ),
-                  Text(
-                    data["location"],
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Feather.mail,
-                      size: 24.0,
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Feather.phone,
+                        size: 24.0,
+                      ),
                     ),
-                  ),
-                  Text(
-                    data["emailId"],
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Feather.phone,
-                      size: 24.0,
+                    Text(
+                      "+91 123456789", //TODO: why is this hard coded
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                  ),
-                  Text(
-                    "+91 123456789",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

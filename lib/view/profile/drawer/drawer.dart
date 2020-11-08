@@ -46,14 +46,17 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
-        // DrawerButton(
-        //   onpressed: () {},
-        //   label: "Create or Join Teams",
-        //   icon: Icon(
-        //     Feather.user_plus,
-        //     color: Colors.white,
-        //   ),
-        // ),
+        // only use for testing
+        DrawerButton(
+          onpressed: () {
+            Navigator.pushNamed(context, "/testing");
+          },
+          label: "Testing",
+          icon: Icon(
+            Feather.flag,
+            color: Colors.white,
+          ),
+        ),
         DrawerButton(
           onpressed: () {
             Navigator.pushNamed(context, "/editprofile");

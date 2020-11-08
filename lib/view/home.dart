@@ -317,17 +317,35 @@ class _HomeState extends State<Home> {
                 textAlign: TextAlign.start,
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Row(
-                children: [
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Basketball",
-                    icon: Icons.sports_basketball,
-                  ),
-                ],
+            // const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                child: Row(
+                  children: [
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Basketball",
+                      icon: Icons.sports_basketball,
+                    ),
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Cricket",
+                      icon: Icons.sports_cricket,
+                    ),
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Football",
+                      icon: Icons.sports_soccer,
+                    ),
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Volleyball",
+                      icon: Icons.sports_volleyball,
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -378,34 +396,38 @@ class SportsCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shadowColor: Color(0x44393e46),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      elevation: 20,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.sports_basketball,
-                size: 52,
-                color: theme.currentTheme.backgroundColor,
+    return GestureDetector(
+      onTap: () {},
+      child: Card(
+        shadowColor: Color(0x33393e46),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        elevation: 10,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  icon,
+                  size: 52,
+                  color: theme.currentTheme.backgroundColor,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                sport,
-                style: TextStyle(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  sport,
+                  style: TextStyle(
                     color: theme.currentTheme.backgroundColor,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

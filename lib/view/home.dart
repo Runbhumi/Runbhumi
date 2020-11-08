@@ -224,6 +224,8 @@ class _HomeState extends State<Home> {
                                     data.eventName,
                                     style: TextStyle(
                                       color: theme.currentTheme.backgroundColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   subtitle: Column(
@@ -304,7 +306,30 @@ class _HomeState extends State<Home> {
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                'Categories',
+                style: Theme.of(context).textTheme.headline6,
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Row(
+                children: [
+                  SportsCategory(
+                    theme: theme,
+                    sport: "Basketball",
+                    icon: Icons.sports_basketball,
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
@@ -334,6 +359,54 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         backgroundColor: Theme.of(context).primaryColor,
+      ),
+    );
+  }
+}
+
+class SportsCategory extends StatelessWidget {
+  const SportsCategory(
+      {Key key,
+      @required this.theme,
+      @required this.sport,
+      @required this.icon})
+      : super(key: key);
+
+  final ThemeNotifier theme;
+  final String sport;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shadowColor: Color(0x44393e46),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      elevation: 20,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.sports_basketball,
+                size: 52,
+                color: theme.currentTheme.backgroundColor,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                sport,
+                style: TextStyle(
+                    color: theme.currentTheme.backgroundColor,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

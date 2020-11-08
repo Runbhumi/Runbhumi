@@ -49,7 +49,7 @@ class _ImageCaptureState extends State<ImageCapture> {
     });
   }
 
-   Future<Null> _pickImage(ImageSource source) async {
+  Future<Null> _pickImage(ImageSource source) async {
     File selected = await ImagePicker.pickImage(source: source);
     if (selected != null) {
       setState(() {
@@ -58,7 +58,7 @@ class _ImageCaptureState extends State<ImageCapture> {
     }
   }
 
- // Select an image via gallery or camera
+  // Select an image via gallery or camera
   // Future<void> _pickImage(ImageSource source) async {
   //   File selected = await ImagePicker.pickImage(source: source);
 

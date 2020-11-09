@@ -14,7 +14,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   int currentIndex = 0;
-  final PageController pageController = PageController();
+  final PageController _pageController = PageController();
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
@@ -28,7 +28,7 @@ class _MainAppState extends State<MainApp> {
     setState(() {
       currentIndex = index;
     });
-    pageController.animateToPage(index,
+    _pageController.animateToPage(index,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic);
   }
@@ -37,7 +37,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
-        controller: pageController,
+        controller: _pageController,
         itemCount: 4,
         itemBuilder: (context, index) {
           return _children[index];

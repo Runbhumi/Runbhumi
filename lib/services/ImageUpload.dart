@@ -17,9 +17,9 @@ class Uploader extends StatefulWidget {
 class _UploaderState extends State<Uploader> {
   final FirebaseStorage _storage =
       FirebaseStorage(storageBucket: 'gs://runbhumi-574fe.appspot.com/');
-  final String fbStorage = "";
 
   StorageUploadTask _uploadTask;
+  StorageReference ref;
 
   /// Starts an upload task
   _startUpload() {
@@ -28,19 +28,21 @@ class _UploaderState extends State<Uploader> {
         Constants.prefs.getString('userId') +
         '.png';
     setState(() {
-      _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
+      ref = _storage.ref().child(filePath);
+      _uploadTask = ref.putFile(widget.file);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    String imageUrl;
     if (_uploadTask != null) {
       /// Manage the task state and event subscription with a StreamBuilder
       return StreamBuilder<StorageTaskEvent>(
           stream: _uploadTask.events,
-          builder: (_, snapshot) {
+          builder: (context, snapshot) {
             var event = snapshot?.data?.snapshot;
-            //String image = snapshot.getDownloadUrl().toString();
+
             double progressPercent = event != null
                 ? event.bytesTransferred / event.totalByteCount
                 : 0;
@@ -52,12 +54,12 @@ class _UploaderState extends State<Uploader> {
                     myText: "Success",
                     myColor: Theme.of(context).accentColor,
                     onPressed: () => {
-                      // TODO: PASS THE LINK TO THE EDIT PROFILE PAGE
+                      // imageUrl = event.ref.getDownloadURL(),
                       // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) =>
-                      //             EditProfile(filePath: filePath))),
+                      //             EditProfile(filePath: imageUrl))),
                     },
                   ),
                 // Future.delayed(Duration(seconds: 3), ()=>{

@@ -1,6 +1,7 @@
 // import 'dart:async';
 
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/profile/drawer/ImageCrop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 // TODO: add text controllers and a form
 //TODO: connect to backend
 class EditProfile extends StatefulWidget {
+  final String filePath;
+  EditProfile({Key key, this.filePath}) : super(key: key);
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -51,6 +54,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.filePath);
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
@@ -69,12 +73,11 @@ class _EditProfileState extends State<EditProfile> {
             children: [
               //The photo Stack
               GestureDetector(
-                //TODO: upload image funtion
-                // onTap: () {
-                //   print("upload image");
-                //   Navigator.push(context,
-                //       MaterialPageRoute(builder: (context) => ImageCapture()));
-                // },
+                onTap: () {
+                  print("upload image");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ImageCapture()));
+                },
                 child: Stack(
                   children: [
                     Container(
@@ -209,6 +212,7 @@ class _EditProfileState extends State<EditProfile> {
                       .collection('users')
                       .doc(Constants.prefs.get('userId'))
                       .update({
+                    //'profileImage': widget.filePath,
                     'name': nameTextEditingController.text,
                     'bio': bioTextEditingController.text,
                     'age': ageTextEditingController.text,

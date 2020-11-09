@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserProfile {
   String userId;
   String username;
@@ -77,6 +79,18 @@ class UserProfile {
         location: data['location'] ?? "",
         phoneNumber: data['phoneNumber'] ?? "",
         emailId: data['emailId'] ?? "");
+  }
+
+  factory UserProfile.fromJson(QueryDocumentSnapshot snapshot) {
+    var data = snapshot.data();
+    return UserProfile(
+        userId: data['userId'],
+        username: data['username'],
+        name: data['name'],
+        profileImage: data['profileImage'],
+        location: data['location'],
+        phoneNumber: data['phoneNumber'],
+        emailId: data['emailId']);
   }
 }
 

@@ -38,6 +38,7 @@ class _MainAppState extends State<MainApp> {
     return Scaffold(
       body: PageView.builder(
         controller: pageController,
+        itemCount: 4,
         itemBuilder: (context, index) {
           return _children[index];
         },

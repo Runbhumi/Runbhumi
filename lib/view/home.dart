@@ -420,7 +420,7 @@ class SportsCategory extends StatelessWidget {
                 //   size: 52,
                 //   color: theme.currentTheme.backgroundColor,
                 // ),
-                child: Image.asset(icon,scale: 1.5),
+                child: Image.asset(icon,scale: 1.8),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -429,6 +429,7 @@ class SportsCategory extends StatelessWidget {
                   style: TextStyle(
                     color: theme.currentTheme.backgroundColor,
                     fontWeight: FontWeight.w600,
+                    fontSize: 13,
                   ),
                 ),
               ),

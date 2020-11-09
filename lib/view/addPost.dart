@@ -50,19 +50,26 @@ class _AddPostState extends State<AddPost> {
     );
     //purposes
     var purposeList = DropdownButton(
+      // style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
       hint: Text("Purpose"),
       value: _chosenPurpose,
       items: [
         DropdownMenuItem(
-          child: Text("Want to join a team"),
+          child: Text(
+            "Want to join a team",
+          ),
           value: "Want to join a team",
         ),
         DropdownMenuItem(
-          child: Text("Looking for an opponent"),
+          child: Text(
+            "Looking for an opponent",
+          ),
           value: "Looking for an opponent",
         ),
         DropdownMenuItem(
-          child: Text("Looking for players in our team"),
+          child: Text(
+            "Looking for players in our team",
+          ),
           value: "Looking for players in our team",
         ),
       ],

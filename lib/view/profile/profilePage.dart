@@ -241,7 +241,7 @@ class MainUserProfile extends StatelessWidget {
           child: Center(
             child: Text(
               data['bio'],
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 14),
               textAlign: TextAlign.center,
             ),
           ),
@@ -269,16 +269,16 @@ class MainUserProfile extends StatelessWidget {
                           Text("events"),
                         ],
                       ),
-                      // Column(
-                      //   children: [
-                      //     Text(
-                      //       data['teamsCount'].toString(),
-                      //       style: TextStyle(
-                      //           fontSize: 24, fontWeight: FontWeight.w500),
-                      //     ),
-                      //     Text("teams"),
-                      //   ],
-                      // ), removed for mvp
+                      Column(
+                        children: [
+                          Text(
+                            data['teamsCount'].toString(),
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("teams"),
+                        ],
+                      ),
                       Column(
                         children: [
                           Text(
@@ -315,7 +315,9 @@ class MainUserProfile extends StatelessWidget {
                       ),
                       Text(
                         data["age"],
-                        style: TextStyle(fontSize: 16,),
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -332,7 +334,9 @@ class MainUserProfile extends StatelessWidget {
                       ),
                       Text(
                         data["location"],
-                        style: TextStyle(fontSize: 16,),
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -348,7 +352,9 @@ class MainUserProfile extends StatelessWidget {
                     ),
                     Text(
                       data["emailId"],
-                      style: TextStyle(fontSize: 16,),
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                   ],
                 ),
@@ -365,7 +371,9 @@ class MainUserProfile extends StatelessWidget {
                       ),
                       Text(
                         data['phoneNumber']['ph'],
-                        style: TextStyle(fontSize: 16,),
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       )
                     ],
                   ),

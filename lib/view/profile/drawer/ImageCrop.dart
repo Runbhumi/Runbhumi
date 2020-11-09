@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:Runbhumi/services/ImageUpload.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -75,41 +76,75 @@ class _ImageCaptureState extends State<ImageCapture> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Select an image from the camera or gallery
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.photo_camera),
-              onPressed: () => _pickImage(ImageSource.camera),
-            ),
-            IconButton(
-              icon: Icon(Icons.photo_library),
-              onPressed: () => _pickImage(ImageSource.gallery),
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        leading: BackButton(),
+        actions: [
+          IconButton(
+            icon: Icon(Feather.camera, semanticLabel: "Camera"),
+            onPressed: () => _pickImage(ImageSource.camera),
+          ),
+          IconButton(
+            icon: Icon(Feather.folder, semanticLabel: "Open from gallery"),
+            onPressed: () => _pickImage(ImageSource.gallery),
+          ),
+        ],
       ),
+      // Select an image from the camera or gallery
+      // bottomNavigationBar: BottomAppBar(
+      //   child: Row(
+      //     children: <Widget>[
+      //       IconButton(
+      //         icon: Icon(Icons.photo_camera),
+      //         onPressed: () => _pickImage(ImageSource.camera),
+      //       ),
+      //       IconButton(
+      //         icon: Icon(Icons.photo_library),
+      //         onPressed: () => _pickImage(ImageSource.gallery),
+      //       ),
+      //     ],
+      //   ),
+      // ),
 
       // Preview the image and crop it
       body: ListView(
         children: <Widget>[
           if (_imageFile != null) ...[
             Image.file(_imageFile),
-            Row(
-              children: <Widget>[
-                FlatButton(
-                  child: Icon(Icons.crop),
-                  onPressed: _cropImage,
-                ),
-                FlatButton(
-                  child: Icon(Icons.refresh),
-                  onPressed: _clear,
-                ),
-              ],
+            Container(
+              color: Theme.of(context).primaryColor.withOpacity(0.1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      // color: Theme.of(context).accentColor.withOpacity(0.3),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.crop),
+                      onPressed: _cropImage,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      // color: Theme.of(context).accentColor.withOpacity(0.3),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.refresh),
+                      onPressed: _clear,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Uploader(file: _imageFile)
-          ]
+          ] else
+            Center(
+              child: Image(
+                image: AssetImage('assets/addpostillustration.png'),
+              ),
+            ),
         ],
       ),
     );

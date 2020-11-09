@@ -86,10 +86,14 @@ class _UploaderState extends State<Uploader> {
           });
     } else {
       // Allows user to decide when to start the upload
-      return FlatButton.icon(
-        label: Text('Upload to Firebase'),
-        icon: Icon(Icons.cloud_upload),
-        onPressed: _startUpload,
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Button(
+          myText: 'Upload to Firebase',
+          myColor: Theme.of(context).primaryColor,
+          // icon: Icon(Icons.cloud_upload),
+          onPressed: _startUpload,
+        ),
       );
     }
   }

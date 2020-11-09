@@ -15,8 +15,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:image_picker/image_picker.dart';
 // import 'package:image_cropper/image_cropper.dart';
 
-// TODO: add text controllers and a form
-//TODO: connect to backend
 class EditProfile extends StatefulWidget {
   final String filePath;
   EditProfile({Key key, this.filePath}) : super(key: key);

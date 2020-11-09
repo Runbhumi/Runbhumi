@@ -1,8 +1,10 @@
 // import 'dart:async';
 
+import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/profile/drawer/ImageCrop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -24,6 +26,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   bool _hiddenSwitch = true;
+  bool _loading = false;
   TextEditingController nameTextEditingController = new TextEditingController();
   TextEditingController bioTextEditingController = new TextEditingController();
   TextEditingController ageTextEditingController = new TextEditingController();
@@ -32,6 +35,39 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController locationTextEditingController =
       new TextEditingController();
   int age = 0;
+  final db = FirebaseFirestore.instance;
+  StreamSubscription sub;
+  Map data;
+  @override
+  void initState() {
+    super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("profile body loaded");
+      setState(() {});
+    });
+    sub = db
+        .collection('users')
+        .doc(Constants.prefs.getString('userId'))
+        .snapshots()
+        .listen((snap) {
+      setState(() {
+        data = snap.data();
+        nameTextEditingController.text = data['name'];
+        bioTextEditingController.text = data['bio'];
+        ageTextEditingController.text = data['age'];
+        locationTextEditingController.text = data['location'];
+        phoneNumberTextEditingController.text = data['phoneNumber']['ph'];
+        _hiddenSwitch = data['phoneNumber']['show'];
+        _loading = true;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    super.dispose();
+  }
 
   Widget _buildTitle(BuildContext context) {
     return new Padding(
@@ -54,7 +90,8 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.filePath);
+    print(
+        "----------------------------${widget.filePath}---------------------------------------------------");
     return Scaffold(
       appBar: AppBar(
         title: _buildTitle(context),
@@ -163,7 +200,7 @@ class _EditProfileState extends State<EditProfile> {
                   Flexible(
                     child: InputBox(
                       controller: phoneNumberTextEditingController,
-                      obscureText: _hiddenSwitch,
+                      // obscureText: _hiddenSwitch,
                       textInputType: TextInputType.phone,
                       hintText: 'Phone Number',
                     ),
@@ -172,7 +209,7 @@ class _EditProfileState extends State<EditProfile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'hide',
+                        'show',
                         style: TextStyle(fontSize: 12),
                       ),
                       Transform.scale(
@@ -212,19 +249,13 @@ class _EditProfileState extends State<EditProfile> {
                       .collection('users')
                       .doc(Constants.prefs.get('userId'))
                       .update({
-                    //'profileImage': widget.filePath,
+                    // 'profileImage': widget.filePath ??
+                    //     Constants.prefs.getString('profileImage'),
                     'name': nameTextEditingController.text,
                     'bio': bioTextEditingController.text,
                     'age': ageTextEditingController.text,
                     'phoneNumber': phoneNumber,
                     'location': locationTextEditingController.text,
-                  });
-                  setState(() {
-                    nameTextEditingController.text = '';
-                    bioTextEditingController.text = '';
-                    ageTextEditingController.text = '';
-                    locationTextEditingController.text = '';
-                    phoneNumberTextEditingController.text = '';
                   });
                 },
               ),

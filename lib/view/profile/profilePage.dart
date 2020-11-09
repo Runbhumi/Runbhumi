@@ -205,11 +205,11 @@ class MainUserProfile extends StatelessWidget {
         //profile image
         if (data['profileImage'] != null)
           Container(
-            width: 150,
-            height: 150,
+            width: 125,
+            height: 125,
             margin: EdgeInsets.only(top: 15),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(40)),
+              borderRadius: BorderRadius.all(Radius.circular(32)),
               image: DecorationImage(
                 image: NetworkImage(data['profileImage']),
                 fit: BoxFit.contain,
@@ -241,7 +241,7 @@ class MainUserProfile extends StatelessWidget {
           child: Center(
             child: Text(
               data['bio'],
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 14),
               textAlign: TextAlign.center,
             ),
           ),
@@ -269,16 +269,16 @@ class MainUserProfile extends StatelessWidget {
                           Text("events"),
                         ],
                       ),
-                      // Column(
-                      //   children: [
-                      //     Text(
-                      //       data['teamsCount'].toString(),
-                      //       style: TextStyle(
-                      //           fontSize: 24, fontWeight: FontWeight.w500),
-                      //     ),
-                      //     Text("teams"),
-                      //   ],
-                      // ), removed for mvp
+                      Column(
+                        children: [
+                          Text(
+                            data['teamsCount'].toString(),
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text("teams"),
+                        ],
+                      ),
                       Column(
                         children: [
                           Text(
@@ -315,7 +315,9 @@ class MainUserProfile extends StatelessWidget {
                       ),
                       Text(
                         data["age"],
-                        style: Theme.of(context).textTheme.headline6,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -332,7 +334,9 @@ class MainUserProfile extends StatelessWidget {
                       ),
                       Text(
                         data["location"],
-                        style: Theme.of(context).textTheme.headline6,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -348,7 +352,9 @@ class MainUserProfile extends StatelessWidget {
                     ),
                     Text(
                       data["emailId"],
-                      style: Theme.of(context).textTheme.headline6,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                   ],
                 ),
@@ -365,7 +371,9 @@ class MainUserProfile extends StatelessWidget {
                       ),
                       Text(
                         data['phoneNumber']['ph'],
-                        style: Theme.of(context).textTheme.headline6,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       )
                     ],
                   ),

@@ -150,19 +150,21 @@ class _HomeState extends State<Home> {
                       // String sportName = asyncSnapshot.data.documents[index]
                       //     .get('sportName')
                       //     .toString();
-                      IconData sportIcon;
+                      String sportIcon;
+                      // IconData sportIcon;
                       switch (data.sportName) {
                         case "Volleyball":
-                          sportIcon = Icons.sports_volleyball;
+                          sportIcon = "assets/icons8-volleyball-96.png";
                           break;
                         case "Basketball":
-                          sportIcon = Icons.sports_basketball;
+                          // sportIcon = Icons.sports_basketball;
+                          sportIcon = "assets/icons8-basketball-96.png";
                           break;
                         case "Cricket":
-                          sportIcon = Icons.sports_cricket;
+                          sportIcon = "assets/icons8-cricket-96.png";
                           break;
                         case "Football":
-                          sportIcon = Icons.sports_soccer;
+                          sportIcon = "assets/icons8-soccer-ball-96.png";
                           break;
                       }
                       bool registrationCondition = data.playersId.contains(
@@ -215,11 +217,12 @@ class _HomeState extends State<Home> {
                                           }
                                         })
                                   ],
-                                  leading: Icon(
-                                    sportIcon,
-                                    size: 48,
-                                    color: theme.currentTheme.backgroundColor,
-                                  ),
+                                  // leading: Icon(
+                                  //   sportIcon,
+                                  //   size: 48,
+                                  //   color: theme.currentTheme.backgroundColor,
+                                  // ),
+                                  leading: Image.asset(sportIcon),
                                   title: Text(
                                     data.eventName,
                                     style: TextStyle(
@@ -324,25 +327,27 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
                 child: Row(
                   children: [
+                          // sportIcon = "assets/icons8-cricket-96.png";
+                          // sportIcon = "assets/icons8-soccer-ball-96.png";
                     SportsCategory(
                       theme: theme,
                       sport: "Basketball",
-                      icon: Icons.sports_basketball,
+                      icon: "assets/icons8-basketball-96.png",
                     ),
                     SportsCategory(
                       theme: theme,
                       sport: "Cricket",
-                      icon: Icons.sports_cricket,
+                      icon: "assets/icons8-cricket-96.png",
                     ),
                     SportsCategory(
                       theme: theme,
                       sport: "Football",
-                      icon: Icons.sports_soccer,
+                      icon: "assets/icons8-soccer-ball-96.png",
                     ),
                     SportsCategory(
                       theme: theme,
                       sport: "Volleyball",
-                      icon: Icons.sports_volleyball,
+                      icon: "assets/icons8-volleyball-96.png",
                     ),
                   ],
                 ),
@@ -383,16 +388,16 @@ class _HomeState extends State<Home> {
 }
 
 class SportsCategory extends StatelessWidget {
-  const SportsCategory(
-      {Key key,
-      @required this.theme,
-      @required this.sport,
-      @required this.icon})
-      : super(key: key);
+  const SportsCategory({
+    Key key,
+    @required this.theme,
+    @required this.sport,
+    @required this.icon,
+  }) : super(key: key);
 
   final ThemeNotifier theme;
   final String sport;
-  final IconData icon;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -410,11 +415,12 @@ class SportsCategory extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  icon,
-                  size: 52,
-                  color: theme.currentTheme.backgroundColor,
-                ),
+                // child: Icon(
+                //   icon,
+                //   size: 52,
+                //   color: theme.currentTheme.backgroundColor,
+                // ),
+                child: Image.asset(icon,scale: 1.5),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

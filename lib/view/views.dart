@@ -3,7 +3,7 @@
 // export 'auth/forgotPassword.dart';
 export 'auth/secondPage.dart';
 export 'mainapp.dart';
-export 'home.dart';
+export 'homePage/home.dart';
 export 'addPost.dart';
 export 'notificationsPage.dart';
 export 'Chats/messagePage.dart';

@@ -1,6 +1,8 @@
+import 'package:Runbhumi/widget/showOffline.dart';
 import 'package:flutter/material.dart';
 import 'views.dart';
 import '../widget/widgets.dart';
+import 'package:connectivity_widget/connectivity_widget.dart';
 /*
   this has the bottom navigation bar of the app
 */
@@ -10,8 +12,6 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-// GlobalKey<NavigatorState> _pageNavigatorKey = GlobalKey<NavigatorState>();
-
 class _MainAppState extends State<MainApp> {
   int currentIndex = 0;
   final PageController _pageController = PageController();
@@ -19,7 +19,6 @@ class _MainAppState extends State<MainApp> {
   final List<Widget> _children = [
     Home(),
     Network(),
-    // AddPost(),
     Notifications(),
     Profile(),
   ];
@@ -40,7 +39,9 @@ class _MainAppState extends State<MainApp> {
         controller: _pageController,
         itemCount: 4,
         itemBuilder: (context, index) {
-          return _children[index];
+          return ConnectivityWidget(builder: (context, isOnline) {
+            return isOnline ? _children[index] : ShowOffline();
+          });
         },
         onPageChanged: (int index) {
           setState(() {

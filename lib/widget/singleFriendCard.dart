@@ -15,7 +15,7 @@ class SingleFriendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
         shadowColor: Color(0x44393e46),
         shape: RoundedRectangleBorder(

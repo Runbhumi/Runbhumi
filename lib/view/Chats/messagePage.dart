@@ -125,7 +125,7 @@ class _DirectChatsState extends State<DirectChats> {
                           ),
                           elevation: 20,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: ListTile(
                               onTap: () {
                                 //Sending the user to the chat room

@@ -1,6 +1,7 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/auth/secondPage.dart';
+import 'package:Runbhumi/view/homePage/home.dart';
 import 'package:Runbhumi/view/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

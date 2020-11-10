@@ -1,7 +1,9 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/auth/secondPage.dart';
+import 'package:Runbhumi/widget/showOffline.dart';
 import 'package:Runbhumi/view/splash/splash.dart';
+import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'view/mainapp.dart';
@@ -43,7 +45,14 @@ class MyApp extends StatelessWidget {
         '/testing': (context) => Testing(),
       },
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
-      home: Splash(),
+      home: ConnectivityWidget(
+          showOfflineBanner: false,
+          offlineCallback: () {
+            print("offline");
+          },
+          builder: (context, isOnline) {
+            return isOnline ? Splash() : ShowOffline();
+          }),
       debugShowCheckedModeBanner: false,
     );
   }

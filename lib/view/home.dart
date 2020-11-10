@@ -150,19 +150,21 @@ class _HomeState extends State<Home> {
                       // String sportName = asyncSnapshot.data.documents[index]
                       //     .get('sportName')
                       //     .toString();
-                      IconData sportIcon;
+                      String sportIcon;
+                      // IconData sportIcon;
                       switch (data.sportName) {
                         case "Volleyball":
-                          sportIcon = Icons.sports_volleyball;
+                          sportIcon = "assets/icons8-volleyball-96.png";
                           break;
                         case "Basketball":
-                          sportIcon = Icons.sports_basketball;
+                          // sportIcon = Icons.sports_basketball;
+                          sportIcon = "assets/icons8-basketball-96.png";
                           break;
                         case "Cricket":
-                          sportIcon = Icons.sports_cricket;
+                          sportIcon = "assets/icons8-cricket-96.png";
                           break;
                         case "Football":
-                          sportIcon = Icons.sports_soccer;
+                          sportIcon = "assets/icons8-soccer-ball-96.png";
                           break;
                       }
                       bool registrationCondition = data.playersId.contains(
@@ -215,15 +217,18 @@ class _HomeState extends State<Home> {
                                           }
                                         })
                                   ],
-                                  leading: Icon(
-                                    sportIcon,
-                                    size: 48,
-                                    color: theme.currentTheme.backgroundColor,
-                                  ),
+                                  // leading: Icon(
+                                  //   sportIcon,
+                                  //   size: 48,
+                                  //   color: theme.currentTheme.backgroundColor,
+                                  // ),
+                                  leading: Image.asset(sportIcon),
                                   title: Text(
                                     data.eventName,
                                     style: TextStyle(
                                       color: theme.currentTheme.backgroundColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   subtitle: Column(
@@ -301,27 +306,31 @@ class _HomeState extends State<Home> {
             ),
           ),Removed for MVP*/
       ),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Text(
-                'Nearby you',
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.start,
+      body: NestedScrollView(
+        headerSliverBuilder: homePageSliverAppBar,
+        body: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                child: Text(
+                  'Nearby you',
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.start,
+                ),
               ),
-            ),
-            Expanded(
-              child: Stack(
-                children: <Widget>[
-                  feed(theme: theme),
-                ],
+              Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    feed(theme: theme),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -334,6 +343,113 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         backgroundColor: Theme.of(context).primaryColor,
+      ),
+    );
+  }
+
+  List<Widget> homePageSliverAppBar(
+      BuildContext context, bool innerBoxIsScrolled) {
+    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
+    return <Widget>[
+      SliverList(
+        delegate: SliverChildListDelegate([
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Text(
+              'Categories',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.start,
+            ),
+          ),
+          // const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Row(
+                children: [
+                  // sportIcon = "assets/icons8-cricket-96.png";
+                  // sportIcon = "assets/icons8-soccer-ball-96.png";
+                  SportsCategory(
+                    theme: theme,
+                    sport: "Basketball",
+                    icon: "assets/icons8-basketball-96.png",
+                  ),
+                  SportsCategory(
+                    theme: theme,
+                    sport: "Cricket",
+                    icon: "assets/icons8-cricket-96.png",
+                  ),
+                  SportsCategory(
+                    theme: theme,
+                    sport: "Football",
+                    icon: "assets/icons8-soccer-ball-96.png",
+                  ),
+                  SportsCategory(
+                    theme: theme,
+                    sport: "Volleyball",
+                    icon: "assets/icons8-volleyball-96.png",
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ]),
+      )
+    ];
+  }
+}
+
+class SportsCategory extends StatelessWidget {
+  const SportsCategory({
+    Key key,
+    @required this.theme,
+    @required this.sport,
+    @required this.icon,
+  }) : super(key: key);
+
+  final ThemeNotifier theme;
+  final String sport;
+  final String icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Card(
+        shadowColor: Color(0x33393e46),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        elevation: 10,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                // child: Icon(
+                //   icon,
+                //   size: 52,
+                //   color: theme.currentTheme.backgroundColor,
+                // ),
+                child: Image.asset(icon, scale: 1.8),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  sport,
+                  style: TextStyle(
+                    color: theme.currentTheme.backgroundColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

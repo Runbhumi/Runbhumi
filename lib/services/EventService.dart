@@ -22,6 +22,14 @@ class EventService {
         .snapshots();
   }
 
+  getSpecificFeed(String sportName) async {
+    return FirebaseFirestore.instance
+        .collection("events")
+        .where('sportName', isEqualTo: sportName)
+        // .orderBy('dateTime', descending: true)
+        .snapshots();
+  }
+
   getCurrentUserFeed() async {
     return FirebaseFirestore.instance
         .collection("users")

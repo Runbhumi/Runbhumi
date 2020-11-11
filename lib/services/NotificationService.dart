@@ -106,7 +106,8 @@
 
 import 'package:Runbhumi/models/Friends.dart';
 import 'package:Runbhumi/models/Notification.dart';
-import 'package:Runbhumi/services/UserServices.dart';
+
+import 'package:Runbhumi/services/friendsServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -141,6 +142,7 @@ class NotificationServices {
     db.doc(_id).collection('friends').doc(data.senderId).set(Friends.newFriend(
             data.senderId, data.senderName, data.senderProfieImage)
         .toJson());
+
     db
         .doc(data.senderId)
         .collection('friends')
@@ -148,8 +150,8 @@ class NotificationServices {
         .set(Friends.newFriend(_id, _name, _profileImage).toJson());
     declineRequest(data.notificationId);
 
-    UserService().updateMyFriendCount(1);
-    UserService().updateFriendCount(data.senderId, 1);
+    FriendServices().addUpdateMyFriendCount(1, data.senderId, _id);
+    FriendServices().addUpdateMyFriendCount(1, _id, data.senderId);
   }
 
   getNotification() async {

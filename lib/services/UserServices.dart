@@ -66,5 +66,4 @@ class UserService {
   }
 }
 
-
 //data['friends'].contains(data['userId'])

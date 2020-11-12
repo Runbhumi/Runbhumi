@@ -1,6 +1,7 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/auth/secondPage.dart';
+import 'package:Runbhumi/view/createTeam.dart';
 import 'package:Runbhumi/widget/showOffline.dart';
 import 'package:Runbhumi/view/homePage/home.dart';
 import 'package:Runbhumi/view/splash/splash.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => Profile(),
         '/editprofile': (context) => EditProfile(),
         '/testing': (context) => Testing(),
+        '/createteam': (context) => CreateTeam(),
       },
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
       home: ConnectivityWidget(

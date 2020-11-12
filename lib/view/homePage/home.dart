@@ -1,13 +1,14 @@
 import 'package:Runbhumi/models/Events.dart';
 import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:Runbhumi/view/homePage/specific_sport.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../utils/theme_config.dart';
 import 'package:Runbhumi/utils/Constants.dart';
-import '../widget/widgets.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -416,7 +417,12 @@ class SportsCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SpecificSport(sportName: this.sport))),
+      },
       child: Card(
         shadowColor: Color(0x33393e46),
         shape: RoundedRectangleBorder(

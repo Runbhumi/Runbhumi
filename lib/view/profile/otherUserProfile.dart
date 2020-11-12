@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:Runbhumi/services/NotificationService.dart';
+import 'package:Runbhumi/services/friendsServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:firebase_core/firebase_core.dart';
 import '../views.dart';
 
 class OtherUserProfile extends StatefulWidget {
@@ -187,10 +187,6 @@ class _OtherProfileBodyState extends State<OtherProfileBody> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      setState(() {});
-    });
     sub = db.collection('users').doc(widget.userID).snapshots().listen((snap) {
       setState(() {
         data = snap.data();
@@ -236,6 +232,10 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // if (data['friends'].contains(Constants.prefs.getString('userId')))
+    //   print('Its is true');
+
+    String _id = Constants.prefs.getString('userId');
     return Column(
       children: [
         //profile image
@@ -282,7 +282,20 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         ),
-        if (!(data['userId'] == Constants.prefs.getString('userId')))
+        if (data['friends'].contains(_id) && data['userId'] != _id)
+          Button(
+            myColor: Theme.of(context).primaryColor,
+            myText: "Remove Friend",
+            onPressed: () {
+              // a confirmation is required because its a serious action
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return successDialog(context, data['userId'], _id);
+                  });
+            },
+          ),
+        if (data['userId'] != _id && !(data['friends'].contains(_id)))
           Button(
             myColor: Theme.of(context).primaryColor,
             myText: "Add Friend",
@@ -290,6 +303,15 @@ class UserProfile extends StatelessWidget {
               NotificationServices().createRequest(data['userId']);
             },
           ),
+
+        // if ()
+        //   Button(
+        //     myColor: Theme.of(context).primaryColor,
+        //     myText: "Remove Friends",
+        //     onPressed: () {
+        //       NotificationServices().createRequest(data['userId']);
+        //     },
+        //   ),
         //stats
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -416,6 +438,32 @@ class UserProfile extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ],
+    );
+  }
+
+  SimpleDialog successDialog(BuildContext context, String id1, String id2) {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Center(
+            child: Text("You serious ??",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4)),
+        Button(
+          onPressed: () => {},
+          myColor: Theme.of(context).accentColor,
+          myText: "Cancel",
+        ),
+        Button(
+          onPressed: () => {
+            FriendServices().removeFriend(id1, id2),
+          },
+          myColor: Theme.of(context).accentColor,
+          myText: "I hate Him",
         ),
       ],
     );

@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/widget/animations/type_write.dart';
 import 'package:Runbhumi/utils/router.dart';
@@ -16,6 +16,7 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   // Timer to change the screen in 2.2 seconds
+
   startTimeout() {
     return Timer(Duration(milliseconds: 2200), handleTimeout);
   }
@@ -33,8 +34,13 @@ class _SplashState extends State<Splash> {
 
   @override
   void initState() {
-    super.initState();
     startTimeout();
+    super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      print("completed");
+      setState(() {});
+      startTimeout();
+    });
   }
 
   @override

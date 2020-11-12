@@ -11,19 +11,31 @@ class UserService {
         .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
-  updateMyFriendCount(int n) {
-    _db
-        .collection('users')
-        .doc(Constants.prefs.get('userId'))
-        .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
-  }
+  // updateMyFriendCount(int n) {
+  //   _db
+  //       .collection('users')
+  //       .doc(Constants.prefs.get('userId'))
+  //       .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
+  // }
 
-  updateFriendCount(String uid, int n) {
-    _db
-        .collection('users')
-        .doc(uid)
-        .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
-  }
+  // addUpdateMyFriendCount(int n, String id, String currUser) {
+  //   print("Done");
+  //   _db.collection('users').doc(currUser).update({
+  //     'friendCount': FieldValue.increment(n),
+  //     'friends': FieldValue.arrayUnion([id])
+  //   });
+  // }
+
+  // removeFriend(int n,String id,String currUser){
+
+  // }
+
+  // updateFriendCount(String uid, int n) {
+  //   _db
+  //       .collection('users')
+  //       .doc(uid)
+  //       .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
+  // }
 
   updateTeamsCount(int n) {
     _db
@@ -53,3 +65,5 @@ class UserService {
         .map((snap) => UserProfile.fromMap(snap.data as Map));
   }
 }
+
+//data['friends'].contains(data['userId'])

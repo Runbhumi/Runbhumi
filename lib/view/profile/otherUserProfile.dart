@@ -282,7 +282,9 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         ),
-        if (data['friends'].contains(_id) && data['userId'] != _id)
+        if (data['friends'] != null &&
+            data['friends'].contains(_id) &&
+            data['userId'] != _id)
           Button(
             myColor: Theme.of(context).primaryColor,
             myText: "Remove Friend",

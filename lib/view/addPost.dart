@@ -68,9 +68,9 @@ class _AddPostState extends State<AddPost> {
         ),
         DropdownMenuItem(
           child: Text(
-            "Looking for players in our team",
+            "Looking for players to join our team",
           ),
-          value: "Looking for players in our team",
+          value: "Looking for players to join our team",
         ),
       ],
       onChanged: (value) {

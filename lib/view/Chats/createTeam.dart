@@ -1,3 +1,4 @@
+//import 'package:Runbhumi/services/TeamServices.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
@@ -93,7 +94,8 @@ class _CreateTeamState extends State<CreateTeam> {
                 myText: "Create Team",
                 myColor: Theme.of(context).primaryColor,
                 onPressed: () {
-                  //TODO: Make a team in the backend.
+                  //------- Code to create a team just remember to pass al the arguments ---------------
+                  //TeamService().createNewTeam("Cricket", "Runbhumi", "bio");
                   showDialog(
                     context: context,
                     builder: (context) {

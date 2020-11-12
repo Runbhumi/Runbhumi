@@ -5,7 +5,6 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:firebase_core/firebase_core.dart';
 import '../views.dart';
 import '../../widget/widgets.dart';
 
@@ -141,10 +140,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("profile body loaded");
-      setState(() {});
-    });
     sub = db
         .collection('users')
         .doc(Constants.prefs.getString('userId'))

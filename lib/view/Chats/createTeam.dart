@@ -1,4 +1,5 @@
 //import 'package:Runbhumi/services/TeamServices.dart';
+import 'package:Runbhumi/services/TeamServices.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
@@ -18,6 +19,7 @@ class _CreateTeamState extends State<CreateTeam> {
   GlobalKey<FormState> _createNewTeamkey = GlobalKey<FormState>();
   String _chosenSport;
   TextEditingController _nameController = new TextEditingController();
+  TextEditingController _bioController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     //sports
@@ -82,11 +84,11 @@ class _CreateTeamState extends State<CreateTeam> {
                         ),
                       ),
                     ),
-                    // Button(
-                    //   myText: "Invite Friends",
-                    //   myColor: Theme.of(context).accentColor,
-                    //   onPressed: () {},
-                    // ),removed for MVP
+                    InputBox(
+                      controller: _bioController,
+                      hintText: "Team Bio",
+                      validateFunction: Validations.validateNonEmpty,
+                    ),
                   ],
                 ),
               ),
@@ -94,8 +96,9 @@ class _CreateTeamState extends State<CreateTeam> {
                 myText: "Create Team",
                 myColor: Theme.of(context).primaryColor,
                 onPressed: () {
-                  //------- Code to create a team just remember to pass al the arguments ---------------
-                  //TeamService().createNewTeam("Cricket", "Runbhumi", "bio");
+                  //------- Code to create a team just remember to pass all the arguments ---------------
+                  TeamService().createNewTeam(
+                      _chosenSport, _nameController.text, _bioController.text);
                   showDialog(
                     context: context,
                     builder: (context) {

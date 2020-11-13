@@ -116,23 +116,29 @@ class NotificationServices {
   final String _name = Constants.prefs.getString('name');
   final String _profileImage = Constants.prefs.getString('profileImage');
 
-  createRequest(String friendId) {
+  createRequest(String uid) {
     var db = FirebaseFirestore.instance
         .collection('users')
-        .doc(friendId)
+        .doc(uid)
         .collection('notification');
     var doc = db.doc();
     String id = doc.id;
     doc.set(NotificationClass.createNewRequest(
             "friend", id, _id, _name, _profileImage)
         .toJson());
+    FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'notification': FieldValue.arrayUnion([_id])
+    });
   }
 
-  declineRequest(String id) {
+  declineRequest(String id, String uid) {
     var db = FirebaseFirestore.instance
         .collection('users')
         .doc(_id)
         .collection('notification');
+    FirebaseFirestore.instance.collection('users').doc(_id).update({
+      'notification': FieldValue.arrayRemove([uid])
+    });
     db.doc(id).delete();
   }
 
@@ -148,7 +154,7 @@ class NotificationServices {
         .collection('friends')
         .doc(_id)
         .set(Friends.newFriend(_id, _name, _profileImage).toJson());
-    declineRequest(data.notificationId);
+    declineRequest(data.notificationId, data.senderId);
 
     FriendServices().addUpdateMyFriendCount(1, data.senderId, _id);
     FriendServices().addUpdateMyFriendCount(1, _id, data.senderId);

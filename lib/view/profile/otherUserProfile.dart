@@ -184,7 +184,6 @@ class _OtherProfileBodyState extends State<OtherProfileBody> {
   StreamSubscription sub;
   Map data;
   bool _loading = false;
-
   @override
   void initState() {
     super.initState();
@@ -235,7 +234,6 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     // if (data['friends'].contains(Constants.prefs.getString('userId')))
     //   print('Its is true');
-
     String _id = Constants.prefs.getString('userId');
     return Column(
       children: [
@@ -301,7 +299,19 @@ class UserProfile extends StatelessWidget {
               //     });
             },
           ),
-        if (data['userId'] != _id && !(data['friends'].contains(_id)))
+
+        if (data['notification'] != null &&
+            data['userId'] != _id &&
+            !(data['friends'].contains(_id)) &&
+            data['notification'].contains(_id))
+          Button(
+            myColor: Color.fromRGBO(0, 128, 0, 0.8),
+            myText: "Request Sent",
+            //onPressed: () {},
+          ),
+        if (data['userId'] != _id &&
+            !(data['friends'].contains(_id)) &&
+            !(data['notification'].contains(_id)))
           Button(
             myColor: Theme.of(context).primaryColor,
             myText: "Add Friend",

@@ -53,8 +53,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                         imageLink: asyncSnapshot.data.documents[index]
                             .get('profileImage'),
                         name: asyncSnapshot.data.documents[index].get('name'),
-                        userId:
-                            asyncSnapshot.data.documents[index].get('friendId'),
+                        userId: asyncSnapshot.data.documents[index].get('id'),
                       );
                     })
                 : //if you have no friends you will get this illustration

@@ -84,7 +84,8 @@ class _NotificationsState extends State<Notifications> {
                                       //decline funtionality
                                       onPressed: () {
                                         NotificationServices().declineRequest(
-                                            notificationData.notificationId);
+                                            notificationData.notificationId,
+                                            notificationData.senderId);
                                       },
                                     ),
                                     SmallButton(

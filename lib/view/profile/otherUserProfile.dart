@@ -6,6 +6,7 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../views.dart';
 
 class OtherUserProfile extends StatefulWidget {
@@ -183,7 +184,6 @@ class _OtherProfileBodyState extends State<OtherProfileBody> {
   StreamSubscription sub;
   Map data;
   bool _loading = false;
-
   @override
   void initState() {
     super.initState();
@@ -234,7 +234,6 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     // if (data['friends'].contains(Constants.prefs.getString('userId')))
     //   print('Its is true');
-
     String _id = Constants.prefs.getString('userId');
     return Column(
       children: [
@@ -282,20 +281,37 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         ),
-        if (data['friends'].contains(_id) && data['userId'] != _id)
+        if (data['friends'] != null &&
+            data['friends'].contains(_id) &&
+            data['userId'] != _id)
           Button(
             myColor: Theme.of(context).primaryColor,
             myText: "Remove Friend",
             onPressed: () {
               // a confirmation is required because its a serious action
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return successDialog(context, data['userId'], _id);
-                  });
+
+              confirmationPopup(context, data['name'], data['userId'], _id);
+
+              // showDialog(
+              //     context: context,
+              //     builder: (context) {
+              //       return successDialog(context, data['userId'], _id);
+              //     });
             },
           ),
-        if (data['userId'] != _id && !(data['friends'].contains(_id)))
+
+        if (data['notification'] != null &&
+            data['userId'] != _id &&
+            !(data['friends'].contains(_id)) &&
+            data['notification'].contains(_id))
+          Button(
+            myColor: Color.fromRGBO(0, 128, 0, 0.8),
+            myText: "Request Sent",
+            //onPressed: () {},
+          ),
+        if (data['userId'] != _id &&
+            !(data['friends'].contains(_id)) &&
+            !(data['notification'].contains(_id)))
           Button(
             myColor: Theme.of(context).primaryColor,
             myText: "Add Friend",
@@ -442,30 +458,73 @@ class UserProfile extends StatelessWidget {
       ],
     );
   }
-
-  SimpleDialog successDialog(BuildContext context, String id1, String id2) {
-    return SimpleDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      children: [
-        Center(
-            child: Text("You serious ??",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4)),
-        Button(
-          onPressed: () => {},
-          myColor: Theme.of(context).accentColor,
-          myText: "Cancel",
-        ),
-        Button(
-          onPressed: () => {
-            FriendServices().removeFriend(id1, id2),
-          },
-          myColor: Theme.of(context).accentColor,
-          myText: "I hate Him",
-        ),
-      ],
-    );
-  }
 }
+
+confirmationPopup(BuildContext context, String name, String id1, String id2) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.grow,
+    overlayColor: Colors.black87,
+    isCloseButton: true,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    descStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Remove Friend",
+      desc: "Are you sure you want to remove " + name + " as friend",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Cancel",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0.8),
+        ),
+        DialogButton(
+          child: Text(
+            "Kick",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            FriendServices().removeFriend(id1, id2);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(250, 128, 114, 0.9),
+        )
+      ]).show();
+}
+
+//   SimpleDialog successDialog(BuildContext context, String id1, String id2) {
+//     return SimpleDialog(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.all(Radius.circular(20)),
+//       ),
+//       children: [
+//         Center(
+//             child: Text("You serious ??",
+//                 textAlign: TextAlign.center,
+//                 style: Theme.of(context).textTheme.headline4)),
+//         Button(
+//           onPressed: () => {},
+//           myColor: Theme.of(context).accentColor,
+//           myText: "Cancel",
+//         ),
+//         Button(
+//           onPressed: () => {
+//             FriendServices().removeFriend(id1, id2),
+//           },
+//           myColor: Theme.of(context).accentColor,
+//           myText: "I hate Him",
+//         ),
+//       ],
+//     );
+//   }
+// }

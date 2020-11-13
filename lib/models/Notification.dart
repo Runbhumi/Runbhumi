@@ -50,6 +50,7 @@
 //         status = snapshot.data()['status'];
 // }
 
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationClass {
@@ -92,4 +93,35 @@ class NotificationClass {
         senderProfieImage: parsedJson['profileImage'],
         type: parsedJson['type']);
   }
+}
+
+class TeamNotification {
+  String notificationId;
+  String teamId;
+  String senderId;
+  String senderName;
+  String type;
+  String teamName;
+  String teamSport;
+
+  TeamNotification.newNotification(
+      String notificationId, String teamId, String teamName, String teamSport) {
+    this.notificationId = notificationId;
+    this.senderId = Constants.prefs.getString('userId');
+    this.senderName = Constants.prefs.getString('name');
+    this.type = "teams";
+    this.teamId = teamId;
+    this.teamName = teamName;
+    this.teamSport = teamSport;
+  }
+
+  Map<String, dynamic> toJson() => {
+        'notificationId': this.notificationId,
+        'senderId': this.senderId,
+        'name': this.senderName,
+        'teamName': this.teamName,
+        'teamId': this.teamId,
+        'teamSport': this.teamSport,
+        'type': this.type
+      };
 }

@@ -58,7 +58,7 @@ class TeamView {
   String teamName;
   String manager;
 
-  TeamView({this.teamId, this.sport, this.teamName,this.manager});
+  TeamView({this.teamId, this.sport, this.teamName, this.manager});
 
   TeamView.newTeam(
       String teamId, String sport, String teamName, String teamManager) {

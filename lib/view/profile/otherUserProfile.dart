@@ -304,10 +304,21 @@ class UserProfile extends StatelessWidget {
             data['userId'] != _id &&
             !(data['friends'].contains(_id)) &&
             data['notification'].contains(_id))
-          Button(
-            myColor: Color.fromRGBO(0, 128, 0, 0.8),
-            myText: "Request Sent",
-            //onPressed: () {},
+          OutlineButton(
+            padding: const EdgeInsets.all(16.0),
+            borderSide: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 2.0,
+            ),
+            highlightedBorderColor: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              "Request Sent",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)),
+            onPressed: () {},
           ),
         if (data['userId'] != _id &&
             !(data['friends'].contains(_id)) &&
@@ -397,7 +408,9 @@ class UserProfile extends StatelessWidget {
                       ),
                       Text(
                         data["age"],
-                        style: Theme.of(context).textTheme.headline6,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -414,7 +427,9 @@ class UserProfile extends StatelessWidget {
                       ),
                       Text(
                         data["location"],
-                        style: Theme.of(context).textTheme.headline6,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -430,7 +445,9 @@ class UserProfile extends StatelessWidget {
                     ),
                     Text(
                       data["emailId"],
-                      style: Theme.of(context).textTheme.headline6,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                   ],
                 ),
@@ -447,7 +464,9 @@ class UserProfile extends StatelessWidget {
                       ),
                       Text(
                         data['phoneNumber']['ph'],
-                        style: Theme.of(context).textTheme.headline6,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),

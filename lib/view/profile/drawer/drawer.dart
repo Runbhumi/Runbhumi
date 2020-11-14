@@ -26,13 +26,26 @@ class _DrawerBodyState extends State<DrawerBody> {
         Padding(
           padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
           child: Container(
-            child: Text(
-              "Hello,\n" + Constants.prefs.getString('name'),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello,",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  Constants.prefs.getString('name'),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

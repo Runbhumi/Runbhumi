@@ -17,6 +17,7 @@ class _AddPostState extends State<AddPost> {
   GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
   String _chosenSport;
   String _chosenPurpose;
+  double maxMembers = 0;
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
@@ -104,7 +105,7 @@ class _AddPostState extends State<AddPost> {
                           width: MediaQuery.of(context).size.width / 1.2,
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           decoration: BoxDecoration(
-                            borderRadius: new BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(50),
                             color: theme.currentTheme.primaryColorLight,
                             border: Border.all(color: Color(0x00000000)),
                           ),
@@ -139,6 +140,17 @@ class _AddPostState extends State<AddPost> {
                         hintText: "Location",
                         validateFunction: Validations.validateNonEmpty,
                       ),
+                      Text("select max members"),
+                      Slider(
+                        value: maxMembers,
+                        onChanged: (newLimit) {
+                          setState(() => maxMembers = newLimit);
+                        },
+                        min: 0,
+                        max: 50,
+                        label: maxMembers.toString(),
+                        divisions: 25,
+                      )
                       // Button(
                       //   myText: "Invite Friends",
                       //   myColor: Theme.of(context).accentColor,
@@ -154,7 +166,7 @@ class _AddPostState extends State<AddPost> {
                     // this funtion writes in the DB and adds an
                     // event when manually testing anything,
                     // just comment this function
-                    int maxMembers = 0;
+                    // int maxMembers = 0;
                     createNewEvent(
                         _nameController.text,
                         userId,
@@ -163,7 +175,7 @@ class _AddPostState extends State<AddPost> {
                         _chosenPurpose,
                         [userId],
                         DateTime.parse(_datetime.text),
-                        maxMembers);
+                        maxMembers.toInt());
                     // to show success dialog
                     showDialog(
                       context: context,

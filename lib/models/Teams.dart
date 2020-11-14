@@ -1,5 +1,6 @@
 import 'package:Runbhumi/models/Friends.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Teams {
   String teamId;
@@ -20,7 +21,8 @@ class Teams {
       this.manager,
       this.image,
       this.bio,
-      this.player});
+      this.player,
+      this.playerId});
 
   Teams.newTeam(String teamId, String sport, String teamName, String bio) {
     final Friends myprofile = new Friends.newFriend(
@@ -50,6 +52,19 @@ class Teams {
         'players': this.player,
         'playerId': this.playerId
       };
+  factory Teams.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    return Teams(
+        teamId: parsedJson['teamId'],
+        sport: parsedJson['sport'],
+        teamName: parsedJson['teamname'],
+        captain: parsedJson['captian'],
+        bio: parsedJson['bio'],
+        manager: parsedJson['manager'],
+        image: parsedJson['image'],
+        player: parsedJson['players'],
+        playerId: parsedJson['playerId']);
+  }
 }
 
 class TeamView {

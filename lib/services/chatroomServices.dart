@@ -38,6 +38,27 @@ class ChatroomService {
     });
   }
 
+  void sendNewMessageTeam(
+      DateTime dateTime, String sentby, String message, teamId) {
+    FirebaseFirestore.instance
+        .collection("teams")
+        .doc(teamId)
+        .collection("chats")
+        .add(Message.newMessage(dateTime, sentby, message).toJson())
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  getTeamMessages(String teamId) async {
+    return FirebaseFirestore.instance
+        .collection("teams")
+        .doc(teamId)
+        .collection("chats")
+        .orderBy('dateTime', descending: true)
+        .snapshots();
+  }
+
   getDirectMessages(String chatRoomId) async {
     return FirebaseFirestore.instance
         .collection("DirectChats")

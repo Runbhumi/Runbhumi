@@ -1,6 +1,9 @@
+import 'package:Runbhumi/models/Teams.dart';
+import 'package:Runbhumi/services/TeamServices.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/Chats/conversation.dart';
+import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -81,10 +84,84 @@ class TeamChats extends StatefulWidget {
 }
 
 class _TeamChatsState extends State<TeamChats> {
+  Stream userTeamChats;
+  @override
+  void initState() {
+    getTeamChats();
+    super.initState();
+  }
+
+  getTeamChats() async {
+    TeamService().getTeamsChatRoom().then((snapshots) {
+      setState(() {
+        print("got here");
+        userTeamChats = snapshots;
+        print("we got the data");
+      });
+    });
+  }
+
+  Widget getTeamsFeed() {
+    return StreamBuilder(
+      stream: userTeamChats,
+      builder: (context, asyncSnapshot) {
+        print("friends list is loading");
+        return asyncSnapshot.hasData
+            ? asyncSnapshot.data.documents.length > 0
+                ? ListView.builder(
+                    itemCount: asyncSnapshot.data.documents.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      Teams data = new Teams.fromJson(
+                          asyncSnapshot.data.documents[index]);
+                      print(data.bio);
+                      String sportIcon;
+                      // IconData sportIcon;
+                      switch (data.sport) {
+                        case "Volleyball":
+                          sportIcon = "assets/icons8-volleyball-96.png";
+                          break;
+                        case "Basketball":
+                          // sportIcon = Icons.sports_basketball;
+                          sportIcon = "assets/icons8-basketball-96.png";
+                          break;
+                        case "Cricket":
+                          sportIcon = "assets/icons8-cricket-96.png";
+                          break;
+                        case "Football":
+                          sportIcon = "assets/icons8-soccer-ball-96.png";
+                          break;
+                      }
+                      return ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TeamConversation(
+                                  data: data,
+                                ),
+                              ));
+                          //Go to the team ChatRoom
+                        },
+                        leading: Image.asset(sportIcon),
+                        title: Text(data.teamName),
+                        subtitle: Text(data.bio),
+                      );
+                    })
+                : Container(
+                    child: Center(
+                      child: Image.asset("assets/add-friends.png"),
+                    ),
+                  )
+            : Loader();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //body will get back all the teams which the user is part of.
+      body: getTeamsFeed(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, "/createteam");

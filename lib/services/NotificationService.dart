@@ -106,6 +106,7 @@
 
 import 'package:Runbhumi/models/Friends.dart';
 import 'package:Runbhumi/models/Notification.dart';
+import 'package:Runbhumi/models/Teams.dart';
 
 import 'package:Runbhumi/services/friendsServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
@@ -167,5 +168,17 @@ class NotificationServices {
         .doc(_id)
         .collection('notification')
         .snapshots();
+  }
+
+  createTeamNotification(String uid, TeamView teamView) {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('notification');
+    var doc = db.doc();
+    String id = doc.id;
+    doc.set(TeamNotification.newNotification(
+            id, teamView.teamId, teamView.teamName, teamView.sport)
+        .toJson());
   }
 }

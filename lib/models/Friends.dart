@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Friends {
   String name;
   String profileImage;
@@ -13,11 +15,11 @@ class Friends {
 
   Friends({this.friendId, this.name, this.profileImage});
 
-  // factory Friends.fromJson(QueryDocumentSnapshot data) {
-  //   var parsedJson = data.data();
-  //   return Friends(
-  //       friendId: parsedJson['senderId'],
-  //       name: parsedJson['name'],
-  //       profileImage: parsedJson['profileImage']);
-  // }
+  factory Friends.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    return Friends(
+        friendId: parsedJson['id'],
+        name: parsedJson['name'],
+        profileImage: parsedJson['profileImage']);
+  }
 }

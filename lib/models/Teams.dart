@@ -6,17 +6,18 @@ class Teams {
   String sport;
   String teamName;
   String captain;
-  String viceCaptain;
+  String manager;
   String image;
   String bio;
   List player;
+  List playerId;
 
   Teams(
       {this.teamId,
       this.sport,
       this.teamName,
       this.captain,
-      this.viceCaptain,
+      this.manager,
       this.image,
       this.bio,
       this.player});
@@ -32,19 +33,40 @@ class Teams {
     this.sport = sport;
     this.teamName = teamName;
     this.captain = Constants.prefs.getString('userId');
+    this.manager = myprofile.friendId;
     this.image = "";
     this.bio = bio;
     this.player = [mapOfProfile];
+    this.playerId = [myprofile.friendId];
   }
   Map<String, dynamic> toJson() => {
         'teamId': this.teamId,
         'sport': this.sport,
         'teamname': this.teamName,
         'captian': this.captain,
+        'manager': this.manager,
         'image': this.image,
         'bio': this.bio,
-        'players': this.player
+        'players': this.player,
+        'playerId': this.playerId
       };
+}
+
+class TeamView {
+  String teamId;
+  String sport;
+  String teamName;
+  String manager;
+
+  TeamView({this.teamId, this.sport, this.teamName, this.manager});
+
+  TeamView.newTeam(
+      String teamId, String sport, String teamName, String teamManager) {
+    this.teamId = teamId;
+    this.sport = sport;
+    this.teamName = teamName;
+    this.manager = teamManager;
+  }
 }
 
 // import 'package:cloud_firestore/cloud_firestore.dart';

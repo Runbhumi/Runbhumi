@@ -1,4 +1,5 @@
 //import 'package:Runbhumi/services/TeamServices.dart';
+import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/services/TeamServices.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
@@ -18,6 +19,7 @@ class CreateTeam extends StatefulWidget {
 class _CreateTeamState extends State<CreateTeam> {
   GlobalKey<FormState> _createNewTeamkey = GlobalKey<FormState>();
   String _chosenSport;
+  TeamView team;
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _bioController = new TextEditingController();
   @override
@@ -97,20 +99,19 @@ class _CreateTeamState extends State<CreateTeam> {
                 myColor: Theme.of(context).primaryColor,
                 onPressed: () {
                   //------- Code to create a team just remember to pass all the arguments ---------------
-                  TeamService().createNewTeam(
+                  team = TeamService().createNewTeam(
                       _chosenSport, _nameController.text, _bioController.text);
                   showDialog(
                     context: context,
                     builder: (context) {
                       //wait for 3 sec
                       Future.delayed(Duration(seconds: 3), () {
-                        String sample = "sampleId";
                         //This will be replaced by actual team IDs
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    InviteFriends(teamId: sample)));
+                                    InviteFriends(team: team)));
                       });
                       return successDialog(context);
                     },

@@ -1,3 +1,6 @@
+import 'package:Runbhumi/models/Friends.dart';
+import 'package:Runbhumi/models/Teams.dart';
+import 'package:Runbhumi/services/NotificationService.dart';
 import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
 import 'package:Runbhumi/widget/button.dart';
@@ -5,10 +8,10 @@ import 'package:Runbhumi/widget/loader.dart';
 import 'package:flutter/material.dart';
 
 class InviteFriends extends StatefulWidget {
-  final String teamId;
+  final TeamView team;
   //TeamId will help us trigger the notification for that particular team
   InviteFriends({
-    @required this.teamId,
+    @required this.team,
   });
   @override
   _InviteFriendsState createState() => _InviteFriendsState();
@@ -42,19 +45,20 @@ class _InviteFriendsState extends State<InviteFriends> {
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      Friends data = new Friends.fromJson(
+                          asyncSnapshot.data.documents[index]);
                       return ListTile(
-                        leading: Image(
-                            image: NetworkImage(asyncSnapshot
-                                .data.documents[index]
-                                .get('profileImage'))),
-                        title: Text(
-                            asyncSnapshot.data.documents[index].get('name')),
+                        leading: Image(image: NetworkImage(data.profileImage)),
+                        title: Text(data.name),
                         trailing: Button(
                           myText: "Invite",
                           myColor: Theme.of(context).primaryColor,
                           onPressed: () {
                             //------- Code to send a team joining notification ---------------
                             //Use Team Id to refer to the team and pass on to the notification
+
+                            NotificationServices().createTeamNotification(
+                                data.friendId, widget.team);
                           },
                         ),
                       );

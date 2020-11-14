@@ -58,6 +58,8 @@ dependencies:
 
   #shared prefrences
   shared_preferences: ^0.5.12
+
+  rflutter_alert: ^1.1.0
   
 dev_dependencies:
   flutter_test:

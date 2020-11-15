@@ -23,6 +23,7 @@ class _TeamConversationState extends State<TeamConversation> {
           DateTime.now(),
           Constants.prefs.getString('userId'),
           messageEditingController.text.trim(),
+          Constants.prefs.getString('name'),
           widget.data.teamId);
       setState(() {
         messageEditingController.text = "";
@@ -49,6 +50,8 @@ class _TeamConversationState extends State<TeamConversation> {
                     message: data.message,
                     sendByMe:
                         Constants.prefs.getString('userId') == data.sentby,
+                    sentByName: data.sentByName,
+                    dateTime: data.dateTime,
                   );
                 })
             : Center(
@@ -192,9 +195,16 @@ class _TeamConversationState extends State<TeamConversation> {
 class MessageTile extends StatelessWidget {
   final String message;
   final bool sendByMe;
+  final String sentByName; //Sent By (Unused till now)
+  final DateTime dateTime; //Time (Unused till now)
+  //TODO: Use the dataTime to show time and sentBy to show who's message
   //sendByMe boolean to check if the currentuser sent the message before.
 
-  MessageTile({@required this.message, @required this.sendByMe});
+  MessageTile(
+      {@required this.message,
+      @required this.sendByMe,
+      @required this.sentByName,
+      @required this.dateTime});
 
   @override
   Widget build(BuildContext context) {

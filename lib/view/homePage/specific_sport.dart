@@ -198,6 +198,8 @@ class _SpecificSportState extends State<SpecificSport> {
   Widget build(BuildContext context) {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
+      appBar: AppBar(
+          leading: BackButton(), title: buildTitle(context, widget.sportName)),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

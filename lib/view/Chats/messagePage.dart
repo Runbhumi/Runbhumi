@@ -62,17 +62,6 @@ class _NetworkState extends State<Network> {
             ],
           ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, "/addpost");
-        //   },
-        //   child: Icon(Feather.user_plus),
-        //   foregroundColor: Colors.white,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.all(Radius.circular(20)),
-        //   ),
-        //   backgroundColor: Theme.of(context).primaryColor,
-        // ),
       ),
     );
   }
@@ -162,17 +151,6 @@ class _TeamChatsState extends State<TeamChats> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: getTeamsFeed(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/createteam");
-        },
-        child: Icon(Feather.user_plus),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
     );
   }
 }

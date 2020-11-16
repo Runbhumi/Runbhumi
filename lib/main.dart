@@ -1,42 +1,31 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/Chats/createTeam.dart';
-import 'package:Runbhumi/view/auth/secondPage.dart';
-
 import 'package:Runbhumi/widget/showOffline.dart';
-import 'package:Runbhumi/view/homePage/home.dart';
-import 'package:Runbhumi/view/splash/splash.dart';
 import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'view/mainapp.dart';
-import 'view/splash/splash.dart';
 import 'view/views.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
+  // initialize shared prefs
   WidgetsFlutterBinding.ensureInitialized();
   Constants.prefs = await SharedPreferences.getInstance();
+  // using provider
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => ThemeNotifier()),
   ], child: MyApp()));
 }
 
-// _checkForUser() async {
-//   bool connectionResult = await Constants.getUserLoggedInSharedPreference();
-//   return connectionResult;
-// }
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //name of app
       title: 'Runbhumi',
       // Named Routes
       routes: {
-        // '/login': (context) => LoginPage(),
-        // '/signup': (context) => SignUp(),
-        // '/forgotpassword': (context) => ForgotPassword(),
         '/mainapp': (context) => MainApp(),
         '/home': (context) => Home(),
         '/addpost': (context) => AddPost(),
@@ -48,7 +37,9 @@ class MyApp extends StatelessWidget {
         '/testing': (context) => Testing(),
         '/createteam': (context) => CreateTeam(),
       },
+      //theme
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
+      //connectivity widget used to check internet connection
       home: ConnectivityWidget(
           showOfflineBanner: false,
           offlineCallback: () {
@@ -57,6 +48,7 @@ class MyApp extends StatelessWidget {
           builder: (context, isOnline) {
             return isOnline ? Splash() : ShowOffline();
           }),
+      // debug tag which comes on top left corner
       debugShowCheckedModeBanner: false,
     );
   }

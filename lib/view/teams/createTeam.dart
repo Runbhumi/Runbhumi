@@ -9,7 +9,7 @@ import 'package:Runbhumi/widget/inputBox.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'inviteFriends.dart';
+import '../Chats/inviteFriends.dart';
 
 class CreateTeam extends StatefulWidget {
   @override

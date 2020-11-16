@@ -7,8 +7,6 @@ import 'package:Runbhumi/utils/router.dart';
 
 import '../views.dart';
 
-String userId = Constants.prefs.getString('userId');
-
 class Splash extends StatefulWidget {
   @override
   _SplashState createState() => _SplashState();
@@ -17,6 +15,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   // Timer to change the screen in 2.2 seconds
 
+  String _userId = Constants.prefs.getString('userId');
   startTimeout() {
     return Timer(Duration(milliseconds: 2200), handleTimeout);
   }
@@ -26,7 +25,7 @@ class _SplashState extends State<Splash> {
   }
 
   changeScreen() async {
-    userId == null
+    _userId == null
         ? CRouter.pushPageWithFadeAnimation(context, SecondPage())
         : CRouter.pushPageWithFadeAnimation(context, MainApp());
     // CRouter.pushPageWithFadeAnimation(context, SecondPage());

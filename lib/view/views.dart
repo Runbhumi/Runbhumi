@@ -1,6 +1,4 @@
-// export 'auth/loginPage.dart';
-// export 'auth/signUp.dart';
-// export 'auth/forgotPassword.dart';
+export 'splash/splash.dart';
 export 'auth/secondPage.dart';
 export 'mainapp.dart';
 export 'homePage/home.dart';
@@ -9,6 +7,7 @@ export 'notificationsPage.dart';
 export 'Chats/messagePage.dart';
 export 'Chats/chatSchedule.dart';
 export 'teams/teamsPage.dart';
+export 'teams/createTeam.dart';
 export 'profile/profilePage.dart';
 export 'profile/profileFriendsList.dart';
 export 'profile/otherUserProfile.dart';

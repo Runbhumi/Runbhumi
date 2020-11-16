@@ -19,6 +19,7 @@ class _MainAppState extends State<MainApp> {
   final List<Widget> _children = [
     Home(),
     Network(),
+    TeamsList(),
     Notifications(),
     Profile(),
   ];
@@ -37,7 +38,7 @@ class _MainAppState extends State<MainApp> {
     return Scaffold(
       body: PageView.builder(
         controller: _pageController,
-        itemCount: 4,
+        itemCount: 5,
         itemBuilder: (context, index) {
           return ConnectivityWidget(builder: (context, isOnline) {
             return isOnline ? _children[index] : ShowOffline();

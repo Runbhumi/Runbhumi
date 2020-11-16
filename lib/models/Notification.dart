@@ -49,6 +49,10 @@
 //         notificationId = snapshot.data()['notificationId'],
 //         status = snapshot.data()['status'];
 // }
+// ----------------------------------------------------------------------------------
+// Invite teams Is used To invite a player to a team
+//
+// ------------------------------------------------------------------------------------
 
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -109,7 +113,7 @@ class TeamNotification {
     this.notificationId = notificationId;
     this.senderId = Constants.prefs.getString('userId');
     this.senderName = Constants.prefs.getString('name');
-    this.type = "teams";
+    this.type = "inviteTeams";
     this.teamId = teamId;
     this.teamName = teamName;
     this.teamSport = teamSport;

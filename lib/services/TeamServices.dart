@@ -9,11 +9,12 @@ class TeamService {
 
   final String userId = Constants.prefs.getString('userId');
 
-  TeamView createNewTeam(String sport, String teamName, String bio) {
+  Teams createNewTeam(String sport, String teamName, String bio) {
     var newDoc = _teamCollectionReference.doc();
     String id = newDoc.id;
-    newDoc.set(Teams.newTeam(id, sport, teamName, bio).toJson());
-    final TeamView team = TeamView.newTeam(id, sport, teamName, userId);
+    final Teams team = new Teams.newTeam(id, sport, teamName, bio);
+    // newDoc.set(Teams.newTeam(id, sport, teamName, bio).toJson());
+    newDoc.set(team.toJson());
     return team;
   }
 

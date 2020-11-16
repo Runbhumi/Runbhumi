@@ -13,7 +13,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  int currentIndex = 0;
+  int _currentIndex = 0;
   final PageController _pageController = PageController();
   //add widgets of all relevant screens here
   final List<Widget> _children = [
@@ -25,7 +25,7 @@ class _MainAppState extends State<MainApp> {
 
   void onTabTapped(int index) {
     setState(() {
-      currentIndex = index;
+      _currentIndex = index;
     });
     _pageController.animateToPage(index,
         duration: const Duration(milliseconds: 300),
@@ -45,13 +45,13 @@ class _MainAppState extends State<MainApp> {
         },
         onPageChanged: (int index) {
           setState(() {
-            currentIndex = index;
+            _currentIndex = index;
           });
         },
       ),
       //bottom navbar
       bottomNavigationBar:
-          buildBottomNavigationBar(context, onTabTapped, currentIndex),
+          buildBottomNavigationBar(context, onTabTapped, _currentIndex),
     );
   }
 }

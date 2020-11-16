@@ -31,6 +31,7 @@ class _ConversationState extends State<Conversation> {
           DateTime.now(),
           Constants.prefs.getString('userId'),
           messageEditingController.text.trim(),
+          Constants.prefs.getString('name'),
           widget.chatRoomId);
       setState(() {
         messageEditingController.text = "";
@@ -57,6 +58,8 @@ class _ConversationState extends State<Conversation> {
                     message: data.message,
                     sendByMe:
                         Constants.prefs.getString('userId') == data.sentby,
+                    sentByName: data.sentByName,
+                    dateTime: data.dateTime,
                   );
                 })
             : Center(
@@ -191,9 +194,15 @@ class _ConversationState extends State<Conversation> {
 class MessageTile extends StatelessWidget {
   final String message;
   final bool sendByMe;
+  final String sentByName; //Sent By (Unused till now)
+  final DateTime dateTime; //Time (Unused till now)
   //sendByMe boolean to check if the currentuser sent the message before.
 
-  MessageTile({@required this.message, @required this.sendByMe});
+  MessageTile(
+      {@required this.message,
+      @required this.sendByMe,
+      @required this.sentByName,
+      @required this.dateTime});
 
   @override
   Widget build(BuildContext context) {

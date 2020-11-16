@@ -4,22 +4,25 @@ class Message {
   DateTime dateTime;
   String sentby;
   String message;
+  String sentByName;
   // List<dynamic> reaction;
 
-  Message({
-    this.dateTime,
-    this.sentby,
-    this.message,
-  }); //this.reaction});
+  Message(
+      {this.dateTime,
+      this.sentby,
+      this.message,
+      this.sentByName}); //this.reaction});
 
   Message.newMessage(
     DateTime dateTime,
     String sentby,
     String message,
+    String sentByName,
   ) {
     this.dateTime = dateTime;
     this.sentby = sentby;
     this.message = message;
+    this.sentByName = sentByName;
     // this.reaction = [0, 0, 0, 0, 0];
   }
 
@@ -27,6 +30,7 @@ class Message {
         'dateTime': dateTime,
         'sentby': sentby,
         'message': message,
+        'sentByName': sentByName,
         // 'reaction': reaction
       };
 
@@ -41,7 +45,8 @@ class Message {
     return Message(
         dateTime: parsedJson['dateTime'].toDate(),
         sentby: parsedJson['sentby'],
-        message: parsedJson['message']);
+        message: parsedJson['message'],
+        sentByName: parsedJson['sentByName']);
     //    reaction: parsedJson['reaction']);
   }
 }

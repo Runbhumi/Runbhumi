@@ -107,7 +107,7 @@ class _CreateTeamState extends State<CreateTeam> {
                       //wait for 3 sec
                       Future.delayed(Duration(seconds: 3), () {
                         //This will be replaced by actual team IDs
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>

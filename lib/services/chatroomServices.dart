@@ -26,16 +26,37 @@ class ChatroomService {
     });
   }
 
-  void sendNewMessage(
-      DateTime dateTime, String sentby, String message, chatRoomId) {
+  void sendNewMessage(DateTime dateTime, String sentby, String message,
+      String sentByName, chatRoomId) {
     FirebaseFirestore.instance
         .collection("DirectChats")
         .doc(chatRoomId)
         .collection("chats")
-        .add(Message.newMessage(dateTime, sentby, message).toJson())
+        .add(Message.newMessage(dateTime, sentby, message, sentByName).toJson())
         .catchError((e) {
       print(e.toString());
     });
+  }
+
+  void sendNewMessageTeam(DateTime dateTime, String sentby, String message,
+      String sentByName, teamId) {
+    FirebaseFirestore.instance
+        .collection("teams")
+        .doc(teamId)
+        .collection("chats")
+        .add(Message.newMessage(dateTime, sentby, message, sentByName).toJson())
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  getTeamMessages(String teamId) async {
+    return FirebaseFirestore.instance
+        .collection("teams")
+        .doc(teamId)
+        .collection("chats")
+        .orderBy('dateTime', descending: true)
+        .snapshots();
   }
 
   getDirectMessages(String chatRoomId) async {

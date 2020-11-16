@@ -51,7 +51,7 @@ class EventService {
 
 //id, userId, "", _chosenSport, _chosenPurpose,[userId], DateTime.now()
 
-void createNewEvent(
+createNewEvent(
     String eventName,
     String creatorId,
     String location,
@@ -59,11 +59,13 @@ void createNewEvent(
     String description,
     List<String> playersId,
     DateTime dateTime,
-    int maxMembers) {
+    int maxMembers,
+    String status,
+    String type) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
-  newDoc.set(Events.newEvent(id, eventName, creatorId, location, sportName,
-          description, dateTime, maxMembers)
+  newDoc.set(Events.newEvent(id, eventName, location, sportName, description,
+          dateTime, maxMembers, status, type)
       .toJson());
   addEventToUser(id, eventName, sportName, location, dateTime);
 }

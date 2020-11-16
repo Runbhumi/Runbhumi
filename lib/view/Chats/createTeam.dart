@@ -19,7 +19,7 @@ class CreateTeam extends StatefulWidget {
 class _CreateTeamState extends State<CreateTeam> {
   GlobalKey<FormState> _createNewTeamkey = GlobalKey<FormState>();
   String _chosenSport;
-  TeamView team;
+  Teams team;
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _bioController = new TextEditingController();
   @override

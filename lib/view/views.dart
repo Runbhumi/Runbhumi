@@ -8,7 +8,7 @@ export 'addPost.dart';
 export 'notificationsPage.dart';
 export 'Chats/messagePage.dart';
 export 'Chats/chatSchedule.dart';
-export 'teams/teamsList.dart';
+export 'teams/teamsPage.dart';
 export 'profile/profilePage.dart';
 export 'profile/profileFriendsList.dart';
 export 'profile/otherUserProfile.dart';

@@ -1,6 +1,9 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
+  final String creator = Constants.prefs.getString('userId');
+
   String eventName;
   String eventId;
   String creatorId;
@@ -10,6 +13,8 @@ class Events {
   List<dynamic> playersId;
   DateTime dateTime;
   int maxMembers;
+  String status;
+  String type;
 
   Events(
       {this.eventId,
@@ -20,26 +25,31 @@ class Events {
       this.description,
       this.playersId,
       this.dateTime,
-      this.maxMembers});
+      this.maxMembers,
+      this.status,
+      this.type});
 
   Events.newEvent(
       String eventId,
       String eventName,
-      String creatorId,
       String location,
       String sportName,
       String description,
       DateTime dateTime,
-      int maxMembers) {
+      int maxMembers,
+      String status,
+      String type) {
     this.eventId = eventId;
     this.eventName = eventName;
-    this.creatorId = creatorId;
+    this.creatorId = creator;
     this.location = location;
     this.sportName = sportName;
-    this.playersId = [creatorId];
+    this.playersId = [creator]; // here the teams id can be stored too
     this.description = description;
     this.dateTime = dateTime;
-    this.maxMembers = maxMembers;
+    this.maxMembers = maxMembers; // members can deonote the max number of teams
+    this.type = type;
+    this.status = status;
   }
 
   Events.miniEvent(

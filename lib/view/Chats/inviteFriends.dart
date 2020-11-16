@@ -2,13 +2,14 @@ import 'package:Runbhumi/models/Friends.dart';
 import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/services/NotificationService.dart';
 import 'package:Runbhumi/services/UserServices.dart';
+// import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:flutter/material.dart';
 
 class InviteFriends extends StatefulWidget {
-  final TeamView team;
+  final Teams team;
   //TeamId will help us trigger the notification for that particular team
   InviteFriends({
     @required this.team,
@@ -35,10 +36,11 @@ class _InviteFriendsState extends State<InviteFriends> {
   }
 
   Widget friends() {
+    //bool oneTimeCheck = false;
     return StreamBuilder(
       stream: userFriends,
       builder: (context, asyncSnapshot) {
-        print("friends list is loading");
+        //print("friends list is loading");
         return asyncSnapshot.hasData
             ? asyncSnapshot.data.documents.length > 0
                 ? ListView.builder(
@@ -47,21 +49,53 @@ class _InviteFriendsState extends State<InviteFriends> {
                     itemBuilder: (context, index) {
                       Friends data = new Friends.fromJson(
                           asyncSnapshot.data.documents[index]);
-                      return ListTile(
-                        leading: Image(image: NetworkImage(data.profileImage)),
-                        title: Text(data.name),
-                        trailing: Button(
-                          myText: "Invite",
-                          myColor: Theme.of(context).primaryColor,
-                          onPressed: () {
-                            //------- Code to send a team joining notification ---------------
-                            //Use Team Id to refer to the team and pass on to the notification
 
-                            NotificationServices().createTeamNotification(
-                                data.friendId, widget.team);
-                          },
-                        ),
-                      );
+                      if (widget.team.playerId.contains(data.friendId))
+                        return ListTile(
+                          leading:
+                              Image(image: NetworkImage(data.profileImage)),
+                          title: Text(data.name),
+                          trailing: Button(
+                            myText: "Aready In Team",
+                            myColor: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              // ------- When the user in already in the team  ---------------
+                            },
+                          ),
+                        );
+                      else if (widget.team.notificationPlayers.length > 20)
+                        return ListTile(
+                          leading:
+                              Image(image: NetworkImage(data.profileImage)),
+                          title: Text(data.name),
+                          trailing: Button(
+                            myText: "Invite Sent",
+                            myColor: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              // Alert the user that he is exceeding the limit of members in the group
+                            },
+                          ),
+                        );
+                      else if (widget.team.notificationPlayers.length > 0 &&
+                          widget.team.notificationPlayers
+                              .contains(data.friendId))
+                        return buttonInviteFriends(
+                            data, context, "Invite Sent");
+                      else
+                        return ListTile(
+                          leading:
+                              Image(image: NetworkImage(data.profileImage)),
+                          title: Text(data.name),
+                          trailing: Button(
+                            myText: "Invite",
+                            myColor: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              // ------- When the user is not in the team  ---------------
+                              NotificationServices().createTeamNotification(
+                                  data.friendId, widget.team);
+                            },
+                          ),
+                        );
                     })
                 : //if you have no friends you will get this illustration
                 Container(
@@ -71,6 +105,22 @@ class _InviteFriendsState extends State<InviteFriends> {
                   )
             : Loader();
       },
+    );
+  }
+
+  ListTile buttonInviteFriends(
+      Friends data, BuildContext context, String text) {
+    return ListTile(
+      leading: Image(image: NetworkImage(data.profileImage)),
+      title: Text(data.name),
+      trailing: Button(
+        myText: text,
+        myColor: Theme.of(context).primaryColor,
+        onPressed: () {
+          //------- Code to send a team joining notification ---------------
+          //Use Team Id to refer to the team and pass on to the notification
+        },
+      ),
     );
   }
 

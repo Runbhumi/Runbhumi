@@ -19,12 +19,16 @@ class _NotificationsState extends State<Notifications> {
   }
 
   getUserNotifications() async {
-    NotificationServices().getNotification().then((snapshots) {
-      setState(() {
-        notification = snapshots;
-        print("we got the data");
-      });
-    });
+    NotificationServices().getNotification().then(
+      (snapshots) {
+        setState(
+          () {
+            notification = snapshots;
+            print("we got the data");
+          },
+        );
+      },
+    );
   }
 
   Widget notificationList() {

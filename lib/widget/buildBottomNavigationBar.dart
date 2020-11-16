@@ -20,11 +20,11 @@ BottomNavigationBar buildBottomNavigationBar(
         activeIcon: Icon(Feather.message_square),
         label: 'Message',
       ),
-      // new BottomNavigationBarItem(
-      //   icon: Icon(Feather.plus_circle),
-      //   activeIcon: Icon(Feather.plus_circle),
-      //   label: 'Add Post',
-      // ),
+      new BottomNavigationBarItem(
+        icon: Icon(Feather.users),
+        activeIcon: Icon(Feather.users),
+        label: 'Teams',
+      ),
       new BottomNavigationBarItem(
         icon: Icon(Feather.bell),
         activeIcon: Icon(Feather.bell),

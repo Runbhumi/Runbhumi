@@ -3,12 +3,9 @@ import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/services/TeamServices.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
-import 'package:Runbhumi/widget/buildTitle.dart';
-import 'package:Runbhumi/widget/button.dart';
-import 'package:Runbhumi/widget/inputBox.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../Chats/inviteFriends.dart';
 
 class CreateTeam extends StatefulWidget {
@@ -21,7 +18,9 @@ class _CreateTeamState extends State<CreateTeam> {
   String _chosenSport;
   Teams team;
   TextEditingController _nameController = new TextEditingController();
-  TextEditingController _bioController = new TextEditingController();
+  TextEditingController _descController = new TextEditingController();
+  TextEditingController _teamLocationController = new TextEditingController();
+  int _radioValue = 0;
   @override
   Widget build(BuildContext context) {
     //sports
@@ -54,6 +53,7 @@ class _CreateTeamState extends State<CreateTeam> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(),
         title: buildTitle(context, "Make a new Team"),
         automaticallyImplyLeading: false,
       ),
@@ -87,36 +87,95 @@ class _CreateTeamState extends State<CreateTeam> {
                       ),
                     ),
                     InputBox(
-                      controller: _bioController,
-                      hintText: "Team Bio",
+                      controller: _descController,
+                      hintText: "Description",
                       validateFunction: Validations.validateNonEmpty,
+                    ),
+                    InputBox(
+                      controller: _teamLocationController,
+                      hintText: "Team Location",
+                      validateFunction: Validations.validateNonEmpty,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                      child: Card(
+                        child: ListTile(
+                          selectedTileColor: Colors.grey[200],
+                          title: Text(
+                            'Open',
+                          ),
+                          selected: _radioValue == 0 ? true : false,
+                          onTap: () {
+                            setState(() {
+                              _radioValue = 0;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                      child: Card(
+                        child: ListTile(
+                          selectedTileColor: Colors.grey[200],
+                          title: Text(
+                            'Invite only',
+                          ),
+                          selected: _radioValue == 1 ? true : false,
+                          onTap: () {
+                            setState(() {
+                              _radioValue = 1;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                      child: Card(
+                        child: ListTile(
+                          selectedTileColor: Colors.grey[200],
+                          title: Text(
+                            'Closed',
+                          ),
+                          selected: _radioValue == 2 ? true : false,
+                          onTap: () {
+                            setState(() {
+                              _radioValue = 2;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              Button(
-                myText: "Create Team",
-                myColor: Theme.of(context).primaryColor,
-                onPressed: () {
-                  //------- Code to create a team just remember to pass all the arguments ---------------
-                  team = TeamService().createNewTeam(
-                      _chosenSport, _nameController.text, _bioController.text);
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      //wait for 3 sec
-                      Future.delayed(Duration(seconds: 3), () {
-                        //This will be replaced by actual team IDs
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    InviteFriends(team: team)));
-                      });
-                      return successDialog(context);
-                    },
-                  );
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Button(
+                  myText: "Create Team",
+                  myColor: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    //------- Code to create a team just remember to pass all the arguments ---------------
+                    team = TeamService().createNewTeam(_chosenSport,
+                        _nameController.text, _descController.text);
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        //wait for 3 sec
+                        Future.delayed(Duration(seconds: 3), () {
+                          //This will be replaced by actual team IDs
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      InviteFriends(team: team)));
+                        });
+                        return successDialog(context);
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

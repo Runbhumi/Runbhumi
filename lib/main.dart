@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           builder: (context, isOnline) {
             return isOnline ? Splash() : ShowOffline();
           }),
-          // debug tag which comes on top left corner
+      // debug tag which comes on top left corner
       debugShowCheckedModeBanner: false,
     );
   }

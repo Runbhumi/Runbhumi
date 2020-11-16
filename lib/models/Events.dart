@@ -89,15 +89,17 @@ class Events {
   }
 
   Map<String, dynamic> toJson() => {
-        'eventId': eventId,
-        'eventName': eventName,
-        'creatorId': creatorId,
-        'location': location,
-        'sportName': sportName,
-        'description': description,
-        'playersId': playersId,
-        'dateTime': dateTime,
-        'max': maxMembers
+        'eventId': this.eventId,
+        'eventName': this.eventName,
+        'creatorId': this.creatorId,
+        'location': this.location,
+        'sportName': this.sportName,
+        'description': this.description,
+        'playersId': this.playersId,
+        'dateTime': this.dateTime,
+        'max': this.maxMembers,
+        'type': this.type,
+        'status': this.status
       };
   factory Events.fromJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
@@ -110,6 +112,8 @@ class Events {
         description: data['description'],
         playersId: data['playersId'],
         dateTime: data['dateTime'].toDate(),
-        maxMembers: data['max']);
+        maxMembers: data['max'],
+        type: data['type'],
+        status: data['status']);
   }
 }

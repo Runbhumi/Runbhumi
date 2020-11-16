@@ -163,14 +163,16 @@ class _AddPostState extends State<AddPost> {
                         _chosenPurpose,
                         [userId],
                         DateTime.parse(_datetime.text),
-                        maxMembers);
+                        maxMembers,
+                        "",
+                        ""); // TODO : here a status and a type is to be added
                     // to show success dialog
                     showDialog(
                       context: context,
                       builder: (context) {
                         //wait for 3 sec
                         Future.delayed(Duration(seconds: 3), () {
-                          Navigator.pushNamed(context, "/mainapp");
+                          Navigator.pop(context);
                         });
                         return successDialog(context);
                       },

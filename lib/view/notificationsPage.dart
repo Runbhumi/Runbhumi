@@ -2,6 +2,7 @@ import 'package:Runbhumi/services/NotificationService.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/models/Notification.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import 'views.dart';
 
@@ -93,15 +94,40 @@ class _NotificationsState extends State<Notifications> {
                                             notificationData.senderId);
                                       },
                                     ),
-                                    SmallButton(
-                                      myText: "accept",
-                                      myColor: Theme.of(context).primaryColor,
-                                      //aceept friend funtionality
-                                      onPressed: () {
+                                    GestureDetector(
+                                      onTap: () {
                                         NotificationServices()
                                             .acceptFriendRequest(
                                                 notificationData);
                                       },
+                                      child: Stack(
+                                          alignment:
+                                              AlignmentDirectional.center,
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8.0)),
+                                                color: Colors.green[100],
+                                              ),
+                                              width: 50,
+                                              height: 50,
+                                            ),
+                                            Icon(
+                                              Feather.check,
+                                              color: Colors.green,
+                                              size: 36,
+                                            ),
+                                          ]
+                                          // myText: "accept",
+                                          // myColor: Theme.of(context).primaryColor,
+                                          // //aceept friend funtionality
+                                          // onPressed: () {
+                                          //   NotificationServices()
+                                          //       .acceptFriendRequest(
+                                          //           notificationData);
+                                          // },
+                                          ),
                                     ),
                                   ],
                                 ),

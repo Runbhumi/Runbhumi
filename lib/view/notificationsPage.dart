@@ -2,6 +2,7 @@ import 'package:Runbhumi/services/NotificationService.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/models/Notification.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import 'views.dart';
 
@@ -60,47 +61,142 @@ class _NotificationsState extends State<Notifications> {
                             );
                           },
                           child: Card(
-                            shadowColor: Color(0x44393e46),
+                            shadowColor: Color(0x33393e46),
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                             ),
                             elevation: 20,
-                            child: Column(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  child: Image(
-                                      height: 75,
-                                      image: NetworkImage(
-                                          notificationData.senderProfieImage)),
+                                Row(
+                                  children: [
+                                    notificationData.type != "inviteTeams"
+                                        // leading image for friend request
+                                        ? ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            child: Image(
+                                                height: 75,
+                                                image: NetworkImage(
+                                                    notificationData
+                                                        .senderProfieImage)),
+                                          )
+                                        // leading image for team join request
+                                        : Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: GestureDetector(
+                                              onTap: () {},
+                                              child: Stack(
+                                                  alignment:
+                                                      AlignmentDirectional
+                                                          .center,
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    8.0)),
+                                                        color: Colors.grey[200],
+                                                      ),
+                                                      width: 54,
+                                                      height: 54,
+                                                    ),
+                                                    Icon(
+                                                      Feather.hash,
+                                                      color: Colors.grey[700],
+                                                      size: 44,
+                                                    ),
+                                                  ]),
+                                            ),
+                                          ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          notificationData.senderName,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          notificationData.type != "inviteTeams"
+                                              ? "friend request"
+                                              : "team invite",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                Text(notificationData.senderName,
-                                    style:
-                                        Theme.of(context).textTheme.headline5),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SmallButton(
-                                      myText: "decline",
-                                      myColor: Theme.of(context).accentColor,
-                                      //decline funtionality
-                                      onPressed: () {
-                                        NotificationServices().declineRequest(
-                                            notificationData.notificationId,
-                                            notificationData.senderId);
-                                      },
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          NotificationServices().declineRequest(
+                                              notificationData.notificationId,
+                                              notificationData.senderId);
+                                        },
+                                        child: Stack(
+                                            alignment:
+                                                AlignmentDirectional.center,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8.0)),
+                                                  color: Colors.red[100],
+                                                ),
+                                                width: 42,
+                                                height: 42,
+                                              ),
+                                              Icon(
+                                                Feather.x,
+                                                color: Colors.red,
+                                                size: 36,
+                                              ),
+                                            ]),
+                                      ),
                                     ),
-                                    SmallButton(
-                                      myText: "accept",
-                                      myColor: Theme.of(context).primaryColor,
-                                      //aceept friend funtionality
-                                      onPressed: () {
-                                        NotificationServices()
-                                            .acceptFriendRequest(
-                                                notificationData);
-                                      },
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          NotificationServices()
+                                              .acceptFriendRequest(
+                                                  notificationData);
+                                        },
+                                        child: Stack(
+                                            alignment:
+                                                AlignmentDirectional.center,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8.0)),
+                                                  color: Colors.green[100],
+                                                ),
+                                                width: 42,
+                                                height: 42,
+                                              ),
+                                              Icon(
+                                                Feather.check,
+                                                color: Colors.green,
+                                                size: 36,
+                                              ),
+                                            ]),
+                                      ),
                                     ),
                                   ],
                                 ),

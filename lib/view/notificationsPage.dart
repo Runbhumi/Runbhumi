@@ -68,6 +68,7 @@ class _NotificationsState extends State<Notifications> {
                             elevation: 20,
                             child: Column(
                               children: [
+                                if(notificationData.type != "inviteTeams")
                                 ClipRRect(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),

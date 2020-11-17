@@ -68,15 +68,15 @@ class _NotificationsState extends State<Notifications> {
                             elevation: 20,
                             child: Column(
                               children: [
-                                if(notificationData.type != "inviteTeams")
-                                ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  child: Image(
-                                      height: 75,
-                                      image: NetworkImage(
-                                          notificationData.senderProfieImage)),
-                                ),
+                                if (notificationData.type != "inviteTeams")
+                                  ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    child: Image(
+                                        height: 75,
+                                        image: NetworkImage(notificationData
+                                            .senderProfieImage)),
+                                  ),
                                 Text(notificationData.senderName,
                                     style:
                                         Theme.of(context).textTheme.headline5),

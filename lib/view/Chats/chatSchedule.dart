@@ -1,4 +1,4 @@
-import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';

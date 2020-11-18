@@ -1,8 +1,6 @@
-import 'package:Runbhumi/models/Friends.dart';
-import 'package:Runbhumi/models/Teams.dart';
-import 'package:Runbhumi/services/NotificationService.dart';
-import 'package:Runbhumi/services/UserServices.dart';
 // import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';

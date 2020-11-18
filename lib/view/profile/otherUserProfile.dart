@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'package:Runbhumi/services/NotificationService.dart';
-import 'package:Runbhumi/services/friendsServices.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

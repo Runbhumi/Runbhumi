@@ -1,6 +1,7 @@
 //import 'package:Runbhumi/services/TeamServices.dart';
-import 'package:Runbhumi/models/Teams.dart';
-import 'package:Runbhumi/services/TeamServices.dart';
+
+import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';

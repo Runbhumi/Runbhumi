@@ -229,7 +229,7 @@ class MessageTile extends StatelessWidget {
                   bottomRight: Radius.circular(24)),
           color: sendByMe
               ? Color(0xff004E52).withOpacity(0.9)
-              : Color(0xff00adb5).withOpacity(0.9),
+              : Theme.of(context).primaryColor.withOpacity(0.9),
         ),
         child: sendByMe
             ? Row(

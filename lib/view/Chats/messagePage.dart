@@ -1,6 +1,5 @@
-import 'package:Runbhumi/models/Teams.dart';
-import 'package:Runbhumi/services/TeamServices.dart';
-import 'package:Runbhumi/services/chatroomServices.dart';
+import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/Chats/conversation.dart';
 import 'package:Runbhumi/view/Chats/teamConversation.dart';
@@ -62,17 +61,6 @@ class _NetworkState extends State<Network> {
             ],
           ),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, "/addpost");
-        //   },
-        //   child: Icon(Feather.user_plus),
-        //   foregroundColor: Colors.white,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.all(Radius.circular(20)),
-        //   ),
-        //   backgroundColor: Theme.of(context).primaryColor,
-        // ),
       ),
     );
   }
@@ -162,17 +150,6 @@ class _TeamChatsState extends State<TeamChats> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: getTeamsFeed(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/createteam");
-        },
-        child: Icon(Feather.user_plus),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
     );
   }
 }

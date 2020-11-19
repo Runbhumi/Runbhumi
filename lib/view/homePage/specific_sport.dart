@@ -1,5 +1,5 @@
-import 'package:Runbhumi/models/Events.dart';
-import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/widget/loader.dart';
@@ -199,7 +199,9 @@ class _SpecificSportState extends State<SpecificSport> {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-          leading: BackButton(), title: buildTitle(context, widget.sportName)),
+        leading: BackButton(),
+        title: buildTitle(context, widget.sportName),
+      ),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

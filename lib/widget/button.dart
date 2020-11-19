@@ -21,7 +21,7 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       textColor: Colors.white,
       elevation: 0,
       color: widget.myColor,

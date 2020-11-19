@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'package:Runbhumi/services/NotificationService.dart';
-import 'package:Runbhumi/services/friendsServices.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -285,7 +284,7 @@ class UserProfile extends StatelessWidget {
             data['friends'].contains(_id) &&
             data['userId'] != _id)
           Button(
-            myColor: Theme.of(context).primaryColor,
+            myColor: Colors.redAccent[400],
             myText: "Remove Friend",
             onPressed: () {
               // a confirmation is required because its a serious action
@@ -481,12 +480,12 @@ class UserProfile extends StatelessWidget {
 
 confirmationPopup(BuildContext context, String name, String id1, String id2) {
   var alertStyle = AlertStyle(
-    animationType: AnimationType.grow,
-    overlayColor: Colors.black87,
-    isCloseButton: true,
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
     isOverlayTapDismiss: true,
-    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    descStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
     alertAlignment: Alignment.center,
     animationDuration: Duration(milliseconds: 400),
   );
@@ -498,25 +497,39 @@ confirmationPopup(BuildContext context, String name, String id1, String id2) {
       desc: "Are you sure you want to remove " + name + " as friend",
       buttons: [
         DialogButton(
-          child: Text(
-            "Cancel",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           onPressed: () {
             Navigator.pop(context);
           },
-          color: Color.fromRGBO(128, 128, 128, 0.8),
+          color: Color.fromRGBO(128, 128, 128, 0),
         ),
         DialogButton(
-          child: Text(
-            "Kick",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Remove",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           onPressed: () {
             FriendServices().removeFriend(id1, id2);
             Navigator.pop(context);
           },
-          color: Color.fromRGBO(250, 128, 114, 0.9),
+          color: Color.fromRGBO(128, 128, 128, 0),
         )
       ]).show();
 }

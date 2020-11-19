@@ -1,4 +1,4 @@
-import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
@@ -159,7 +159,9 @@ class _ChatScheduleState extends State<ChatSchedule> {
                           _chosenPurpose,
                           [_userId],
                           DateTime.parse(_datetime.text),
-                          maxMembers);
+                          maxMembers,
+                          "",
+                          ""); // TODO :here a status and a type is to be added
                       // to show success dialog
                       showDialog(
                         context: context,

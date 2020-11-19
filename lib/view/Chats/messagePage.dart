@@ -201,11 +201,6 @@ class _DirectChatsState extends State<DirectChats> {
                       return Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: ListTile(
@@ -297,16 +292,7 @@ class _DirectChatsState extends State<DirectChats> {
                 controller: friendsSearch,
                 decoration: const InputDecoration(
                   hintText: 'Search friends...',
-                  border: InputBorder.none,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    borderSide: BorderSide(color: Color(00000000)),
-                  ),
                   prefixIcon: Icon(Feather.search),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    borderSide: BorderSide(color: Color(00000000)),
-                  ),
                   hintStyle: const TextStyle(color: Colors.grey),
                 ),
                 style: const TextStyle(fontSize: 16.0),
@@ -343,7 +329,24 @@ class UserSearchDirect extends SearchDelegate<ListView> {
         .limit(5)
         .snapshots();
   }
-
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      primaryColor: Color(0xff121212),
+      appBarTheme: AppBarTheme(
+        color: Color((0xff121212)),
+        elevation: 0,
+        brightness: Brightness.dark,
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        actionsIconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
   @override
   List<Widget> buildActions(BuildContext context) {
     return [

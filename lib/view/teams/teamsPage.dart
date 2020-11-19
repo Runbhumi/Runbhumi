@@ -72,11 +72,6 @@ class _TeamsListState extends State<TeamsList> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: Column(
                             children: [
                               Padding(
@@ -200,11 +195,6 @@ class _TeamsListState extends State<TeamsList> {
           Navigator.pushNamed(context, "/createteam");
         },
         child: Icon(Feather.user_plus),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

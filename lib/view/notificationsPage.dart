@@ -62,12 +62,6 @@ class _NotificationsState extends State<Notifications> {
                             );
                           },
                           child: Card(
-                            shadowColor: Color(0x33393e46),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                            ),
-                            elevation: 20,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

@@ -258,8 +258,8 @@ class MainUserProfile extends StatelessWidget {
                           ),
                           Text("Events",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff00003D))),
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                       Column(
@@ -271,8 +271,8 @@ class MainUserProfile extends StatelessWidget {
                           ),
                           Text("Teams",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff00003D))),
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                       Column(
@@ -284,8 +284,8 @@ class MainUserProfile extends StatelessWidget {
                           ),
                           Text("Friends",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff00003D))),
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                     ],

@@ -1,5 +1,5 @@
-import 'package:Runbhumi/models/Events.dart';
-import 'package:Runbhumi/services/EventService.dart';
+import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';

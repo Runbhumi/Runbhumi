@@ -1,7 +1,8 @@
-import 'package:Runbhumi/services/NotificationService.dart';
+import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/models/Notification.dart';
+
 import 'package:flutter_icons/flutter_icons.dart';
 
 import 'views.dart';

@@ -4,7 +4,6 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/homePage/specific_sport.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +24,7 @@ class _HomeState extends State<Home> {
   Stream currentFeed;
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("firebase initialized");
-      setState(() {});
-    });
+
     _searchQuery = new TextEditingController();
     getUserInfoEvents();
   }

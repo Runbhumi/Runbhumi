@@ -90,7 +90,7 @@ class _InviteFriendsState extends State<InviteFriends> {
                             onPressed: () {
                               // ------- When the user is not in the team  ---------------
                               NotificationServices().createTeamNotification(
-                                  data.friendId, widget.team);
+                                  data.friendId, data.friendId, widget.team);
                             },
                           ),
                         );

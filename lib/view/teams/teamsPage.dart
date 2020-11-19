@@ -1,5 +1,5 @@
 import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/services/Services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -100,7 +100,7 @@ class _TeamsListState extends State<TeamsList> {
                                         onPressed: () {
                                           if (!joinCondition) {
                                             if (data.status == 'private') {
-                                              NotificationServices()
+                                              TeamsNotification()
                                                   .createTeamNotification(
                                                       Constants.prefs
                                                           .getString('userId'),

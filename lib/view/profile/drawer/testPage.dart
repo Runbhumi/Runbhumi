@@ -15,7 +15,13 @@ class _TestingState extends State<Testing> {
         leading: BackButton(),
         title: buildTitle(context, "Testing"),
       ),
-      body: Container(),
+      body: Container(
+        child: Button(
+          myText: "Test Button",
+          myColor: Theme.of(context).accentColor,
+          onPressed: () => {},
+        ),
+      ),
     );
   }
 }

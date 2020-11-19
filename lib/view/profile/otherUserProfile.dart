@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/services/Services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -326,7 +326,7 @@ class UserProfile extends StatelessWidget {
             myColor: Theme.of(context).primaryColor,
             myText: "Add Friend",
             onPressed: () {
-              NotificationServices().createRequest(data['userId']);
+              FriendRequestServices().createRequest(data['userId']);
             },
           ),
 

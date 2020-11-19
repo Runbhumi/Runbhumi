@@ -1,5 +1,5 @@
 import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/services/Services.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +21,12 @@ class _NotificationsState extends State<Notifications> {
   }
 
   getUserNotifications() async {
-    NotificationServices().getNotification().then(
+    FriendRequestServices().getNotification().then(
       (snapshots) {
         setState(
           () {
             notification = snapshots;
-            print("we got the data");
+            // print("we got the data");
           },
         );
       },
@@ -143,9 +143,11 @@ class _NotificationsState extends State<Notifications> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: GestureDetector(
                                         onTap: () {
-                                          NotificationServices().declineRequest(
-                                              notificationData.notificationId,
-                                              notificationData.senderId);
+                                          FriendRequestServices()
+                                              .declineRequest(
+                                                  notificationData
+                                                      .notificationId,
+                                                  notificationData.senderId);
                                         },
                                         child: Stack(
                                             alignment:
@@ -173,7 +175,7 @@ class _NotificationsState extends State<Notifications> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: GestureDetector(
                                         onTap: () {
-                                          NotificationServices()
+                                          FriendRequestServices()
                                               .acceptFriendRequest(
                                                   notificationData);
                                         },

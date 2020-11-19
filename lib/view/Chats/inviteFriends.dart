@@ -1,6 +1,6 @@
 // import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/services/Services.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
@@ -89,7 +89,7 @@ class _InviteFriendsState extends State<InviteFriends> {
                             myColor: Theme.of(context).primaryColor,
                             onPressed: () {
                               // ------- When the user is not in the team  ---------------
-                              NotificationServices().createTeamNotification(
+                              TeamsNotification().createTeamNotification(
                                   data.friendId, data.friendId, widget.team);
                             },
                           ),

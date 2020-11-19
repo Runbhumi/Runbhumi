@@ -329,6 +329,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
         .limit(5)
         .snapshots();
   }
+
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
@@ -347,6 +348,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
       ),
     );
   }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [

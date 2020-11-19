@@ -104,9 +104,7 @@
 //   }
 // }
 
-import 'package:Runbhumi/models/Friends.dart';
-import 'package:Runbhumi/models/Notification.dart';
-import 'package:Runbhumi/models/Teams.dart';
+import 'package:Runbhumi/models/models.dart';
 
 import 'package:Runbhumi/services/friendsServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
@@ -170,10 +168,10 @@ class NotificationServices {
         .snapshots();
   }
 
-  createTeamNotification(String uid, Teams teamView) async {
+  createTeamNotification(String from, String to, Teams teamView) async {
     var db = FirebaseFirestore.instance
         .collection('users')
-        .doc(uid)
+        .doc(to)
         .collection('notification');
     var doc = db.doc();
     String id = doc.id;
@@ -184,7 +182,7 @@ class NotificationServices {
         .collection('teams')
         .doc(teamView.teamId)
         .update({
-      'notificationPlayers': FieldValue.arrayUnion([uid])
+      'notificationPlayers': FieldValue.arrayUnion([from])
     });
   }
 

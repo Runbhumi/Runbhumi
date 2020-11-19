@@ -6,48 +6,65 @@ enum MyTheme { Light, Dark }
 class ThemeNotifier extends ChangeNotifier {
   static List<ThemeData> themes = [
     ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(
-            color: Color(0xff393E46),
-          ),
-          filled: true,
-          fillColor: Color(0xffeeeeee),
-          hoverColor: Colors.white,
-          alignLabelWithHint: true,
-          border: InputBorder.none,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50.0)),
-            borderSide: BorderSide(color: Color(00000000)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50.0)),
-            borderSide: BorderSide(color: Color(00000000)),
-          ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      cardTheme: CardTheme(
+        shadowColor: Color(0x20333333),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        bottomAppBarTheme: BottomAppBarTheme(
-          color: Colors.white,
-          elevation: 0,
+        elevation: 2,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: Color(0xffCBC6CB),
         ),
-        appBarTheme: AppBarTheme(
-          color: Colors.white,
-          elevation: 0,
-          brightness: Brightness.light,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
+        filled: true,
+        fillColor: Color(0xffF3F0F4),
+        hoverColor: Colors.white,
+        alignLabelWithHint: true,
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderSide: BorderSide(color: Color(00000000)),
         ),
-        primaryColor: Color(0xff00adb5),
-        primaryColorLight: Color(0xffeeeeee),
-        accentColor: Color(0xff393e46),
-        buttonColor: Color(0xffeeeeee),
-        scaffoldBackgroundColor: Colors.white,
-        bottomAppBarColor: Colors.white,
-        fontFamily: 'Montserrat',
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderSide: BorderSide(color: Color(00000000)),
+        ),
+      ),
+      bottomAppBarTheme: BottomAppBarTheme(
+        color: Colors.white,
+        elevation: 1,
+      ),
+      appBarTheme: AppBarTheme(
+        color: Color(0xffF7F7FF),
+        elevation: 0,
         brightness: Brightness.light,
-        primaryColorBrightness: Brightness.light,
-        backgroundColor: Color(0xff393E46)),
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+      ),
+      primaryColor: Color(0xff00adb5),
+      primaryColorLight: Color(0xffc2fcff),
+      primaryColorDark: Color(0xff004E52),
+      accentColor: Color(0xffEA526F),
+      buttonColor: Color(0xffEA526F),
+      scaffoldBackgroundColor: Color(0xffF7F7FF),
+      bottomAppBarColor: Colors.white,
+      fontFamily: 'Montserrat',
+      brightness: Brightness.light,
+      primaryColorBrightness: Brightness.light,
+      backgroundColor: Color(0xff393E46),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Color(0xffEA526F),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        foregroundColor: Colors.white,
+
+      ),
+    ),
     ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       appBarTheme: AppBarTheme(

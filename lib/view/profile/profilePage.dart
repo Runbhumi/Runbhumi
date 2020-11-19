@@ -238,12 +238,14 @@ class MainUserProfile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Container(
-            color: Color(0xffF7F7FF),
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Stack(
+              child: Column(
                 children: <Widget>[
+                  Divider(
+                    thickness: 2,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -254,7 +256,10 @@ class MainUserProfile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
-                          Text("Events",style: TextStyle(fontWeight: FontWeight.w600,color: Color(0xff00003D))),
+                          Text("Events",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff00003D))),
                         ],
                       ),
                       Column(
@@ -264,7 +269,10 @@ class MainUserProfile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
-                          Text("Teams",style: TextStyle(fontWeight: FontWeight.w600,color: Color(0xff00003D))),
+                          Text("Teams",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff00003D))),
                         ],
                       ),
                       Column(
@@ -274,11 +282,17 @@ class MainUserProfile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
-                          Text("Friends",style: TextStyle(fontWeight: FontWeight.w600,color: Color(0xff00003D))),
+                          Text("Friends",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff00003D))),
                         ],
                       ),
                     ],
-                  )
+                  ),
+                  Divider(
+                    thickness: 2,
+                  ),
                 ],
               ),
             ),

@@ -68,15 +68,6 @@ class InputBox extends StatelessWidget {
             prefixIcon: icon,
             suffixIcon: sufIcon,
             helperText: helpertext,
-            border: InputBorder.none,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              borderSide: BorderSide(color: Color(00000000)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              borderSide: BorderSide(color: Color(00000000)),
-            ),
           ),
         ),
       ),

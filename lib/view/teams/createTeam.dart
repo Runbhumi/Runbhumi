@@ -1,4 +1,13 @@
-//import 'package:Runbhumi/services/TeamServices.dart';
+/*
+-----------------------------------------------------------------------------------------
+                         ********* Type of staus in backend ********* 
+pubic(lowercase) - is similar to anyone can join.So User can directly join the team
+private(lowercase) - is similar to invite only.where a request to the manager will be sent.
+if the mager accepts then the user will be taken in the team else not.
+closed(lowercase)- is when the team is not accepting invites or any new player 
+
+-------------------------------------------------------------------------------------------
+*/
 
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
@@ -158,8 +167,9 @@ class _CreateTeamState extends State<CreateTeam> {
                   myColor: Theme.of(context).primaryColor,
                   onPressed: () {
                     //------- Code to create a team just remember to pass all the arguments ---------------
+                    // TODO : Make a drop down menu for selecting the status of the team and pass it as per the rules written above
                     team = TeamService().createNewTeam(_chosenSport,
-                        _nameController.text, _descController.text);
+                        _nameController.text, _descController.text, "public");
                     showDialog(
                       context: context,
                       builder: (context) {

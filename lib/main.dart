@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             return isOnline ? Splash() : ShowOffline();
           }),
       // debug tag which comes on top left corner
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
     );
   }
 }

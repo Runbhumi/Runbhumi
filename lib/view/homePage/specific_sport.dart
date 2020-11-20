@@ -4,10 +4,10 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class SpecificSport extends StatefulWidget {
   final String sportName;
@@ -61,9 +61,6 @@ class _SpecificSportState extends State<SpecificSport> {
                     itemBuilder: (context, index) {
                       Events data = new Events.fromJson(
                           asyncSnapshot.data.documents[index]);
-                      // String sportName = asyncSnapshot.data.documents[index]
-                      //     .get('sportName')
-                      //     .toString();
                       String sportIcon;
                       // IconData sportIcon;
                       switch (widget.sportName) {
@@ -71,7 +68,6 @@ class _SpecificSportState extends State<SpecificSport> {
                           sportIcon = "assets/icons8-volleyball-96.png";
                           break;
                         case "Basketball":
-                          // sportIcon = Icons.sports_basketball;
                           sportIcon = "assets/icons8-basketball-96.png";
                           break;
                         case "Cricket":
@@ -81,19 +77,12 @@ class _SpecificSportState extends State<SpecificSport> {
                           sportIcon = "assets/icons8-soccer-ball-96.png";
                           break;
                       }
-                      bool registrationCondition = data.playersId.contains(
-                          Constants.prefs.getString('userId')); //asyncSnapshot
-                      // .data.documents[index]
-                      // .get('playersId')
+                      bool registrationCondition = data.playersId
+                          .contains(Constants.prefs.getString('userId'));
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: Column(
                             children: [
                               Padding(
@@ -131,11 +120,6 @@ class _SpecificSportState extends State<SpecificSport> {
                                           }
                                         })
                                   ],
-                                  // leading: Icon(
-                                  //   sportIcon,
-                                  //   size: 48,
-                                  //   color: theme.currentTheme.backgroundColor,
-                                  // ),
                                   leading: Image.asset(sportIcon),
                                   title: Text(
                                     data.eventName,
@@ -154,6 +138,16 @@ class _SpecificSportState extends State<SpecificSport> {
                                         style: TextStyle(
                                           color: theme
                                               .currentTheme.backgroundColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        DateFormat('E-dd/MM-')
+                                            .add_jm()
+                                            .format(data.dateTime)
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Row(

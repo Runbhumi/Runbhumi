@@ -258,6 +258,7 @@ class _EditProfileState extends State<EditProfile> {
                       'phoneNumber': phoneNumber,
                       'location': locationTextEditingController.text,
                     });
+                    Navigator.pop(context);
                   },
                 ),
                 SizedBox(

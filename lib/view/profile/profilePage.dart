@@ -39,29 +39,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var myDrawer = SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            // to close drawer
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(
-                    Feather.x,
-                    color: Colors.white,
-                  ),
-                  onPressed: toggle,
-                );
-              },
-            ),
-          ),
-          body: DrawerBody(),
+    var myDrawer = Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        // to close drawer
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(
+                Feather.x,
+                color: Colors.white,
+              ),
+              onPressed: toggle,
+            );
+          },
         ),
       ),
+      body: DrawerBody(),
     );
     var myChild = DefaultTabController(
       length: 3,
@@ -98,26 +93,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         body: ProfileBody(),
       ),
     );
-    return GestureDetector(
-      child: AnimatedBuilder(
-        animation: animationController,
-        builder: (context, _) {
-          double slide = maxSlide * animationController.value;
-          double scale = 1 - (animationController.value * 0.3);
-          return Stack(
-            children: [
-              myDrawer,
-              Transform(
-                child: myChild,
-                transform: Matrix4.identity()
-                  ..translate(slide)
-                  ..scale(scale),
-                alignment: Alignment.centerLeft,
-              ),
-            ],
-          );
-        },
-      ),
+    return AnimatedBuilder(
+      animation: animationController,
+      builder: (context, _) {
+        double slide = maxSlide * animationController.value;
+        double scale = 1 - (animationController.value * 0.3);
+        return Stack(
+          children: [
+            myDrawer,
+            Transform(
+              child: myChild,
+              transform: Matrix4.identity()
+                ..translate(slide)
+                ..scale(scale),
+              alignment: Alignment.centerLeft,
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -245,12 +238,14 @@ class MainUserProfile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Container(
-            color: Colors.grey.withOpacity(0.1),
-            width: MediaQuery.of(context).size.height,
+            width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Stack(
+              padding: const EdgeInsets.all(4.0),
+              child: Column(
                 children: <Widget>[
+                  Divider(
+                    thickness: 2,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -261,7 +256,10 @@ class MainUserProfile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
-                          Text("events"),
+                          Text("Events",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                       Column(
@@ -271,7 +269,10 @@ class MainUserProfile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
-                          Text("teams"),
+                          Text("Teams",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                       Column(
@@ -281,11 +282,17 @@ class MainUserProfile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w500),
                           ),
-                          Text("friends"),
+                          Text("Friends",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
                     ],
-                  )
+                  ),
+                  Divider(
+                    thickness: 2,
+                  ),
                 ],
               ),
             ),

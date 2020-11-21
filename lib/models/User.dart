@@ -71,7 +71,8 @@ class UserProfile {
         'teamsCount': teamsCount,
         'eventCount': eventCount,
         "userSearchParam": setSearchParam(username),
-        "friends": friends
+        "friends": friends,
+        "notification": [],
       };
 
   factory UserProfile.fromMap(Map data) {

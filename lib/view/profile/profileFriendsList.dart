@@ -90,15 +90,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                 decoration: const InputDecoration(
                   hintText: 'Search friends...',
                   border: InputBorder.none,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    borderSide: BorderSide(color: Color(00000000)),
-                  ),
                   prefixIcon: Icon(Feather.search),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    borderSide: BorderSide(color: Color(00000000)),
-                  ),
                   hintStyle: const TextStyle(color: Colors.grey),
                 ),
                 style: const TextStyle(fontSize: 16.0),
@@ -134,6 +126,25 @@ class UserSearch extends SearchDelegate<ListView> {
         .where("userSearchParam", arrayContains: query)
         .limit(5)
         .snapshots();
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      primaryColor: Color(0xff121212),
+      appBarTheme: AppBarTheme(
+        color: Color((0xff121212)),
+        elevation: 0,
+        brightness: Brightness.dark,
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        actionsIconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   @override
@@ -175,11 +186,6 @@ class UserSearch extends SearchDelegate<ListView> {
                       child: GestureDetector(
                         onTap: () {},
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: ListTile(
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
@@ -239,11 +245,6 @@ class UserSearch extends SearchDelegate<ListView> {
                           );
                         },
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: ListTile(
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),

@@ -280,9 +280,7 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         ),
-        if (data['friends'] != null &&
-            data['friends'].contains(_id) &&
-            data['userId'] != _id)
+        if (data['friends'].contains(_id) && data['userId'] != _id)
           Button(
             myColor: Colors.redAccent[400],
             myText: "Remove Friend",
@@ -299,8 +297,7 @@ class UserProfile extends StatelessWidget {
             },
           ),
 
-        if (data['notification'] != null &&
-            data['userId'] != _id &&
+        if (data['userId'] != _id &&
             !(data['friends'].contains(_id)) &&
             data['notification'].contains(_id))
           OutlineButton(

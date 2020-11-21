@@ -13,21 +13,23 @@ class Teams {
   List player;
   List playerId;
   List notificationPlayers;
+  String status;
 
-  Teams({
-    this.teamId,
-    this.sport,
-    this.teamName,
-    this.captain,
-    this.manager,
-    this.image,
-    this.bio,
-    this.player,
-    this.playerId,
-    this.notificationPlayers,
-  });
+  Teams(
+      {this.teamId,
+      this.sport,
+      this.teamName,
+      this.captain,
+      this.manager,
+      this.image,
+      this.bio,
+      this.player,
+      this.playerId,
+      this.notificationPlayers,
+      this.status});
 
-  Teams.newTeam(String teamId, String sport, String teamName, String bio) {
+  Teams.newTeam(
+      String teamId, String sport, String teamName, String bio, String status) {
     final Friends myprofile = new Friends.newFriend(
         Constants.prefs.getString('userId'),
         Constants.prefs.getString('name'),
@@ -44,6 +46,7 @@ class Teams {
     this.player = [mapOfProfile];
     this.playerId = [myprofile.friendId];
     this.notificationPlayers = [];
+    this.status = status;
   }
   Map<String, dynamic> toJson() => {
         'teamId': this.teamId,
@@ -55,7 +58,8 @@ class Teams {
         'bio': this.bio,
         'players': this.player,
         'playerId': this.playerId,
-        'notificationPlayers': this.notificationPlayers
+        'notificationPlayers': this.notificationPlayers,
+        'status': this.status
       };
   factory Teams.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
@@ -69,7 +73,8 @@ class Teams {
         image: parsedJson['image'],
         player: parsedJson['players'],
         playerId: parsedJson['playerId'],
-        notificationPlayers: parsedJson['notificationPlayers']);
+        notificationPlayers: parsedJson['notificationPlayers'],
+        status: parsedJson['status']);
   }
 }
 

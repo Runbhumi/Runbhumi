@@ -20,13 +20,14 @@ class _GoogleOauthState extends State<GoogleOauth> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         RaisedButton(
+          color: Colors.white,
           onPressed: () async {
             setState(() => state = true);
             await signInWithGoogle().whenComplete(() {
               Navigator.pushReplacementNamed(context, "/mainapp");
             });
           },
-          elevation: 0,
+          elevation: 1,
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -4,7 +4,6 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/homePage/specific_sport.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +24,7 @@ class _HomeState extends State<Home> {
   Stream currentFeed;
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("firebase initialized");
-      setState(() {});
-    });
+
     _searchQuery = new TextEditingController();
     getUserInfoEvents();
   }
@@ -176,11 +172,6 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: Column(
                             children: [
                               Padding(
@@ -218,11 +209,6 @@ class _HomeState extends State<Home> {
                                           }
                                         })
                                   ],
-                                  // leading: Icon(
-                                  //   sportIcon,
-                                  //   size: 48,
-                                  //   color: theme.currentTheme.backgroundColor,
-                                  // ),
                                   leading: Image.asset(sportIcon),
                                   title: Text(
                                     data.eventName,
@@ -243,6 +229,16 @@ class _HomeState extends State<Home> {
                                               .currentTheme.backgroundColor,
                                         ),
                                       ),
+                                      Text(
+                                        DateFormat('E-dd/MM-')
+                                            .add_jm()
+                                            .format(data.dateTime)
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                                       Row(
                                         children: [
                                           Icon(
@@ -259,9 +255,6 @@ class _HomeState extends State<Home> {
                                       )
                                     ],
                                   ),
-                                  trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
-                                      .format(data.dateTime)
-                                      .toString()),
                                 ),
                               ),
                             ],
@@ -291,21 +284,6 @@ class _HomeState extends State<Home> {
         title:
             _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
         actions: _buildActions(),
-        /*bottom: new TabBar(
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey,
-            tabs: [
-              Tab(child: Text("Today")),
-              Tab(child: Text("Tommorow")),
-              Tab(child: Text("Later")),
-            ],
-            indicator: new BubbleTabIndicator(
-              indicatorHeight: 30.0,
-              indicatorColor: Theme.of(context).primaryColor,
-              tabBarIndicatorSize: TabBarIndicatorSize.tab,
-            ),
-          ),Removed for MVP*/
       ),
       body: NestedScrollView(
         headerSliverBuilder: homePageSliverAppBar,
@@ -339,11 +317,6 @@ class _HomeState extends State<Home> {
           Navigator.pushNamed(context, "/addpost");
         },
         child: Icon(Icons.add),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
@@ -363,15 +336,12 @@ class _HomeState extends State<Home> {
               textAlign: TextAlign.start,
             ),
           ),
-          // const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
               child: Row(
                 children: [
-                  // sportIcon = "assets/icons8-cricket-96.png";
-                  // sportIcon = "assets/icons8-soccer-ball-96.png";
                   SportsCategory(
                     theme: theme,
                     sport: "Basketball",
@@ -424,22 +394,12 @@ class SportsCategory extends StatelessWidget {
                 builder: (context) => SpecificSport(sportName: this.sport))),
       },
       child: Card(
-        shadowColor: Color(0x33393e46),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        elevation: 10,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                // child: Icon(
-                //   icon,
-                //   size: 52,
-                //   color: theme.currentTheme.backgroundColor,
-                // ),
                 child: Image.asset(icon, scale: 1.8),
               ),
               Padding(

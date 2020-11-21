@@ -255,8 +255,7 @@ class _EditProfileState extends State<EditProfile> {
                       'location': locationTextEditingController.text,
                     });
 
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Profile()));
+                    Navigator.pop(context);
                   },
                 ),
                 SizedBox(

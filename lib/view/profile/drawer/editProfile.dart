@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/profile/drawer/ImageCrop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -16,8 +15,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:image_cropper/image_cropper.dart';
 
 class EditProfile extends StatefulWidget {
-  final String filePath;
-  EditProfile({Key key, this.filePath}) : super(key: key);
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -39,10 +36,10 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("profile body loaded");
-      setState(() {});
-    });
+    // Firebase.initializeApp().whenComplete(() {
+    //   print("profile body loaded");
+    //   setState(() {});
+    // });
     sub = db
         .collection('users')
         .doc(Constants.prefs.getString('userId'))
@@ -88,8 +85,6 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "----------------------------${widget.filePath}---------------------------------------------------");
     if (_loading) {
       return Scaffold(
         appBar: AppBar(
@@ -129,6 +124,7 @@ class _EditProfileState extends State<EditProfile> {
                             // now only assets image
                             image: NetworkImage(
                                 Constants.prefs.getString('profileImage')),
+
                             fit: BoxFit.fill,
                           ),
                           boxShadow: [
@@ -241,23 +237,23 @@ class _EditProfileState extends State<EditProfile> {
                 Button(
                   myText: 'Save Profile',
                   myColor: Theme.of(context).primaryColor,
-                  onPressed: () {
+                  onPressed: () async {
                     Map<String, dynamic> phoneNumber = {
                       "ph": phoneNumberTextEditingController.text,
                       "show": _hiddenSwitch,
                     };
-                    FirebaseFirestore.instance
+                    await FirebaseFirestore.instance
                         .collection('users')
                         .doc(Constants.prefs.get('userId'))
                         .update({
-                      // 'profileImage': widget.filePath ??
-                      //     Constants.prefs.getString('profileImage'),
+                      'profileImage': Constants.prefs.getString('profileImage'),
                       'name': nameTextEditingController.text,
                       'bio': bioTextEditingController.text,
                       'age': ageTextEditingController.text,
                       'phoneNumber': phoneNumber,
                       'location': locationTextEditingController.text,
                     });
+
                     Navigator.pop(context);
                   },
                 ),

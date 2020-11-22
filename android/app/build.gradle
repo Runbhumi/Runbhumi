@@ -63,4 +63,8 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    // Declare the dependencies for the Dynamic Links and Analytics libraries
+    implementation 'com.google.firebase:firebase-dynamic-links'
 }

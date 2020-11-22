@@ -118,6 +118,16 @@ class _TeamInfoState extends State<TeamInfo> {
               ),
             ),
           ),
+          ListView.builder(
+              itemCount: data['players'].length(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return SingleFriendCard(
+                  imageLink: data['players']['profileImage'],
+                  name: data['players']['name'],
+                  userId: data['players']['userId'],
+                );
+              })
         ],
       );
     else

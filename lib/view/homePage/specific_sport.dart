@@ -86,89 +86,97 @@ class _SpecificSportState extends State<SpecificSport> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ExpansionTile(
-                                  maintainState: true,
-                                  onExpansionChanged: (expanded) {
-                                    if (expanded) {
-                                    } else {}
-                                  },
-                                  children: [
-                                    SmallButton(
-                                        myColor: !registrationCondition
-                                            ? Theme.of(context).primaryColor
-                                            : Theme.of(context).accentColor,
-                                        myText: !registrationCondition
-                                            ? "Join"
-                                            : "Already Registered",
-                                        onPressed: () {
-                                          if (!registrationCondition) {
-                                            registerUserToEvent(
-                                                data.eventId,
-                                                data.eventName,
-                                                data.sportName,
-                                                data.location,
-                                                data.dateTime);
-                                            print("User Registered");
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return successDialog(context);
-                                                });
-                                          } else {
-                                            print("Already Registered");
-                                          }
-                                        })
-                                  ],
-                                  leading: Image.asset(sportIcon),
-                                  title: Text(
-                                    data.eventName,
-                                    style: TextStyle(
-                                      color: theme.currentTheme.backgroundColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      dividerColor: Colors.transparent),
+                                  child: ExpansionTile(
+                                    tilePadding: EdgeInsets.all(0),
+                                    maintainState: true,
+                                    onExpansionChanged: (expanded) {
+                                      if (expanded) {
+                                      } else {}
+                                    },
                                     children: [
-                                      Text(
-                                        data.description,
-                                        style: TextStyle(
-                                          color: theme
-                                              .currentTheme.backgroundColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        DateFormat('E-dd/MM-')
-                                            .add_jm()
-                                            .format(data.dateTime)
-                                            .toString(),
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Feather.map_pin,
-                                            size: 16.0,
-                                          ),
-                                          Text(
-                                            data.location,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1,
-                                          ),
-                                        ],
-                                      )
+                                      SmallButton(
+                                          myColor: !registrationCondition
+                                              ? Theme.of(context).primaryColor
+                                              : Theme.of(context).accentColor,
+                                          myText: !registrationCondition
+                                              ? "Join"
+                                              : "Already Registered",
+                                          onPressed: () {
+                                            if (!registrationCondition) {
+                                              registerUserToEvent(
+                                                  data.eventId,
+                                                  data.eventName,
+                                                  data.sportName,
+                                                  data.location,
+                                                  data.dateTime);
+                                              print("User Registered");
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return successDialog(
+                                                        context);
+                                                  });
+                                            } else {
+                                              print("Already Registered");
+                                            }
+                                          })
                                     ],
+                                    leading: Image.asset(sportIcon),
+                                    title: Text(
+                                      data.eventName,
+                                      style: TextStyle(
+                                        color:
+                                            theme.currentTheme.backgroundColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data.description,
+                                          style: TextStyle(
+                                            color: theme
+                                                .currentTheme.backgroundColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          DateFormat('E-dd/MM-')
+                                              .add_jm()
+                                              .format(data.dateTime)
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Feather.map_pin,
+                                              size: 16.0,
+                                            ),
+                                            Text(
+                                              data.location,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    // trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
+                                    //     .format(data.dateTime)
+                                    //     .toString()),
                                   ),
-                                  // trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
-                                  //     .format(data.dateTime)
-                                  //     .toString()),
                                 ),
                               ),
                             ],

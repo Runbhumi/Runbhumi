@@ -17,8 +17,10 @@ class TeamService {
     var newDoc = _teamCollectionReference.doc();
     String id = newDoc.id;
     final Teams team = new Teams.newTeam(id, sport, teamName, bio, status);
+    final TeamView teamsView = new TeamView.newTeam(id, sport, teamName);
     // newDoc.set(Teams.newTeam(id, sport, teamName, bio).toJson());
     newDoc.set(team.toJson());
+    setManager("me", me.friendId, teamsView);
     return team;
   }
 

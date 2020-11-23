@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
+// addMeInTeam(String teamId) => can pe used in a public team to join directly as a player
+// removeMeFromTeam(String teamId) => every player has a right to leave team if  they want but not the manager
+
 class TeamInfo extends StatefulWidget {
   const TeamInfo({
     @required this.teamID,

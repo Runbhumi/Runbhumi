@@ -82,23 +82,26 @@ class TeamView {
   String teamId;
   String sport;
   String teamName;
-  String manager;
+  //String manager;
 
-  TeamView({this.teamId, this.sport, this.teamName, this.manager});
+  TeamView({this.teamId, this.sport, this.teamName}); //this.manager
 
   TeamView.newTeam(
-      String teamId, String sport, String teamName, String teamManager) {
+    String teamId,
+    String sport,
+    String teamName,
+  ) {
     this.teamId = teamId;
     this.sport = sport;
     this.teamName = teamName;
-    this.manager = teamManager;
+    // this.manager = teamManager; String teamManager
   }
   Map<String, dynamic> toJson() => {
         'teamId': this.teamId,
         'sport': this.sport,
         'teamName': this.teamName,
-        'manager': this.manager
       };
+  // 'manager': this.manager
 }
 
 // import 'package:cloud_firestore/cloud_firestore.dart';

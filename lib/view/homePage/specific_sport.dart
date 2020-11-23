@@ -206,7 +206,11 @@ class _SpecificSportState extends State<SpecificSport> {
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
               child: Text(
                 'Nearby you',
-                style: Theme.of(context).textTheme.headline6,
+                style: TextStyle(
+                  color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
                 textAlign: TextAlign.start,
               ),
             ),

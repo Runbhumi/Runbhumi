@@ -64,11 +64,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void _stopSearching() {
     _clearSearchQuery();
 
@@ -230,7 +225,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                       Text(
-                                        DateFormat('E-dd/MM-')
+                                        DateFormat('E-dd/MM\n')
                                             .add_jm()
                                             .format(data.dateTime)
                                             .toString(),
@@ -247,9 +242,12 @@ class _HomeState extends State<Home> {
                                           ),
                                           Text(
                                             data.location,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                              color: theme
+                                                  .currentTheme.backgroundColor,
+                                            ),
                                           ),
                                         ],
                                       )
@@ -275,6 +273,11 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
@@ -294,10 +297,14 @@ class _HomeState extends State<Home> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
                 child: Text(
                   'Nearby you',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: TextStyle(
+                    color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -332,7 +339,11 @@ class _HomeState extends State<Home> {
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Text(
               'Categories',
-              style: Theme.of(context).textTheme.headline6,
+              style: TextStyle(
+                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
               textAlign: TextAlign.start,
             ),
           ),
@@ -341,6 +352,7 @@ class _HomeState extends State<Home> {
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SportsCategory(
                     theme: theme,

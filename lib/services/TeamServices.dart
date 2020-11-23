@@ -11,7 +11,7 @@ class TeamService {
   final Friends me = new Friends.newFriend(
       Constants.prefs.getString('userId'),
       Constants.prefs.getString('name'),
-      Constants.prefs.getString('profilePage'));
+      Constants.prefs.getString('profileImage'));
   Teams createNewTeam(
       String sport, String teamName, String bio, String status) {
     var newDoc = _teamCollectionReference.doc();

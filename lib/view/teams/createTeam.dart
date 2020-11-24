@@ -34,7 +34,7 @@ class _CreateTeamState extends State<CreateTeam> {
   @override
   Widget build(BuildContext context) {
     //sports
-    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
+    // final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     var sportsList = DropdownButton(
       hint: Text("Sport"),
       value: _chosenSport,

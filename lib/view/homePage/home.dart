@@ -171,7 +171,8 @@ class _HomeState extends State<Home> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Theme(
                                   data: Theme.of(context).copyWith(
                                       dividerColor: Colors.transparent),
@@ -232,7 +233,7 @@ class _HomeState extends State<Home> {
                                           ),
                                         ),
                                         Text(
-                                          DateFormat('E-dd/MM\n')
+                                          DateFormat('MMM dd -')
                                               .add_jm()
                                               .format(data.dateTime)
                                               .toString(),

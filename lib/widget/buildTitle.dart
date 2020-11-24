@@ -7,7 +7,7 @@ Widget buildTitle(BuildContext context, String text) {
       text,
       style: TextStyle(
         fontWeight: FontWeight.w700,
-        fontSize: 25,
+        fontSize: 24,
         color: Theme.of(context).backgroundColor.withOpacity(0.85),
       ),
     ),

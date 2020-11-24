@@ -34,15 +34,31 @@ class _AddPostState extends State<AddPost> {
       value: _chosenSport,
       items: [
         DropdownMenuItem(
-          child: Text("Basketball"),
+          child: Text(
+            "Basketball",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
           value: "Basketball",
         ),
         DropdownMenuItem(
-          child: Text("Football"),
+          child: Text(
+            "Football",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
           value: "Football",
         ),
-        DropdownMenuItem(child: Text("Volleyball"), value: "Volleyball"),
-        DropdownMenuItem(child: Text("Cricket"), value: "Cricket")
+        DropdownMenuItem(
+            child: Text(
+              "Volleyball",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+            value: "Volleyball"),
+        DropdownMenuItem(
+            child: Text(
+              "Cricket",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+            value: "Cricket")
       ],
       onChanged: (value) {
         setState(
@@ -61,19 +77,15 @@ class _AddPostState extends State<AddPost> {
       items: [
         DropdownMenuItem(
           child: Text(
-            "Want to join a team",
+            "Looking for an opponents",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
           ),
-          value: "Want to join a team",
-        ),
-        DropdownMenuItem(
-          child: Text(
-            "Looking for an opponent",
-          ),
-          value: "Looking for an opponent",
+          value: "Looking for an opponents",
         ),
         DropdownMenuItem(
           child: Text(
             "Looking for players to join our team",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
           ),
           value: "Looking for players to join our team",
         ),

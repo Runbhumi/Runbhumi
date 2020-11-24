@@ -212,4 +212,33 @@ class NotificationServices {
       'notificationPlayers': FieldValue.arrayUnion([_id])
     });
   }
+
+  challengeTeamNotification(TeamChallengeNotification teamViewOpponent,
+      TeamChallengeNotification teamViewMe) async {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(teamViewOpponent.manager)
+        .collection('notification');
+
+    var doc = db.doc();
+    String id = doc.id;
+    final ChallengeNotification challenge =
+        new ChallengeNotification.createNewRequest(
+            id, teamViewOpponent, teamViewMe);
+
+    doc.set(challenge.toJson());
+  }
+
+  acceptChallengeTeamNotification() {
+    // here a chatroom logic can be written
+  }
+
+  declineChallengeTeamNotification(String id) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(Constants.prefs.getString('userId'))
+        .collection('notification')
+        .doc(id)
+        .delete();
+  }
 }

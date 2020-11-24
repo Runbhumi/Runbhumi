@@ -4,6 +4,7 @@ class InputBox extends StatelessWidget {
   final String initialValue;
   final bool enabled;
   final String hintText;
+  final String labelText;
   final TextInputType textInputType;
   final TextEditingController controller;
   final TextInputAction textInputAction;
@@ -21,6 +22,7 @@ class InputBox extends StatelessWidget {
     this.initialValue,
     this.enabled,
     this.hintText,
+    this.labelText,
     this.textInputType,
     this.controller,
     this.textInputAction,
@@ -64,7 +66,7 @@ class InputBox extends StatelessWidget {
           },
           decoration: InputDecoration(
             hintText: hintText,
-            labelText: hintText,
+            labelText: labelText ?? hintText,
             prefixIcon: icon,
             suffixIcon: sufIcon,
             helperText: helpertext,

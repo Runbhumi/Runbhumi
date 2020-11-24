@@ -329,10 +329,27 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        // child: Container(
+        //   width: 60,
+        //   height: 60,
+        //   child: Icon(
+        //     Feather.plus,
+        //     size: 40,
+        //   ),
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.all(Radius.circular(20)),
+        //       // shape: BoxShape.circle,
+        //       gradient: LinearGradient(
+        //         begin: Alignment.topLeft,
+        //         colors: [Color(0xff00d2ff), Color(0xff0052ff)])),
+        // ),
         onPressed: () {
           Navigator.pushNamed(context, "/addpost");
         },
-        child: Icon(Icons.add),
+        child: Icon(
+          Feather.plus,
+          size: 32,
+        ),
       ),
     );
   }

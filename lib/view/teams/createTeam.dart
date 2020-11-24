@@ -11,11 +11,11 @@ closed(lowercase)- is when the team is not accepting invites or any new player
 
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
+// import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import '../Chats/inviteFriends.dart';
 
 class CreateTeam extends StatefulWidget {

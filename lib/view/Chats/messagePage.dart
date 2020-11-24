@@ -192,80 +192,83 @@ class _DirectChatsState extends State<DirectChats> {
       stream: userDirectChats,
       builder: (context, asyncSnapshot) {
         print("Working");
-        return asyncSnapshot.hasData
-            ? asyncSnapshot.data.documents.length > 0
-                ? ListView.builder(
-                    itemCount: asyncSnapshot.data.documents.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: ListTile(
-                              onTap: () {
-                                //Sending the user to the chat room
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Conversation(
-                                        chatRoomId: asyncSnapshot
-                                            .data.documents[index]
-                                            .get('chatRoomId'),
-                                        usersNames: asyncSnapshot
-                                            .data.documents[index]
-                                            .get('usersNames'),
-                                        users: asyncSnapshot
-                                            .data.documents[index]
-                                            .get('users'),
-                                        usersPics: asyncSnapshot
-                                            .data.documents[index]
-                                            .get('usersPics')),
-                                  ),
-                                );
-                              },
-                              title: Constants.prefs.getString('name') ==
-                                      asyncSnapshot.data.documents[index]
-                                          .get('usersNames')[0]
-                                  ? Text(
-                                      asyncSnapshot.data.documents[index]
-                                          .get('usersNames')[1],
-                                      style: TextStyle(fontSize: 20),
-                                    )
-                                  : Text(
-                                      asyncSnapshot.data.documents[index]
-                                          .get('usersNames')[0],
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(20.0),
-                                child: Image(
-                                  image: NetworkImage(
-                                    Constants.prefs.getString('profileImage') ==
-                                            asyncSnapshot.data.documents[index]
-                                                .get('usersPics')[0]
-                                        ? asyncSnapshot.data.documents[index]
-                                            .get('usersPics')[1]
-                                        : asyncSnapshot.data.documents[index]
-                                            .get('usersPics')[0],
-                                  ),
-                                ),
+        if (asyncSnapshot.hasData) {
+          if (asyncSnapshot.data.documents.length > 0) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ListView.builder(
+                itemCount: asyncSnapshot.data.documents.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0),
+                        onTap: () {
+                          //Sending the user to the chat room
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Conversation(
+                                  chatRoomId: asyncSnapshot
+                                      .data.documents[index]
+                                      .get('chatRoomId'),
+                                  usersNames: asyncSnapshot
+                                      .data.documents[index]
+                                      .get('usersNames'),
+                                  users: asyncSnapshot.data.documents[index]
+                                      .get('users'),
+                                  usersPics: asyncSnapshot.data.documents[index]
+                                      .get('usersPics')),
+                            ),
+                          );
+                        },
+                        title: Constants.prefs.getString('name') ==
+                                asyncSnapshot.data.documents[index]
+                                    .get('usersNames')[0]
+                            ? Text(
+                                asyncSnapshot.data.documents[index]
+                                    .get('usersNames')[1],
+                                style: TextStyle(fontSize: 18),
+                              )
+                            : Text(
+                                asyncSnapshot.data.documents[index]
+                                    .get('usersNames')[0],
+                                style: TextStyle(fontSize: 18),
                               ),
-                              // trailing: Icon(Icons.send),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image(
+                            width: 48,
+                            height: 48,
+                            image: NetworkImage(
+                              Constants.prefs.getString('profileImage') ==
+                                      asyncSnapshot.data.documents[index]
+                                          .get('usersPics')[0]
+                                  ? asyncSnapshot.data.documents[index]
+                                      .get('usersPics')[1]
+                                  : asyncSnapshot.data.documents[index]
+                                      .get('usersPics')[0],
                             ),
                           ),
                         ),
-                      );
-                    },
-                  )
-                : //if you have no friends you will get this illustration
-                Container(
-                    child: Center(
-                      child: Image.asset("assets/add-friends.png"),
+                      ),
                     ),
-                  )
-            : Loader();
+                  );
+                },
+              ),
+            );
+          } else {
+            return Container(
+              child: Center(
+                child: Image.asset("assets/add-friends.png"),
+              ),
+            );
+          }
+        } else {
+          return Loader();
+        }
       },
     );
   }

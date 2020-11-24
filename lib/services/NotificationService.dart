@@ -229,16 +229,17 @@ class NotificationServices {
     doc.set(challenge.toJson());
   }
 
-  acceptChallengeTeamNotification() {
+  acceptChallengeTeamNotification(String notificationId) {
     // here a chatroom logic can be written
+    declineChallengeTeamNotification(notificationId);
   }
 
-  declineChallengeTeamNotification(String id) async {
+  declineChallengeTeamNotification(String notificationId) async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(Constants.prefs.getString('userId'))
+        .doc(_id)
         .collection('notification')
-        .doc(id)
+        .doc(notificationId)
         .delete();
   }
 }

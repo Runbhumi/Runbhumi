@@ -128,3 +128,21 @@ class TeamView {
 //         teamName = snapshot.data()['teamName'],
 //         teamId = snapshot.data()['teamId'];
 // }
+
+class TeamChallengeNotification {
+  String teamId;
+  String manager;
+  String teamName;
+  TeamChallengeNotification({this.teamId, this.manager, this.teamName});
+
+  TeamChallengeNotification.newTeam(
+    String teamId,
+    String sport,
+    String teamName,
+  ) {
+    this.teamId = teamId;
+    this.manager = manager;
+    this.teamName = teamName;
+    // this.manager = teamManager; String teamManager
+  }
+}

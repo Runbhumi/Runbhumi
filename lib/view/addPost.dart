@@ -69,35 +69,6 @@ class _AddPostState extends State<AddPost> {
         );
       },
     );
-    //purposes
-    var purposeList = DropdownButton(
-      // style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-      hint: Text("Purpose"),
-      value: _chosenPurpose,
-      items: [
-        DropdownMenuItem(
-          child: Text(
-            "Looking for an opponents",
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-          ),
-          value: "Looking for an opponents",
-        ),
-        DropdownMenuItem(
-          child: Text(
-            "Looking for players to join our team",
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-          ),
-          value: "Looking for players to join our team",
-        ),
-      ],
-      onChanged: (value) {
-        setState(
-          () {
-            _chosenPurpose = value;
-          },
-        );
-      },
-    );
 
     var slider = Slider(
       value: _maxMembers,
@@ -154,12 +125,10 @@ class _AddPostState extends State<AddPost> {
             nameController: _nameController,
             theme: theme,
             sportsList: sportsList,
-            purposeList: purposeList,
             datetime: _datetime,
             locationController: _locationController,
             slider: slider,
             chosenSport: _chosenSport,
-            chosenPurpose: _chosenPurpose,
             maxMembers: _maxMembers,
             status: _status,
             type: _type,
@@ -206,7 +175,6 @@ class Page1 extends StatefulWidget {
     @required TextEditingController nameController,
     @required this.theme,
     @required this.sportsList,
-    @required this.purposeList,
     @required TextEditingController datetime,
     @required TextEditingController locationController,
     @required this.slider,
@@ -215,7 +183,6 @@ class Page1 extends StatefulWidget {
     @required this.teamRadio,
     @required this.individualRadio,
     @required String chosenSport,
-    @required String chosenPurpose,
     @required double maxMembers,
     @required String status,
     @required String type,
@@ -224,7 +191,6 @@ class Page1 extends StatefulWidget {
         _datetime = datetime,
         _locationController = locationController,
         _chosenSport = chosenSport,
-        _chosenPurpose = chosenPurpose,
         _maxMembers = maxMembers,
         _status = status,
         _type = type,
@@ -234,7 +200,6 @@ class Page1 extends StatefulWidget {
   final TextEditingController _nameController;
   final ThemeNotifier theme;
   final DropdownButton<String> sportsList;
-  final DropdownButton<String> purposeList;
   final TextEditingController _datetime;
   final TextEditingController _locationController;
   final Slider slider;
@@ -243,7 +208,6 @@ class Page1 extends StatefulWidget {
   final RadioListTile teamRadio;
   final RadioListTile individualRadio;
   final String _chosenSport;
-  final String _chosenPurpose;
   final double _maxMembers;
   final String _status;
   final String _type;
@@ -256,123 +220,126 @@ class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Center(
-        child: Form(
-          key: widget._addpostkey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            children: [
-              InputBox(
-                controller: widget._nameController,
-                hintText: "Event name",
-                validateFunction: Validations.validateNonEmpty,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).inputDecorationTheme.fillColor,
-                    border: Border.all(color: Color(0x00000000)),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: widget.sportsList,
-                  ),
+      child: Form(
+        key: widget._addpostkey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          children: [
+            InputBox(
+              controller: widget._nameController,
+              hintText: "Event name",
+              validateFunction: Validations.validateNonEmpty,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                  border: Border.all(color: Color(0x00000000)),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: widget.sportsList,
                 ),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DateTimePicker(
+                controller: widget._datetime,
+              ),
+            ),
+            InputBox(
+              controller: widget._locationController,
+              hintText: "Location",
+              validateFunction: Validations.validateNonEmpty,
+            ),
+            //max member slider
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.circular(50),
-                    color: Theme.of(context).inputDecorationTheme.fillColor,
-                    border: Border.all(color: Color(0x00000000)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+                child: Text(
+                  'Select max members',
+                  style: TextStyle(
+                    color: Theme.of(context).backgroundColor.withOpacity(0.35),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
                   ),
-                  child: DropdownButtonHideUnderline(
-                    child: widget.purposeList,
-                  ),
+                  textAlign: TextAlign.start,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DateTimePicker(
-                  controller: widget._datetime,
-                ),
-              ),
-              InputBox(
-                controller: widget._locationController,
-                hintText: "Location",
-                validateFunction: Validations.validateNonEmpty,
-              ),
-              //max member slider
-              Divider(
-                thickness: 2,
-              ),
-              Text(
-                "Select max members",
-                style: TextStyle(fontWeight: FontWeight.w600),
               ),
               widget.slider,
-              Divider(
-                thickness: 2,
-              ),
-              Text(
-                "Select status",
-                style: TextStyle(fontWeight: FontWeight.w600),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+                child: Text(
+                  'Status',
+                  style: TextStyle(
+                    color: Theme.of(context).backgroundColor.withOpacity(0.35),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
               ),
               widget.publicRadio,
               widget.privateRadio,
-              Divider(
-                thickness: 2,
-              ),
-              Text(
-                "Select type",
-                style: TextStyle(fontWeight: FontWeight.w600),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+                child: Text(
+                  'Who should join your Event',
+                  style: TextStyle(
+                    color: Theme.of(context).backgroundColor.withOpacity(0.35),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
               ),
               widget.teamRadio,
               widget.individualRadio,
+            ]),
 
-              Button(
-                myText: "Add Post",
-                myColor: Theme.of(context).primaryColor,
-                onPressed: () {
-                  // this funtion writes in the DB and adds an
-                  // event when manually testing anything,
-                  // just comment this function
-                  createNewEvent(
-                    widget._nameController.text,
-                    userId,
-                    widget._locationController.text,
-                    widget._chosenSport,
-                    widget._chosenPurpose,
-                    [userId],
-                    DateTime.parse(widget._datetime.text),
-                    widget._maxMembers.toInt(),
-                    widget._type,
-                    widget._status,
-                  );
-                  // to show success dialog
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      //wait for 3 sec
-                      Future.delayed(Duration(seconds: 3), () {
-                        Navigator.pushNamed(context, "/mainapp");
-                      });
-                      return successDialog(context);
-                    },
-                  );
-                },
-              ),
-              SizedBox(
-                height: 16,
-              ),
-            ],
-          ),
+            Button(
+              myText: "Add Post",
+              myColor: Theme.of(context).primaryColor,
+              onPressed: () {
+                // this funtion writes in the DB and adds an
+                // event when manually testing anything,
+                // just comment this function
+                createNewEvent(
+                  widget._nameController.text,
+                  userId,
+                  widget._locationController.text,
+                  widget._chosenSport,
+                  "Remove purposes from backend",
+                  [userId],
+                  DateTime.parse(widget._datetime.text),
+                  widget._maxMembers.toInt(),
+                  widget._type,
+                  widget._status,
+                );
+                // to show success dialog
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    //wait for 3 sec
+                    Future.delayed(Duration(seconds: 3), () {
+                      Navigator.pushNamed(context, "/mainapp");
+                    });
+                    return successDialog(context);
+                  },
+                );
+              },
+            ),
+            SizedBox(
+              height: 72,
+            ),
+          ],
         ),
       ),
     );

@@ -11,14 +11,16 @@ class TeamService {
   final Friends me = new Friends.newFriend(
       Constants.prefs.getString('userId'),
       Constants.prefs.getString('name'),
-      Constants.prefs.getString('profilePage'));
+      Constants.prefs.getString('profileImage'));
   Teams createNewTeam(
       String sport, String teamName, String bio, String status) {
     var newDoc = _teamCollectionReference.doc();
     String id = newDoc.id;
     final Teams team = new Teams.newTeam(id, sport, teamName, bio, status);
+    final TeamView teamsView = new TeamView.newTeam(id, sport, teamName);
     // newDoc.set(Teams.newTeam(id, sport, teamName, bio).toJson());
     newDoc.set(team.toJson());
+    setManager("me", me.friendId, teamsView);
     return team;
   }
 
@@ -59,6 +61,13 @@ class TeamService {
     await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
       'playerId': FieldValue.arrayUnion([me.friendId]),
       'player': FieldValue.arrayUnion([me.toJson()]),
+    });
+  }
+
+  removeMeFromTeam(String teamId) async {
+    await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
+      'playerId': FieldValue.arrayRemove([me.friendId]),
+      'player': FieldValue.arrayRemove([me.toJson()]),
     });
   }
 }

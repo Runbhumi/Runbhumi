@@ -43,11 +43,12 @@ class MyApp extends StatelessWidget {
       home: ConnectivityWidget(
           showOfflineBanner: false,
           offlineCallback: () {
-            print("offline");
+            print("-----------------we Are f^*KiNg offline----------------");
           },
           builder: (context, isOnline) {
             return isOnline ? Splash() : ShowOffline();
           }),
+      // home: Splash(),
       // debug tag which comes on top left corner
       debugShowCheckedModeBanner: true,
     );

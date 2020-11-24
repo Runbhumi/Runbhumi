@@ -11,11 +11,11 @@ closed(lowercase)- is when the team is not accepting invites or any new player
 
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
+// import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import '../Chats/inviteFriends.dart';
 
 class CreateTeam extends StatefulWidget {
@@ -30,11 +30,11 @@ class _CreateTeamState extends State<CreateTeam> {
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _descController = new TextEditingController();
   TextEditingController _teamLocationController = new TextEditingController();
-  int _radioValue = 0;
+  String _type = "open";
   @override
   Widget build(BuildContext context) {
     //sports
-    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
+    // final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     var sportsList = DropdownButton(
       hint: Text("Sport"),
       value: _chosenSport,
@@ -88,7 +88,8 @@ class _CreateTeamState extends State<CreateTeam> {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
                           borderRadius: new BorderRadius.circular(50),
-                          color: theme.currentTheme.primaryColorLight,
+                          color:
+                              Theme.of(context).inputDecorationTheme.fillColor,
                           border: Border.all(color: Color(0x00000000)),
                         ),
                         child: DropdownButtonHideUnderline(
@@ -110,14 +111,17 @@ class _CreateTeamState extends State<CreateTeam> {
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: Card(
                         child: ListTile(
-                          selectedTileColor: Colors.grey[200],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
                           title: Text(
                             'Open',
+                            style: TextStyle(fontWeight: FontWeight.w700),
                           ),
-                          selected: _radioValue == 0 ? true : false,
+                          selected: _type == "open" ? true : false,
                           onTap: () {
                             setState(() {
-                              _radioValue = 0;
+                              _type = "open";
                             });
                           },
                         ),
@@ -127,14 +131,17 @@ class _CreateTeamState extends State<CreateTeam> {
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: Card(
                         child: ListTile(
-                          selectedTileColor: Colors.grey[200],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
                           title: Text(
                             'Invite only',
+                            style: TextStyle(fontWeight: FontWeight.w700),
                           ),
-                          selected: _radioValue == 1 ? true : false,
+                          selected: _type == "private" ? true : false,
                           onTap: () {
                             setState(() {
-                              _radioValue = 1;
+                              _type = "private";
                             });
                           },
                         ),
@@ -144,14 +151,17 @@ class _CreateTeamState extends State<CreateTeam> {
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: Card(
                         child: ListTile(
-                          selectedTileColor: Colors.grey[200],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
                           title: Text(
                             'Closed',
+                            style: TextStyle(fontWeight: FontWeight.w700),
                           ),
-                          selected: _radioValue == 2 ? true : false,
+                          selected: _type == "closed" ? true : false,
                           onTap: () {
                             setState(() {
-                              _radioValue = 2;
+                              _type = "closed";
                             });
                           },
                         ),
@@ -188,6 +198,9 @@ class _CreateTeamState extends State<CreateTeam> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 72,
+              )
             ],
           ),
         ),

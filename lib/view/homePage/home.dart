@@ -3,6 +3,7 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/homePage/specific_sport.dart';
 import 'package:Runbhumi/widget/widgets.dart';
+// import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
@@ -62,11 +63,6 @@ class _HomeState extends State<Home> {
     setState(() {
       _isSearching = true;
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   void _stopSearching() {
@@ -175,85 +171,96 @@ class _HomeState extends State<Home> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ExpansionTile(
-                                  maintainState: true,
-                                  onExpansionChanged: (expanded) {
-                                    if (expanded) {
-                                    } else {}
-                                  },
-                                  children: [
-                                    SmallButton(
-                                        myColor: !registrationCondition
-                                            ? Theme.of(context).primaryColor
-                                            : Theme.of(context).accentColor,
-                                        myText: !registrationCondition
-                                            ? "Join"
-                                            : "Already Registered",
-                                        onPressed: () {
-                                          if (!registrationCondition) {
-                                            registerUserToEvent(
-                                                data.eventId,
-                                                data.eventName,
-                                                data.sportName,
-                                                data.location,
-                                                data.dateTime);
-                                            print("User Registered");
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return successDialog(context);
-                                                });
-                                          } else {
-                                            print("Already Registered");
-                                          }
-                                        })
-                                  ],
-                                  leading: Image.asset(sportIcon),
-                                  title: Text(
-                                    data.eventName,
-                                    style: TextStyle(
-                                      color: theme.currentTheme.backgroundColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      dividerColor: Colors.transparent),
+                                  child: ExpansionTile(
+                                    tilePadding: EdgeInsets.all(0),
+                                    maintainState: true,
+                                    onExpansionChanged: (expanded) {
+                                      if (expanded) {
+                                      } else {}
+                                    },
                                     children: [
-                                      Text(
-                                        data.description,
-                                        style: TextStyle(
-                                          color: theme
-                                              .currentTheme.backgroundColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        DateFormat('E-dd/MM-')
-                                            .add_jm()
-                                            .format(data.dateTime)
-                                            .toString(),
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Feather.map_pin,
-                                            size: 16.0,
-                                          ),
-                                          Text(
-                                            data.location,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1,
-                                          ),
-                                        ],
-                                      )
+                                      SmallButton(
+                                          myColor: !registrationCondition
+                                              ? Theme.of(context).primaryColor
+                                              : Theme.of(context).accentColor,
+                                          myText: !registrationCondition
+                                              ? "Join"
+                                              : "Already Registered",
+                                          onPressed: () {
+                                            if (!registrationCondition) {
+                                              registerUserToEvent(
+                                                  data.eventId,
+                                                  data.eventName,
+                                                  data.sportName,
+                                                  data.location,
+                                                  data.dateTime);
+                                              print("User Registered");
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return successDialog(
+                                                        context);
+                                                  });
+                                            } else {
+                                              print("Already Registered");
+                                            }
+                                          })
                                     ],
+                                    leading: Image.asset(sportIcon),
+                                    title: Text(
+                                      data.eventName,
+                                      style: TextStyle(
+                                        color:
+                                            theme.currentTheme.backgroundColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data.description,
+                                          style: TextStyle(
+                                            color: theme
+                                                .currentTheme.backgroundColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          DateFormat('MMM dd -')
+                                              .add_jm()
+                                              .format(data.dateTime)
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Feather.map_pin,
+                                              size: 16.0,
+                                            ),
+                                            Text(
+                                              data.location,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                color: theme.currentTheme
+                                                    .backgroundColor,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -272,6 +279,11 @@ class _HomeState extends State<Home> {
             : Loader();
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -294,10 +306,14 @@ class _HomeState extends State<Home> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
                 child: Text(
                   'Nearby you',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: TextStyle(
+                    color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -313,10 +329,27 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        // child: Container(
+        //   width: 60,
+        //   height: 60,
+        //   child: Icon(
+        //     Feather.plus,
+        //     size: 40,
+        //   ),
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.all(Radius.circular(20)),
+        //       // shape: BoxShape.circle,
+        //       gradient: LinearGradient(
+        //         begin: Alignment.topLeft,
+        //         colors: [Color(0xff00d2ff), Color(0xff0052ff)])),
+        // ),
         onPressed: () {
           Navigator.pushNamed(context, "/addpost");
         },
-        child: Icon(Icons.add),
+        child: Icon(
+          Feather.plus,
+          size: 32,
+        ),
       ),
     );
   }
@@ -332,7 +365,11 @@ class _HomeState extends State<Home> {
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Text(
               'Categories',
-              style: Theme.of(context).textTheme.headline6,
+              style: TextStyle(
+                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
               textAlign: TextAlign.start,
             ),
           ),
@@ -341,6 +378,7 @@ class _HomeState extends State<Home> {
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SportsCategory(
                     theme: theme,

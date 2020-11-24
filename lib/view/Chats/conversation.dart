@@ -36,9 +36,9 @@ class _ConversationState extends State<Conversation> {
           widget.chatRoomId);
       setState(() {
         messageEditingController.text = "";
+        _controller.jumpTo(_controller.position.minScrollExtent);
       });
     }
-    _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
   Widget chatMessages() {
@@ -81,7 +81,7 @@ class _ConversationState extends State<Conversation> {
     });
     super.initState();
     Future.delayed(Duration(milliseconds: 400), () {
-      _controller.jumpTo(_controller.position.maxScrollExtent);
+      _controller.jumpTo(_controller.position.minScrollExtent);
     });
   }
 
@@ -96,19 +96,32 @@ class _ConversationState extends State<Conversation> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(
-                    height: 40,
-                    image: NetworkImage(
-                      Constants.prefs.getString('name') == widget.usersNames[0]
-                          ? widget.usersPics[0]
-                          : widget.usersPics[1],
-                    )),
+                  height: 32,
+                  image: NetworkImage(
+                    Constants.prefs.getString('name') == widget.usersNames[0]
+                        ? widget.usersPics[0]
+                        : widget.usersPics[1],
+                  ),
+                ),
               ),
               SizedBox(
                 width: 8,
               ),
               Constants.prefs.getString('name') == widget.usersNames[0]
-                  ? Text(widget.usersNames[1])
-                  : Text(widget.usersNames[0]),
+                  ? Text(
+                      widget.usersNames[1],
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  : Text(
+                      widget.usersNames[0],
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
             ],
           ),
         ),
@@ -116,13 +129,15 @@ class _ConversationState extends State<Conversation> {
           GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatSchedule(
-                          chatRoomId: widget.chatRoomId,
-                          usersNames: widget.usersNames,
-                          users: widget.users,
-                          usersPics: widget.usersPics)));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatSchedule(
+                      chatRoomId: widget.chatRoomId,
+                      usersNames: widget.usersNames,
+                      users: widget.users,
+                      usersPics: widget.usersPics),
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -156,12 +171,13 @@ class _ConversationState extends State<Conversation> {
                         },
                         controller: messageEditingController,
                         decoration: InputDecoration(
-                            hintText: "Message ...",
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                            border: InputBorder.none),
+                          hintText: "Message ...",
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -219,7 +235,7 @@ class MessageTile extends StatelessWidget {
       //alignment of the message tile
       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: sendByMe
               ? BorderRadius.only(
@@ -248,13 +264,13 @@ class MessageTile extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(
                       DateFormat().add_jm().format(dateTime).toString(),
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
+                        color: Colors.white70,
+                        fontSize: 10,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -266,13 +282,13 @@ class MessageTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(
                       DateFormat().add_jm().format(dateTime).toString(),
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
+                        color: Colors.white70,
+                        fontSize: 10,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

@@ -194,7 +194,10 @@ class _TeamsListState extends State<TeamsList> {
         onPressed: () {
           Navigator.pushNamed(context, "/createteam");
         },
-        child: Icon(Feather.user_plus),
+        child: Icon(
+          Feather.user_plus,
+          size: 32,
+        ),
       ),
     );
   }

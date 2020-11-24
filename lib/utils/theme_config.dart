@@ -59,7 +59,7 @@ class ThemeNotifier extends ChangeNotifier {
       primaryColorBrightness: Brightness.light,
       backgroundColor: Color(0xff393E46),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        elevation: 200,
+        elevation: 0,
         backgroundColor: Color(0xff2dadc2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -67,17 +67,18 @@ class ThemeNotifier extends ChangeNotifier {
         foregroundColor: Colors.white,
       ),
     ),
+    //dark theme
     ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       cardTheme: CardTheme(
-        shadowColor: Color(0xff2dadc2),
+        shadowColor: Color(0xaa333333),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        elevation: 20,
+        elevation: 10,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        elevation: 200,
+        elevation: 4,
         backgroundColor: Color(0xff2dadc2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -85,7 +86,7 @@ class ThemeNotifier extends ChangeNotifier {
         foregroundColor: Colors.white,
       ),
       appBarTheme: AppBarTheme(
-        color: Color((0xff121212)),
+        color: Color(0xff121212),
         elevation: 0,
         brightness: Brightness.dark,
         centerTitle: true,
@@ -113,15 +114,14 @@ class ThemeNotifier extends ChangeNotifier {
           borderSide: BorderSide(color: Color(00000000)),
         ),
       ),
-      primaryColor: Color(0xff00adb5),
-      // primaryColor: Color(0xff00d2ff),
-      primaryColorLight: Color(0xffc2fcff),
-      primaryColorDark: Color(0xff004E52),
-      accentColor: Color(0xffEA526F),
-      buttonColor: Color(0xffEA526F),
+      primaryColor: Color(0xff2dadc2),
+      primaryColorLight: Color(0xff00d2ff),
+      primaryColorDark: Color(0xff0052ff),
+      accentColor: Color(0xff00d2ff),
+      buttonColor: Color(0xff00d2ff),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black45,
-        elevation: 10,
+        elevation: 0,
         selectedItemColor: Color(0xff00adb5),
       ),
       fontFamily: 'Montserrat',
@@ -130,8 +130,8 @@ class ThemeNotifier extends ChangeNotifier {
     ),
   ];
 
-  MyTheme _current = MyTheme.Light;
-  ThemeData _currentTheme = themes[0];
+  MyTheme _current = MyTheme.Dark;
+  ThemeData _currentTheme = themes[1];
 
   set currentTheme(theme) {
     if (theme != null) {

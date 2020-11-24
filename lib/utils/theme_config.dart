@@ -57,6 +57,7 @@ class ThemeNotifier extends ChangeNotifier {
       primaryColorBrightness: Brightness.light,
       backgroundColor: Color(0xff393E46),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
+        elevation: 2,
         backgroundColor: Color(0xffEA526F),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -74,6 +75,7 @@ class ThemeNotifier extends ChangeNotifier {
         elevation: 20,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
+        elevation: 2,
         backgroundColor: Color(0xffEA526F),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -125,8 +127,8 @@ class ThemeNotifier extends ChangeNotifier {
     ),
   ];
 
-  MyTheme _current = MyTheme.Dark;
-  ThemeData _currentTheme = themes[1];
+  MyTheme _current = MyTheme.Light;
+  ThemeData _currentTheme = themes[0];
 
   set currentTheme(theme) {
     if (theme != null) {

@@ -36,7 +36,7 @@ class _SplashState extends State<Splash> {
     startTimeout();
     super.initState();
     Firebase.initializeApp().whenComplete(() {
-      print("completed");
+      print("firbase initialized in splash screen");
       setState(() {});
       startTimeout();
     });

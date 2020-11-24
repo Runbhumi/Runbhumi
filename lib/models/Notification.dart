@@ -56,6 +56,7 @@
 
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Runbhumi/models/models.dart';
 
 class NotificationClass {
   String senderId;
@@ -128,4 +129,58 @@ class TeamNotification {
         'teamSport': this.teamSport,
         'type': this.type
       };
+}
+
+class ChallengeNotification {
+  String notificationId;
+  String senderId;
+  String senderName;
+  String sport;
+  String opponentTeamName;
+  String myTeamName;
+  String type;
+
+  ChallengeNotification.createNewRequest(
+      String notificationId,
+      TeamChallengeNotification myteam,
+      TeamChallengeNotification opponentTeam) {
+    this.notificationId = notificationId;
+    this.senderId = Constants.prefs.getString('userId');
+    this.senderName = Constants.prefs.getString('name');
+    this.sport = sport;
+    this.myTeamName = myteam.teamName;
+    this.opponentTeamName = opponentTeam.teamName;
+    this.type = "challenge";
+  }
+
+  Map<String, dynamic> toJson() => {
+        'notificationId': this.notificationId,
+        'senderId': this.senderId,
+        'name': this.senderName,
+        'sport': this.sport,
+        'myTeam': this.opponentTeamName,
+        'opponentTeam': this.myTeamName,
+        'type': type
+      };
+
+  ChallengeNotification(
+      {this.notificationId,
+      this.senderId,
+      this.senderName,
+      this.sport,
+      this.myTeamName,
+      this.opponentTeamName,
+      this.type});
+
+  factory ChallengeNotification.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    return ChallengeNotification(
+        notificationId: parsedJson['notificationId'],
+        senderId: parsedJson['senderId'],
+        senderName: parsedJson['name'],
+        sport: parsedJson['sport'],
+        myTeamName: parsedJson['myTeam'],
+        opponentTeamName: parsedJson['opponentTeam'],
+        type: parsedJson['type']);
+  }
 }

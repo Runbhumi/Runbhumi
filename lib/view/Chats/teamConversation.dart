@@ -27,9 +27,9 @@ class _TeamConversationState extends State<TeamConversation> {
           widget.data.teamId);
       setState(() {
         messageEditingController.text = "";
+        _controller.jumpTo(_controller.position.minScrollExtent);
       });
     }
-    _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
   Widget chatMessages() {
@@ -72,7 +72,7 @@ class _TeamConversationState extends State<TeamConversation> {
     });
     super.initState();
     Future.delayed(Duration(milliseconds: 400), () {
-      _controller.jumpTo(_controller.position.maxScrollExtent);
+      _controller.jumpTo(_controller.position.minScrollExtent);
     });
   }
 

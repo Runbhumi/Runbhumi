@@ -36,9 +36,9 @@ class _ConversationState extends State<Conversation> {
           widget.chatRoomId);
       setState(() {
         messageEditingController.text = "";
+        _controller.jumpTo(_controller.position.minScrollExtent);
       });
     }
-    _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
   Widget chatMessages() {
@@ -81,7 +81,7 @@ class _ConversationState extends State<Conversation> {
     });
     super.initState();
     Future.delayed(Duration(milliseconds: 400), () {
-      _controller.jumpTo(_controller.position.maxScrollExtent);
+      _controller.jumpTo(_controller.position.minScrollExtent);
     });
   }
 

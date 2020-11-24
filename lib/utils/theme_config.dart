@@ -130,8 +130,8 @@ class ThemeNotifier extends ChangeNotifier {
     ),
   ];
 
-  MyTheme _current = MyTheme.Dark;
-  ThemeData _currentTheme = themes[1];
+  MyTheme _current = MyTheme.Light;
+  ThemeData _currentTheme = themes[0];
 
   set currentTheme(theme) {
     if (theme != null) {

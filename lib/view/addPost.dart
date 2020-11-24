@@ -15,14 +15,14 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
   GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
+  TextEditingController _nameController = new TextEditingController();
+  TextEditingController _datetime = new TextEditingController();
+  TextEditingController _locationController = new TextEditingController();
+  TextEditingController _descController = new TextEditingController();
   String _chosenSport;
-  String _chosenPurpose;
   double _maxMembers = 0;
   String _status = 'public';
   String _type = 'team';
-  TextEditingController _locationController = new TextEditingController();
-  TextEditingController _datetime = new TextEditingController();
-  TextEditingController _nameController = new TextEditingController();
   final PageController _addPostPageController = PageController(initialPage: 0);
 
   @override
@@ -98,7 +98,7 @@ class _AddPostState extends State<AddPost> {
     );
     var teamRadio = RadioListTile(
       groupValue: _type,
-      title: Text('Team'),
+      title: Text('Teams'),
       value: 'team',
       onChanged: (val) {
         setState(() => _type = val);
@@ -106,7 +106,7 @@ class _AddPostState extends State<AddPost> {
     );
     var individualRadio = RadioListTile(
       groupValue: _type,
-      title: Text('Individual'),
+      title: Text('Individuals'),
       value: 'individual',
       onChanged: (val) {
         setState(() => _type = val);
@@ -114,6 +114,7 @@ class _AddPostState extends State<AddPost> {
     );
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         leading: BackButton(),
         title: buildTitle(context, "Add Post"),
       ),
@@ -121,12 +122,13 @@ class _AddPostState extends State<AddPost> {
         controller: _addPostPageController,
         children: [
           Page1(
+            theme: theme,
             addpostkey: _addpostkey,
             nameController: _nameController,
-            theme: theme,
             sportsList: sportsList,
             datetime: _datetime,
             locationController: _locationController,
+            descController: _descController,
             slider: slider,
             chosenSport: _chosenSport,
             maxMembers: _maxMembers,
@@ -143,29 +145,6 @@ class _AddPostState extends State<AddPost> {
       ),
     );
   }
-
-  List<Widget> addPostSliverAppBar(
-      BuildContext context, bool innerBoxIsScrolled) {
-    return <Widget>[
-      SliverAppBar(
-        expandedHeight: 250.0,
-        leading: BackButton(),
-        elevation: 0,
-        floating: false,
-        pinned: true,
-        flexibleSpace: FlexibleSpaceBar(
-          centerTitle: true,
-          title: Container(
-              child: buildTitle(context, "Add Post"),
-              color: Theme.of(context).canvasColor.withOpacity(0.5)),
-          background: Image(
-            height: 200,
-            image: AssetImage('assets/addpostillustration.png'),
-          ),
-        ),
-      ),
-    ];
-  }
 }
 
 class Page1 extends StatefulWidget {
@@ -177,6 +156,7 @@ class Page1 extends StatefulWidget {
     @required this.sportsList,
     @required TextEditingController datetime,
     @required TextEditingController locationController,
+    @required TextEditingController descController,
     @required this.slider,
     @required this.publicRadio,
     @required this.privateRadio,
@@ -190,6 +170,7 @@ class Page1 extends StatefulWidget {
         _nameController = nameController,
         _datetime = datetime,
         _locationController = locationController,
+        _descController = descController,
         _chosenSport = chosenSport,
         _maxMembers = maxMembers,
         _status = status,
@@ -202,6 +183,7 @@ class Page1 extends StatefulWidget {
   final DropdownButton<String> sportsList;
   final TextEditingController _datetime;
   final TextEditingController _locationController;
+  final TextEditingController _descController;
   final Slider slider;
   final RadioListTile publicRadio;
   final RadioListTile privateRadio;
@@ -225,6 +207,9 @@ class _Page1State extends State<Page1> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
+            SizedBox(
+              height: 8,
+            ),
             InputBox(
               controller: widget._nameController,
               hintText: "Event name",
@@ -256,54 +241,74 @@ class _Page1State extends State<Page1> {
               hintText: "Location",
               validateFunction: Validations.validateNonEmpty,
             ),
-            //max member slider
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-                child: Text(
-                  'Select max members',
-                  style: TextStyle(
-                    color: Theme.of(context).backgroundColor.withOpacity(0.35),
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  textAlign: TextAlign.start,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                child: TextField(
+                  controller: widget._descController,
+                  // maxLengthEnforced: false,
+                  maxLines: 2,
+                  decoration: InputDecoration(
+                      labelText: "Description",
+                      hintText: "I want a 5v5 for..."),
                 ),
               ),
-              widget.slider,
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-                child: Text(
-                  'Status',
-                  style: TextStyle(
-                    color: Theme.of(context).backgroundColor.withOpacity(0.35),
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //max member slider
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 4.0),
+                  child: Text(
+                    'Select max members (${widget._maxMembers.toInt().toString()})',
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).backgroundColor.withOpacity(0.35),
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                  textAlign: TextAlign.start,
                 ),
-              ),
-              widget.publicRadio,
-              widget.privateRadio,
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-                child: Text(
-                  'Who should join your Event',
-                  style: TextStyle(
-                    color: Theme.of(context).backgroundColor.withOpacity(0.35),
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                widget.slider,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 4.0),
+                  child: Text(
+                    'Status',
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).backgroundColor.withOpacity(0.35),
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                  textAlign: TextAlign.start,
                 ),
-              ),
-              widget.teamRadio,
-              widget.individualRadio,
-            ]),
-
+                widget.publicRadio,
+                widget.privateRadio,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 4.0),
+                  child: Text(
+                    'Who should join your Event',
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).backgroundColor.withOpacity(0.35),
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                widget.teamRadio,
+                widget.individualRadio,
+              ],
+            ),
+            //Todo add a description feild in event from backend
             Button(
               myText: "Add Post",
               myColor: Theme.of(context).primaryColor,
@@ -345,3 +350,26 @@ class _Page1State extends State<Page1> {
     );
   }
 }
+
+// List<Widget> addPostSliverAppBar(
+//     BuildContext context, bool innerBoxIsScrolled) {
+//   return <Widget>[
+//     SliverAppBar(
+//       expandedHeight: 250.0,
+//       leading: BackButton(),
+//       elevation: 0,
+//       floating: false,
+//       pinned: true,
+//       flexibleSpace: FlexibleSpaceBar(
+//         centerTitle: true,
+//         title: Container(
+//             child: buildTitle(context, "Add Post"),
+//             color: Theme.of(context).canvasColor.withOpacity(0.5)),
+//         background: Image(
+//           height: 200,
+//           image: AssetImage('assets/addpostillustration.png'),
+//         ),
+//       ),
+//     ),
+//   ];
+// }

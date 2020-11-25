@@ -5,9 +5,11 @@ BottomNavigationBar buildBottomNavigationBar(
     BuildContext context, void Function(int) onTap, int currentIndex) {
   return BottomNavigationBar(
     onTap: onTap,
-    type: BottomNavigationBarType.fixed,
+    type: BottomNavigationBarType.shifting,
     currentIndex: currentIndex,
     showUnselectedLabels: false,
+    selectedFontSize: 13,
+    selectedItemColor: Theme.of(context).primaryColor,
     unselectedItemColor: Theme.of(context).primaryColor.withOpacity(0.5),
     items: [
       new BottomNavigationBarItem(

@@ -209,7 +209,7 @@ class MainUserProfile extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(32)),
                     image: DecorationImage(
                       image: NetworkImage(data['profileImage']),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fitWidth,
                     ),
                     boxShadow: [
                       BoxShadow(

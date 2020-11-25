@@ -76,86 +76,92 @@ class _TeamsListState extends State<TeamsList> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: ExpansionTile(
-                                  maintainState: true,
-                                  onExpansionChanged: (expanded) {
-                                    if (expanded) {
-                                    } else {}
-                                  },
-                                  children: [
-                                    SmallButton(
-                                        myColor: !joinCondition
-                                            ? Theme.of(context).primaryColor
-                                            : Theme.of(context).accentColor,
-                                        myText: !joinCondition
-                                            ? !notifiedCondition
-                                                ? "Join"
-                                                : "Request Sent"
-                                            : "Already there",
-                                        onPressed: () {
-                                          if (!joinCondition) {
-                                            if (data.status == 'private') {
-                                              NotificationServices()
-                                                  .createTeamNotification(
-                                                      Constants.prefs
-                                                          .getString('userId'),
-                                                      data.manager,
-                                                      data);
-                                            }
-                                            if (data.status == 'closed') {
-                                              // Make a custom Alert message for the user to
-                                              //know that he can not join a closed team
-                                            }
-                                            if (data.status == 'public') {
-                                              TeamService()
-                                                  .addMeInTeam(data.teamId)
-                                                  .then(() => {
-                                                        // give a success notification that he was
-                                                        //added to the team and take him to the chat
-                                                        //window or the info page of the team
-                                                      });
-                                            }
-                                          }
-                                        })
-                                  ],
-                                  leading: Image.asset(sportIcon),
-                                  title: Text(
-                                    data.teamName,
-                                    style: TextStyle(
-                                      color: theme.currentTheme.backgroundColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      dividerColor: Colors.transparent),
+                                  child: ExpansionTile(
+                                    maintainState: true,
+                                    onExpansionChanged: (expanded) {
+                                      if (expanded) {
+                                      } else {}
+                                    },
                                     children: [
-                                      Text(
-                                        data.bio,
-                                        style: TextStyle(
-                                          color: theme
-                                              .currentTheme.backgroundColor,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Feather.map_pin,
-                                            size: 16.0,
-                                          ),
-                                          Text(
-                                            data.status,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1,
-                                          ),
-                                        ],
-                                      )
+                                      SmallButton(
+                                          myColor: !joinCondition
+                                              ? Theme.of(context).primaryColor
+                                              : Theme.of(context).accentColor,
+                                          myText: !joinCondition
+                                              ? !notifiedCondition
+                                                  ? "Join"
+                                                  : "Request Sent"
+                                              : "Already there",
+                                          onPressed: () {
+                                            if (!joinCondition) {
+                                              if (data.status == 'private') {
+                                                NotificationServices()
+                                                    .createTeamNotification(
+                                                        Constants.prefs
+                                                            .getString(
+                                                                'userId'),
+                                                        data.manager,
+                                                        data);
+                                              }
+                                              if (data.status == 'closed') {
+                                                // Make a custom Alert message for the user to
+                                                //know that he can not join a closed team
+                                              }
+                                              if (data.status == 'public') {
+                                                TeamService()
+                                                    .addMeInTeam(data.teamId)
+                                                    .then(() => {
+                                                          // give a success notification that he was
+                                                          //added to the team and take him to the chat
+                                                          //window or the info page of the team
+                                                        });
+                                              }
+                                            }
+                                          })
                                     ],
+                                    leading: Image.asset(sportIcon),
+                                    title: Text(
+                                      data.teamName,
+                                      style: TextStyle(
+                                        color:
+                                            theme.currentTheme.backgroundColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data.bio,
+                                          style: TextStyle(
+                                            color: theme
+                                                .currentTheme.backgroundColor,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Feather.map_pin,
+                                              size: 16.0,
+                                            ),
+                                            Text(
+                                              data.status,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    trailing:
+                                        Text(data.playerId.length.toString()),
                                   ),
-                                  trailing:
-                                      Text(data.playerId.length.toString()),
                                 ),
                               ),
                             ],

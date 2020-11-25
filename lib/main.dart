@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           }),
       // home: Splash(),
       // debug tag which comes on top left corner
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

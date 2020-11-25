@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'chatSchedule.dart';
+
 class TeamConversation extends StatefulWidget {
   final Teams data;
   TeamConversation({@required this.data});
@@ -116,12 +118,16 @@ class _TeamConversationState extends State<TeamConversation> {
         actions: [
           GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => TeamInfo(
-              //               teamID: widget.data.teamId,
-              //             )));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatSchedule(
+                    chatRoomId: widget.data.teamId,
+                    usersNames: widget.data.player,
+                    users: widget.data.playerId,
+                  ),
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -151,7 +157,7 @@ class _TeamConversationState extends State<TeamConversation> {
                       child: TextField(
                         onTap: () {
                           _controller
-                              .jumpTo(_controller.position.maxScrollExtent);
+                              .jumpTo(_controller.position.minScrollExtent);
                         },
                         controller: messageEditingController,
                         decoration: InputDecoration(

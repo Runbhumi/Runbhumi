@@ -54,7 +54,6 @@ class ThemeNotifier extends ChangeNotifier {
       accentColor: Color(0xff00d2ff),
       buttonColor: Color(0xff00d2ff),
       scaffoldBackgroundColor: Color(0xffF7FAFF),
-      bottomAppBarColor: Colors.white,
       fontFamily: 'Montserrat',
       brightness: Brightness.light,
       primaryColorBrightness: Brightness.light,
@@ -72,11 +71,12 @@ class ThemeNotifier extends ChangeNotifier {
     ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       cardTheme: CardTheme(
-        shadowColor: Color(0xaa333333),
+        color: Color(0xff1d1d1d),
+        shadowColor: Color(0x00333333),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        elevation: 10,
+        elevation: 0,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         elevation: 4,
@@ -87,7 +87,7 @@ class ThemeNotifier extends ChangeNotifier {
         foregroundColor: Colors.white,
       ),
       appBarTheme: AppBarTheme(
-        color: Color(0xff121212),
+        color: Colors.black45,
         elevation: 0,
         brightness: Brightness.dark,
         centerTitle: true,
@@ -103,7 +103,7 @@ class ThemeNotifier extends ChangeNotifier {
           color: Color(0xff555555),
         ),
         filled: true,
-        fillColor: Colors.black,
+        fillColor: Color(0xff272727),
         hoverColor: Colors.white,
         alignLabelWithHint: true,
         border: InputBorder.none,
@@ -121,6 +121,7 @@ class ThemeNotifier extends ChangeNotifier {
       primaryColorDark: Color(0xff0052ff),
       accentColor: Color(0xff00d2ff),
       buttonColor: Color(0xff00d2ff),
+      scaffoldBackgroundColor: Color(0xff111111),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black45,
         elevation: 0,
@@ -134,6 +135,8 @@ class ThemeNotifier extends ChangeNotifier {
 
   MyTheme _current = MyTheme.Light;
   ThemeData _currentTheme = themes[0];
+  // MyTheme _current = MyTheme.Dark;
+  // ThemeData _currentTheme = themes[1];
 
   set currentTheme(theme) {
     if (theme != null) {

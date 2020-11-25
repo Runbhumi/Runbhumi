@@ -1,12 +1,14 @@
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Chats/conversation.dart';
 import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
 import '../../widget/widgets.dart';
 
 /*
@@ -333,22 +335,12 @@ class UserSearchDirect extends SearchDelegate<ListView> {
         .snapshots();
   }
 
-  @override
+ @override
   ThemeData appBarTheme(BuildContext context) {
+  final theme = Provider.of<ThemeNotifier>(context);
     return ThemeData(
-      primaryColor: Color(0xff121212),
-      appBarTheme: AppBarTheme(
-        color: Color((0xff121212)),
-        elevation: 0,
-        brightness: Brightness.dark,
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        actionsIconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-      ),
+      primaryColor: theme.currentTheme.appBarTheme.color,
+      appBarTheme: theme.currentTheme.appBarTheme,
     );
   }
 

@@ -5,6 +5,7 @@ enum MyTheme { Light, Dark }
 
 class ThemeNotifier extends ChangeNotifier {
   static List<ThemeData> themes = [
+    //light theme
     ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       cardTheme: CardTheme(
@@ -35,7 +36,7 @@ class ThemeNotifier extends ChangeNotifier {
       ),
       bottomAppBarTheme: BottomAppBarTheme(
         color: Colors.white,
-        elevation: 1,
+        elevation: 0,
       ),
       appBarTheme: AppBarTheme(
         color: Color(0xffF7F7FF),

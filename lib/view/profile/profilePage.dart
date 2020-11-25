@@ -193,24 +193,34 @@ class MainUserProfile extends StatelessWidget {
         children: [
           //profile image
           if (data['profileImage'] != null)
-            Container(
-              width: 115,
-              height: 115,
-              margin: EdgeInsets.only(top: 15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(32)),
-                image: DecorationImage(
-                  image: NetworkImage(data['profileImage']),
-                  fit: BoxFit.contain,
+            Stack(
+              children: [
+                Container(
+                  width: 115,
+                  height: 115,
+                  child: Loader(),
+                  margin: EdgeInsets.only(top: 8),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x44393e46),
-                    blurRadius: 20,
-                    offset: Offset(0, 10),
+                Container(
+                  width: 115,
+                  height: 115,
+                  margin: EdgeInsets.only(top: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                    image: DecorationImage(
+                      image: NetworkImage(data['profileImage']),
+                      fit: BoxFit.contain,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x0800d2ff),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           //Name
           Padding(
@@ -230,54 +240,60 @@ class MainUserProfile extends StatelessWidget {
             child: Center(
               child: Text(
                 data['bio'],
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
           ),
           //stats
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: Column(
-              children: <Widget>[
-                Card(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              data['eventCount'].toString(),
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w500),
+          Column(
+            children: <Widget>[
+              Card(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            data['eventCount'].toString(),
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Events",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
                             ),
-                            Text("Events",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                )),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              data['teamsCount'].toString(),
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w500),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            data['teamsCount'].toString(),
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Teams",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
                             ),
-                            Text("Teams",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                )),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Padding(
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        
+                      },
+                      child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
@@ -286,18 +302,20 @@ class MainUserProfile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w500),
                             ),
-                            Text("Friends",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                )),
+                            Text(
+                              "Friends",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           //details
           Padding(

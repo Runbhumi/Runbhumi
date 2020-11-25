@@ -5,7 +5,7 @@ BottomNavigationBar buildBottomNavigationBar(
     BuildContext context, void Function(int) onTap, int currentIndex) {
   return BottomNavigationBar(
     onTap: onTap,
-    type: BottomNavigationBarType.shifting,
+    type: BottomNavigationBarType.fixed,
     currentIndex: currentIndex,
     showUnselectedLabels: false,
     selectedFontSize: 13,

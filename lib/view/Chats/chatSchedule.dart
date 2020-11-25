@@ -1,20 +1,15 @@
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
-
-String _userId = Constants.prefs.getString('userId');
 
 class ChatSchedule extends StatefulWidget {
   final String chatRoomId;
   final List<dynamic> usersNames;
   final List<dynamic> users;
-  final List<dynamic> usersPics;
-  ChatSchedule(
-      {@required this.chatRoomId,
-      @required this.usersNames,
-      @required this.users,
-      @required this.usersPics});
+  ChatSchedule({
+    @required this.chatRoomId,
+    @required this.usersNames,
+    @required this.users,
+  });
   @override
   _ChatScheduleState createState() => _ChatScheduleState();
 }
@@ -27,7 +22,6 @@ class _ChatScheduleState extends State<ChatSchedule> {
   //TODO:backend to be discussed.
   GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
   String _chosenSport;
-  String _chosenPurpose;
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
@@ -60,31 +54,31 @@ class _ChatScheduleState extends State<ChatSchedule> {
       },
     );
     //purposes
-    var purposeList = DropdownButton(
-      hint: Text("Purpose"),
-      value: _chosenPurpose,
-      items: [
-        DropdownMenuItem(
-          child: Text("Want to join a team"),
-          value: "Want to join a team",
-        ),
-        DropdownMenuItem(
-          child: Text("Looking for an opponent"),
-          value: "Looking for an opponent",
-        ),
-        DropdownMenuItem(
-          child: Text("Looking for players in our team"),
-          value: "Looking for players in our team",
-        ),
-      ],
-      onChanged: (value) {
-        setState(
-          () {
-            _chosenPurpose = value;
-          },
-        );
-      },
-    );
+    // var purposeList = DropdownButton(
+    //   hint: Text("Purpose"),
+    //   value: _chosenPurpose,
+    //   items: [
+    //     DropdownMenuItem(
+    //       child: Text("Want to join a team"),
+    //       value: "Want to join a team",
+    //     ),
+    //     DropdownMenuItem(
+    //       child: Text("Looking for an opponent"),
+    //       value: "Looking for an opponent",
+    //     ),
+    //     DropdownMenuItem(
+    //       child: Text("Looking for players in our team"),
+    //       value: "Looking for players in our team",
+    //     ),
+    //   ],
+    //   onChanged: (value) {
+    //     setState(
+    //       () {
+    //         _chosenPurpose = value;
+    //       },
+    //     );
+    //   },
+    // );
     return SafeArea(
       child: Scaffold(
         body: NestedScrollView(
@@ -115,21 +109,21 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 1.2,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            decoration: BoxDecoration(
-                              borderRadius: new BorderRadius.circular(50),
-                              border: Border.all(),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: purposeList,
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Container(
+                        //     width: MediaQuery.of(context).size.width / 1.2,
+                        //     padding:
+                        //         const EdgeInsets.symmetric(horizontal: 16.0),
+                        //     decoration: BoxDecoration(
+                        //       borderRadius: new BorderRadius.circular(50),
+                        //       border: Border.all(),
+                        //     ),
+                        //     child: DropdownButtonHideUnderline(
+                        //       child: purposeList,
+                        //     ),
+                        //   ),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: DateTimePicker(
@@ -144,35 +138,35 @@ class _ChatScheduleState extends State<ChatSchedule> {
                     ),
                   ),
                   Button(
-                    myText: "Add Post",
+                    myText: "Schedule",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       // this funtion writes in the DB and adds an
                       // event when manually testing anything,
                       // just comment this function
-                      int maxMembers;
-                      createNewEvent(
-                          _nameController.text,
-                          _userId,
-                          _locationController.text,
-                          _chosenSport,
-                          _chosenPurpose,
-                          [_userId],
-                          DateTime.parse(_datetime.text),
-                          maxMembers,
-                          "",
-                          ""); // TODO :here a status and a type is to be added
-                      // to show success dialog
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          //wait for 3 sec
-                          Future.delayed(Duration(seconds: 3), () {
-                            Navigator.pushNamed(context, "/mainapp");
-                          });
-                          return successDialog(context);
-                        },
-                      );
+                      // int maxMembers;
+                      // createNewEvent(
+                      //     _nameController.text,
+                      //     _userId,
+                      //     _locationController.text,
+                      //     _chosenSport,
+                      //     _chosenPurpose,
+                      //     [_userId],
+                      //     DateTime.parse(_datetime.text),
+                      //     maxMembers,
+                      //     "",
+                      //     ""); // TODO :here a status and a type is to be added
+                      // // to show success dialog
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     //wait for 3 sec
+                      //     Future.delayed(Duration(seconds: 3), () {
+                      //       Navigator.pushNamed(context, "/mainapp");
+                      //     });
+                      //     return successDialog(context);
+                      //   },
+                      // );
                     },
                   ),
                 ],
@@ -210,7 +204,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
           title: Container(
-              child: buildTitle(context, "Add Post"),
+              child: buildTitle(context, "Schedule"),
               color: Theme.of(context).canvasColor.withOpacity(0.5)),
           background: Image(
             height: 200,

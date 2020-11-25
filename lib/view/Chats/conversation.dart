@@ -132,10 +132,10 @@ class _ConversationState extends State<Conversation> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChatSchedule(
-                      chatRoomId: widget.chatRoomId,
-                      usersNames: widget.usersNames,
-                      users: widget.users,
-                      usersPics: widget.usersPics),
+                    chatRoomId: widget.chatRoomId,
+                    usersNames: widget.usersNames,
+                    users: widget.users,
+                  ),
                 ),
               );
             },
@@ -167,7 +167,7 @@ class _ConversationState extends State<Conversation> {
                       child: TextField(
                         onTap: () {
                           _controller
-                              .jumpTo(_controller.position.maxScrollExtent);
+                              .jumpTo(_controller.position.minScrollExtent);
                         },
                         controller: messageEditingController,
                         decoration: InputDecoration(

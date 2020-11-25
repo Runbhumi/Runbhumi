@@ -100,10 +100,11 @@ class ThemeNotifier extends ChangeNotifier {
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
-          color: Color(0xff333333),
+          color: Color(0xff555555),
         ),
         filled: true,
         fillColor: Colors.black,
+        hoverColor: Colors.white,
         alignLabelWithHint: true,
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(

@@ -288,22 +288,54 @@ class _DirectChatsState extends State<DirectChats> {
         children: [
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Container(
-              child: TextField(
-                onTap: () {
-                  showSearch(context: context, delegate: UserSearchDirect());
-                },
-                controller: friendsSearch,
-                decoration: const InputDecoration(
-                  hintText: 'Search friends...',
-                  prefixIcon: Icon(Feather.search),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: GestureDetector(
+              onTap: () {
+                showSearch(context: context, delegate: UserSearchDirect());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                  borderRadius: BorderRadius.circular(40),
                 ),
-                style: const TextStyle(fontSize: 16.0),
-                onChanged: updateSearchQuery,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Feather.search,
+                      color: Theme.of(context).iconTheme.color.withOpacity(0.5),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Search",
+                      style: TextStyle(
+                        color:
+                            Theme.of(context).inputDecorationTheme.hintStyle.color,
+                        fontSize: 16,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
+            // child: Container(
+            //   child: TextField(
+            //     onTap: () {
+            //       showSearch(context: context, delegate: UserSearchDirect());
+            //     },
+            //     controller: friendsSearch,
+            //     decoration: const InputDecoration(
+            //       hintText: 'Search friends...',
+            //       prefixIcon: Icon(Feather.search),
+            //       hintStyle: const TextStyle(color: Colors.grey),
+            //     ),
+            //     style: const TextStyle(fontSize: 16.0),
+            //     onChanged: updateSearchQuery,
+            //   ),
+            // ),
           ),
           Expanded(
             child: Stack(
@@ -335,9 +367,9 @@ class UserSearchDirect extends SearchDelegate<ListView> {
         .snapshots();
   }
 
- @override
+  @override
   ThemeData appBarTheme(BuildContext context) {
-  final theme = Provider.of<ThemeNotifier>(context);
+    final theme = Provider.of<ThemeNotifier>(context);
     return ThemeData(
       primaryColor: theme.currentTheme.appBarTheme.color,
       appBarTheme: theme.currentTheme.appBarTheme,

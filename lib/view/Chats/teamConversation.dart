@@ -4,6 +4,7 @@ import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TeamConversation extends StatefulWidget {
   final Teams data;
@@ -118,11 +119,9 @@ class _TeamConversationState extends State<TeamConversation> {
               // Navigator.push(
               //     context,
               //     MaterialPageRoute(
-              //         builder: (context) => ChatSchedule(
-              //             chatRoomId: widget.data.teamId,
-              //             usersNames: widget.usersNames,
-              //             users: widget.users,
-              //             usersPics: widget.usersPics)));
+              //         builder: (context) => TeamInfo(
+              //               teamID: widget.data.teamId,
+              //             )));
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -192,50 +191,152 @@ class _TeamConversationState extends State<TeamConversation> {
   }
 }
 
+// class MessageTile extends StatelessWidget {
+//   final String message;
+//   final bool sendByMe;
+//   final String sentByName; //Sent By (Unused till now)
+//   final DateTime dateTime; //Time (Unused till now)
+//   //TODO: Use the dataTime to show time and sentBy to show who's message
+//   //sendByMe boolean to check if the currentuser sent the message before.
+
+//   MessageTile(
+//       {@required this.message,
+//       @required this.sendByMe,
+//       @required this.sentByName,
+//       @required this.dateTime});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: EdgeInsets.only(
+//           top: 8, bottom: 8, left: sendByMe ? 0 : 24, right: sendByMe ? 24 : 0),
+//       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
+//       child: Container(
+//         margin:
+//             sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
+//         padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
+//         decoration: BoxDecoration(
+//           borderRadius: sendByMe
+//               ? BorderRadius.only(
+//                   topLeft: Radius.circular(23),
+//                   topRight: Radius.circular(23),
+//                   bottomLeft: Radius.circular(23))
+//               : BorderRadius.only(
+//                   topLeft: Radius.circular(23),
+//                   topRight: Radius.circular(23),
+//                   bottomRight: Radius.circular(23)),
+//           color: sendByMe
+//               ? Color(0xff393e46).withOpacity(0.8)
+//               : Color(0xff00adb5).withOpacity(0.8),
+//         ),
+//         child: Text(message,
+//             textAlign: TextAlign.start,
+//             style: TextStyle(
+//                 color: Colors.white,
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w400)),
+//       ),
+//     );
+//   }
+// }
 class MessageTile extends StatelessWidget {
   final String message;
+  //sendByMe boolean to check if the currentuser sent the message before.
   final bool sendByMe;
   final String sentByName; //Sent By (Unused till now)
-  final DateTime dateTime; //Time (Unused till now)
-  //TODO: Use the dataTime to show time and sentBy to show who's message
-  //sendByMe boolean to check if the currentuser sent the message before.
+  final DateTime dateTime;
 
-  MessageTile(
-      {@required this.message,
-      @required this.sendByMe,
-      @required this.sentByName,
-      @required this.dateTime});
+  MessageTile({
+    @required this.message,
+    @required this.sendByMe,
+    @required this.sentByName,
+    @required this.dateTime,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-          top: 8, bottom: 8, left: sendByMe ? 0 : 24, right: sendByMe ? 24 : 0),
+      // these are margins which go around each message tile
+      margin: EdgeInsets.only(
+        top: 4,
+        bottom: 4,
+        left: sendByMe ? 48 : 0,
+        right: sendByMe ? 0 : 48,
+      ),
+      //alignment of the message tile
       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin:
-            sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
-        padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: sendByMe
               ? BorderRadius.only(
-                  topLeft: Radius.circular(23),
-                  topRight: Radius.circular(23),
-                  bottomLeft: Radius.circular(23))
+                  topLeft: Radius.circular(24), bottomLeft: Radius.circular(24))
               : BorderRadius.only(
-                  topLeft: Radius.circular(23),
-                  topRight: Radius.circular(23),
-                  bottomRight: Radius.circular(23)),
+                  topRight: Radius.circular(24),
+                  bottomRight: Radius.circular(24)),
           color: sendByMe
-              ? Color(0xff393e46).withOpacity(0.8)
-              : Color(0xff00adb5).withOpacity(0.8),
+              ? Color(0xff004E52).withOpacity(0.9)
+              : Theme.of(context).primaryColor.withOpacity(0.9),
         ),
-        child: Text(message,
-            textAlign: TextAlign.start,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w400)),
+        child: sendByMe
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      message,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(
+                      DateFormat().add_jm().format(dateTime).toString(),
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(
+                      DateFormat().add_jm().format(dateTime).toString(),
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      message,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }

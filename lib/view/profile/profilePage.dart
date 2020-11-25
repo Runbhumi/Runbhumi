@@ -290,9 +290,7 @@ class MainUserProfile extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(

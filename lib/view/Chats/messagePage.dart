@@ -312,8 +312,10 @@ class _DirectChatsState extends State<DirectChats> {
                     Text(
                       "Search",
                       style: TextStyle(
-                        color:
-                            Theme.of(context).inputDecorationTheme.hintStyle.color,
+                        color: Theme.of(context)
+                            .inputDecorationTheme
+                            .hintStyle
+                            .color,
                         fontSize: 16,
                       ),
                     )

@@ -188,119 +188,120 @@ class MainUserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        //profile image
-        if (data['profileImage'] != null)
-          Container(
-            width: 125,
-            height: 125,
-            margin: EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(32)),
-              image: DecorationImage(
-                image: NetworkImage(data['profileImage']),
-                fit: BoxFit.contain,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x44393e46),
-                  blurRadius: 20,
-                  offset: Offset(0, 10),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          //profile image
+          if (data['profileImage'] != null)
+            Container(
+              width: 115,
+              height: 115,
+              margin: EdgeInsets.only(top: 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(32)),
+                image: DecorationImage(
+                  image: NetworkImage(data['profileImage']),
+                  fit: BoxFit.contain,
                 ),
-              ],
-            ),
-          ),
-        //Name
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            data['name'],
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-          ),
-        ),
-        //Bio
-        Padding(
-          padding: const EdgeInsets.only(
-            bottom: 8.0,
-            left: 32.0,
-            right: 32.0,
-          ),
-          child: Center(
-            child: Text(
-              data['bio'],
-              style: TextStyle(fontSize: 14),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-        //stats
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Container(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Column(
-                children: <Widget>[
-                  Divider(
-                    thickness: 2,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            data['eventCount'].toString(),
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
-                          ),
-                          Text("Events",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                              )),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            data['teamsCount'].toString(),
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
-                          ),
-                          Text("Teams",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                              )),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            data['friendCount'].toString(),
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
-                          ),
-                          Text("Friends",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                              )),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Divider(
-                    thickness: 2,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x44393e46),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
                   ),
                 ],
               ),
             ),
+          //Name
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              data['name'],
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
-        //details
-        Expanded(
-          child: SingleChildScrollView(
+          //Bio
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 8.0,
+              left: 32.0,
+              right: 32.0,
+            ),
+            child: Center(
+              child: Text(
+                data['bio'],
+                style: TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          //stats
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Column(
+              children: <Widget>[
+                Card(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              data['eventCount'].toString(),
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.w500),
+                            ),
+                            Text("Events",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              data['teamsCount'].toString(),
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.w500),
+                            ),
+                            Text("Teams",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              data['friendCount'].toString(),
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.w500),
+                            ),
+                            Text("Friends",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //details
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -382,8 +383,8 @@ class MainUserProfile extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

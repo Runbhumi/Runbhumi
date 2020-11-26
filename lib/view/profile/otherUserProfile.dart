@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import '../views.dart';
 
 class OtherUserProfile extends StatefulWidget {
   const OtherUserProfile({
@@ -403,30 +402,3 @@ confirmationPopup(BuildContext context, String name, String id1, String id2) {
         )
       ]).show();
 }
-
-//   SimpleDialog successDialog(BuildContext context, String id1, String id2) {
-//     return SimpleDialog(
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.all(Radius.circular(20)),
-//       ),
-//       children: [
-//         Center(
-//             child: Text("You serious ??",
-//                 textAlign: TextAlign.center,
-//                 style: Theme.of(context).textTheme.headline4)),
-//         Button(
-//           onPressed: () => {},
-//           myColor: Theme.of(context).accentColor,
-//           myText: "Cancel",
-//         ),
-//         Button(
-//           onPressed: () => {
-//             FriendServices().removeFriend(id1, id2),
-//           },
-//           myColor: Theme.of(context).accentColor,
-//           myText: "I hate Him",
-//         ),
-//       ],
-//     );
-//   }
-// }

@@ -142,6 +142,7 @@ class ChallengeNotification {
 
   ChallengeNotification.createNewRequest(
       String notificationId,
+      String sport,
       TeamChallengeNotification myteam,
       TeamChallengeNotification opponentTeam) {
     this.notificationId = notificationId;

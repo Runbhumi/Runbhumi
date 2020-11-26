@@ -96,6 +96,7 @@ class _ConversationState extends State<Conversation> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(
+                  fit: BoxFit.fitWidth,
                   height: 32,
                   image: NetworkImage(
                     Constants.prefs.getString('name') == widget.usersNames[0]
@@ -113,6 +114,7 @@ class _ConversationState extends State<Conversation> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
+                        color: Theme.of(context).backgroundColor,
                       ),
                     )
                   : Text(
@@ -120,6 +122,7 @@ class _ConversationState extends State<Conversation> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
+                        color: Theme.of(context).backgroundColor,
                       ),
                     ),
             ],

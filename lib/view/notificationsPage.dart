@@ -38,177 +38,178 @@ class _NotificationsState extends State<Notifications> {
       stream: notification,
       builder: (context, asyncSnapshot) {
         print("Working " + asyncSnapshot.hasData.toString());
-        return asyncSnapshot.hasData
-            ? asyncSnapshot.data.documents.length > 0
-                ? ListView.builder(
-                    itemCount: asyncSnapshot.data.documents.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      NotificationClass notificationData =
-                          new NotificationClass.fromJson(
-                              asyncSnapshot.data.documents[index]);
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 4.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OtherUserProfile(
-                                  userID: notificationData.senderId,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Card(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    notificationData.type != "inviteTeams"
-                                        // leading image for friend request
-                                        ? ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                            child: Image(
-                                                height: 75,
-                                                image: NetworkImage(
-                                                    notificationData
-                                                        .senderProfieImage)),
-                                          )
-                                        // leading image for team join request
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: GestureDetector(
-                                              onTap: () {},
-                                              child: Stack(
-                                                  alignment:
-                                                      AlignmentDirectional
-                                                          .center,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    8.0)),
-                                                        color: Colors.grey[200],
-                                                      ),
-                                                      width: 54,
-                                                      height: 54,
-                                                    ),
-                                                    Icon(
-                                                      Feather.hash,
-                                                      color: Colors.grey[700],
-                                                      size: 44,
-                                                    ),
-                                                  ]),
-                                            ),
-                                          ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          notificationData.senderName,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                        Text(
-                                          notificationData.type != "inviteTeams"
-                                              ? "friend request"
-                                              : "team invite",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          NotificationServices().declineRequest(
-                                              notificationData.notificationId,
-                                              notificationData.senderId);
-                                        },
-                                        child: Stack(
-                                            alignment:
-                                                AlignmentDirectional.center,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(8.0)),
-                                                  color: Colors.red[100],
-                                                ),
-                                                width: 42,
-                                                height: 42,
-                                              ),
-                                              Icon(
-                                                Feather.x,
-                                                color: Colors.red,
-                                                size: 36,
-                                              ),
-                                            ]),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          NotificationServices()
-                                              .acceptFriendRequest(
-                                                  notificationData);
-                                        },
-                                        child: Stack(
-                                            alignment:
-                                                AlignmentDirectional.center,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(8.0)),
-                                                  color: Colors.green[100],
-                                                ),
-                                                width: 42,
-                                                height: 42,
-                                              ),
-                                              Icon(
-                                                Feather.check,
-                                                color: Colors.green,
-                                                size: 36,
-                                              ),
-                                            ]),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+        if (asyncSnapshot.hasData) {
+          if (asyncSnapshot.data.documents.length > 0) {
+            return ListView.builder(
+              itemCount: asyncSnapshot.data.documents.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                NotificationClass notificationData =
+                    new NotificationClass.fromJson(
+                        asyncSnapshot.data.documents[index]);
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 4.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OtherUserProfile(
+                            userID: notificationData.senderId,
                           ),
                         ),
                       );
                     },
-                  )
-                : // if there is no notification you will get this illustration
-                Container(
-                    child: Center(
-                      child: Image.asset("assets/notification.png"),
+                    child: Card(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              if (notificationData.type != "inviteTeams")
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      child: Image(
+                                        height: 48,
+                                        width: 48,
+                                        fit: BoxFit.fitWidth,
+                                        image: NetworkImage(
+                                          notificationData.senderProfieImage,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              else
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Stack(
+                                        alignment: AlignmentDirectional.center,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8.0)),
+                                              color: Colors.grey[200],
+                                            ),
+                                            width: 48,
+                                            height: 48,
+                                          ),
+                                          Icon(
+                                            Feather.hash,
+                                            color: Colors.grey[700],
+                                            size: 36,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    notificationData.senderName,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    notificationData.type != "inviteTeams"
+                                        ? "friend request"
+                                        : "team invite",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    NotificationServices().declineRequest(
+                                        notificationData.notificationId,
+                                        notificationData.senderId);
+                                  },
+                                  child: Stack(
+                                      alignment: AlignmentDirectional.center,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8.0)),
+                                            color: Colors.red[100],
+                                          ),
+                                          width: 36,
+                                          height: 36,
+                                        ),
+                                        Icon(
+                                          Feather.x,
+                                          color: Colors.red,
+                                          size: 24,
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4.0, bottom: 4,left: 4,right:8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    NotificationServices()
+                                        .acceptFriendRequest(notificationData);
+                                  },
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                          color: Colors.green[100],
+                                        ),
+                                        width: 36,
+                                        height: 36,
+                                      ),
+                                      Icon(
+                                        Feather.check,
+                                        color: Colors.green,
+                                        size: 24,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  )
-            : Loader();
+                  ),
+                );
+              },
+            );
+          } else {
+            return Container(
+              child: Center(
+                child: Image.asset("assets/notification.png"),
+              ),
+            );
+          }
+        } else {
+          return Loader();
+        }
       },
     );
   }

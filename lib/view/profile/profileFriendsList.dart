@@ -1,8 +1,10 @@
 import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
 
 import '../views.dart';
 
@@ -81,22 +83,56 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Container(
-              child: TextField(
-                onTap: () {
-                  showSearch(context: context, delegate: UserSearch());
-                },
-                controller: friendsSearch,
-                decoration: const InputDecoration(
-                  hintText: 'Search friends...',
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Feather.search),
-                  hintStyle: const TextStyle(color: Colors.grey),
+            child: GestureDetector(
+              onTap: () {
+                showSearch(context: context, delegate: UserSearch());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).inputDecorationTheme.fillColor,
+                  borderRadius: BorderRadius.circular(40),
                 ),
-                style: const TextStyle(fontSize: 16.0),
-                onChanged: updateSearchQuery,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Feather.search,
+                      color: Theme.of(context).iconTheme.color.withOpacity(0.5),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Search",
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .inputDecorationTheme
+                            .hintStyle
+                            .color,
+                        fontSize: 16,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
+            // child: Container(
+            //   child: TextField(
+            //     onTap: () {
+            //       showSearch(context: context, delegate: UserSearch());
+            //     },
+            //     controller: friendsSearch,
+            //     decoration: const InputDecoration(
+            //       hintText: 'Search friends...',
+            //       border: InputBorder.none,
+            //       prefixIcon: Icon(Feather.search),
+            //       hintStyle: const TextStyle(color: Colors.grey),
+            //     ),
+            //     style: const TextStyle(fontSize: 16.0),
+            //     onChanged: updateSearchQuery,
+            //   ),
+            // ),
           ),
           Expanded(
             child: Stack(
@@ -130,20 +166,10 @@ class UserSearch extends SearchDelegate<ListView> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
+    final theme = Provider.of<ThemeNotifier>(context);
     return ThemeData(
-      primaryColor: Color(0xff121212),
-      appBarTheme: AppBarTheme(
-        color: Color((0xff121212)),
-        elevation: 0,
-        brightness: Brightness.dark,
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        actionsIconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-      ),
+      primaryColor: theme.currentTheme.appBarTheme.color,
+      appBarTheme: theme.currentTheme.appBarTheme,
     );
   }
 

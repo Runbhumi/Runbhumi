@@ -8,6 +8,8 @@ BottomNavigationBar buildBottomNavigationBar(
     type: BottomNavigationBarType.fixed,
     currentIndex: currentIndex,
     showUnselectedLabels: false,
+    selectedFontSize: 13,
+    selectedItemColor: Theme.of(context).primaryColor,
     unselectedItemColor: Theme.of(context).primaryColor.withOpacity(0.5),
     items: [
       new BottomNavigationBarItem(

@@ -238,7 +238,8 @@ class _Page1State extends State<Page1> {
             ),
             InputBox(
               controller: widget._locationController,
-              hintText: "Location",
+              hintText: "Borvalli, Mumbai, MH",
+              labelText: "Location",
               validateFunction: Validations.validateNonEmpty,
             ),
             Padding(
@@ -250,8 +251,9 @@ class _Page1State extends State<Page1> {
                   // maxLengthEnforced: false,
                   maxLines: 2,
                   decoration: InputDecoration(
-                      labelText: "Description",
-                      hintText: "I want a 5v5 for..."),
+                    labelText: "Description",
+                    hintText: "I want a 5v5 for...",
+                  ),
                 ),
               ),
             ),
@@ -321,7 +323,7 @@ class _Page1State extends State<Page1> {
                   userId,
                   widget._locationController.text,
                   widget._chosenSport,
-                  "Remove purposes from backend",
+                  widget._descController.text,
                   [userId],
                   DateTime.parse(widget._datetime.text),
                   widget._maxMembers.toInt(),

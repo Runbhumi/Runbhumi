@@ -164,7 +164,8 @@ class _NotificationsState extends State<Notifications> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 4.0, bottom: 4,left: 4,right:8),
+                                padding: const EdgeInsets.only(
+                                    top: 4.0, bottom: 4, left: 4, right: 8),
                                 child: GestureDetector(
                                   onTap: () {
                                     NotificationServices()

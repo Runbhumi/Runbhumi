@@ -213,7 +213,9 @@ class NotificationServices {
     });
   }
 
-  challengeTeamNotification(TeamChallengeNotification teamViewOpponent,
+  challengeTeamNotification(
+      String sport,
+      TeamChallengeNotification teamViewOpponent,
       TeamChallengeNotification teamViewMe) async {
     var db = FirebaseFirestore.instance
         .collection('users')
@@ -224,7 +226,7 @@ class NotificationServices {
     String id = doc.id;
     final ChallengeNotification challenge =
         new ChallengeNotification.createNewRequest(
-            id, teamViewOpponent, teamViewMe);
+            id, sport, teamViewOpponent, teamViewMe);
 
     doc.set(challenge.toJson());
   }

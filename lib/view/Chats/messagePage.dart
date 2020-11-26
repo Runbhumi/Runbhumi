@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import '../../widget/widgets.dart';
+import 'eventConversation.dart';
 
 /*
   Code For Message Page
@@ -34,7 +35,7 @@ class _NetworkState extends State<Network> {
             tabs: [
               Tab(child: Text("Direct")),
               Tab(child: Text("Team")),
-              Tab(child: Text("B/W Teams")),
+              Tab(child: Text("Events")),
             ],
             indicator: new BubbleTabIndicator(
               indicatorHeight: 30.0,
@@ -56,7 +57,7 @@ class _NetworkState extends State<Network> {
                     //teams chat
                     TeamChats(),
                     // b/w teams chat
-                    PlaceholderWidget(),
+                    EventChats(),
                   ],
                 ),
               ),
@@ -65,6 +66,81 @@ class _NetworkState extends State<Network> {
         ),
       ),
     );
+  }
+}
+
+class EventChats extends StatefulWidget {
+  @override
+  _EventChatsState createState() => _EventChatsState();
+}
+
+class _EventChatsState extends State<EventChats> {
+  Stream userEventChats;
+  @override
+  void initState() {
+    getEventChats();
+    super.initState();
+  }
+
+  getEventChats() async {
+    EventService().getCurrentUserEventChats().then((snapshots) {
+      setState(() {
+        userEventChats = snapshots;
+        print("we got the data user Event chats");
+      });
+    });
+  }
+
+  Widget getEventsFeed() {
+    return StreamBuilder(
+      stream: userEventChats,
+      builder: (context, asyncSnapshot) {
+        print("user Event chats list is loading");
+        if (asyncSnapshot.hasData) {
+          print("user Event chats list got loaded");
+          if (asyncSnapshot.data.documents.length > 0) {
+            return ListView.builder(
+                itemCount: asyncSnapshot.data.documents.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  print('I am here');
+                  Events data =
+                      new Events.fromJson(asyncSnapshot.data.documents[index]);
+                  print('I am here2');
+                  return Card(
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EventConversation(
+                                data: data,
+                              ),
+                            ));
+                        //Go to the team ChatRoom
+                      },
+                      title: Text(data.eventName),
+                      subtitle: Text(data.description),
+                    ),
+                  );
+                });
+          } else {
+            return Container(
+              child: Center(
+                child: Image.asset("assets/add-friends.png"),
+              ),
+            );
+          }
+        } else {
+          return Loader();
+        }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: getEventsFeed());
   }
 }
 

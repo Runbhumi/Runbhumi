@@ -50,10 +50,31 @@ class ChatroomService {
     });
   }
 
+  void sendNewMessageEvent(DateTime dateTime, String sentby, String message,
+      String sentByName, eventId) {
+    FirebaseFirestore.instance
+        .collection("events")
+        .doc(eventId)
+        .collection("chats")
+        .add(Message.newMessage(dateTime, sentby, message, sentByName).toJson())
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+
   getTeamMessages(String teamId) async {
     return FirebaseFirestore.instance
         .collection("teams")
         .doc(teamId)
+        .collection("chats")
+        .orderBy('dateTime', descending: true)
+        .snapshots();
+  }
+
+  getEventMessages(String eventId) async {
+    return FirebaseFirestore.instance
+        .collection("events")
+        .doc(eventId)
         .collection("chats")
         .orderBy('dateTime', descending: true)
         .snapshots();

@@ -39,6 +39,14 @@ class EventService {
         .snapshots();
   }
 
+  getCurrentUserEventChats() async {
+    return FirebaseFirestore.instance
+        .collection("events")
+        .where('playersId', arrayContains: Constants.prefs.get('userId'))
+        // .orderBy('dateTime', descending: true)
+        .snapshots();
+  }
+
   // Future getEventDetails(String eventId) async {
   //   try {
   //     var eventsData = await _eventCollectionReference.doc(eventId).get();

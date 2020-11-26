@@ -171,7 +171,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
                       //     DateTime.parse(_datetime.text),
                       //     maxMembers,
                       //     "",
-                      //     ""); // TODO :here a status and a type is to be added
+                      //     ""); // TODO: Update the schdule of people in the users List.
                       // // to show success dialog
                       // showDialog(
                       //   context: context,

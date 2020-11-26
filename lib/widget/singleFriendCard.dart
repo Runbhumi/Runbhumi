@@ -17,11 +17,6 @@ class SingleFriendCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
-        shadowColor: Color(0x44393e46),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        elevation: 20,
         child: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -36,17 +31,20 @@ class SingleFriendCard extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ListTile(
+                  contentPadding: EdgeInsets.all(0),
                   leading: Container(
-                    height: 100,
+                    height: 48,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
-                      child: Image.network(imageLink, height: 100),
+                      child: Image.network(imageLink, height: 48),
                     ),
                   ),
-                  title:
-                      Text(name, style: Theme.of(context).textTheme.headline5),
+                  title: Text(
+                    name,
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
             ],

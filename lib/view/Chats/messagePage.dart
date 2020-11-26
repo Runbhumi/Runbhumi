@@ -482,11 +482,6 @@ class UserSearchDirect extends SearchDelegate<ListView> {
                       child: GestureDetector(
                         onTap: () {},
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
                           child: ListTile(
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
@@ -589,26 +584,25 @@ class UserSearchDirect extends SearchDelegate<ListView> {
                                   .get('profileImage'));
                         },
                         child: Card(
-                          shadowColor: Color(0x44393e46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          elevation: 20,
-                          child: ListTile(
-                            leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Image(
-                                image: NetworkImage(asyncSnapshot
-                                    .data.documents[index]
-                                    .get('profileImage')
-                                    .toString()),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(0),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: Image(
+                                  image: NetworkImage(asyncSnapshot
+                                      .data.documents[index]
+                                      .get('profileImage')
+                                      .toString()),
+                                ),
                               ),
-                            ),
-                            title: Text(asyncSnapshot.data.documents[index]
-                                .get('name')),
-                            subtitle: Text(
-                              asyncSnapshot.data.documents[index]
-                                  .get('username'),
+                              title: Text(asyncSnapshot.data.documents[index]
+                                  .get('name')),
+                              subtitle: Text(
+                                asyncSnapshot.data.documents[index]
+                                    .get('username'),
+                              ),
                             ),
                           ),
                         ),
@@ -626,46 +620,3 @@ class UserSearchDirect extends SearchDelegate<ListView> {
     // throw UnimplementedError();
   }
 }
-
-// class ChatsTabs extends StatelessWidget {
-//   const ChatsTabs({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         boxShadow: [
-//           BoxShadow(
-//             color: Color(0x29000000),
-//             blurRadius: 6,
-//             offset: Offset(0, -1),
-//           ),
-//         ],
-//         borderRadius: BorderRadius.only(
-//           topLeft: Radius.circular(20),
-//           topRight: Radius.circular(20),
-//         ),
-//       ),
-//       child: PreferredSize(
-//         preferredSize: Size.fromHeight(50.0),
-//         child: TabBar(
-//           labelColor: Colors.white,
-//           unselectedLabelColor: Colors.grey,
-//           tabs: [
-//             Tab(child: Text("Direct")),
-//             Tab(child: Text("Team")),
-//             Tab(child: Text("B/W Teams")),
-//           ],
-//           indicator: new BubbleTabIndicator(
-//             indicatorHeight: 30.0,
-//             indicatorColor: Theme.of(context).primaryColor,
-//             tabBarIndicatorSize: TabBarIndicatorSize.tab,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

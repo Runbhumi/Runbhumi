@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+//import 'package:Runbhumi/view/teams/challengeScreen.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -89,18 +90,20 @@ class _TeamsListState extends State<TeamsList> {
                                             : Theme.of(context).accentColor,
                                         myText: !joinCondition
                                             ? !notifiedCondition
-                                                ? "Join"
+                                                ? "Challenge"
                                                 : "Request Sent"
                                             : "Already there",
                                         onPressed: () {
                                           if (!joinCondition) {
                                             if (data.status == 'private') {
-                                              NotificationServices()
-                                                  .createTeamNotification(
-                                                      Constants.prefs
-                                                          .getString('userId'),
-                                                      data.manager,
-                                                      data);
+                                              //   NotificationServices()
+                                              //       .createTeamNotification(
+                                              //           Constants.prefs
+                                              //               .getString('userId'),
+                                              //           data.manager,
+                                              //           data);
+                                              // }
+
                                             }
                                             if (data.status == 'closed') {
                                               // Make a custom Alert message for the user to
@@ -202,3 +205,26 @@ class _TeamsListState extends State<TeamsList> {
     );
   }
 }
+/*
+use this logic to make a challenge logic
+
+final TeamChallengeNotification
+                                                  teamData =
+                                                  new TeamChallengeNotification
+                                                          .newTeam(
+                                                      data.teamId,
+                                                      data.manager,
+                                                      data.teamName);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChallangeTeam(
+                                                            sportName:
+                                                                data.sport,
+                                                            teamData:
+                                                                teamData)),
+                                              );
+
+
+*/

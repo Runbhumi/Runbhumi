@@ -25,6 +25,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
+  TextEditingController _descriptionController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +134,21 @@ class _ChatScheduleState extends State<ChatSchedule> {
                         InputBox(
                           controller: _locationController,
                           hintText: "Location",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            child: TextField(
+                              controller: _descriptionController,
+                              // maxLengthEnforced: false,
+                              maxLines: 2,
+                              decoration: InputDecoration(
+                                labelText: "Description",
+                                hintText: "I want a 5v5 for...",
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

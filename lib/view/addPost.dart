@@ -323,7 +323,7 @@ class _Page1State extends State<Page1> {
                   userId,
                   widget._locationController.text,
                   widget._chosenSport,
-                  "Remove purposes from backend",
+                  widget._descController.text,
                   [userId],
                   DateTime.parse(widget._datetime.text),
                   widget._maxMembers.toInt(),

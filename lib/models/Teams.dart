@@ -101,6 +101,15 @@ class TeamView {
         'sport': this.sport,
         'teamName': this.teamName,
       };
+
+  factory TeamView.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    return TeamView(
+      teamId: parsedJson['teamId'],
+      sport: parsedJson['sport'],
+      teamName: parsedJson['teamName'],
+    );
+  }
   // 'manager': this.manager
 }
 
@@ -137,7 +146,7 @@ class TeamChallengeNotification {
 
   TeamChallengeNotification.newTeam(
     String teamId,
-    String sport,
+    String manager,
     String teamName,
   ) {
     this.teamId = teamId;

@@ -64,6 +64,15 @@ class UserService {
         .snapshots()
         .map((snap) => UserProfile.fromMap(snap.data as Map));
   }
+
+  getTeams(String sport) async {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(Constants.prefs.getString('userId'))
+        .collection("teams")
+        .where('sport', isEqualTo: sport)
+        .snapshots();
+  }
 }
 
 //data['friends'].contains(data['userId'])

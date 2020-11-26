@@ -60,7 +60,7 @@ class TeamService {
   addMeInTeam(String teamId) async {
     await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
       'playerId': FieldValue.arrayUnion([me.friendId]),
-      'player': FieldValue.arrayUnion([me.toJson()]),
+      'players': FieldValue.arrayUnion([me.toJson()]),
     });
   }
 

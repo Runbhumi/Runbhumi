@@ -185,3 +185,107 @@ class ChallengeNotification {
         type: parsedJson['type']);
   }
 }
+
+// there are two types of event notification one for team and other for the users
+
+class EventNotification {
+  String notificationId;
+  String senderId;
+  String senderName;
+  String eventId;
+  String eventName;
+  String teamName;
+  String teamId;
+
+  String type;
+  String subtype;
+
+  //------------------ there are two types which are assigned ----------------
+  // team - for teams reated private events
+  // indivisual -for indivisual private events
+
+  EventNotification.createUsersNotification(String notificationId,
+      String eventId, String eventName, String teamName) {
+    this.notificationId = notificationId;
+    this.eventName = eventName;
+    this.senderId = Constants.prefs.getString('userId');
+    this.senderName = Constants.prefs.getString('name');
+    this.type = 'event';
+    this.subtype = 'indivisual';
+  }
+
+  EventNotification.createTeamsNotification(String notificationId,
+      String eventId, String eventName, String teamId, String teamName) {
+    this.notificationId = notificationId;
+    this.eventId = eventId;
+    this.eventName = eventName;
+    this.senderId = Constants.prefs.getString('userId');
+    this.senderName = Constants.prefs.getString('name');
+    this.teamName = teamName;
+    this.teamId = teamId;
+    this.type = 'event';
+    this.subtype = 'team';
+  }
+
+  Map<String, dynamic> toUserJson() => {
+        'notificationId': this.notificationId,
+        'senderId': this.senderId,
+        'senderName': this.senderName,
+        'eventId': this.eventId,
+        'eventName': this.eventName,
+        'type': this.type,
+        'subtype': this.subtype,
+      };
+
+  Map<String, dynamic> toTeamJson() => {
+        'notificationId': this.notificationId,
+        'senderId': this.senderId,
+        'senderName': this.senderName,
+        'eventId': this.eventId,
+        'eventName': this.eventName,
+        'type': this.type,
+        'subtype': this.subtype,
+        'teamName': this.teamName,
+        'teamId': this.teamId
+      };
+
+  EventNotification.team(
+      {this.notificationId,
+      this.senderId,
+      this.senderName,
+      this.eventId,
+      this.eventName,
+      this.teamId,
+      this.teamName,
+      this.subtype});
+
+  EventNotification.indivisual(
+      {this.notificationId,
+      this.senderId,
+      this.senderName,
+      this.eventId,
+      this.eventName,
+      this.subtype});
+
+  factory EventNotification.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    if (parsedJson['subtype'] == 'indivisual')
+      return EventNotification.indivisual(
+          notificationId: parsedJson['notificationId'],
+          senderId: parsedJson['senderId'],
+          senderName: parsedJson['senderName'],
+          eventId: parsedJson['eventId'],
+          eventName: parsedJson['eventName'],
+          subtype: parsedJson['subtype']);
+
+    return EventNotification.team(
+        notificationId: parsedJson['notificationId'],
+        senderId: parsedJson['senderId'],
+        senderName: parsedJson['senderName'],
+        eventId: parsedJson['eventId'],
+        eventName: parsedJson['eventName'],
+        teamId: parsedJson['teamId'],
+        teamName: parsedJson['teamName'],
+        subtype: parsedJson['subtype']);
+  }
+}

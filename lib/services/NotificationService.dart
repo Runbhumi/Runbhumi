@@ -168,6 +168,44 @@ class NotificationServices {
         .snapshots();
   }
 
+  createIndividualNotification(Events event) async {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(event.creatorId)
+        .collection('notification');
+
+    var doc = db.doc();
+    String id = doc.id;
+    final EventNotification eventNotification =
+        new EventNotification.createIndividualNotification(
+            id, event.eventId, event.eventName);
+    doc.set(eventNotification.toUserJson());
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(event.eventId)
+        .update({
+      'notificationPlayers': FieldValue.arrayUnion([_id])
+    });
+  }
+
+  acceptIndividualNotification() {
+    //TODO: Notification part
+  }
+
+  teamEventNotification(Events event, TeamView teamView) {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(event.creatorId)
+        .collection('notification');
+
+    var doc = db.doc();
+    String id = doc.id;
+    final EventNotification eventNotification =
+        new EventNotification.createTeamsNotification(id, event.eventId,
+            event.eventName, teamView.teamId, teamView.teamName);
+    doc.set(eventNotification.toTeamJson());
+  }
+
   createTeamNotification(String from, String to, Teams teamView) async {
     var db = FirebaseFirestore.instance
         .collection('users')
@@ -224,20 +262,6 @@ class NotificationServices {
             id, sport, teamViewOpponent, teamViewMe);
 
     doc.set(challenge.toJson());
-  }
-
-  teamEventNotification(Events event, TeamView teamView) {
-    var db = FirebaseFirestore.instance
-        .collection('users')
-        .doc(event.creatorId)
-        .collection('notification');
-
-    var doc = db.doc();
-    String id = doc.id;
-    final EventNotification eventNotification =
-        new EventNotification.createTeamsNotification(id, event.eventId,
-            event.eventName, teamView.teamId, teamView.teamName);
-    doc.set(eventNotification.toTeamJson());
   }
 
   acceptTeamEventNotification(EventNotification notification) async {

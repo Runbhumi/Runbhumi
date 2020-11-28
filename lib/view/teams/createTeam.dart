@@ -216,8 +216,8 @@ SimpleDialog successDialog(BuildContext context) {
     ),
     children: [
       Center(
-          child:
-              Text("Post added", style: Theme.of(context).textTheme.headline4)),
+          child: Text("Team Created",
+              style: Theme.of(context).textTheme.headline4)),
       Image.asset("assets/confirmation-illustration.png"),
     ],
   );

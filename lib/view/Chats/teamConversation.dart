@@ -208,7 +208,6 @@ class _TeamConversationState extends State<TeamConversation> {
 //   final bool sendByMe;
 //   final String sentByName; //Sent By (Unused till now)
 //   final DateTime dateTime; //Time (Unused till now)
-//   //TODO: Use the dataTime to show time and sentBy to show who's message
 //   //sendByMe boolean to check if the currentuser sent the message before.
 
 //   MessageTile(

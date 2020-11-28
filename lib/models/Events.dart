@@ -14,7 +14,7 @@ class Events {
   DateTime dateTime;
   int maxMembers;
   String status;
-  String type;
+  int type;
 
   Events(
       {this.eventId,
@@ -38,7 +38,7 @@ class Events {
       DateTime dateTime,
       int maxMembers,
       String status,
-      String type) {
+      int type) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.creatorId = creator;

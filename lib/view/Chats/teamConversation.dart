@@ -49,7 +49,7 @@ class _TeamConversationState extends State<TeamConversation> {
                   Message data =
                       new Message.fromJson(snapshot.data.documents[index]);
                   if (data.type != "") {
-                    return Container(
+                    return Card(
                       //TODO: Beautiful Custom Msg, please make it look hot
                       child: Center(child: Text(data.message)),
                     );

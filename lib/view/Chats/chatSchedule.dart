@@ -1,3 +1,4 @@
+import 'package:Runbhumi/services/services.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
 
@@ -156,32 +157,21 @@ class _ChatScheduleState extends State<ChatSchedule> {
                     myText: "Schedule",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
-                      // this funtion writes in the DB and adds an
-                      // event when manually testing anything,
-                      // just comment this function
-                      // int maxMembers;
-                      // createNewEvent(
-                      //     _nameController.text,
-                      //     _userId,
-                      //     _locationController.text,
-                      //     _chosenSport,
-                      //     _chosenPurpose,
-                      //     [_userId],
-                      //     DateTime.parse(_datetime.text),
-                      //     maxMembers,
-                      //     "",
-                      //     ""); // TODO: Update the schdule of people in the users List.
-                      // // to show success dialog
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     //wait for 3 sec
-                      //     Future.delayed(Duration(seconds: 3), () {
-                      //       Navigator.pushNamed(context, "/mainapp");
-                      //     });
-                      //     return successDialog(context);
-                      //   },
-                      // );
+                      //TODO: Schdule the MiniEvent in each user.
+                      for (int i = 0; i < widget.users.length; i++) {
+                        addScheduleToUser(
+                            widget.users[i],
+                            _nameController.text,
+                            _chosenSport,
+                            _locationController.text,
+                            DateTime.parse(_datetime.text));
+                      }
+                      setState(() {
+                        _locationController = new TextEditingController();
+                        _datetime = new TextEditingController();
+                        _nameController = new TextEditingController();
+                        _descriptionController = new TextEditingController();
+                      });
                     },
                   ),
                 ],

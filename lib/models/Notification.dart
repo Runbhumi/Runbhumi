@@ -109,6 +109,14 @@ class TeamNotification {
   String teamName;
   String teamSport;
 
+  TeamNotification(
+      {this.notificationId,
+      this.teamId,
+      this.senderId,
+      this.senderName,
+      this.type,
+      this.teamName,
+      this.teamSport});
   TeamNotification.newNotification(
       String notificationId, String teamId, String teamName, String teamSport) {
     this.notificationId = notificationId;
@@ -123,12 +131,24 @@ class TeamNotification {
   Map<String, dynamic> toJson() => {
         'notificationId': this.notificationId,
         'senderId': this.senderId,
-        'name': this.senderName,
+        'senderName': this.senderName,
         'teamName': this.teamName,
         'teamId': this.teamId,
         'teamSport': this.teamSport,
         'type': this.type
       };
+
+  factory TeamNotification.fromJson(QueryDocumentSnapshot data) {
+    var parsedJson = data.data();
+    return TeamNotification(
+        notificationId: parsedJson['notificationId'],
+        teamId: parsedJson['teamId'],
+        senderId: parsedJson['senderId'],
+        senderName: parsedJson['senderName'],
+        type: parsedJson['type'],
+        teamName: parsedJson['teamName'],
+        teamSport: parsedJson['teamSport']);
+  }
 }
 
 class ChallengeNotification {
@@ -202,7 +222,7 @@ class EventNotification {
 
   //------------------ there are two types which are assigned ----------------
   // team - for teams reated private events
-  // indivisual -for indivisual private events
+  // individual -for individual private events
 
   EventNotification.createUsersNotification(String notificationId,
       String eventId, String eventName, String teamName) {
@@ -211,7 +231,7 @@ class EventNotification {
     this.senderId = Constants.prefs.getString('userId');
     this.senderName = Constants.prefs.getString('name');
     this.type = 'event';
-    this.subtype = 'indivisual';
+    this.subtype = 'individual';
   }
 
   EventNotification.createTeamsNotification(String notificationId,
@@ -259,7 +279,7 @@ class EventNotification {
       this.teamName,
       this.subtype});
 
-  EventNotification.indivisual(
+  EventNotification.individual(
       {this.notificationId,
       this.senderId,
       this.senderName,
@@ -269,8 +289,8 @@ class EventNotification {
 
   factory EventNotification.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
-    if (parsedJson['subtype'] == 'indivisual')
-      return EventNotification.indivisual(
+    if (parsedJson['subtype'] == 'individual')
+      return EventNotification.individual(
           notificationId: parsedJson['notificationId'],
           senderId: parsedJson['senderId'],
           senderName: parsedJson['senderName'],

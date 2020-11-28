@@ -6,6 +6,12 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// status map
+
+// 1 - public
+// 2 - private
+// 3 - closed
+
 String userId = Constants.prefs.getString('userId');
 
 class AddPost extends StatefulWidget {
@@ -21,8 +27,8 @@ class _AddPostState extends State<AddPost> {
   TextEditingController _descController = new TextEditingController();
   String _chosenSport;
   double _maxMembers = 0;
-  String _status = 'public';
-  String _type = 'team';
+  int _type = 1;
+  String _status = 'team';
   final PageController _addPostPageController = PageController(initialPage: 0);
 
   @override
@@ -83,17 +89,17 @@ class _AddPostState extends State<AddPost> {
     var publicRadio = RadioListTile(
       groupValue: _status,
       title: Text('Public'),
-      value: 'public',
+      value: 1,
       onChanged: (val) {
-        setState(() => _status = val);
+        setState(() => _type = val);
       },
     );
     var privateRadio = RadioListTile(
       groupValue: _status,
       title: Text('Private'),
-      value: 'private',
+      value: 2,
       onChanged: (val) {
-        setState(() => _status = val);
+        setState(() => _type = val);
       },
     );
     var teamRadio = RadioListTile(
@@ -101,7 +107,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Teams'),
       value: 'team',
       onChanged: (val) {
-        setState(() => _type = val);
+        setState(() => _status = val);
       },
     );
     var individualRadio = RadioListTile(
@@ -109,7 +115,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Individuals'),
       value: 'individual',
       onChanged: (val) {
-        setState(() => _type = val);
+        setState(() => _status = val);
       },
     );
     return Scaffold(
@@ -164,8 +170,8 @@ class Page1 extends StatefulWidget {
     @required this.individualRadio,
     @required String chosenSport,
     @required double maxMembers,
+    @required int type,
     @required String status,
-    @required String type,
   })  : _addpostkey = addpostkey,
         _nameController = nameController,
         _datetime = datetime,
@@ -191,8 +197,8 @@ class Page1 extends StatefulWidget {
   final RadioListTile individualRadio;
   final String _chosenSport;
   final double _maxMembers;
+  final int _type;
   final String _status;
-  final String _type;
 
   @override
   _Page1State createState() => _Page1State();
@@ -327,8 +333,8 @@ class _Page1State extends State<Page1> {
                   [userId],
                   DateTime.parse(widget._datetime.text),
                   widget._maxMembers.toInt(),
-                  widget._type,
                   widget._status,
+                  widget._type,
                 );
                 // to show success dialog
                 showDialog(

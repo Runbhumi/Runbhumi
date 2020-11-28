@@ -55,13 +55,15 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                   //TODO: Change it to the theme
                                   onPressed: () {
                                     if (widget.data.type == 2) {
+                                      //private
                                       NotificationServices()
                                           .teamEventNotification(
                                               widget.data, data)
-                                          .then(
-                                              //Success Notification
-                                              );
-                                    } else {}
+                                          .then(Navigator.pushNamed(
+                                              context, '/mainapp'));
+                                    } else {
+                                      //public
+                                    }
                                     // TeamChallengeNotification myTeam =
                                     //     new TeamChallengeNotification.newTeam(
                                     //         data.teamId,

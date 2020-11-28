@@ -231,6 +231,20 @@ class NotificationServices {
     doc.set(challenge.toJson());
   }
 
+  teamEventNotification(Events event, TeamView teamView) {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(event.creatorId)
+        .collection('notification');
+
+    var doc = db.doc();
+    String id = doc.id;
+    final EventNotification eventNotification =
+        new EventNotification.createTeamsNotification(id, event.eventId,
+            event.eventName, teamView.teamId, teamView.teamName);
+    doc.set(eventNotification.toTeamJson());
+  }
+
   acceptChallengeTeamNotification(String notificationId) {
     // here a chatroom logic can be written
     declineChallengeTeamNotification(notificationId);

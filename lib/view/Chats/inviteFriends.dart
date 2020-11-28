@@ -129,7 +129,16 @@ class _InviteFriendsState extends State<InviteFriends> {
         title: buildTitle(context, "Invite Friends"),
         automaticallyImplyLeading: false,
       ),
-      body: friends(),
+      body: Column(children: [
+        friends(),
+        Button(
+          myText: 'Leave',
+          myColor: Colors.blue,
+          onPressed: () {
+            Navigator.pushNamed(context, '/mainapp');
+          },
+        ),
+      ]),
     );
   }
 }

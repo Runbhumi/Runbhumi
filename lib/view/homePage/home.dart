@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/homePage/specific_sport.dart';
+import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -193,19 +194,43 @@ class _HomeState extends State<Home> {
                                               : "Already Registered",
                                           onPressed: () {
                                             if (!registrationCondition) {
-                                              registerUserToEvent(
-                                                  data.eventId,
-                                                  data.eventName,
-                                                  data.sportName,
-                                                  data.location,
-                                                  data.dateTime);
-                                              print("User Registered");
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return successDialog(
-                                                        context);
-                                                  });
+                                              if (data.type == 2) {
+                                                //For Private
+                                                if (data.status == 'team') {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            TeamEventNotification(
+                                                                data: data)),
+                                                  );
+                                                }
+                                              } else {
+                                                //public
+                                                if (data.status == 'team') {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            TeamEventNotification(
+                                                                data: data)),
+                                                  );
+                                                } else {
+                                                  registerUserToEvent(
+                                                      data.eventId,
+                                                      data.eventName,
+                                                      data.sportName,
+                                                      data.location,
+                                                      data.dateTime);
+                                                  print("User Registered");
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return successDialog(
+                                                            context);
+                                                      });
+                                                }
+                                              }
                                             } else {
                                               print("Already Registered");
                                             }

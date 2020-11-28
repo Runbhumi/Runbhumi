@@ -47,6 +47,30 @@ class _NotificationsState extends State<Notifications> {
                 NotificationClass notificationData =
                     new NotificationClass.fromJson(
                         asyncSnapshot.data.documents[index]);
+                if (notificationData.type == 'challenge') {
+                  ChallengeNotification notificationData =
+                      new ChallengeNotification.fromJson(
+                          asyncSnapshot.data.documents[index]);
+                  //TODO: Challenge notification Card
+                  return Container(child: Text(notificationData.myTeamName));
+                } else if (notificationData.type == 'inviteTeams') {
+                  TeamNotification notificationData =
+                      new TeamNotification.fromJson(
+                          asyncSnapshot.data.documents[index]);
+                  //TODO: Invite Team Notification Card
+                  return Container(child: Text(notificationData.senderName));
+                } else if (notificationData.type == 'event') {
+                  EventNotification notificationData =
+                      new EventNotification.fromJson(
+                          asyncSnapshot.data.documents[index]);
+                  if (notificationData.subtype == 'individual') {
+                    //TODO: Individual Event Notification Card
+                    return null;
+                  } else {
+                    //TODO: Team Event Notification Card
+                    return null;
+                  }
+                }
                 return Container(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 4.0),
@@ -67,49 +91,23 @@ class _NotificationsState extends State<Notifications> {
                         children: [
                           Row(
                             children: [
-                              if (notificationData.type != "inviteTeams")
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      child: Image(
-                                        height: 48,
-                                        width: 48,
-                                        fit: BoxFit.fitWidth,
-                                        image: NetworkImage(
-                                          notificationData.senderProfieImage,
-                                        ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    child: Image(
+                                      height: 48,
+                                      width: 48,
+                                      fit: BoxFit.fitWidth,
+                                      image: NetworkImage(
+                                        notificationData.senderProfieImage,
                                       ),
                                     ),
                                   ),
-                                )
-                              else
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Stack(
-                                        alignment: AlignmentDirectional.center,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8.0)),
-                                              color: Colors.grey[200],
-                                            ),
-                                            width: 48,
-                                            height: 48,
-                                          ),
-                                          Icon(
-                                            Feather.hash,
-                                            color: Colors.grey[700],
-                                            size: 36,
-                                          ),
-                                        ]),
-                                  ),
                                 ),
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -120,9 +118,7 @@ class _NotificationsState extends State<Notifications> {
                                     ),
                                   ),
                                   Text(
-                                    notificationData.type != "inviteTeams"
-                                        ? "friend request"
-                                        : "team invite",
+                                    "friend request",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,

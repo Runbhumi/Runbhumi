@@ -118,10 +118,10 @@ class _CreateTeamState extends State<CreateTeam> {
                             'Open',
                             style: TextStyle(fontWeight: FontWeight.w700),
                           ),
-                          selected: _type == "open" ? true : false,
+                          selected: _type == "public" ? true : false,
                           onTap: () {
                             setState(() {
-                              _type = "open";
+                              _type = "public";
                             });
                           },
                         ),
@@ -177,9 +177,9 @@ class _CreateTeamState extends State<CreateTeam> {
                   myColor: Theme.of(context).primaryColor,
                   onPressed: () {
                     //------- Code to create a team just remember to pass all the arguments ---------------
-                    // TODO : Make a drop down menu for selecting the status of the team and pass it as per the rules written above
+
                     team = TeamService().createNewTeam(_chosenSport,
-                        _nameController.text, _descController.text, "public");
+                        _nameController.text, _descController.text, _type);
                     showDialog(
                       context: context,
                       builder: (context) {

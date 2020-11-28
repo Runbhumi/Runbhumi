@@ -99,6 +99,18 @@ registerUserToEvent(String id, String eventName, String sportName,
   addEventToUser(id, eventName, sportName, location, dateTime);
 }
 
+addScheduleToUser(String userId, String eventName, String sportName,
+    String location, DateTime dateTime) {
+  var newDoc = FirebaseFirestore.instance.collection('events').doc();
+  String id = newDoc.id;
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .collection('userEvent')
+      .doc(id)
+      .set(Events.miniView(id, eventName, sportName, location, dateTime)
+          .minitoJson());
+}
 // .set({
 //    "eventsId": FieldValue.arrayUnion([id])
 //  }, SetOptions(merge: true));

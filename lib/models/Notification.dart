@@ -224,10 +224,11 @@ class EventNotification {
   // team - for teams reated private events
   // individual -for individual private events
 
-  EventNotification.createUsersNotification(String notificationId,
-      String eventId, String eventName, String teamName) {
+  EventNotification.createIndividualNotification(
+      String notificationId, String eventId, String eventName) {
     this.notificationId = notificationId;
     this.eventName = eventName;
+    this.eventId = eventId;
     this.senderId = Constants.prefs.getString('userId');
     this.senderName = Constants.prefs.getString('name');
     this.type = 'event';

@@ -68,7 +68,26 @@ class _NotificationsState extends State<Notifications> {
                     return null;
                   } else {
                     //TODO: Team Event Notification Card
-                    return null;
+                    return Container(
+                        child: Row(children: [
+                      Text(notificationData.senderName),
+                      Button(
+                        myText: 'Accept',
+                        myColor: Colors.grey,
+                        onPressed: () {
+                          NotificationServices()
+                              .acceptTeamEventNotification(notificationData);
+                        },
+                      ),
+                      Button(
+                        myText: 'Decline',
+                        myColor: Colors.grey,
+                        onPressed: () {
+                          NotificationServices().declineNotification(
+                              notificationData.notificationId);
+                        },
+                      ),
+                    ]));
                   }
                 }
                 return Container(

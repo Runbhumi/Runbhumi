@@ -203,6 +203,12 @@ class _HomeState extends State<Home> {
                                                             TeamEventNotification(
                                                                 data: data)),
                                                   );
+                                                } else {
+                                                  NotificationServices()
+                                                      .createIndividualNotification(
+                                                          data);
+                                                  //TODO: Change the button to invite sent
+                                                  //Private Individual Event
                                                 }
                                               } else {
                                                 //public

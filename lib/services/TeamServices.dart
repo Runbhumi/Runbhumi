@@ -28,6 +28,13 @@ class TeamService {
     return FirebaseFirestore.instance.collection("teams").snapshots();
   }
 
+  getSpecificCategoryFeed(String sportName) async {
+    return FirebaseFirestore.instance
+        .collection("teams")
+        .where('sport', isEqualTo: sportName)
+        .snapshots();
+  }
+
   getTeamsChatRoom() async {
     return FirebaseFirestore.instance
         .collection("teams")

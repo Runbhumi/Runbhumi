@@ -18,7 +18,8 @@ class EventService {
   getCurrentFeed() async {
     return FirebaseFirestore.instance
         .collection("events")
-        .orderBy('dateTime', descending: true)
+        .where('type', isLessThan: 3)
+        // .orderBy('dateTime', descending: true)
         .snapshots();
   }
 
@@ -59,6 +60,8 @@ class EventService {
 
 //id, userId, "", _chosenSport, _chosenPurpose,[userId], DateTime.now()
 
+// type is private or public
+
 createNewEvent(
     String eventName,
     String creatorId,
@@ -69,7 +72,7 @@ createNewEvent(
     DateTime dateTime,
     int maxMembers,
     String status,
-    String type) {
+    int type) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
   newDoc.set(Events.newEvent(id, eventName, location, sportName, description,

@@ -210,7 +210,6 @@ class _HomeState extends State<Home> {
                                                           data);
                                                   //TODO: Change the button to invite sent
                                                   //Private Individual Event
-
                                                 }
                                               } else {
                                                 //public

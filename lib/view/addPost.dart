@@ -87,7 +87,7 @@ class _AddPostState extends State<AddPost> {
       divisions: 50,
     );
     var publicRadio = RadioListTile(
-      groupValue: _status,
+      groupValue: _type,
       title: Text('Public'),
       value: 1,
       onChanged: (val) {
@@ -95,7 +95,7 @@ class _AddPostState extends State<AddPost> {
       },
     );
     var privateRadio = RadioListTile(
-      groupValue: _status,
+      groupValue: _type,
       title: Text('Private'),
       value: 2,
       onChanged: (val) {
@@ -103,7 +103,7 @@ class _AddPostState extends State<AddPost> {
       },
     );
     var teamRadio = RadioListTile(
-      groupValue: _type,
+      groupValue: _status,
       title: Text('Teams'),
       value: 'team',
       onChanged: (val) {
@@ -111,7 +111,7 @@ class _AddPostState extends State<AddPost> {
       },
     );
     var individualRadio = RadioListTile(
-      groupValue: _type,
+      groupValue: _status,
       title: Text('Individuals'),
       value: 'individual',
       onChanged: (val) {

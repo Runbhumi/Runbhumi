@@ -7,7 +7,6 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:Runbhumi/view/teams/teamCategory.dart';
 
 class TeamCategory extends StatefulWidget {
   final String sportName;

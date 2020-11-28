@@ -1,7 +1,6 @@
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/homePage/specific_sport.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:expandable/expandable.dart';

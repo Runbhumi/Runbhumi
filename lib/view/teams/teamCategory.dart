@@ -7,22 +7,32 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+import 'package:Runbhumi/view/teams/teamCategory.dart';
 
-class SpecificSport extends StatefulWidget {
+class TeamCategory extends StatefulWidget {
   final String sportName;
-  SpecificSport({Key key, this.sportName}) : super(key: key);
+  TeamCategory({Key key, this.sportName}) : super(key: key);
   @override
-  _SpecificSportState createState() => _SpecificSportState();
+  _TeamCategoryState createState() => _TeamCategoryState();
 }
 
-class _SpecificSportState extends State<SpecificSport> {
-  Stream currentFeed;
+class _TeamCategoryState extends State<TeamCategory> {
+  Stream teamFeed;
   void initState() {
     super.initState();
-    getUserInfoEvents();
+    getAllTeams();
     print(
         "------------------------${widget.sportName}--------------------------------------");
+  }
+
+  getAllTeams() async {
+    await TeamService()
+        .getSpecificCategoryFeed(widget.sportName)
+        .then((snapshots) {
+      setState(() {
+        teamFeed = snapshots;
+      });
+    });
   }
 
   SimpleDialog successDialog(BuildContext context) {
@@ -41,9 +51,9 @@ class _SpecificSportState extends State<SpecificSport> {
   }
 
   getUserInfoEvents() async {
-    EventService().getSpecificFeed(widget.sportName).then((snapshots) {
+    TeamService().getAllTeamsFeed().then((snapshots) {
       setState(() {
-        currentFeed = snapshots;
+        teamFeed = snapshots;
         // print("we got the data + ${currentFeed.toString()} ");
       });
     });
@@ -51,19 +61,18 @@ class _SpecificSportState extends State<SpecificSport> {
 
   Widget feed({ThemeNotifier theme}) {
     return StreamBuilder(
-      stream: currentFeed,
+      stream: teamFeed,
       builder: (context, asyncSnapshot) {
-        print("specific sport loading");
         return asyncSnapshot.hasData
             ? asyncSnapshot.data.documents.length > 0
                 ? ListView.builder(
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      Events data = new Events.fromJson(
+                      Teams data = new Teams.fromJson(
                           asyncSnapshot.data.documents[index]);
+
                       String sportIcon;
-                      // IconData sportIcon;
                       switch (widget.sportName) {
                         case "Volleyball":
                           sportIcon = "assets/icons8-volleyball-96.png";
@@ -78,8 +87,16 @@ class _SpecificSportState extends State<SpecificSport> {
                           sportIcon = "assets/icons8-soccer-ball-96.png";
                           break;
                       }
-                      bool registrationCondition = data.playersId
+                      bool notifiedCondition = false;
+                      bool joinCondition = data.playerId
                           .contains(Constants.prefs.getString('userId'));
+                      if (data.notificationPlayers.length > 0)
+                        notifiedCondition = data.notificationPlayers
+                            .contains(Constants.prefs.getString('userId'));
+
+                      //asyncSnapshot
+                      // .data.documents[index]
+                      // .get('playersId')
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
@@ -87,13 +104,11 @@ class _SpecificSportState extends State<SpecificSport> {
                           child: Column(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Theme(
                                   data: Theme.of(context).copyWith(
                                       dividerColor: Colors.transparent),
                                   child: ExpansionTile(
-                                    tilePadding: EdgeInsets.all(0),
                                     maintainState: true,
                                     onExpansionChanged: (expanded) {
                                       if (expanded) {
@@ -101,35 +116,44 @@ class _SpecificSportState extends State<SpecificSport> {
                                     },
                                     children: [
                                       SmallButton(
-                                          myColor: !registrationCondition
+                                          myColor: !joinCondition
                                               ? Theme.of(context).primaryColor
                                               : Theme.of(context).accentColor,
-                                          myText: !registrationCondition
-                                              ? "Join"
-                                              : "Already Registered",
+                                          myText: !joinCondition
+                                              ? !notifiedCondition
+                                                  ? "Join"
+                                                  : "Request Sent"
+                                              : "Already there",
                                           onPressed: () {
-                                            if (!registrationCondition) {
-                                              registerUserToEvent(
-                                                  data.eventId,
-                                                  data.eventName,
-                                                  data.sportName,
-                                                  data.location,
-                                                  data.dateTime);
-                                              print("User Registered");
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return successDialog(
-                                                        context);
-                                                  });
-                                            } else {
-                                              print("Already Registered");
+                                            if (!joinCondition) {
+                                              if (data.status == 'private') {
+                                                NotificationServices()
+                                                    .createTeamNotification(
+                                                        Constants.prefs
+                                                            .getString(
+                                                                'userId'),
+                                                        data.manager,
+                                                        data);
+                                              }
+                                              if (data.status == 'closed') {
+                                                // Make a custom Alert message for the user to
+                                                //know that he can not join a closed team
+                                              }
+                                              if (data.status == 'public') {
+                                                TeamService()
+                                                    .addMeInTeam(data.teamId)
+                                                    .then(() => {
+                                                          // give a success notification that he was
+                                                          //added to the team and take him to the chat
+                                                          //window or the info page of the team
+                                                        });
+                                              }
                                             }
                                           })
                                     ],
                                     leading: Image.asset(sportIcon),
                                     title: Text(
-                                      data.eventName,
+                                      data.teamName,
                                       style: TextStyle(
                                         color:
                                             theme.currentTheme.backgroundColor,
@@ -142,20 +166,10 @@ class _SpecificSportState extends State<SpecificSport> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          data.description,
+                                          data.bio,
                                           style: TextStyle(
                                             color: theme
                                                 .currentTheme.backgroundColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          DateFormat('E-dd/MM-')
-                                              .add_jm()
-                                              .format(data.dateTime)
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                         Row(
@@ -165,7 +179,7 @@ class _SpecificSportState extends State<SpecificSport> {
                                               size: 16.0,
                                             ),
                                             Text(
-                                              data.location,
+                                              data.status,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle1,
@@ -174,9 +188,8 @@ class _SpecificSportState extends State<SpecificSport> {
                                         )
                                       ],
                                     ),
-                                    // trailing: Text(DateFormat('E\ndd/MM\nkk:mm')
-                                    //     .format(data.dateTime)
-                                    //     .toString()),
+                                    trailing:
+                                        Text(data.playerId.length.toString()),
                                   ),
                                 ),
                               ),

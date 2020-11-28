@@ -3,6 +3,7 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 //import 'package:Runbhumi/view/teams/challengeScreen.dart';
+import 'package:Runbhumi/view/teams/teamCategory.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -300,10 +301,10 @@ class SportsCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => SpecificSport(sportName: this.sport))),
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TeamCategory(sportName: this.sport))),
       },
       child: Card(
         child: Padding(

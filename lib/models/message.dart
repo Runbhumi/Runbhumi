@@ -5,13 +5,15 @@ class Message {
   String sentby;
   String message;
   String sentByName;
+  String type;
   // List<dynamic> reaction;
 
   Message(
       {this.dateTime,
       this.sentby,
       this.message,
-      this.sentByName}); //this.reaction});
+      this.sentByName,
+      this.type}); //this.reaction});
 
   Message.newMessage(
     DateTime dateTime,
@@ -46,7 +48,8 @@ class Message {
         dateTime: parsedJson['dateTime'].toDate(),
         sentby: parsedJson['sentby'],
         message: parsedJson['message'],
-        sentByName: parsedJson['sentByName']);
+        sentByName: parsedJson['sentByName'],
+        type: parsedJson['type'] ?? "");
     //    reaction: parsedJson['reaction']);
   }
 }

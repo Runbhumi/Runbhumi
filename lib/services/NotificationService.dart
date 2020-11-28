@@ -199,12 +199,7 @@ class NotificationServices {
   }
 
   declineTeamInviteNotification(TeamNotification teams) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_id)
-        .collection('notification')
-        .doc(teams.notificationId)
-        .delete();
+    declineNotification(teams.notificationId);
     await FirebaseFirestore.instance
         .collection('teams')
         .doc(teams.teamId)
@@ -245,12 +240,34 @@ class NotificationServices {
     doc.set(eventNotification.toTeamJson());
   }
 
-  acceptChallengeTeamNotification(String notificationId) {
-    // here a chatroom logic can be written
-    declineChallengeTeamNotification(notificationId);
+  acceptTeamEventNotification(EventNotification notification) async {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(notification.eventId)
+        .update({
+      'playersId': FieldValue.arrayUnion([notification.senderId]),
+      'teamsId': FieldValue.arrayUnion([notification.teamId])
+    });
+    declineNotification(notification.notificationId);
+    await FirebaseFirestore.instance
+        .collection('teams')
+        .doc(notification.teamId)
+        .collection('chats')
+        .doc()
+        .set({
+      'message':
+          "${notification.senderName} has registered you for ${notification.eventName}",
+      'type': 'custom',
+      'dateTime': DateTime.now(),
+    });
   }
 
-  declineChallengeTeamNotification(String notificationId) async {
+  acceptChallengeTeamNotification(String notificationId) {
+    // here a chatroom logic can be written
+    declineNotification(notificationId);
+  }
+
+  declineNotification(String notificationId) async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(_id)

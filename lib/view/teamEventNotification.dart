@@ -62,6 +62,8 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                           .then(Navigator.pushNamed(
                                               context, '/mainapp'));
                                     } else {
+                                      addTeamToEvent(widget.data, data);
+                                      Navigator.pushNamed(context, '/mainapp');
                                       //TODO: Directly add the team to the event.
                                     }
                                     // TeamChallengeNotification myTeam =

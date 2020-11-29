@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/Events.dart';
+import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/services/UserServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -110,6 +111,27 @@ addScheduleToUser(String userId, String eventName, String sportName,
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime)
           .minitoJson());
+}
+
+addTeamToEvent(Events event, TeamView team) async {
+  await FirebaseFirestore.instance
+      .collection('events')
+      .doc(event.eventId)
+      .update({
+    'playersId': FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
+    'teamsId': FieldValue.arrayUnion([team.teamId])
+  });
+  await FirebaseFirestore.instance
+      .collection('teams')
+      .doc(team.teamId)
+      .collection('chats')
+      .doc()
+      .set({
+    'message':
+        "${Constants.prefs.getString('name')} has registered you for ${event.eventName}",
+    'type': 'custom',
+    'dateTime': DateTime.now(),
+  });
 }
 // .set({
 //    "eventsId": FieldValue.arrayUnion([id])

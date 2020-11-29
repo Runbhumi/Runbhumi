@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/widget/animations/type_write.dart';
 import 'package:Runbhumi/utils/router.dart';
-
 import '../views.dart';
 
 class Splash extends StatefulWidget {

@@ -178,89 +178,131 @@ class _HomeState extends State<Home> {
                                       maintainState: true,
                                       // main column
                                       alwaysShowingChild: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           //1st row
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Image(
-                                                image: AssetImage(sportIcon),
-                                                width: 70,
-                                              ),
-                                              // title time and location
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    data.eventName,
-                                                    style: TextStyle(
-                                                      color: theme.currentTheme
-                                                          .backgroundColor,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Image(
+                                                  image: AssetImage(sportIcon),
+                                                  width: 70,
+                                                ),
+                                                // title time and location
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      data.eventName,
+                                                      style: TextStyle(
+                                                        color: theme
+                                                            .currentTheme
+                                                            .backgroundColor,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Feather.clock,
-                                                        size: 16.0,
-                                                      ),
-                                                      Text(
-                                                        DateFormat('MMM dd -')
-                                                            .add_jm()
-                                                            .format(
-                                                                data.dateTime)
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w600,
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Feather.clock,
+                                                          size: 16.0,
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Feather.map_pin,
-                                                        size: 16.0,
-                                                      ),
-                                                      Text(
-                                                        data.location,
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: theme
-                                                              .currentTheme
-                                                              .backgroundColor,
+                                                        Text(
+                                                          DateFormat('MMM dd -')
+                                                              .add_jm()
+                                                              .format(
+                                                                  data.dateTime)
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              CircularProgressIndicator(
-                                                value: data.playersId.length /
-                                                    data.maxMembers,
-                                                backgroundColor:
-                                                    Colors.grey[200],
-                                                strokeWidth: 10,
-                                              ),
-                                            ],
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Feather.map_pin,
+                                                          size: 16.0,
+                                                        ),
+                                                        Text(
+                                                          data.location,
+                                                          style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                                CircularProgressIndicator(
+                                                  value: data.playersId.length /
+                                                      data.maxMembers,
+                                                  backgroundColor: theme
+                                                      .currentTheme
+                                                      .backgroundColor
+                                                      .withOpacity(0.15),
+                                                  strokeWidth: 10,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 16.0,
-                                                        vertical: 4.0),
-                                                child: Text(
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Feather.globe,
+                                                      size: 18,
+                                                      color: data.type == 1
+                                                          ? Colors.green[400]
+                                                          : Colors.red[400],
+                                                    ),
+                                                    Text(
+                                                      data.type == 1
+                                                          ? "Public"
+                                                          : "private",
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: data.type == 1
+                                                            ? Colors.green[400]
+                                                            : Colors.red[400],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(data.status + "s can join",
+                                                    style: TextStyle(
+                                                        fontSize: 16)),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
                                                   "Description",
                                                   style: TextStyle(
                                                     color: theme.currentTheme
@@ -271,9 +313,9 @@ class _HomeState extends State<Home> {
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
-                                              ),
-                                              Text(data.description),
-                                            ],
+                                                Text(data.description),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -281,9 +323,12 @@ class _HomeState extends State<Home> {
                                         SmallButton(
                                             myColor: !registrationCondition
                                                 ? Theme.of(context).primaryColor
-                                                : Theme.of(context).accentColor,
+                                                : Theme.of(context)
+                                                    .primaryColorDark,
                                             myText: !registrationCondition
-                                                ? "Join"
+                                                ? data.type == 1
+                                                    ? "Join"
+                                                    : "Send Request"
                                                 : "Already Registered",
                                             onPressed: () {
                                               if (!registrationCondition) {

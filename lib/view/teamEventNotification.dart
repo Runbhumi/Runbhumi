@@ -51,7 +51,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                 ),
                                 Button(
                                   myText: "Register Team",
-                                  myColor: Colors.blue,
+                                  myColor: Theme.of(context).primaryColor,
                                   //TODO: Change it to the theme
                                   onPressed: () {
                                     if (widget.data.type == 2) {

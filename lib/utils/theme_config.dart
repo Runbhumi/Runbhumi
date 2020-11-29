@@ -121,7 +121,7 @@ class ThemeNotifier extends ChangeNotifier {
       primaryColorDark: Color(0xff0052ff),
       accentColor: Color(0xff00d2ff),
       buttonColor: Color(0xff00d2ff),
-      scaffoldBackgroundColor: Color(0xff111111),
+      scaffoldBackgroundColor: Color(0xff040f10),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black45,
         elevation: 0,

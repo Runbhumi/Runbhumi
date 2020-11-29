@@ -105,6 +105,7 @@
 // }
 
 import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 
 import 'package:Runbhumi/services/friendsServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
@@ -188,8 +189,34 @@ class NotificationServices {
     });
   }
 
-  acceptIndividualNotification() {
-    //TODO: Notification part
+  Future<Events> checkPlayerCount(String notificationId) async {
+    var snap = await FirebaseFirestore.instance
+        .collection('events')
+        .doc(notificationId)
+        .get();
+    Map<String, dynamic> map = snap.data();
+    Events event = Events.fromMap(map);
+    return event;
+  }
+
+  acceptIndividualNotification(EventNotification notification) async {
+    Events event = await checkPlayerCount(notification.eventId);
+
+    if (event.playersId.length < event.maxMembers) {
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(notification.eventId)
+          .update({
+        'playersId': FieldValue.arrayUnion([notification.senderId]),
+        'notificationPlayers': FieldValue.arrayRemove([notification.senderId])
+      });
+      await addScheduleToUser(notification.senderId, event.eventName,
+          event.sportName, event.location, event.dateTime);
+      declineNotification(notification.notificationId);
+      return true;
+    }
+
+    return false;
   }
 
   teamEventNotification(Events event, TeamView teamView) {

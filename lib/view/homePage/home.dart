@@ -330,13 +330,14 @@ class _HomeState extends State<Home> {
                                                   style: TextStyle(
                                                     color: theme.currentTheme
                                                         .backgroundColor
-                                                        .withOpacity(0.35),
+                                                        .withOpacity(0.45),
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
                                                 Text(data.description.trim()),
+                                                SizedBox(height: 4),
                                               ],
                                             ),
                                           ),

@@ -1,7 +1,6 @@
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/homePage/specific_sport.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:expandable/expandable.dart';
@@ -328,35 +327,32 @@ class _HomeState extends State<Home> {
             _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
         actions: _buildActions(),
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: homePageSliverAppBar,
-        body: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-                child: Text(
-                  'Nearby you',
-                  style: TextStyle(
-                    color: theme.currentTheme.backgroundColor.withOpacity(0.35),
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  textAlign: TextAlign.start,
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+              child: Text(
+                'Nearby you',
+                style: TextStyle(
+                  color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
                 ),
+                textAlign: TextAlign.start,
               ),
-              Expanded(
-                child: Stack(
-                  children: <Widget>[
-                    feed(theme: theme),
-                  ],
-                ),
+            ),
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  feed(theme: theme),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -380,110 +376,6 @@ class _HomeState extends State<Home> {
         child: Icon(
           Feather.plus,
           size: 32,
-        ),
-      ),
-    );
-  }
-
-  List<Widget> homePageSliverAppBar(
-      BuildContext context, bool innerBoxIsScrolled) {
-    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
-    return <Widget>[
-      SliverList(
-        delegate: SliverChildListDelegate([
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Text(
-              'Categories',
-              style: TextStyle(
-                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.start,
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Basketball",
-                    icon: "assets/icons8-basketball-96.png",
-                  ),
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Cricket",
-                    icon: "assets/icons8-cricket-96.png",
-                  ),
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Football",
-                    icon: "assets/icons8-soccer-ball-96.png",
-                  ),
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Volleyball",
-                    icon: "assets/icons8-volleyball-96.png",
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ]),
-      )
-    ];
-  }
-}
-
-class SportsCategory extends StatelessWidget {
-  const SportsCategory({
-    Key key,
-    @required this.theme,
-    @required this.sport,
-    @required this.icon,
-  }) : super(key: key);
-
-  final ThemeNotifier theme;
-  final String sport;
-  final String icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SpecificSport(sportName: this.sport))),
-      },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(icon, scale: 1.8),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  sport,
-                  style: TextStyle(
-                    color: theme.currentTheme.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

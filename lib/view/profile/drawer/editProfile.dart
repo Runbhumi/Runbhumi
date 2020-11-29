@@ -64,31 +64,12 @@ class _EditProfileState extends State<EditProfile> {
     super.dispose();
   }
 
-  Widget _buildTitle(BuildContext context) {
-    return new Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text(
-            'Edit Profile',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 25,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_loading) {
       return Scaffold(
         appBar: AppBar(
-          title: _buildTitle(context),
+          title: buildTitle(context, "Edit Profile"),
           leading: BackButton(),
         ),
         body: Container(

@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/widget/animations/type_write.dart';
 import 'package:Runbhumi/utils/router.dart';
-
 import '../views.dart';
 
 class Splash extends StatefulWidget {
@@ -50,24 +48,25 @@ class _SplashState extends State<Splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
+                child: Opacity(
+              opacity: 0.85,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(32)),
                 child: Image(
-              image: AssetImage('assets/icon.png'),
-              width: 150,
-            )),
-            Center(
-              child: Hero(
-                tag: 'appname',
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: TypeWrite(
-                    word: 'Runbhumi',
-                    style: TextStyle(
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    seconds: 1,
-                  ),
+                  image: AssetImage('assets/icon.png'),
+                  width: 150,
                 ),
+              ),
+            )),
+            SizedBox(
+              height: 170,
+            ),
+            Text(
+              "Runbhumi",
+              style: TextStyle(
+                color: Theme.of(context).backgroundColor.withOpacity(0.25),
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],

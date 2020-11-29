@@ -213,8 +213,9 @@ class _HomeState extends State<Home> {
                                                       children: [
                                                         Icon(
                                                           Feather.clock,
-                                                          size: 16.0,
+                                                          size: 14.0,
                                                         ),
+                                                        SizedBox(width: 4),
                                                         Text(
                                                           DateFormat('MMM dd -')
                                                               .add_jm()
@@ -233,8 +234,9 @@ class _HomeState extends State<Home> {
                                                       children: [
                                                         Icon(
                                                           Feather.map_pin,
-                                                          size: 16.0,
+                                                          size: 14.0,
                                                         ),
+                                                        SizedBox(width: 4),
                                                         Text(
                                                           data.location,
                                                           style: TextStyle(
@@ -247,14 +249,34 @@ class _HomeState extends State<Home> {
                                                     )
                                                   ],
                                                 ),
-                                                CircularProgressIndicator(
-                                                  value: data.playersId.length /
-                                                      data.maxMembers,
-                                                  backgroundColor: theme
-                                                      .currentTheme
-                                                      .backgroundColor
-                                                      .withOpacity(0.15),
-                                                  strokeWidth: 10,
+                                                Stack(
+                                                  alignment:
+                                                      AlignmentDirectional
+                                                          .center,
+                                                  children: [
+                                                    Text(
+                                                      (data.playersId.length
+                                                              .toString() +
+                                                          "/" +
+                                                          data.maxMembers
+                                                              .toString()),
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    CircularProgressIndicator(
+                                                      value: data.playersId
+                                                              .length /
+                                                          data.maxMembers,
+                                                      backgroundColor: theme
+                                                          .currentTheme
+                                                          .backgroundColor
+                                                          .withOpacity(0.15),
+                                                      strokeWidth: 7,
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -297,7 +319,8 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -307,13 +330,14 @@ class _HomeState extends State<Home> {
                                                   style: TextStyle(
                                                     color: theme.currentTheme
                                                         .backgroundColor
-                                                        .withOpacity(0.35),
+                                                        .withOpacity(0.45),
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
-                                                Text(data.description),
+                                                Text(data.description.trim()),
+                                                SizedBox(height: 4),
                                               ],
                                             ),
                                           ),

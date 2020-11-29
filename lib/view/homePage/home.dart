@@ -16,17 +16,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController _searchQuery;
+  // TextEditingController _searchQuery;
 
-  bool _isSearching = false;
+  // bool _isSearching = false;
 
-  String searchQuery = "";
+  // String searchQuery = "";
 
   Stream currentFeed;
   void initState() {
     super.initState();
 
-    _searchQuery = new TextEditingController();
+    // _searchQuery = new TextEditingController();
     getUserInfoEvents();
   }
 
@@ -55,258 +55,469 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _startSearch() {
-    print("clicked search");
-    ModalRoute.of(context)
-        .addLocalHistoryEntry(new LocalHistoryEntry(onRemove: _stopSearching));
+  // void _startSearch() {
+  //   print("clicked search");
+  //   ModalRoute.of(context)
+  //       .addLocalHistoryEntry(new LocalHistoryEntry(onRemove: _stopSearching));
 
-    setState(() {
-      _isSearching = true;
-    });
-  }
+  //   setState(() {
+  //     _isSearching = true;
+  //   });
+  // }
 
-  void _stopSearching() {
-    _clearSearchQuery();
+  // void _stopSearching() {
+  //   _clearSearchQuery();
 
-    setState(() {
-      _isSearching = false;
-    });
-  }
+  //   setState(() {
+  //     _isSearching = false;
+  //   });
+  // }
 
-  void _clearSearchQuery() {
-    print("close search");
-    setState(() {
-      _searchQuery.clear();
-      updateSearchQuery("");
-    });
-  }
+  // void _clearSearchQuery() {
+  //   print("close search");
+  //   setState(() {
+  //     _searchQuery.clear();
+  //     updateSearchQuery("");
+  //   });
+  // }
 
-  Widget _buildSearchField() {
-    return new TextField(
-      controller: _searchQuery,
-      autofocus: true,
-      decoration: const InputDecoration(
-        hintText: 'Search...',
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        hintStyle: const TextStyle(color: Colors.grey),
-      ),
-      style: const TextStyle(fontSize: 16.0),
-      onChanged: updateSearchQuery,
-    );
-  }
+  // Widget _buildSearchField() {
+  //   return new TextField(
+  //     controller: _searchQuery,
+  //     autofocus: true,
+  //     decoration: const InputDecoration(
+  //       hintText: 'Search...',
+  //       border: InputBorder.none,
+  //       focusedBorder: InputBorder.none,
+  //       hintStyle: const TextStyle(color: Colors.grey),
+  //     ),
+  //     style: const TextStyle(fontSize: 16.0),
+  //     onChanged: updateSearchQuery,
+  //   );
+  // }
 
-  void updateSearchQuery(String newQuery) {
-    setState(() {
-      searchQuery = newQuery;
-    });
-    print("searched " + newQuery);
-  }
+  // void updateSearchQuery(String newQuery) {
+  //   setState(() {
+  //     searchQuery = newQuery;
+  //   });
+  //   print("searched " + newQuery);
+  // }
 
-  List<Widget> _buildActions() {
-    if (_isSearching) {
-      return <Widget>[
-        new IconButton(
-          icon: const Icon(Feather.x),
-          onPressed: () {
-            if (_searchQuery == null || _searchQuery.text.isEmpty) {
-              Navigator.pop(context);
-              return;
-            }
-            _clearSearchQuery();
-          },
-        ),
-      ];
-    }
+  // List<Widget> _buildActions() {
+  //   if (_isSearching) {
+  //     return <Widget>[
+  //       new IconButton(
+  //         icon: const Icon(Feather.x),
+  //         onPressed: () {
+  //           if (_searchQuery == null || _searchQuery.text.isEmpty) {
+  //             Navigator.pop(context);
+  //             return;
+  //           }
+  //           _clearSearchQuery();
+  //         },
+  //       ),
+  //     ];
+  //   }
 
-    return <Widget>[
-      new IconButton(
-        icon: const Icon(Feather.search),
-        onPressed: _startSearch,
-      ),
-    ];
-  }
+  //   return <Widget>[
+  //     new IconButton(
+  //       icon: const Icon(Feather.search),
+  //       onPressed: _startSearch,
+  //     ),
+  //   ];
+  // }
 
   Widget feed({ThemeNotifier theme}) {
     return StreamBuilder(
       stream: currentFeed,
       builder: (context, asyncSnapshot) {
-        print("Feed loading");
-        return asyncSnapshot.hasData
-            ? asyncSnapshot.data.documents.length > 0
-                ? ListView.builder(
-                    itemCount: asyncSnapshot.data.documents.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      Events data = new Events.fromJson(
-                          asyncSnapshot.data.documents[index]);
-                      // String sportName = asyncSnapshot.data.documents[index]
-                      //     .get('sportName')
-                      //     .toString();
-                      String sportIcon;
-                      // IconData sportIcon;
-                      switch (data.sportName) {
-                        case "Volleyball":
-                          sportIcon = "assets/icons8-volleyball-96.png";
-                          break;
-                        case "Basketball":
-                          // sportIcon = Icons.sports_basketball;
-                          sportIcon = "assets/icons8-basketball-96.png";
-                          break;
-                        case "Cricket":
-                          sportIcon = "assets/icons8-cricket-96.png";
-                          break;
-                        case "Football":
-                          sportIcon = "assets/icons8-soccer-ball-96.png";
-                          break;
-                      }
-                      bool registrationCondition = data.playersId.contains(
-                          Constants.prefs.getString('userId')); //asyncSnapshot
-                      // .data.documents[index]
-                      // .get('playersId')
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Card(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                      dividerColor: Colors.transparent),
-                                  child: ExpansionTile(
-                                    tilePadding: EdgeInsets.all(0),
-                                    maintainState: true,
-                                    onExpansionChanged: (expanded) {
-                                      if (expanded) {
-                                      } else {}
-                                    },
-                                    children: [
-                                      SmallButton(
-                                          myColor: !registrationCondition
-                                              ? Theme.of(context).primaryColor
-                                              : Theme.of(context).accentColor,
-                                          myText: !registrationCondition
-                                              ? "Join"
-                                              : "Already Registered",
-                                          onPressed: () {
-                                            if (!registrationCondition) {
-                                              if (data.type == 2) {
-                                                //For Private
-                                                if (data.status == 'team') {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            TeamEventNotification(
-                                                                data: data)),
-                                                  );
+        print("Events are loading");
+        return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 600),
+            child: asyncSnapshot.hasData
+                ? asyncSnapshot.data.documents.length > 0
+                    ? ListView.builder(
+                        itemCount: asyncSnapshot.data.documents.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          Events data = new Events.fromJson(
+                              asyncSnapshot.data.documents[index]);
+                          // String sportName = asyncSnapshot.data.documents[index]
+                          //     .get('sportName')
+                          //     .toString();
+                          String sportIcon;
+                          switch (data.sportName) {
+                            case "Volleyball":
+                              sportIcon = "assets/icons8-volleyball-96.png";
+                              break;
+                            case "Basketball":
+                              sportIcon = "assets/icons8-basketball-96.png";
+                              break;
+                            case "Cricket":
+                              sportIcon = "assets/icons8-cricket-96.png";
+                              break;
+                            case "Football":
+                              sportIcon = "assets/icons8-soccer-ball-96.png";
+                              break;
+                          }
+                          bool registrationCondition = data.playersId.contains(
+                              Constants.prefs
+                                  .getString('userId')); //asyncSnapshot
+                          // .data.documents[index]
+                          // .get('playersId')
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 16.0),
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: ExpansionCard(
+                                      maintainState: true,
+                                      // main column
+                                      alwaysShowingChild: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          //1st row
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Image(
+                                                  image: AssetImage(sportIcon),
+                                                  width: 70,
+                                                ),
+                                                // title time and location
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      data.eventName,
+                                                      style: TextStyle(
+                                                        color: theme
+                                                            .currentTheme
+                                                            .backgroundColor,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Feather.clock,
+                                                          size: 16.0,
+                                                        ),
+                                                        Text(
+                                                          DateFormat('MMM dd -')
+                                                              .add_jm()
+                                                              .format(
+                                                                  data.dateTime)
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Feather.map_pin,
+                                                          size: 16.0,
+                                                        ),
+                                                        Text(
+                                                          data.location,
+                                                          style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                                CircularProgressIndicator(
+                                                  value: data.playersId.length /
+                                                      data.maxMembers,
+                                                  backgroundColor: theme
+                                                      .currentTheme
+                                                      .backgroundColor
+                                                      .withOpacity(0.15),
+                                                  strokeWidth: 10,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Feather.globe,
+                                                      size: 18,
+                                                      color: data.type == 1
+                                                          ? Colors.green[400]
+                                                          : Colors.red[400],
+                                                    ),
+                                                    Text(
+                                                      data.type == 1
+                                                          ? "Public"
+                                                          : "private",
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: data.type == 1
+                                                            ? Colors.green[400]
+                                                            : Colors.red[400],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(data.status + "s can join",
+                                                    style: TextStyle(
+                                                        fontSize: 16)),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Description",
+                                                  style: TextStyle(
+                                                    color: theme.currentTheme
+                                                        .backgroundColor
+                                                        .withOpacity(0.35),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                                Text(data.description),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      children: [
+                                        SmallButton(
+                                            myColor: !registrationCondition
+                                                ? Theme.of(context).primaryColor
+                                                : Theme.of(context)
+                                                    .primaryColorDark,
+                                            myText: !registrationCondition
+                                                ? data.type == 1
+                                                    ? "Join"
+                                                    : "Send Request"
+                                                : "Already Registered",
+                                            onPressed: () {
+                                              if (!registrationCondition) {
+                                                if (data.type == 2) {
+                                                  //For Private
+                                                  if (data.status == 'team') {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TeamEventNotification(
+                                                                  data: data)),
+                                                    );
+                                                  } else {
+                                                    NotificationServices()
+                                                        .createIndividualNotification(
+                                                            data);
+                                                    //TODO: Change the button to invite sent
+                                                    //Private Individual Event
+                                                  }
                                                 } else {
-                                                  NotificationServices()
-                                                      .createIndividualNotification(
-                                                          data);
-                                                  //TODO: Change the button to invite sent
-                                                  //Private Individual Event
+                                                  //public
+                                                  if (data.status == 'team') {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TeamEventNotification(
+                                                                  data: data)),
+                                                    );
+                                                  } else {
+                                                    registerUserToEvent(
+                                                        data.eventId,
+                                                        data.eventName,
+                                                        data.sportName,
+                                                        data.location,
+                                                        data.dateTime);
+                                                    print("User Registered");
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return successDialog(
+                                                              context);
+                                                        });
+                                                  }
                                                 }
                                               } else {
-                                                //public
-                                                if (data.status == 'team') {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            TeamEventNotification(
-                                                                data: data)),
-                                                  );
-                                                } else {
-                                                  registerUserToEvent(
-                                                      data.eventId,
-                                                      data.eventName,
-                                                      data.sportName,
-                                                      data.location,
-                                                      data.dateTime);
-                                                  print("User Registered");
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return successDialog(
-                                                            context);
-                                                      });
-                                                }
+                                                print("Already Registered");
                                               }
-                                            } else {
-                                              print("Already Registered");
-                                            }
-                                          })
-                                    ],
-                                    leading: Image.asset(sportIcon),
-                                    title: Text(
-                                      data.eventName,
-                                      style: TextStyle(
-                                        color:
-                                            theme.currentTheme.backgroundColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.description,
-                                          style: TextStyle(
-                                            color: theme
-                                                .currentTheme.backgroundColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          DateFormat('MMM dd -')
-                                              .add_jm()
-                                              .format(data.dateTime)
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Feather.map_pin,
-                                              size: 16.0,
-                                            ),
-                                            Text(
-                                              data.location,
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: theme.currentTheme
-                                                    .backgroundColor,
-                                              ),
-                                            ),
-                                          ],
-                                        )
+                                            })
                                       ],
                                     ),
+                                    // child: Theme(
+                                    //   data: Theme.of(context).copyWith(
+                                    //       dividerColor: Colors.transparent),
+                                    //   child: ExpansionTile(
+                                    //     tilePadding: EdgeInsets.all(0),
+                                    //     maintainState: true,
+                                    //     onExpansionChanged: (expanded) {
+                                    //       if (expanded) {
+                                    //       } else {}
+                                    //     },
+                                    //     children: [
+                                    //       SmallButton(
+                                    //           myColor: !registrationCondition
+                                    //               ? Theme.of(context)
+                                    //                   .primaryColor
+                                    //               : Theme.of(context)
+                                    //                   .accentColor,
+                                    //           myText: !registrationCondition
+                                    //               ? "Join"
+                                    //               : "Already Registered",
+                                    //           onPressed: () {
+                                    //             if (!registrationCondition) {
+                                    //               if (data.type == 2) {
+                                    //                 //For Private
+                                    //                 if (data.status == 'team') {
+                                    //                   Navigator.push(
+                                    //                     context,
+                                    //                     MaterialPageRoute(
+                                    //                         builder: (context) =>
+                                    //                             TeamEventNotification(
+                                    //                                 data:
+                                    //                                     data)),
+                                    //                   );
+                                    //                 } else {
+                                    //                   NotificationServices()
+                                    //                       .createIndividualNotification(
+                                    //                           data);
+                                    //                   //TODO: Change the button to invite sent
+                                    //                   //Private Individual Event
+                                    //                 }
+                                    //               } else {
+                                    //                 //public
+                                    //                 if (data.status == 'team') {
+                                    //                   Navigator.push(
+                                    //                     context,
+                                    //                     MaterialPageRoute(
+                                    //                         builder: (context) =>
+                                    //                             TeamEventNotification(
+                                    //                                 data:
+                                    //                                     data)),
+                                    //                   );
+                                    //                 } else {
+                                    //                   registerUserToEvent(
+                                    //                       data.eventId,
+                                    //                       data.eventName,
+                                    //                       data.sportName,
+                                    //                       data.location,
+                                    //                       data.dateTime);
+                                    //                   print("User Registered");
+                                    //                   showDialog(
+                                    //                       context: context,
+                                    //                       builder: (context) {
+                                    //                         return successDialog(
+                                    //                             context);
+                                    //                       });
+                                    //                 }
+                                    //               }
+                                    //             } else {
+                                    //               print("Already Registered");
+                                    //             }
+                                    //           })
+                                    //     ],
+                                    //     leading: Image.asset(sportIcon),
+                                    //     title: Text(
+                                    //       data.eventName,
+                                    //       style: TextStyle(
+                                    //         color: theme
+                                    //             .currentTheme.backgroundColor,
+                                    //         fontSize: 18,
+                                    //         fontWeight: FontWeight.w500,
+                                    //       ),
+                                    //     ),
+                                    //     subtitle: Column(
+                                    //       crossAxisAlignment:
+                                    //           CrossAxisAlignment.start,
+                                    //       children: [
+                                    //         Text(
+                                    //           data.description,
+                                    //           style: TextStyle(
+                                    //             color: theme.currentTheme
+                                    //                 .backgroundColor,
+                                    //           ),
+                                    //         ),
+                                    //         Text(
+                                    //           DateFormat('MMM dd -')
+                                    //               .add_jm()
+                                    //               .format(data.dateTime)
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //             fontSize: 13,
+                                    //             fontWeight: FontWeight.w600,
+                                    //           ),
+                                    //         ),
+                                    //         Row(
+                                    //           children: [
+                                    //             Icon(
+                                    //               Feather.map_pin,
+                                    //               size: 16.0,
+                                    //             ),
+                                    //             Text(
+                                    //               data.location,
+                                    //               style: TextStyle(
+                                    //                 fontSize: 13,
+                                    //                 fontWeight: FontWeight.w500,
+                                    //                 color: theme.currentTheme
+                                    //                     .backgroundColor,
+                                    //               ),
+                                    //             ),
+                                    //           ],
+                                    //         )
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          );
+                        },
+                      )
+                    : Container(
+                        child: Center(
+                          child: Image.asset("assets/notification.png"),
                         ),
-                      );
-                    },
-                  )
-                : // if there is no event in the DB you will get this illustration
-                Container(
-                    child: Center(
-                      child: Image.asset("assets/notification.png"),
-                    ),
-                  )
-            : Loader();
+                      )
+                : Loader());
       },
     );
   }
@@ -322,29 +533,18 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: new AppBar(
         automaticallyImplyLeading: false,
-        leading: _isSearching ? BackButton() : null,
-        title:
-            _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
-        actions: _buildActions(),
+        // leading: _isSearching ? BackButton() : null,
+        // title:
+        //     _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
+        title: buildTitle(context, "Events"),
+        // actions: _buildActions(),
       ),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-              child: Text(
-                'Nearby you',
-                style: TextStyle(
-                  color: theme.currentTheme.backgroundColor.withOpacity(0.35),
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ),
+            BodyHeader(theme: theme, text: "Nearby you"),
             Expanded(
               child: Stack(
                 children: <Widget>[
@@ -377,6 +577,33 @@ class _HomeState extends State<Home> {
           Feather.plus,
           size: 32,
         ),
+      ),
+    );
+  }
+}
+
+class BodyHeader extends StatelessWidget {
+  const BodyHeader({
+    Key key,
+    @required this.theme,
+    @required this.text,
+  }) : super(key: key);
+
+  final ThemeNotifier theme;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+        ),
+        textAlign: TextAlign.start,
       ),
     );
   }

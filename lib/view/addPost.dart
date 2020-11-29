@@ -26,7 +26,7 @@ class _AddPostState extends State<AddPost> {
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _descController = new TextEditingController();
   String _chosenSport;
-  double _maxMembers = 0;
+  double _maxMembers = 2;
   int _type = 1;
   String _status = 'team';
   final PageController _addPostPageController = PageController(initialPage: 0);
@@ -37,6 +37,7 @@ class _AddPostState extends State<AddPost> {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     var sportsList = DropdownButton(
       hint: Text("Sport"),
+      elevation: 1,
       value: _chosenSport,
       items: [
         DropdownMenuItem(
@@ -81,9 +82,9 @@ class _AddPostState extends State<AddPost> {
       onChanged: (newLimit) {
         setState(() => _maxMembers = newLimit);
       },
-      min: 0,
+      min: 2,
       max: 50,
-      label: _maxMembers.toString(),
+      label: _maxMembers.toInt().toString(),
       divisions: 50,
     );
     var publicRadio = RadioListTile(

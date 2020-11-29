@@ -247,14 +247,32 @@ class _HomeState extends State<Home> {
                                                     )
                                                   ],
                                                 ),
-                                                CircularProgressIndicator(
-                                                  value: data.playersId.length /
-                                                      data.maxMembers,
-                                                  backgroundColor: theme
-                                                      .currentTheme
-                                                      .backgroundColor
-                                                      .withOpacity(0.15),
-                                                  strokeWidth: 10,
+                                                Stack(
+                                                  alignment:
+                                                      AlignmentDirectional
+                                                          .center,
+                                                  children: [
+                                                    Text(
+                                                      (data.playersId.length
+                                                              .toString() +
+                                                          "/" +
+                                                          data.maxMembers
+                                                              .toString()),
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    CircularProgressIndicator(
+                                                      value: data.playersId
+                                                              .length /
+                                                          data.maxMembers,
+                                                      backgroundColor: theme
+                                                          .currentTheme
+                                                          .backgroundColor
+                                                          .withOpacity(0.15),
+                                                      strokeWidth: 7,
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -313,7 +331,7 @@ class _HomeState extends State<Home> {
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
-                                                Text(data.description),
+                                                Text(data.description.trim()),
                                               ],
                                             ),
                                           ),

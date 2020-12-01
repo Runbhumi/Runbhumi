@@ -11,6 +11,7 @@ class Events {
   String sportName;
   String description;
   List<dynamic> playersId;
+  List notification;
   DateTime dateTime;
   int maxMembers;
   String status;
@@ -27,6 +28,7 @@ class Events {
       this.dateTime,
       this.maxMembers,
       this.status,
+      this.notification,
       this.type});
 
   Events.newEvent(
@@ -50,6 +52,7 @@ class Events {
     this.maxMembers = maxMembers; // members can deonote the max number of teams
     this.type = type;
     this.status = status;
+    this.notification = [];
   }
 
   Events.miniEvent(
@@ -99,7 +102,8 @@ class Events {
         'dateTime': this.dateTime,
         'max': this.maxMembers,
         'type': this.type,
-        'status': this.status
+        'status': this.status,
+        'notificationPlayers': this.notification
       };
   factory Events.fromJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
@@ -114,6 +118,23 @@ class Events {
         dateTime: data['dateTime'].toDate(),
         maxMembers: data['max'],
         type: data['type'],
-        status: data['status']);
+        status: data['status'],
+        notification: data['notificationPlayers']);
+  }
+
+  factory Events.fromMap(Map<String, dynamic> data) {
+    return Events(
+        eventId: data['eventId'],
+        eventName: data['eventName'],
+        creatorId: data['creatorId'],
+        location: data['location'],
+        sportName: data['sportName'],
+        description: data['description'],
+        playersId: data['playersId'],
+        dateTime: data['dateTime'].toDate(),
+        maxMembers: data['max'],
+        type: data['type'],
+        status: data['status'],
+        notification: data['notificationPlayers']);
   }
 }

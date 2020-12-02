@@ -49,14 +49,14 @@ class _NotificationsState extends State<Notifications> {
                   ChallengeNotification notificationData =
                       new ChallengeNotification.fromJson(
                           asyncSnapshot.data.documents[index]);
-                  //TODO: Challenge notification Card
+                  //Challenge notification Card
                   return ChallengeNotificationCard(
                       notificationData: notificationData);
                 } else if (notificationData.type == 'inviteTeams') {
                   TeamNotification notificationData =
                       new TeamNotification.fromJson(
                           asyncSnapshot.data.documents[index]);
-                  //TODO: Invite Team Notification Card
+                  //Invite Team Notification Card
                   return TeamJoinRequestNotificationCard(
                       notificationData: notificationData);
                 } else if (notificationData.type == 'event') {
@@ -64,15 +64,16 @@ class _NotificationsState extends State<Notifications> {
                       new EventNotification.fromJson(
                           asyncSnapshot.data.documents[index]);
                   if (notificationData.subtype == 'individual') {
-                    //TODO: Individual Event Notification Card
+                    //Individual Event Notification Card
                     return IndividualEventNotificationCard(
                         notificationData: notificationData);
                   } else {
-                    //TODO: Team Event Notification Card
+                    //Team Event Notification Card
                     return TeamEventNotificationCard(
                         notificationData: notificationData);
                   }
                 }
+                //friend request
                 return FriendRequestNotificationCard(
                     notificationData: notificationData);
               },

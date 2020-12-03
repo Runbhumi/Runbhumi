@@ -110,9 +110,9 @@ class _TeamConversationState extends State<TeamConversation> {
           onTap: () {},
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
+              CircleAvatar(
                 child: Image.asset(sportIcon),
+                backgroundColor: Colors.transparent,
               ),
               SizedBox(
                 width: 8,

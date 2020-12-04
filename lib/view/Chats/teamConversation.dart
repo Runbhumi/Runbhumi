@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -107,7 +108,18 @@ class _TeamConversationState extends State<TeamConversation> {
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return TeamInfo(
+                    teamID: widget.data.teamId,
+                  );
+                },
+              ),
+            );
+          },
           child: Row(
             children: [
               CircleAvatar(

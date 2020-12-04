@@ -47,91 +47,100 @@ class _TeamInfoState extends State<TeamInfo> {
 
   Widget build(BuildContext context) {
     if (_loading)
-      return Column(
-        children: [
-          //profile image
-          if (data['image'] != null)
-            Container(
-              width: 125,
-              height: 125,
-              margin: EdgeInsets.only(top: 15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(32)),
-                image: DecorationImage(
-                  image: NetworkImage(data['image']),
-                  fit: BoxFit.contain,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x44393e46),
-                    blurRadius: 20,
-                    offset: Offset(0, 10),
+      return Scaffold(
+        appBar: AppBar(
+          title: buildTitle(
+            context,
+            data['teamname'],
+          ),
+          leading: BackButton(),
+        ),
+        body: Column(
+          children: [
+            //profile image
+            if (data['image'] != null)
+              Container(
+                width: 125,
+                height: 125,
+                margin: EdgeInsets.only(top: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(32)),
+                  image: DecorationImage(
+                    image: NetworkImage(data['image']),
+                    fit: BoxFit.contain,
                   ),
-                ],
-              ),
-            ),
-          //Name
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              data['teamname'],
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-            ),
-          ),
-          //Bio
-          Padding(
-            padding: const EdgeInsets.only(
-              bottom: 8.0,
-              left: 32.0,
-              right: 32.0,
-            ),
-            child: Center(
-              child: Text(
-                data['bio'],
-                style: TextStyle(fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  if (data["sport"] != "")
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Feather.user,
-                            size: 24.0,
-                          ),
-                        ),
-                        Text(
-                          data["status"],
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x44393e46),
+                      blurRadius: 20,
+                      offset: Offset(0, 10),
                     ),
-                ],
+                  ],
+                ),
+              ),
+            //Name
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                data['teamname'],
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
               ),
             ),
-          ),
-          // ListView.builder(
-          //     itemCount: data['players'].length(),
-          //     shrinkWrap: true,
-          //     itemBuilder: (context, index) {
-          //       return SingleFriendCard(
-          //         imageLink: data['players']['profileImage'],
-          //         name: data['players']['name'],
-          //         userId: data['players']['userId'],
-          //       );
-          //     })
-        ],
+            //Bio
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 8.0,
+                left: 32.0,
+                right: 32.0,
+              ),
+              child: Center(
+                child: Text(
+                  data['bio'],
+                  style: TextStyle(fontSize: 14),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (data["sport"] != "")
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Feather.user,
+                              size: 24.0,
+                            ),
+                          ),
+                          Text(
+                            data["status"],
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            // ListView.builder(
+            //     itemCount: data['players'].length(),
+            //     shrinkWrap: true,
+            //     itemBuilder: (context, index) {
+            //       return SingleFriendCard(
+            //         imageLink: data['players']['profileImage'],
+            //         name: data['players']['name'],
+            //         userId: data['players']['userId'],
+            //       );
+            //     })
+          ],
+        ),
       );
     else
       return Loader();

@@ -147,13 +147,24 @@ class NotificationServices {
   }
 
   acceptTeamInviteNotification(TeamNotification team) async {
-    final Friends user = Friends.newFriend(_id, _name, _profileImage);
-    await FirebaseFirestore.instance.collection('users').doc(_id).update({
+    //final Friends user = Friends.newFriend(_id, _name, _profileImage);
+    // print(team.teamId);
+    // print(team.senderId);
+    final Friends user = Friends.newFriend(team.senderId, team.senderName,
+        'https://avatars0.githubusercontent.com/u/55529269?s=460&u=f6804866eacc30ccb04f1a6db11c20a292732cd6&v=4');
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(team.senderId)
+        .update({
       'teams': FieldValue.arrayUnion([team.teamId])
     });
-    await FirebaseFirestore.instance.collection('team').doc('team').update({
+    await FirebaseFirestore.instance
+        .collection('teams')
+        .doc(team.teamId)
+        .update({
       'players': FieldValue.arrayUnion([user.toJson()]),
-      'playerId': FieldValue.arrayUnion([user.friendId])
+      'playerId': FieldValue.arrayUnion([user.friendId]),
+      'notificationPlayers': FieldValue.arrayRemove([user.friendId]),
     });
     declineTeamInviteNotification(team);
   }
@@ -164,7 +175,7 @@ class NotificationServices {
         .collection('teams')
         .doc(teams.teamId)
         .update({
-      'notificationPlayers': FieldValue.arrayUnion([_id])
+      'notificationPlayers': FieldValue.arrayRemove([teams.senderId])
     });
   }
 

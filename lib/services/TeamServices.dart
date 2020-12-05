@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -69,6 +70,8 @@ class TeamService {
       'playerId': FieldValue.arrayUnion([me.friendId]),
       'players': FieldValue.arrayUnion([me.toJson()]),
     });
+    CustomMessageServices().sendTeamNewMemberJoinMessage(
+        teamId, Constants.prefs.getString('name'));
   }
 
   removeMeFromTeam(String teamId) async {
@@ -76,5 +79,23 @@ class TeamService {
       'playerId': FieldValue.arrayRemove([me.friendId]),
       'player': FieldValue.arrayRemove([me.toJson()]),
     });
+    CustomMessageServices()
+        .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name'));
+  }
+
+  deleteTeam(Teams team) async {
+    if (team.manager == Constants.prefs.getString('userId')) {
+      await FirebaseFirestore.instance
+          .collection('teams')
+          .doc(team.teamId)
+          .delete();
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(team.manager)
+          .collection('teams')
+          .doc(team.teamId)
+          .delete();
+    }
   }
 }

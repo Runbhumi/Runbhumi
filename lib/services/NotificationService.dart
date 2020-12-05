@@ -114,6 +114,16 @@ class NotificationServices {
     return false;
   }
 
+  declineEventNotification(EventNotification notificationData) async {
+    declineNotification(notificationData.notificationId);
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(notificationData.eventId)
+        .update({
+      'notificationPlayers': FieldValue.arrayRemove([notificationData.senderId])
+    });
+  }
+
   teamEventNotification(Events event, TeamView teamView) {
     var db = FirebaseFirestore.instance
         .collection('users')
@@ -166,6 +176,8 @@ class NotificationServices {
       'playerId': FieldValue.arrayUnion([user.friendId]),
       'notificationPlayers': FieldValue.arrayRemove([user.friendId]),
     });
+    CustomMessageServices()
+        .sendTeamNewMemberJoinMessage(team.teamId, team.senderName);
     declineTeamInviteNotification(team);
   }
 
@@ -222,11 +234,26 @@ class NotificationServices {
     //   'dateTime': DateTime.now(),
     // });
   }
-
-  acceptChallengeTeamNotification(String notificationId) {
-    // here a chatroom logic can be written
-    declineNotification(notificationId);
-  }
+  //TODO: Accept Challenge Notification.
+  // acceptChallengeTeamNotification(ChallengeNotification notificationData) {
+  //   String nameOftheEvent = notificationData.myTeamName +
+  //       ' Vs ' +
+  //       notificationData.opponentTeamName;
+  //   createNewEvent(
+  //     nameOftheEvent,
+  //     notificationData.senderId,
+  //     "Challenge",
+  //     notificationData.sport,
+  //     notificationData.,
+  //     [userId],
+  //     DateTime.parse(widget._datetime.text),
+  //     widget._maxMembers.toInt(),
+  //     "private",
+  //     3,
+  //   );
+  //   // here a chatroom logic can be written
+  //   declineNotification(notificationData.notificationId);
+  // }
 
   declineNotification(String notificationId) async {
     await FirebaseFirestore.instance

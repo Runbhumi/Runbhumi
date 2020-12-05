@@ -157,7 +157,6 @@ class _ChatScheduleState extends State<ChatSchedule> {
                     myText: "Schedule",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
-                      //TODO: Schdule the MiniEvent in each user.
                       for (int i = 0; i < widget.users.length; i++) {
                         addScheduleToUser(
                             widget.users[i],

@@ -105,6 +105,7 @@ class TeamNotification {
   String teamId;
   String senderId;
   String senderName;
+  String senderPic;
   String type;
   String teamName;
   String teamSport;
@@ -114,6 +115,7 @@ class TeamNotification {
       this.teamId,
       this.senderId,
       this.senderName,
+      this.senderPic,
       this.type,
       this.teamName,
       this.teamSport});
@@ -122,6 +124,7 @@ class TeamNotification {
     this.notificationId = notificationId;
     this.senderId = Constants.prefs.getString('userId');
     this.senderName = Constants.prefs.getString('name');
+    this.senderPic = Constants.prefs.getString('profileImage');
     this.type = "inviteTeams";
     this.teamId = teamId;
     this.teamName = teamName;
@@ -132,6 +135,7 @@ class TeamNotification {
         'notificationId': this.notificationId,
         'senderId': this.senderId,
         'senderName': this.senderName,
+        'senderPic': this.senderPic,
         'teamName': this.teamName,
         'teamId': this.teamId,
         'teamSport': this.teamSport,
@@ -145,6 +149,7 @@ class TeamNotification {
         teamId: parsedJson['teamId'],
         senderId: parsedJson['senderId'],
         senderName: parsedJson['senderName'],
+        senderPic: parsedJson['senderPic'],
         type: parsedJson['type'],
         teamName: parsedJson['teamName'],
         teamSport: parsedJson['teamSport']);
@@ -216,7 +221,7 @@ class EventNotification {
   String eventName;
   String teamName;
   String teamId;
-
+  String senderPic;
   String type;
   String subtype;
 
@@ -231,6 +236,7 @@ class EventNotification {
     this.eventId = eventId;
     this.senderId = Constants.prefs.getString('userId');
     this.senderName = Constants.prefs.getString('name');
+    this.senderPic = Constants.prefs.getString('profileImage');
     this.type = 'event';
     this.subtype = 'individual';
   }
@@ -254,6 +260,7 @@ class EventNotification {
         'senderName': this.senderName,
         'eventId': this.eventId,
         'eventName': this.eventName,
+        'senderPic': this.senderPic,
         'type': this.type,
         'subtype': this.subtype,
       };
@@ -284,6 +291,7 @@ class EventNotification {
       {this.notificationId,
       this.senderId,
       this.senderName,
+      this.senderPic,
       this.eventId,
       this.eventName,
       this.subtype});
@@ -295,6 +303,7 @@ class EventNotification {
           notificationId: parsedJson['notificationId'],
           senderId: parsedJson['senderId'],
           senderName: parsedJson['senderName'],
+          senderPic: parsedJson['senderPic'],
           eventId: parsedJson['eventId'],
           eventName: parsedJson['eventName'],
           subtype: parsedJson['subtype']);

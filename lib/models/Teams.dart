@@ -2,6 +2,12 @@ import 'package:Runbhumi/models/Friends.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// there can be 3 status for the verified team
+
+// n - if its not done
+// p - its pending
+// c - completed now can not be done
+
 class Teams {
   String teamId;
   String sport;
@@ -14,6 +20,7 @@ class Teams {
   List playerId;
   List notificationPlayers;
   String status;
+  Map<String, dynamic> verified;
 
   Teams(
       {this.teamId,
@@ -26,7 +33,8 @@ class Teams {
       this.player,
       this.playerId,
       this.notificationPlayers,
-      this.status});
+      this.status,
+      this.verified});
 
   Teams.newTeam(
       String teamId, String sport, String teamName, String bio, String status) {

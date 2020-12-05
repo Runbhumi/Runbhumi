@@ -11,6 +11,7 @@ class Events {
   String sportName;
   String description;
   List<dynamic> playersId;
+  List<dynamic> teamId;
   List notification;
   DateTime dateTime;
   int maxMembers;
@@ -46,7 +47,7 @@ class Events {
     this.creatorId = creator;
     this.location = location;
     this.sportName = sportName;
-    this.playersId = [creator]; // here the teams id can be stored too
+    this.playersId = [];
     this.description = description;
     this.dateTime = dateTime;
     this.maxMembers = maxMembers; // members can deonote the max number of teams
@@ -90,7 +91,6 @@ class Events {
       dateTime: data['dateTime'].toDate(),
     );
   }
-
   Map<String, dynamic> toJson() => {
         'eventId': this.eventId,
         'eventName': this.eventName,
@@ -136,5 +136,12 @@ class Events {
         type: data['type'],
         status: data['status'],
         notification: data['notificationPlayers']);
+  }
+
+  Future<bool> checkingAvailability(String id) async {
+    var snap =
+        await FirebaseFirestore.instance.collection('events').doc(id).get();
+    Map<String, dynamic> data = snap.data();
+    return data['playersId'].length() < data['max'] ? true : false;
   }
 }

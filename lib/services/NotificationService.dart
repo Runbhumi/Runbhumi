@@ -212,7 +212,8 @@ class NotificationServices {
       });
       await addScheduleToUser(notification.senderId, event.eventName,
           event.sportName, event.location, event.dateTime);
-      declineNotification(notification.notificationId);
+
+      await declineNotification(notification.notificationId);
       return true;
     }
 
@@ -299,18 +300,22 @@ class NotificationServices {
       'playersId': FieldValue.arrayUnion([notification.senderId]),
       'teamsId': FieldValue.arrayUnion([notification.teamId])
     });
-    declineNotification(notification.notificationId);
-    await FirebaseFirestore.instance
-        .collection('teams')
-        .doc(notification.teamId)
-        .collection('chats')
-        .doc()
-        .set({
-      'message':
-          "${notification.senderName} has registered you for ${notification.eventName}",
-      'type': 'custom',
-      'dateTime': DateTime.now(),
-    });
+    await declineNotification(notification.notificationId);
+    await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
+        notification.eventId, notification.teamName, notification.eventName);
+    await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
+        notification.teamId, notification.senderName, notification.eventName);
+    // await FirebaseFirestore.instance
+    //     .collection('teams')
+    //     .doc(notification.teamId)
+    //     .collection('chats')
+    //     .doc()
+    //     .set({
+    //   'message':
+    //       "${notification.senderName} has registered you for ${notification.eventName}",
+    //   'type': 'custom',
+    //   'dateTime': DateTime.now(),
+    // });
   }
 
   acceptChallengeTeamNotification(String notificationId) {

@@ -1,8 +1,7 @@
-import 'package:Runbhumi/models/Events.dart';
-import 'package:Runbhumi/models/Teams.dart';
-import 'package:Runbhumi/services/UserServices.dart';
+import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Runbhumi/services/services.dart';
 
 //import 'package:Runbhumi/models/Events.dart';
 
@@ -113,25 +112,34 @@ addScheduleToUser(String userId, String eventName, String sportName,
           .minitoJson());
 }
 
-addTeamToEvent(Events event, TeamView team) async {
-  await FirebaseFirestore.instance
+Future<Events> getEventDetails(String notificationId) async {
+  var snap = await FirebaseFirestore.instance
       .collection('events')
-      .doc(event.eventId)
-      .update({
-    'playersId': FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
-    'teamsId': FieldValue.arrayUnion([team.teamId])
-  });
-  await FirebaseFirestore.instance
-      .collection('teams')
-      .doc(team.teamId)
-      .collection('chats')
-      .doc()
-      .set({
-    'message':
-        "${Constants.prefs.getString('name')} has registered you for ${event.eventName}",
-    'type': 'custom',
-    'dateTime': DateTime.now(),
-  });
+      .doc(notificationId)
+      .get();
+  Map<String, dynamic> map = snap.data();
+  Events event = Events.fromMap(map);
+  return event;
+}
+
+Future<bool> addTeamToEvent(Events event, TeamView team) async {
+  bool availability = await Events().checkingAvailability(event.eventId);
+  if (availability) {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(event.eventId)
+        .update({
+      'playersId': FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
+      'teamsId': FieldValue.arrayUnion([team.teamId])
+    });
+    await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
+        event.eventId, team.teamName, event.eventName);
+    await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
+        team.teamId, Constants.prefs.getString('username'), event.eventName);
+    return true;
+  }
+
+  return false;
 }
 // .set({
 //    "eventsId": FieldValue.arrayUnion([id])
@@ -150,5 +158,4 @@ leaveEvent(id, fate) {
   FirebaseFirestore.instance.collection('events').doc(id).set({
     'playersId': FieldValue.arrayRemove([userId])
   }, SetOptions(merge: true));
-  UserService().updateEventCount(-1);
 }

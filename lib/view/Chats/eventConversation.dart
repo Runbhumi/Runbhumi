@@ -48,6 +48,12 @@ class _EventConversationState extends State<EventConversation> {
                 itemBuilder: (context, index) {
                   Message data =
                       new Message.fromJson(snapshot.data.documents[index]);
+                  if (data.type != "") {
+                    return Card(
+                      //TODO: Beautiful Custom Msg, please make it look hot
+                      child: Center(child: Text(data.message)),
+                    );
+                  }
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
                     message: data.message,

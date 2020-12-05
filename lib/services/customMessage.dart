@@ -11,7 +11,7 @@ class CustomMessageServices {
         .collection('chats')
         .doc()
         .set({
-      'message': team + " just Joined !",
+      'message': team + " just Joined!",
       'type': 'custom',
       'dateTime': DateTime.now(),
     });
@@ -25,7 +25,7 @@ class CustomMessageServices {
         .collection('chats')
         .doc()
         .set({
-      'message': "You Guys registered for " + eventName,
+      'message': "Team sucessfully got registered for " + eventName,
       'type': 'custom',
       'dateTime': DateTime.now(),
     });
@@ -38,7 +38,7 @@ class CustomMessageServices {
         .collection('chats')
         .doc()
         .set({
-      'message': name + " Joined You Guys",
+      'message': "Welcome " + name + "to the team",
       'type': 'custom',
       'dateTime': DateTime.now(),
     });
@@ -51,7 +51,7 @@ class CustomMessageServices {
         .collection('chats')
         .doc()
         .set({
-      'message': "Kicked" + name,
+      'message': name + "says goodbye!",
       'type': 'custom',
       'dateTime': DateTime.now(),
     });

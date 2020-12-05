@@ -369,9 +369,15 @@ class _HomeState extends State<Home> {
                                                                   data: data)),
                                                     );
                                                   } else {
-                                                    NotificationServices()
-                                                        .createIndividualNotification(
-                                                            data);
+                                                    if (!data.notification
+                                                        .contains(Constants
+                                                            .prefs
+                                                            .getString(
+                                                                'userId'))) {
+                                                      NotificationServices()
+                                                          .createIndividualNotification(
+                                                              data);
+                                                    }
                                                     //TODO: Change the button to invite sent
                                                     //Private Individual Event
                                                   }

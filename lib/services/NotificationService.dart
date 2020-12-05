@@ -150,8 +150,8 @@ class NotificationServices {
     //final Friends user = Friends.newFriend(_id, _name, _profileImage);
     // print(team.teamId);
     // print(team.senderId);
-    final Friends user = Friends.newFriend(team.senderId, team.senderName,
-        'https://avatars0.githubusercontent.com/u/55529269?s=460&u=f6804866eacc30ccb04f1a6db11c20a292732cd6&v=4');
+    final Friends user =
+        Friends.newFriend(team.senderId, team.senderName, team.senderPic);
     await FirebaseFirestore.instance
         .collection('users')
         .doc(team.senderId)

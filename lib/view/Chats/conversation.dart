@@ -25,6 +25,7 @@ class _ConversationState extends State<Conversation> {
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   ScrollController _controller = ScrollController();
+  int limit = 20;
   addMessage() {
     //adding the message typed by the user
     if (messageEditingController.text.trim().isNotEmpty) {
@@ -74,15 +75,34 @@ class _ConversationState extends State<Conversation> {
 
   @override
   void initState() {
-    ChatroomService().getDirectMessages(widget.chatRoomId).then((value) {
+    ChatroomService().getDirectMessages(widget.chatRoomId, limit).then((value) {
       setState(() {
         chats = value;
       });
     });
+    _controller.addListener(_scrollListener);
     super.initState();
     Future.delayed(Duration(milliseconds: 400), () {
       _controller.jumpTo(_controller.position.minScrollExtent);
     });
+  }
+
+  void _scrollListener() {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      print("at the end of list");
+      print(limit);
+      setState(() {
+        limit += limit;
+        ChatroomService()
+            .getDirectMessages(widget.chatRoomId, limit)
+            .then((value) {
+          setState(() {
+            chats = value;
+          });
+        });
+      });
+    }
   }
 
   @override

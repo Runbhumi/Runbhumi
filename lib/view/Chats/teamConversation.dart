@@ -149,7 +149,8 @@ class _TeamConversationState extends State<TeamConversation> {
               SizedBox(
                 width: 8,
               ),
-              Text(widget.data.teamName),
+              Text(widget.data.teamName,
+                  style: TextStyle(color: Theme.of(context).backgroundColor)),
             ],
           ),
         ),

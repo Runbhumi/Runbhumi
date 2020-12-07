@@ -291,7 +291,9 @@ class _HomeState extends State<Home> {
                                                 Row(
                                                   children: [
                                                     Icon(
-                                                      Feather.globe,
+                                                      data.type == 1
+                                                          ? Feather.globe
+                                                          : Feather.lock,
                                                       size: 18,
                                                       color: data.type == 1
                                                           ? Colors.green[400]

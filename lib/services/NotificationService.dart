@@ -114,6 +114,16 @@ class NotificationServices {
     return false;
   }
 
+  declineEventNotification(EventNotification notificationData) async {
+    declineNotification(notificationData.notificationId);
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(notificationData.eventId)
+        .update({
+      'notificationPlayers': FieldValue.arrayRemove([notificationData.senderId])
+    });
+  }
+
   teamEventNotification(Events event, TeamView teamView) {
     var db = FirebaseFirestore.instance
         .collection('users')
@@ -150,8 +160,8 @@ class NotificationServices {
     //final Friends user = Friends.newFriend(_id, _name, _profileImage);
     // print(team.teamId);
     // print(team.senderId);
-    final Friends user = Friends.newFriend(team.senderId, team.senderName,
-        'https://avatars0.githubusercontent.com/u/55529269?s=460&u=f6804866eacc30ccb04f1a6db11c20a292732cd6&v=4');
+    final Friends user =
+        Friends.newFriend(team.senderId, team.senderName, team.senderPic);
     await FirebaseFirestore.instance
         .collection('users')
         .doc(team.senderId)
@@ -166,6 +176,8 @@ class NotificationServices {
       'playerId': FieldValue.arrayUnion([user.friendId]),
       'notificationPlayers': FieldValue.arrayRemove([user.friendId]),
     });
+    CustomMessageServices()
+        .sendTeamNewMemberJoinMessage(team.teamId, team.senderName);
     declineTeamInviteNotification(team);
   }
 
@@ -222,11 +234,26 @@ class NotificationServices {
     //   'dateTime': DateTime.now(),
     // });
   }
-
-  acceptChallengeTeamNotification(String notificationId) {
-    // here a chatroom logic can be written
-    declineNotification(notificationId);
-  }
+  //TODO: Accept Challenge Notification.
+  // acceptChallengeTeamNotification(ChallengeNotification notificationData) {
+  //   String nameOftheEvent = notificationData.myTeamName +
+  //       ' Vs ' +
+  //       notificationData.opponentTeamName;
+  //   createNewEvent(
+  //     nameOftheEvent,
+  //     notificationData.senderId,
+  //     "Challenge",
+  //     notificationData.sport,
+  //     notificationData.,
+  //     [userId],
+  //     DateTime.parse(widget._datetime.text),
+  //     widget._maxMembers.toInt(),
+  //     "private",
+  //     3,
+  //   );
+  //   // here a chatroom logic can be written
+  //   declineNotification(notificationData.notificationId);
+  // }
 
   declineNotification(String notificationId) async {
     await FirebaseFirestore.instance

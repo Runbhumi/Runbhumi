@@ -339,8 +339,8 @@ class TeamEventNotificationCard extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                         onTap: () {
-                          NotificationServices().declineNotification(
-                              notificationData.notificationId);
+                          NotificationServices()
+                              .declineEventNotification(notificationData);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -451,8 +451,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                             width: 48,
                             fit: BoxFit.fitWidth,
                             image: NetworkImage(
-                              // notificationData.senderId,
-                              "https://avatars0.githubusercontent.com/u/55529269?s=460&u=f6804866eacc30ccb04f1a6db11c20a292732cd6&v=4",
+                              notificationData.senderPic,
                             ),
                           ),
                         ),
@@ -496,8 +495,8 @@ class IndividualEventNotificationCard extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                         onTap: () {
-                          NotificationServices().declineNotification(
-                              notificationData.notificationId);
+                          NotificationServices()
+                              .declineEventNotification(notificationData);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -619,7 +618,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                               width: 48,
                               fit: BoxFit.fitWidth,
                               image: NetworkImage(
-                                "https://avatars0.githubusercontent.com/u/55529269?s=460&u=f6804866eacc30ccb04f1a6db11c20a292732cd6&v=4",
+                                notificationData.senderPic,
                               ),
                             ),
                           ),
@@ -664,8 +663,8 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                         onTap: () {
-                          NotificationServices().declineNotification(
-                              notificationData.notificationId);
+                          NotificationServices()
+                              .declineTeamInviteNotification(notificationData);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -835,8 +834,8 @@ class ChallengeNotificationCard extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                         onTap: () {
-                          NotificationServices().declineNotification(
-                              notificationData.notificationId);
+                          // NotificationServices().declineNotification(
+                          //     notificationData.notificationId);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,

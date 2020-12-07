@@ -450,7 +450,6 @@ class _HomeState extends State<Home> {
                                     //                   NotificationServices()
                                     //                       .createIndividualNotification(
                                     //                           data);
-                                    //                   //TODO: Change the button to invite sent
                                     //                   //Private Individual Event
                                     //                 }
                                     //               } else {

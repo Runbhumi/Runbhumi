@@ -2,6 +2,8 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:Runbhumi/view/Chats/teamConversation.dart';
+import 'package:Runbhumi/view/teams/challengeScreen.dart';
 //import 'package:Runbhumi/view/teams/challengeScreen.dart';
 import 'package:Runbhumi/view/teams/teamCategory.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -127,7 +129,45 @@ class _TeamsListState extends State<TeamsList> {
                                                         });
                                               }
                                             }
-                                          })
+                                          }),
+                                      SmallButton(
+                                        myColor: !joinCondition
+                                            ? Theme.of(context).primaryColor
+                                            : Theme.of(context).accentColor,
+                                        myText: !joinCondition
+                                            ? 'Challenge'
+                                            : 'Chats',
+                                        onPressed: () {
+                                          if (!joinCondition) {
+                                            // Challenge logic
+                                            final TeamChallengeNotification
+                                                teamData =
+                                                new TeamChallengeNotification
+                                                        .newTeam(
+                                                    data.teamId,
+                                                    data.manager,
+                                                    data.teamName);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ChallangeTeam(
+                                                          sportName: data.sport,
+                                                          teamData: teamData)),
+                                            );
+                                          } else {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TeamConversation(
+                                                    data: data,
+                                                  ),
+                                                ));
+                                            //Go to the team ChatRoom
+                                          }
+                                        },
+                                      )
                                     ],
                                     leading: Image.asset(sportIcon),
                                     title: Text(

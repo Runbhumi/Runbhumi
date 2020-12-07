@@ -20,6 +20,7 @@ class _TeamConversationState extends State<TeamConversation> {
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   ScrollController _controller = ScrollController();
+  int limit = 20;
   addMessage() {
     //adding the message typed by the user
     if (messageEditingController.text.trim().isNotEmpty) {
@@ -75,15 +76,34 @@ class _TeamConversationState extends State<TeamConversation> {
 
   @override
   void initState() {
-    ChatroomService().getTeamMessages(widget.data.teamId).then((value) {
+    ChatroomService().getTeamMessages(widget.data.teamId, limit).then((value) {
       setState(() {
         chats = value;
       });
     });
     super.initState();
+    _controller.addListener(_scrollListener);
     Future.delayed(Duration(milliseconds: 400), () {
       _controller.jumpTo(_controller.position.minScrollExtent);
     });
+  }
+
+  void _scrollListener() {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      print("at the end of list");
+      print(limit);
+      setState(() {
+        limit += limit;
+        ChatroomService()
+            .getTeamMessages(widget.data.teamId, limit)
+            .then((value) {
+          setState(() {
+            chats = value;
+          });
+        });
+      });
+    }
   }
 
   @override

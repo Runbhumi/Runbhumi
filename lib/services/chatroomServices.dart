@@ -62,30 +62,33 @@ class ChatroomService {
     });
   }
 
-  getTeamMessages(String teamId) async {
+  getTeamMessages(String teamId, int limit) async {
     return FirebaseFirestore.instance
         .collection("teams")
         .doc(teamId)
         .collection("chats")
         .orderBy('dateTime', descending: true)
+        .limit(limit)
         .snapshots();
   }
 
-  getEventMessages(String eventId) async {
+  getEventMessages(String eventId, int limit) async {
     return FirebaseFirestore.instance
         .collection("events")
         .doc(eventId)
         .collection("chats")
         .orderBy('dateTime', descending: true)
+        .limit(limit)
         .snapshots();
   }
 
-  getDirectMessages(String chatRoomId) async {
+  getDirectMessages(String chatRoomId, int limit) async {
     return FirebaseFirestore.instance
         .collection("DirectChats")
         .doc(chatRoomId)
         .collection("chats")
         .orderBy('dateTime', descending: true)
+        .limit(limit)
         .snapshots();
   }
 

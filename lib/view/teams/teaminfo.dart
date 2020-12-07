@@ -200,7 +200,7 @@ class _TeamInfoState extends State<TeamInfo> {
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 4.0, horizontal: 16.0),
+                                    vertical: 4.0, horizontal: 0.0),
                                 child: Card(
                                   child: GestureDetector(
                                     onTap: () {

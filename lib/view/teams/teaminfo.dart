@@ -74,6 +74,16 @@ class _TeamInfoState extends State<TeamInfo> {
   }
 
   Widget build(BuildContext context) {
+    void handleClick(String value) {
+      switch (value) {
+        case 'Leave team':
+          //TODO: add funtionality
+          break;
+        case 'Transfer Captainship':
+          break;
+      }
+    }
+
     if (_loading)
       return Scaffold(
         appBar: AppBar(
@@ -82,6 +92,20 @@ class _TeamInfoState extends State<TeamInfo> {
             data['teamname'],
           ),
           leading: BackButton(),
+          actions: [
+            PopupMenuButton<String>(
+              onSelected: handleClick,
+              itemBuilder: (BuildContext context) {
+                return {'Leave team', 'Transfer Captainship'}
+                    .map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+            ),
+          ],
         ),
         body: Column(
           children: [

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,34 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 // addMeInTeam(String teamId) => can pe used in a public team to join directly as a player
 // removeMeFromTeam(String teamId) => every player has a right to leave team if  they want but not the manager
+/*
+Sai Rohan Bangari12:32 PM
+(playersId.contains(Constant.prefs.getString(userId)) == true)
+Leave
 
+(playersId.contains(Constant.prefs.getString(userId)) == true && Constant.prefs.getString(userId) == manager)
+Delete Team
+Verify Team
+
+
+ (playersId.contains(Constant.prefs.getString(userId)) == false)
+Join Team
+Challenge Team
+(playersId.contains(Constant.prefs.getString(userId)) == true)
+Leave
+Chat
+
+(playersId.contains(Constant.prefs.getString(userId)) == true && Constant.prefs.getString(userId) == manager)
+Delete Team
+Verify Team
+Chat
+
+
+ (playersId.contains(Constant.prefs.getString(userId)) == false)
+Join Team
+Challenge Team
+
+*/
 class TeamInfo extends StatefulWidget {
   const TeamInfo({
     @required this.teamID,
@@ -57,34 +85,36 @@ class _TeamInfoState extends State<TeamInfo> {
         ),
         body: Column(
           children: [
-            //profile image
-            if (data['image'] != null)
-              Container(
-                width: 125,
-                height: 125,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(32)),
-                  image: DecorationImage(
-                    image: NetworkImage(data['image']),
-                    fit: BoxFit.contain,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x44393e46),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
+            // for image
+            Stack(
+              children: [
+                Container(
+                  width: 115,
+                  height: 115,
+                  child: Loader(),
+                  margin: EdgeInsets.only(top: 8),
                 ),
-              ),
-            //Name
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                data['teamname'],
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-              ),
+                Container(
+                  width: 115,
+                  height: 115,
+                  margin: EdgeInsets.only(top: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                    // I didnt had images
+                    // image: DecorationImage(
+                    //   image: NetworkImage(data['image']),
+                    //   fit: BoxFit.fitWidth,
+                    // ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x0800d2ff),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             //Bio
             Padding(
@@ -102,43 +132,102 @@ class _TeamInfoState extends State<TeamInfo> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    if (data["sport"] != "")
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                data["status"] == "public"
+                                    ? Feather.globe
+                                    : Feather.lock,
+                                size: 20,
+                                color: data["status"] == "public"
+                                    ? Colors.green[400]
+                                    : Colors.red[400],
+                              ),
+                            ),
+                            Text(
+                              data["status"] == 1 ? "Public" : "private",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: data["status"] == "public"
+                                    ? Colors.green[400]
+                                    : Colors.red[400],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Stack(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Feather.user,
-                              size: 24.0,
-                            ),
-                          ),
-                          Text(
-                            data["status"],
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
+                          ListView.builder(
+                            itemCount: data["playerId"].length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 16.0),
+                                child: Card(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              OtherUserProfile(
+                                            userID: data["players"][index]
+                                                ["id"],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: ListTile(
+                                            contentPadding: EdgeInsets.all(0),
+                                            leading: Container(
+                                              height: 48,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                child: Image.network(
+                                                    data["players"][index]
+                                                        ["profileImage"],
+                                                    height: 48),
+                                              ),
+                                            ),
+                                            title: Text(
+                                              data["players"][index]["name"],
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
+                    ),
                   ],
                 ),
               ),
             ),
-            // ListView.builder(
-            //     itemCount: data['players'].length(),
-            //     shrinkWrap: true,
-            //     itemBuilder: (context, index) {
-            //       return SingleFriendCard(
-            //         imageLink: data['players']['profileImage'],
-            //         name: data['players']['name'],
-            //         userId: data['players']['userId'],
-            //       );
-            //     })
           ],
         ),
       );

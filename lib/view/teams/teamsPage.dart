@@ -5,6 +5,7 @@ import 'package:Runbhumi/utils/theme_config.dart';
 //import 'package:Runbhumi/view/teams/challengeScreen.dart';
 import 'package:Runbhumi/view/teams/teamCategory.dart';
 import 'package:Runbhumi/widget/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -15,28 +16,32 @@ class TeamsList extends StatefulWidget {
 }
 
 class _TeamsListState extends State<TeamsList> {
-  Stream teamFeed;
-
+  int loadMoreTeams = 20;
+  ScrollController _teamsScrollController;
   void initState() {
     super.initState();
-    getAllTeams();
-  }
-
-  getAllTeams() async {
-    await TeamService().getAllTeamsFeed().then((snapshots) {
-      setState(() {
-        teamFeed = snapshots;
+    _teamsScrollController = ScrollController()
+      ..addListener(() {
+        if (_teamsScrollController.position.pixels ==
+            _teamsScrollController.position.maxScrollExtent) {
+          setState(() {
+            loadMoreTeams += loadMoreTeams;
+          });
+        }
       });
-    });
   }
 
   Widget feed({ThemeNotifier theme}) {
     return StreamBuilder(
-      stream: teamFeed,
+      stream: FirebaseFirestore.instance
+          .collection("teams")
+          .limit(loadMoreTeams)
+          .snapshots(),
       builder: (context, asyncSnapshot) {
         return asyncSnapshot.hasData
             ? asyncSnapshot.data.documents.length > 0
                 ? ListView.builder(
+                    controller: _teamsScrollController,
                     itemCount: asyncSnapshot.data.documents.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {

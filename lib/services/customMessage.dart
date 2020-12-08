@@ -38,7 +38,7 @@ class CustomMessageServices {
         .collection('chats')
         .doc()
         .set({
-      'message': "Welcome " + name + "to the team",
+      'message': "Welcome " + name + " to the team",
       'type': 'custom',
       'dateTime': DateTime.now(),
     });
@@ -51,7 +51,7 @@ class CustomMessageServices {
         .collection('chats')
         .doc()
         .set({
-      'message': name + "says goodbye!",
+      'message': name + " says goodbye!",
       'type': 'custom',
       'dateTime': DateTime.now(),
     });

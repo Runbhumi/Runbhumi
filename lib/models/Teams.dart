@@ -20,7 +20,7 @@ class Teams {
   List playerId;
   List notificationPlayers;
   String status;
-  Map<String, dynamic> verified;
+  String verified;
 
   Teams(
       {this.teamId,
@@ -55,6 +55,7 @@ class Teams {
     this.playerId = [myprofile.friendId];
     this.notificationPlayers = [];
     this.status = status;
+    this.verified = 'N';
   }
   Map<String, dynamic> toJson() => {
         'teamId': this.teamId,
@@ -67,7 +68,8 @@ class Teams {
         'players': this.player,
         'playerId': this.playerId,
         'notificationPlayers': this.notificationPlayers,
-        'status': this.status
+        'status': this.status,
+        'verified': this.verified
       };
   factory Teams.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
@@ -82,7 +84,8 @@ class Teams {
         player: parsedJson['players'],
         playerId: parsedJson['playerId'],
         notificationPlayers: parsedJson['notificationPlayers'],
-        status: parsedJson['status']);
+        status: parsedJson['status'],
+        verified: parsedJson['verified']);
   }
 }
 

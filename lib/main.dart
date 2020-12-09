@@ -40,17 +40,17 @@ class MyApp extends StatelessWidget {
       //theme
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
       //connectivity widget used to check internet connection
-      home: ConnectivityWidget(
-          showOfflineBanner: false,
-          offlineCallback: () {
-            print("-----------------we Are f^*KiNg offline----------------");
-          },
-          builder: (context, isOnline) {
-            return isOnline ? Splash() : ShowOffline();
-          }),
-      // home: Splash(),
+      // home: ConnectivityWidget(
+      //     showOfflineBanner: false,
+      //     offlineCallback: () {
+      //       print("-----------------we Are offline----------------");
+      //     },
+      //     builder: (context, isOnline) {
+      //       return isOnline ? Splash() : ShowOffline();
+      //     }),
+      home: Splash(),
       // debug tag which comes on top left corner
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

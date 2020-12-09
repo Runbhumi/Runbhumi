@@ -226,13 +226,13 @@ class _TeamInfoState extends State<TeamInfo> {
                       children: [
                         Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              // child: Image(
-                              //   image: AssetImage("assets/verified.png"),
-                              // ),
-                              child: Image.asset("assets/verified.png"),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   // child: Image(
+                            //   //   image: AssetImage("assets/verified.png"),
+                            //   // ),
+                            //   child: Image.asset("assets/verified.png"),
+                            // ),
                             Text(
                               "Verified",
                               style: TextStyle(

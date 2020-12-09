@@ -184,15 +184,12 @@ class _TeamInfoState extends State<TeamInfo> {
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
-                left: 32.0,
+                left: 16.0,
                 right: 32.0,
               ),
-              child: Center(
-                child: Text(
-                  data['bio'],
-                  style: TextStyle(fontSize: 14),
-                  textAlign: TextAlign.center,
-                ),
+              child: Text(
+                data['bio'],
+                style: TextStyle(fontSize: 14),
               ),
             ),
             Expanded(

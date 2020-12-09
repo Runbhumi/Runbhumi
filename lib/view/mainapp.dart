@@ -1,8 +1,8 @@
-import 'package:Runbhumi/widget/showOffline.dart';
+// import 'package:Runbhumi/widget/showOffline.dart';
 import 'package:flutter/material.dart';
 import 'views.dart';
 import '../widget/widgets.dart';
-import 'package:connectivity_widget/connectivity_widget.dart';
+// import 'package:connectivity_widget/connectivity_widget.dart';
 /*
   this has the bottom navigation bar of the app
 */
@@ -13,8 +13,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  int _currentIndex = 0;
-  final PageController _pageController = PageController();
+  int _currentIndex = 2;
+  final PageController _pageController = PageController(initialPage: 2);
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
@@ -40,9 +40,10 @@ class _MainAppState extends State<MainApp> {
         controller: _pageController,
         itemCount: 5,
         itemBuilder: (context, index) {
-          return ConnectivityWidget(builder: (context, isOnline) {
-            return isOnline ? _children[index] : ShowOffline();
-          });
+          // return ConnectivityWidget(builder: (context, isOnline) {
+          //   return isOnline ? _children[index] : ShowOffline();
+          // });
+          return _children[index];
         },
         onPageChanged: (int index) {
           setState(() {

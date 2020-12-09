@@ -100,9 +100,6 @@ class _TeamInfoState extends State<TeamInfo> {
           TeamService().removeMeFromTeam(widget.teamID);
           Navigator.pushNamed(context, '/mainapp');
           break;
-        case 'Transfer Captainship':
-          //Can we have this option for every player in the list builder.
-          break;
         case 'Send Verification Application':
           //Method to send verification.
           break;
@@ -127,11 +124,8 @@ class _TeamInfoState extends State<TeamInfo> {
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
                 return Constants.prefs.getString('userId') == data['manager']
-                    ? {
-                        'Delete team',
-                        'Transfer Captainship',
-                        'Send Verification Application'
-                      }.map((String choice) {
+                    ? {'Delete team', 'Send Verification Application'}
+                        .map((String choice) {
                         return PopupMenuItem<String>(
                           value: choice,
                           child: Text(choice),
@@ -152,12 +146,6 @@ class _TeamInfoState extends State<TeamInfo> {
             // for image
             Stack(
               children: [
-                // Container(
-                //   width: 115,
-                //   height: 115,
-                //   child: Loader(),
-                //   margin: EdgeInsets.only(top: 8),
-                // ),
                 Container(
                   width: 115,
                   height: 115,
@@ -180,24 +168,28 @@ class _TeamInfoState extends State<TeamInfo> {
                 ),
               ],
             ),
-            //Bio
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8.0,
-                left: 16.0,
-                right: 32.0,
-              ),
-              child: Text(
-                data['bio'],
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    //Bio
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 8.0,
+                            left: 16.0,
+                            right: 32.0,
+                          ),
+                          child: Text(
+                            data['bio'],
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -221,6 +213,39 @@ class _TeamInfoState extends State<TeamInfo> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
                                 color: data["status"] == "public"
+                                    ? Colors.green[400]
+                                    : Colors.red[400],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                data["status"] == "public"
+                                    ? Feather.globe
+                                    : Feather.lock,
+                                size: 20,
+                                color: data["status"] == "public"
+                                    ? Colors.green[400]
+                                    : Colors.red[400],
+                              ),
+                            ),
+                            Text(
+                              data["verified"] == "N"
+                                  ? "Not Verified"
+                                  : "Verified",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: data["verified"] == "N"
                                     ? Colors.green[400]
                                     : Colors.red[400],
                               ),
@@ -275,9 +300,7 @@ class _TeamInfoState extends State<TeamInfo> {
                                               data["players"][index]["name"],
                                               style: TextStyle(fontSize: 18),
                                             ),
-                                            trailing: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                            subtitle: Row(
                                               children: [
                                                 if (data["players"][index]
                                                         ["id"] ==
@@ -335,6 +358,46 @@ class _TeamInfoState extends State<TeamInfo> {
                                                   ),
                                               ],
                                             ),
+                                            trailing: Constants.prefs
+                                                        .getString('userId') ==
+                                                    data['manager']
+                                                ? (data["players"][index]
+                                                            ["id"] !=
+                                                        data["manager"])
+                                                    ? PopupMenuButton(
+                                                        icon: Icon(
+                                                            Icons.more_vert),
+                                                        itemBuilder: (_) => <
+                                                            PopupMenuItem<
+                                                                String>>[
+                                                          new PopupMenuItem<
+                                                                  String>(
+                                                              child: new Text(
+                                                                  'Transfer captainship'),
+                                                              value:
+                                                                  'Transfer captainship'),
+                                                          new PopupMenuItem<
+                                                                  String>(
+                                                              child: new Text(
+                                                                  'Remove member'),
+                                                              value:
+                                                                  'Remove member'),
+                                                        ],
+                                                        onSelected:
+                                                            (theChosenOne) {
+                                                          switch (
+                                                              theChosenOne) {
+                                                            case 'Transfer captainship':
+                                                              //add functionality
+                                                              break;
+                                                            case 'Remove member':
+                                                              //add functionality
+                                                              break;
+                                                          }
+                                                        },
+                                                      )
+                                                    : null
+                                                : null,
                                           ),
                                         ),
                                       ],

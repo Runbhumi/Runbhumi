@@ -228,26 +228,17 @@ class _TeamInfoState extends State<TeamInfo> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                data["status"] == "public"
-                                    ? Feather.globe
-                                    : Feather.lock,
-                                size: 20,
-                                color: data["status"] == "public"
-                                    ? Colors.green[400]
-                                    : Colors.red[400],
-                              ),
+                              // child: Image(
+                              //   image: AssetImage("assets/verified.png"),
+                              // ),
+                              child: Image.asset("assets/verified.png"),
                             ),
                             Text(
-                              data["verified"] == "N"
-                                  ? "Not Verified"
-                                  : "Verified",
+                              "Verified",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
-                                color: data["verified"] == "N"
-                                    ? Colors.green[400]
-                                    : Colors.red[400],
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ],
@@ -261,8 +252,6 @@ class _TeamInfoState extends State<TeamInfo> {
                             itemCount: data["playerId"].length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                //TODO: For each tile can you please check if the person is not a captain and
-                                //not a manager then display the button to make him captain
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 4.0, horizontal: 0.0),
                                 child: Card(

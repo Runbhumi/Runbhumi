@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,6 +53,7 @@ class _TeamInfoState extends State<TeamInfo> {
   StreamSubscription sub;
   Map data;
   bool _loading = false;
+  String sportIcon;
 
   @override
   void initState() {
@@ -74,12 +77,39 @@ class _TeamInfoState extends State<TeamInfo> {
   }
 
   Widget build(BuildContext context) {
+    // IconData sportIcon;
+    switch (data['sport']) {
+      case "Volleyball":
+        sportIcon = "assets/icons8-volleyball-96.png";
+        break;
+      case "Basketball":
+        // sportIcon = Icons.sports_basketball;
+        sportIcon = "assets/icons8-basketball-96.png";
+        break;
+      case "Cricket":
+        sportIcon = "assets/icons8-cricket-96.png";
+        break;
+      case "Football":
+        sportIcon = "assets/icons8-soccer-ball-96.png";
+        break;
+    }
     void handleClick(String value) {
       switch (value) {
         case 'Leave team':
           //TODO: add funtionality
+          TeamService().removeMeFromTeam(widget.teamID);
+          Navigator.pushNamed(context, '/mainapp');
           break;
         case 'Transfer Captainship':
+          //Can we have this option for every player in the list builder.
+          break;
+        case 'Send Verification Application':
+          //Method to send verification.
+          break;
+        case 'Delete team':
+          //Still facing issues with this code
+          TeamService().deleteTeam(data['manager'], widget.teamID);
+          Navigator.pushNamed(context, '/mainapp');
           break;
       }
     }
@@ -96,13 +126,23 @@ class _TeamInfoState extends State<TeamInfo> {
             PopupMenuButton<String>(
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
-                return {'Leave team', 'Transfer Captainship'}
-                    .map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
+                return Constants.prefs.getString('userId') == data['manager']
+                    ? {
+                        'Delete team',
+                        'Transfer Captainship',
+                        'Send Verification Application'
+                      }.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice),
+                        );
+                      }).toList()
+                    : {'Leave team'}.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice),
+                        );
+                      }).toList();
               },
             ),
           ],
@@ -112,12 +152,12 @@ class _TeamInfoState extends State<TeamInfo> {
             // for image
             Stack(
               children: [
-                Container(
-                  width: 115,
-                  height: 115,
-                  child: Loader(),
-                  margin: EdgeInsets.only(top: 8),
-                ),
+                // Container(
+                //   width: 115,
+                //   height: 115,
+                //   child: Loader(),
+                //   margin: EdgeInsets.only(top: 8),
+                // ),
                 Container(
                   width: 115,
                   height: 115,
@@ -125,10 +165,10 @@ class _TeamInfoState extends State<TeamInfo> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(32)),
                     // I didnt had images
-                    // image: DecorationImage(
-                    //   image: NetworkImage(data['image']),
-                    //   fit: BoxFit.fitWidth,
-                    // ),
+                    image: DecorationImage(
+                      image: AssetImage(sportIcon),
+                      fit: BoxFit.fitWidth,
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: Color(0x0800d2ff),
@@ -196,6 +236,8 @@ class _TeamInfoState extends State<TeamInfo> {
                             itemCount: data["playerId"].length,
                             itemBuilder: (context, index) {
                               return Padding(
+                                //TODO: For each tile can you please check if the person is not a captain and
+                                //not a manager then display the button to make him captain
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 4.0, horizontal: 0.0),
                                 child: Card(

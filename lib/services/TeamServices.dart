@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/models/verificationApp.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -65,6 +66,13 @@ class TeamService {
         .set(team.toJson());
   }
 
+  setCaptain(String newCaptain, String teamId) async {
+    await FirebaseFirestore.instance
+        .collection('teams')
+        .doc(teamId)
+        .update({'captain': newCaptain});
+  }
+
   addMeInTeam(String teamId) async {
     await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
       'playerId': FieldValue.arrayUnion([me.friendId]),
@@ -83,19 +91,25 @@ class TeamService {
         .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name'));
   }
 
-  deleteTeam(Teams team) async {
-    if (team.manager == Constants.prefs.getString('userId')) {
-      await FirebaseFirestore.instance
-          .collection('teams')
-          .doc(team.teamId)
-          .delete();
-
+  deleteTeam(String manager, String teamId) async {
+    if (manager == Constants.prefs.getString('userId')) {
+      await FirebaseFirestore.instance.collection('teams').doc(teamId).delete();
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(team.manager)
+          .doc(manager)
           .collection('teams')
-          .doc(team.teamId)
+          .doc(teamId)
           .delete();
     }
+  }
+
+  sendVerificationApplication(
+      String teamId, String sport, String teamName) async {
+    var newDoc =
+        FirebaseFirestore.instance.collection('verificationApplications').doc();
+    String id = newDoc.id;
+    final VerificationApplication newApp =
+        VerificationApplication.newApplication(teamId, sport, teamName, id);
+    newDoc.set(newApp.toJson());
   }
 }

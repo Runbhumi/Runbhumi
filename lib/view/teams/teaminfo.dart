@@ -186,28 +186,28 @@ class _TeamInfoState extends State<TeamInfo> {
               ],
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    //Bio
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8.0,
-                            left: 16.0,
-                            right: 32.0,
-                          ),
-                          child: Text(
-                            data['bio'],
-                            style: TextStyle(fontSize: 14),
-                          ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  //Bio
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 8.0,
+                          left: 16.0,
+                          right: 16.0,
                         ),
-                      ],
-                    ),
-                    Row(
+                        child: Text(
+                          data['bio'],
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
@@ -225,7 +225,7 @@ class _TeamInfoState extends State<TeamInfo> {
                               ),
                             ),
                             Text(
-                              data["status"] == 1 ? "Public" : "private",
+                              data["status"] == "public" ? "Public" : "private",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -238,211 +238,222 @@ class _TeamInfoState extends State<TeamInfo> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            // Padding(
-                            //   padding: const EdgeInsets.all(8.0),
-                            //   // child: Image(
-                            //   //   image: AssetImage("assets/verified.png"),
-                            //   // ),
-                            //   child: Image.asset("assets/verified.png"),
-                            // ),
-                            data["verified"] == 'Y'
-                                ? Text(
-                                    "Verified",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Stack(
+                  ),
+                  if (data["verified"] == 'Y')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ListView.builder(
-                            itemCount: data["playerId"].length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4.0, horizontal: 0.0),
-                                child: Card(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              OtherUserProfile(
-                                            userID: data["players"][index]
-                                                ["id"],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: ListTile(
-                                            contentPadding: EdgeInsets.all(0),
-                                            leading: Container(
-                                              height: 48,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                child: Image.network(
-                                                    data["players"][index]
-                                                        ["profileImage"],
-                                                    height: 48),
-                                              ),
-                                            ),
-                                            title: Text(
-                                              data["players"][index]["name"],
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            subtitle: Row(
-                                              children: [
-                                                if (data["players"][index]
-                                                        ["id"] ==
-                                                    data["manager"])
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
-                                                    child: Container(
-                                                      padding:
-                                                          EdgeInsets.all(4),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    8)),
-                                                      ),
-                                                      child: Text(
-                                                        "Manager",
-                                                        style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                if (data["players"][index]
-                                                        ["id"] ==
-                                                    data["captain"])
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
-                                                    child: Container(
-                                                      padding:
-                                                          EdgeInsets.all(4),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    8)),
-                                                      ),
-                                                      child: Text(
-                                                        "Captain",
-                                                        style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                      ),
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
-                                            trailing: Constants.prefs
-                                                        .getString('userId') ==
-                                                    data['manager']
-                                                ? (data["players"][index]
-                                                            ["id"] !=
-                                                        data["manager"])
-                                                    ? PopupMenuButton(
-                                                        icon: Icon(
-                                                            Icons.more_vert),
-                                                        itemBuilder: (_) => <
-                                                            PopupMenuItem<
-                                                                String>>[
-                                                          new PopupMenuItem<
-                                                                  String>(
-                                                              child: new Text(
-                                                                  'Transfer captainship'),
-                                                              value:
-                                                                  'Transfer captainship'),
-                                                          new PopupMenuItem<
-                                                                  String>(
-                                                              child: new Text(
-                                                                  'Remove member'),
-                                                              value:
-                                                                  'Remove member'),
-                                                        ],
-                                                        onSelected:
-                                                            (theChosenOne) {
-                                                          switch (
-                                                              theChosenOne) {
-                                                            case 'Transfer captainship':
-                                                              //add functionality
-                                                              TeamService().setCaptain(
-                                                                  data["players"]
-                                                                          [
-                                                                          index]
-                                                                      ["id"],
-                                                                  data[
-                                                                      'teamId']);
-                                                              break;
-                                                            case 'Remove member':
-                                                              //add functionality
-                                                              TeamService().removePlayerFromTeam(
-                                                                  data[
-                                                                      'teamId'],
-                                                                  data["players"]
-                                                                          [
-                                                                          index]
-                                                                      ['id'],
-                                                                  data["players"]
-                                                                          [
-                                                                          index]
-                                                                      ['name'],
-                                                                  data["players"]
-                                                                          [
-                                                                          index]
-                                                                      [
-                                                                      'profileImage']);
-                                                              break;
-                                                          }
-                                                        },
-                                                      )
-                                                    : null
-                                                : null,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image(
+                                  image: AssetImage("assets/verified.png"),
                                 ),
-                              );
-                            },
+                              ),
+                              Text(
+                                "Verified",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        ListView.builder(
+                          itemCount: data["playerId"].length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              child: Card(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OtherUserProfile(
+                                          userID: data["players"][index]["id"],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: ListTile(
+                                          contentPadding: EdgeInsets.all(0),
+                                          leading: Container(
+                                            height: 48,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              // child: Image.network(
+                                              //   data["players"][index]
+                                              //       ["profileImage"],
+                                              //   height: 48,
+                                              // ),
+                                              child: FadeInImage(
+                                                placeholder: AssetImage(
+                                                    "assets/ProfilePlaceholder.png"),
+                                                image: NetworkImage(
+                                                  data["players"][index]
+                                                      ["profileImage"],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          title: Text(
+                                            data["players"][index]["name"],
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                          subtitle: (Constants.prefs.getString(
+                                                          'userId') ==
+                                                      data['manager'] ||
+                                                  Constants.prefs.getString(
+                                                          'userId') ==
+                                                      data['captain'])
+                                              ? Row(
+                                                  children: [
+                                                    if (data["players"][index]
+                                                            ["id"] ==
+                                                        data["manager"])
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(2.0),
+                                                        child: Container(
+                                                          padding:
+                                                              EdgeInsets.all(4),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border:
+                                                                Border.all(),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            8)),
+                                                          ),
+                                                          child: Text(
+                                                            "Manager",
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    if (data["players"][index]
+                                                            ["id"] ==
+                                                        data["captain"])
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(2.0),
+                                                        child: Container(
+                                                          padding:
+                                                              EdgeInsets.all(4),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border:
+                                                                Border.all(),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            8)),
+                                                          ),
+                                                          child: Text(
+                                                            "Captain",
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                )
+                                              : null,
+                                          trailing: Constants.prefs
+                                                      .getString('userId') ==
+                                                  data['manager']
+                                              ? (data["players"][index]["id"] !=
+                                                      data["manager"])
+                                                  ? PopupMenuButton(
+                                                      icon:
+                                                          Icon(Icons.more_vert),
+                                                      itemBuilder: (_) => <
+                                                          PopupMenuItem<
+                                                              String>>[
+                                                        new PopupMenuItem<
+                                                                String>(
+                                                            child: new Text(
+                                                                'Transfer captainship'),
+                                                            value:
+                                                                'Transfer captainship'),
+                                                        new PopupMenuItem<
+                                                                String>(
+                                                            child: new Text(
+                                                                'Remove member'),
+                                                            value:
+                                                                'Remove member'),
+                                                      ],
+                                                      onSelected:
+                                                          (theChosenOne) {
+                                                        switch (theChosenOne) {
+                                                          case 'Transfer captainship':
+                                                            //add functionality
+                                                            TeamService().setCaptain(
+                                                                data["players"]
+                                                                        [index]
+                                                                    ["id"],
+                                                                data['teamId']);
+                                                            break;
+                                                          case 'Remove member':
+                                                            //add functionality
+                                                            TeamService().removePlayerFromTeam(
+                                                                data['teamId'],
+                                                                data["players"]
+                                                                        [index]
+                                                                    ['id'],
+                                                                data["players"]
+                                                                        [index]
+                                                                    ['name'],
+                                                                data["players"]
+                                                                        [index][
+                                                                    'profileImage']);
+                                                            break;
+                                                        }
+                                                      },
+                                                    )
+                                                  : null
+                                              : null,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

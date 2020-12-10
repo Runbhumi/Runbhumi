@@ -4,6 +4,7 @@ import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 import 'chatSchedule.dart';
@@ -49,10 +50,25 @@ class _EventConversationState extends State<EventConversation> {
                 itemBuilder: (context, index) {
                   Message data =
                       new Message.fromJson(snapshot.data.documents[index]);
+                  // custom message
                   if (data.type != "") {
-                    return Card(
-                      //TODO: Beautiful Custom Msg, please make it look hot
-                      child: Center(child: Text(data.message)),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0, vertical: 8.0),
+                      child: Card(
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(
+                              Feather.info,
+                              size: 20,
+                            ),
+                            title: Text(
+                              data.message,
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   }
                   return MessageTile(
@@ -109,23 +125,6 @@ class _EventConversationState extends State<EventConversation> {
 
   @override
   Widget build(BuildContext context) {
-    // String sportIcon;
-    // IconData sportIcon;
-    // switch (widget.data.sport) {
-    //   case "Volleyball":
-    //     sportIcon = "assets/icons8-volleyball-96.png";
-    //     break;
-    //   case "Basketball":
-    //     // sportIcon = Icons.sports_basketball;
-    //     sportIcon = "assets/icons8-basketball-96.png";
-    //     break;
-    //   case "Cricket":
-    //     sportIcon = "assets/icons8-cricket-96.png";
-    //     break;
-    //   case "Football":
-    //     sportIcon = "assets/icons8-soccer-ball-96.png";
-    //     break;
-    // }
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
@@ -164,6 +163,10 @@ class _EventConversationState extends State<EventConversation> {
         ],
       ),
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/chat background.png"),
+                fit: BoxFit.cover)),
         child: Stack(
           children: [
             Padding(

@@ -170,6 +170,10 @@ class _ConversationState extends State<Conversation> {
         ],
       ),
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/chat background.png"),
+                fit: BoxFit.cover)),
         child: Stack(
           children: [
             Padding(

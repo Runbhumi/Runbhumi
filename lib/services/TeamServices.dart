@@ -91,6 +91,20 @@ class TeamService {
         .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name'));
   }
 
+  removePlayerFromTeam(
+    String teamId,
+    String userId,
+    String userName,
+    String profilePic,
+  ) async {
+    Friends player = new Friends.newFriend(userId, userName, profilePic);
+    await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
+      'playerId': FieldValue.arrayRemove([player.friendId]),
+      'player': FieldValue.arrayRemove([player.toJson()]),
+    });
+    CustomMessageServices().sendTeamLeaveMemberMessage(teamId, userName);
+  }
+
   deleteTeam(String manager, String teamId) async {
     if (manager == Constants.prefs.getString('userId')) {
       await FirebaseFirestore.instance.collection('teams').doc(teamId).delete();
@@ -111,5 +125,10 @@ class TeamService {
     final VerificationApplication newApp =
         VerificationApplication.newApplication(teamId, sport, teamName, id);
     newDoc.set(newApp.toJson());
+
+    await FirebaseFirestore.instance
+        .collection('teams')
+        .doc(teamId)
+        .update({'verified': 'P'});
   }
 }

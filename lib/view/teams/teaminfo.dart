@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 // addMeInTeam(String teamId) => can pe used in a public team to join directly as a player
 // removeMeFromTeam(String teamId) => every player has a right to leave team if  they want but not the manager
@@ -101,12 +102,19 @@ class _TeamInfoState extends State<TeamInfo> {
           Navigator.pushNamed(context, '/mainapp');
           break;
         case 'Send Verification Application':
+          confirmationPopup(
+              context, data['teamId'], data['sport'], data['teamname']);
           //Method to send verification.
           break;
         case 'Delete team':
           //Still facing issues with this code
-          TeamService().deleteTeam(data['manager'], widget.teamID);
-          Navigator.pushNamed(context, '/mainapp');
+          // setState(() {
+          //   _loading = false;
+          // });
+          confirmationPopup2(context, data['teamId'], data['manager']);
+          // setState(() {
+          //   _loading = true;
+          // });
           break;
       }
     }
@@ -124,13 +132,22 @@ class _TeamInfoState extends State<TeamInfo> {
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
                 return Constants.prefs.getString('userId') == data['manager']
-                    ? {'Delete team', 'Send Verification Application'}
-                        .map((String choice) {
-                        return PopupMenuItem<String>(
-                          value: choice,
-                          child: Text(choice),
-                        );
-                      }).toList()
+                    ? data["verified"] == 'N'
+                        ? {'Delete team', 'Send Verification Application'}
+                            .map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice),
+                            );
+                          }).toList()
+                        : {
+                            'Delete team',
+                          }.map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice),
+                            );
+                          }).toList()
                     : {'Leave team'}.map((String choice) {
                         return PopupMenuItem<String>(
                           value: choice,
@@ -233,14 +250,16 @@ class _TeamInfoState extends State<TeamInfo> {
                             //   // ),
                             //   child: Image.asset("assets/verified.png"),
                             // ),
-                            Text(
-                              "Verified",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
+                            data["verified"] == 'Y'
+                                ? Text(
+                                    "Verified",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  )
+                                : Container(),
                           ],
                         ),
                       ],
@@ -378,9 +397,32 @@ class _TeamInfoState extends State<TeamInfo> {
                                                               theChosenOne) {
                                                             case 'Transfer captainship':
                                                               //add functionality
+                                                              TeamService().setCaptain(
+                                                                  data["players"]
+                                                                          [
+                                                                          index]
+                                                                      ["id"],
+                                                                  data[
+                                                                      'teamId']);
                                                               break;
                                                             case 'Remove member':
                                                               //add functionality
+                                                              TeamService().removePlayerFromTeam(
+                                                                  data[
+                                                                      'teamId'],
+                                                                  data["players"]
+                                                                          [
+                                                                          index]
+                                                                      ['id'],
+                                                                  data["players"]
+                                                                          [
+                                                                          index]
+                                                                      ['name'],
+                                                                  data["players"]
+                                                                          [
+                                                                          index]
+                                                                      [
+                                                                      'profileImage']);
                                                               break;
                                                           }
                                                         },
@@ -409,4 +451,121 @@ class _TeamInfoState extends State<TeamInfo> {
     else
       return Loader();
   }
+}
+
+confirmationPopup(
+    BuildContext context, String teamId, String sport, String teamName) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Apply for Verification",
+      desc:
+          "Please read the requirmnets for a verified team before applying for verifications. Our team will be in contact with you via email for any queries",
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Apply",
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            TeamService().sendVerificationApplication(teamId, sport, teamName);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
+}
+
+confirmationPopup2(BuildContext context, String teamId, String manager) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Delete Team",
+      desc: "Are you sure you want to delete this team",
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            // Navigator.pushNamed(context, '/mainapp');
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Delete",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            // FriendServices().removeFriend(id1, id2);
+            TeamService().deleteTeam(manager, teamId);
+            Navigator.pop(context);
+            Navigator.pushNamed(context, '/mainapp');
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
 }

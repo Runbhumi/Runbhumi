@@ -170,14 +170,24 @@ class _TeamsListState extends State<TeamsList> {
                                       )
                                     ],
                                     leading: Image.asset(sportIcon),
-                                    title: Text(
-                                      data.teamName,
-                                      style: TextStyle(
-                                        color:
-                                            theme.currentTheme.backgroundColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          data.teamName,
+                                          style: TextStyle(
+                                            color: theme
+                                                .currentTheme.backgroundColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        data.verified == 'Y'
+                                            ? Icon(
+                                                Icons.verified,
+                                                size: 16.0,
+                                              )
+                                            : Container(),
+                                      ],
                                     ),
                                     subtitle: Column(
                                       crossAxisAlignment:

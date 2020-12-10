@@ -13,9 +13,9 @@ BottomNavigationBar buildBottomNavigationBar(
     unselectedItemColor: Theme.of(context).primaryColor.withOpacity(0.5),
     items: [
       new BottomNavigationBarItem(
-        icon: Icon(Feather.home),
-        activeIcon: Icon(Feather.home),
-        label: 'Home',
+        icon: Icon(Feather.compass),
+        activeIcon: Icon(Feather.compass),
+        label: 'Explore',
       ),
       new BottomNavigationBarItem(
         icon: Icon(Feather.message_square),

@@ -11,6 +11,7 @@ class UserProfile {
   int friendCount;
   int eventCount;
   int teamsCount;
+  int eventTokens;
   Map<String, dynamic> phoneNumber;
   List<String> userSearchIndex;
   String emailId;
@@ -26,7 +27,8 @@ class UserProfile {
       this.emailId,
       this.bio,
       this.age,
-      this.friends});
+      this.friends,
+      this.eventTokens});
 
   UserProfile.loadUser(this.userId, this.username, this.name, this.profileImage,
       this.location, this.phoneNumber, this.emailId, this.bio, this.age);
@@ -46,6 +48,7 @@ class UserProfile {
     this.teamsCount = 0;
     this.eventCount = 0;
     this.friends = [];
+    this.eventTokens = 0;
   }
 
   UserProfile.miniView(String userId, String name, String profileImage) {
@@ -73,6 +76,7 @@ class UserProfile {
         "userSearchParam": setSearchParam(username),
         "friends": friends,
         "notification": [],
+        'eventTokens': eventTokens,
       };
 
   factory UserProfile.fromMap(Map data) {

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
@@ -5,6 +7,7 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 import 'chatSchedule.dart';
@@ -50,10 +53,25 @@ class _TeamConversationState extends State<TeamConversation> {
                 itemBuilder: (context, index) {
                   Message data =
                       new Message.fromJson(snapshot.data.documents[index]);
+                  // custom message
                   if (data.type != "") {
-                    return Card(
-                      //TODO: Beautiful Custom Msg, please make it look hot
-                      child: Center(child: Text(data.message)),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0, vertical: 8.0),
+                      child: Card(
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(
+                              Feather.info,
+                              size: 20,
+                            ),
+                            title: Text(
+                              data.message,
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   }
                   return MessageTile(
@@ -115,7 +133,6 @@ class _TeamConversationState extends State<TeamConversation> {
         sportIcon = "assets/icons8-volleyball-96.png";
         break;
       case "Basketball":
-        // sportIcon = Icons.sports_basketball;
         sportIcon = "assets/icons8-basketball-96.png";
         break;
       case "Cricket":
@@ -176,6 +193,10 @@ class _TeamConversationState extends State<TeamConversation> {
         ],
       ),
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/chat background.png"),
+                fit: BoxFit.cover)),
         child: Stack(
           children: [
             Padding(
@@ -236,54 +257,7 @@ class _TeamConversationState extends State<TeamConversation> {
   }
 }
 
-// class MessageTile extends StatelessWidget {
-//   final String message;
-//   final bool sendByMe;
-//   final String sentByName; //Sent By (Unused till now)
-//   final DateTime dateTime; //Time (Unused till now)
-//   //sendByMe boolean to check if the currentuser sent the message before.
-
-//   MessageTile(
-//       {@required this.message,
-//       @required this.sendByMe,
-//       @required this.sentByName,
-//       @required this.dateTime});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.only(
-//           top: 8, bottom: 8, left: sendByMe ? 0 : 24, right: sendByMe ? 24 : 0),
-//       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
-//       child: Container(
-//         margin:
-//             sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
-//         padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
-//         decoration: BoxDecoration(
-//           borderRadius: sendByMe
-//               ? BorderRadius.only(
-//                   topLeft: Radius.circular(23),
-//                   topRight: Radius.circular(23),
-//                   bottomLeft: Radius.circular(23))
-//               : BorderRadius.only(
-//                   topLeft: Radius.circular(23),
-//                   topRight: Radius.circular(23),
-//                   bottomRight: Radius.circular(23)),
-//           color: sendByMe
-//               ? Color(0xff393e46).withOpacity(0.8)
-//               : Color(0xff00adb5).withOpacity(0.8),
-//         ),
-//         child: Text(message,
-//             textAlign: TextAlign.start,
-//             style: TextStyle(
-//                 color: Colors.white,
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.w400)),
-//       ),
-//     );
-//   }
-// }
-class MessageTile extends StatelessWidget {
+class MessageTile extends StatefulWidget {
   final String message;
   //sendByMe boolean to check if the currentuser sent the message before.
   final bool sendByMe;
@@ -298,38 +272,56 @@ class MessageTile extends StatelessWidget {
   });
 
   @override
+  _MessageTileState createState() => _MessageTileState();
+}
+
+class _MessageTileState extends State<MessageTile> {
+  List colors = [
+    Colors.yellow[200],
+    Colors.grey[200],
+  ];
+  Random random = new Random();
+
+  int colorIndex = 0;
+
+  void initState() {
+    super.initState();
+    setState(() => colorIndex = random.nextInt(2));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       // these are margins which go around each message tile
       margin: EdgeInsets.only(
         top: 4,
         bottom: 4,
-        left: sendByMe ? 48 : 0,
-        right: sendByMe ? 0 : 48,
+        left: widget.sendByMe ? 48 : 0,
+        right: widget.sendByMe ? 0 : 48,
       ),
       //alignment of the message tile
-      alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: widget.sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
-          borderRadius: sendByMe
+          borderRadius: widget.sendByMe
               ? BorderRadius.only(
                   topLeft: Radius.circular(24), bottomLeft: Radius.circular(24))
               : BorderRadius.only(
                   topRight: Radius.circular(24),
                   bottomRight: Radius.circular(24)),
-          color: sendByMe
+          color: widget.sendByMe
               ? Color(0xff004E52).withOpacity(0.9)
               : Theme.of(context).primaryColor.withOpacity(0.9),
         ),
-        child: sendByMe
+        child: widget.sendByMe
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Flexible(
                     child: Text(
-                      message,
+                      widget.message,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.white,
@@ -341,7 +333,7 @@ class MessageTile extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(
-                      DateFormat().add_jm().format(dateTime).toString(),
+                      DateFormat().add_jm().format(widget.dateTime).toString(),
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.white70,
@@ -352,32 +344,47 @@ class MessageTile extends StatelessWidget {
                   ),
                 ],
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      DateFormat().add_jm().format(dateTime).toString(),
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  Text(
+                    widget.sentByName,
+                    style: TextStyle(
+                      color: colors[colorIndex],
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Flexible(
-                    child: Text(
-                      message,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Text(
+                          DateFormat()
+                              .add_jm()
+                              .format(widget.dateTime)
+                              .toString(),
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
+                      Flexible(
+                        child: Text(
+                          widget.message,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

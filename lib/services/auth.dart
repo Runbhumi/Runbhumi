@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/models/User.dart';
 // import 'package:Runbhumi/utils/Constants.dart';
 
@@ -15,7 +16,7 @@ Future signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount.authentication;
-
+  final String token = await FirebaseMessagingServices().getTokenz();
   final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
@@ -35,17 +36,19 @@ Future signInWithGoogle() async {
       Constants.prefs.setString("userId", user.uid);
       Constants.prefs.setString("profileImage", user.photoURL);
       Constants.prefs.setString("name", user.displayName);
+      Constants.prefs.setString("token", token);
       print('User Signed Up');
       String _username = generateusername(user.email);
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
           UserProfile.newuser(user.uid, _username, user.displayName,
-                  user.photoURL, user.email)
+                  user.photoURL, user.email, token)
               .toJson());
     } else {
       if (Constants.prefs.get('userId') != user.uid) {
         Constants.prefs.setString('userId', user.uid);
         Constants.prefs.setString("name", user.displayName);
         Constants.prefs.setString("profileImage", user.photoURL);
+        Constants.prefs.setString("token", token);
       }
     }
   }

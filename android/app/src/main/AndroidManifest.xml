@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.runbhumi_ui">
+    package="com.example.Runbhumi">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name=".Application"
         android:label="Runbhumi"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -37,6 +37,10 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <intent-filter>
+               <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
     android:name="com.yalantis.ucrop.UCropActivity" 
@@ -47,7 +51,5 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-            
-        <activity android:name=".kotlin.Application" /> 
     </application>
 </manifest>

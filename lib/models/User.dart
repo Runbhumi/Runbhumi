@@ -16,6 +16,7 @@ class UserProfile {
   List<String> userSearchIndex;
   String emailId;
   List friends;
+  String token;
 
   UserProfile(
       {this.userId,
@@ -27,18 +28,20 @@ class UserProfile {
       this.emailId,
       this.bio,
       this.age,
+      this.token,
       this.friends,
       this.eventTokens});
 
   UserProfile.loadUser(this.userId, this.username, this.name, this.profileImage,
       this.location, this.phoneNumber, this.emailId, this.bio, this.age);
 
-  UserProfile.newuser(userId, username, name, profileImage, emailId) {
+  UserProfile.newuser(userId, username, name, profileImage, emailId, token) {
     this.userId = userId;
     this.username = username;
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
+    this.token = token;
     this.phoneNumber = {'show': false, 'ph': ""};
     this.emailId = emailId;
     this.bio =
@@ -70,6 +73,7 @@ class UserProfile {
         'emailId': emailId,
         'bio': bio,
         'age': age,
+        'token': token,
         'friendCount': friendCount,
         'teamsCount': teamsCount,
         'eventCount': eventCount,

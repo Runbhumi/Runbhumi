@@ -5,6 +5,7 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerBody extends StatefulWidget {
   const DrawerBody({
@@ -92,15 +93,17 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: "More Info",
         ),
-        //About US
-        // DrawerButton(
-        //   onpressed: () {},
-        //   label: 'About Us',
-        //   icon: Icon(
-        //     Icons.engineering_outlined,
-        //     color: Colors.white,
-        //   ),
-        // ),
+        //feedback
+        DrawerButton(
+          onpressed: () {
+            _launchURL("https://runbhumi.vercel.app/feedback");
+          },
+          label: 'Feedback',
+          icon: Icon(
+            Feather.edit_2,
+            color: Colors.white,
+          ),
+        ),
 
         // Dark mode switch
         DrawerButton(
@@ -139,5 +142,14 @@ class _DrawerBodyState extends State<DrawerBody> {
         ),
       ],
     );
+  }
+}
+
+_launchURL(String gurl) async {
+  String url = gurl;
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

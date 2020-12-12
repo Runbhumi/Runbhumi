@@ -834,8 +834,8 @@ class ChallengeNotificationCard extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                         onTap: () {
-                          // NotificationServices().declineNotification(
-                          //     notificationData.notificationId);
+                          NotificationServices().declineNotification(
+                              notificationData.notificationId);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -862,9 +862,9 @@ class ChallengeNotificationCard extends StatelessWidget {
                           top: 4.0, bottom: 4, left: 4, right: 8),
                       child: GestureDetector(
                         onTap: () {
-                          // NotificationServices()
-                          //     .acceptTeamEventNotification(
-                          //         notificationData);
+                          NotificationServices()
+                              .acceptChallengeTeamNotification(
+                                  notificationData);
                           //TODO: Still have to write the challenge notification acceptance.
                         },
                         child: Stack(

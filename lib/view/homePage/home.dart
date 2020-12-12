@@ -567,7 +567,7 @@ class _HomeState extends State<Home> {
         // leading: _isSearching ? BackButton() : null,
         // title:
         //     _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
-        title: buildTitle(context, "Events"),
+        title: buildTitle(context, "Explore Events"),
         // actions: _buildActions(),
       ),
       body: Container(

@@ -164,6 +164,8 @@ class ChallengeNotification {
   String opponentTeamName;
   String myTeamName;
   String type;
+  String myTeamId;
+  String opponentTeamId;
 
   ChallengeNotification.createNewRequest(
       String notificationId,
@@ -176,6 +178,8 @@ class ChallengeNotification {
     this.sport = sport;
     this.myTeamName = myteam.teamName;
     this.opponentTeamName = opponentTeam.teamName;
+    this.myTeamId = myteam.teamId;
+    this.opponentTeamId = opponentTeam.teamId;
     this.type = "challenge";
   }
 
@@ -186,7 +190,9 @@ class ChallengeNotification {
         'sport': this.sport,
         'myTeam': this.opponentTeamName,
         'opponentTeam': this.myTeamName,
-        'type': type
+        'type': this.type,
+        'myTeamId': this.myTeamId,
+        'opponentTeamId': this.opponentTeamId
       };
 
   ChallengeNotification(
@@ -196,7 +202,9 @@ class ChallengeNotification {
       this.sport,
       this.myTeamName,
       this.opponentTeamName,
-      this.type});
+      this.type,
+      this.myTeamId,
+      this.opponentTeamId});
 
   factory ChallengeNotification.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
@@ -207,7 +215,9 @@ class ChallengeNotification {
         sport: parsedJson['sport'],
         myTeamName: parsedJson['myTeam'],
         opponentTeamName: parsedJson['opponentTeam'],
-        type: parsedJson['type']);
+        type: parsedJson['type'],
+        myTeamId: parsedJson['myTeamId'],
+        opponentTeamId: parsedJson['opponentTeamId']);
   }
 }
 

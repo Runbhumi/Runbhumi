@@ -1,10 +1,12 @@
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class ChallangeTeam extends StatefulWidget {
   final String sportName;
@@ -19,6 +21,21 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
   void initState() {
     super.initState();
     getUserManagingTeams(widget.sportName);
+  }
+
+  SimpleDialog successDialog(BuildContext context) {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Center(
+            child: Text("Challenge created",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4)),
+        Image.asset("assets/confirmation-illustration.png")
+      ],
+    );
   }
 
   getUserManagingTeams(String sport) async {
@@ -41,22 +58,42 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                       itemBuilder: (context, index) {
                         TeamView data = new TeamView.fromJson(
                             asyncSnapshot.data.documents[index]);
+                        String sportIcon;
+                        switch (widget.sportName) {
+                          case "Volleyball":
+                            sportIcon = "assets/icons8-volleyball-96.png";
+                            break;
+                          case "Basketball":
+                            sportIcon = "assets/icons8-basketball-96.png";
+                            break;
+                          case "Cricket":
+                            sportIcon = "assets/icons8-cricket-96.png";
+                            break;
+                          case "Football":
+                            sportIcon = "assets/icons8-soccer-ball-96.png";
+                            break;
+                        }
                         return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            child: Card(
-                                child: Column(
-                              children: [
-                                Text(
-                                  data.teamName,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(32, 32, 32, 32),
-                                  ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16.0),
+                          child: Card(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(0),
+                              leading: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image(
+                                  image: AssetImage(sportIcon),
+                                  width: 70,
                                 ),
-                                Button(
-                                  myText: "Challenge",
-                                  myColor: Color.fromARGB(32, 32, 32, 32),
-                                  onPressed: () {
+                              ),
+                              title: Text(
+                                data.teamName,
+                              ),
+                              trailing: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 4.0, bottom: 4, left: 4, right: 8),
+                                child: GestureDetector(
+                                  onTap: () {
                                     TeamChallengeNotification myTeam =
                                         new TeamChallengeNotification.newTeam(
                                             data.teamId,
@@ -67,17 +104,79 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                             widget.sportName,
                                             widget.teamData,
                                             myTeam)
-                                        .then(() {
-                                      //TODO : add a success notification that a challenge is created will be notified when opponents accepts it
-                                    });
+                                        .then(
+                                      () {
+                                        //TODO : add a success notification that a challenge is created will be notified when opponents accepts it
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              Future.delayed(
+                                                  Duration(seconds: 3), () {
+                                                Navigator.pop(context);
+                                              });
+                                              return successDialog(context);
+                                            });
+                                      },
+                                    );
                                   },
-                                )
-                              ],
-                            )));
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                          color: Colors.green[100],
+                                        ),
+                                        width: 36,
+                                        height: 36,
+                                      ),
+                                      Icon(
+                                        Feather.check,
+                                        color: Colors.green,
+                                        size: 24,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                       })
                   : Container(
                       child: Center(
-                        child: Image.asset("assets/notification.png"),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image.asset(
+                              "assets/notification.png",
+                              scale: 1.5,
+                            ),
+                            Text(
+                              "Dont have a team 😓",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Button(
+                              myText: 'Create one',
+                              myColor: Theme.of(context).primaryColor,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return CreateTeam();
+                                    },
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     )
               : Loader();
@@ -86,6 +185,18 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
 
   Widget build(context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Feather.x),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
+      ),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +208,6 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
               child: Text(
                 'Teams You Manage',
                 style: TextStyle(
-                  color: Color.fromARGB(32, 32, 32, 32),
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),

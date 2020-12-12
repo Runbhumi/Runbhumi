@@ -69,68 +69,65 @@ SOFTWARE.''',
           },
         )
       ]),
-      body: cardList.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 4.0),
-                  child: Text(
-                    "Our Team",
-                    style: TextStyle(
-                      color:
-                          theme.currentTheme.backgroundColor.withOpacity(0.35),
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Card(
-                      child: ListTile(
-                          title: Text("Sai Rohan Bangari"),
-                          subtitle: Text("Jack of all"))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Card(
-                      child: ListTile(
-                          title: Text("Hayat Tamboli"),
-                          subtitle: Text("UX/UI designer & frontend dev"))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Card(
-                      child: ListTile(
-                          title: Text("Manas Gupta"),
-                          subtitle: Text("Backend dev"))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Card(
-                      child: ListTile(
-                          title: Text("Mohit Reddy"),
-                          subtitle: Text("The non-tech guy"))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 4.0),
-                  child: Text(
-                    "Github Contributors",
-                    style: TextStyle(
-                      color:
-                          theme.currentTheme.backgroundColor.withOpacity(0.35),
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Expanded(
-                  child: Stack(
+      body: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+            child: Text(
+              "Our Team",
+              style: TextStyle(
+                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Card(
+                child: ListTile(
+                    title: Text("Sai Rohan Bangari"),
+                    subtitle: Text("Jack of all"))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Card(
+                child: ListTile(
+                    title: Text("Hayat Tamboli"),
+                    subtitle: Text("UX/UI designer & frontend dev"))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Card(
+                child: ListTile(
+                    title: Text("Manas Gupta"), subtitle: Text("Backend dev"))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Card(
+                child: ListTile(
+                    title: Text("Mohit Reddy"),
+                    subtitle: Text("The non-tech guy"))),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+            child: Text(
+              "Github Contributors",
+              style: TextStyle(
+                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Expanded(
+            child: cardList.isEmpty
+                ? Loader()
+                : Stack(
                     children: [
                       ListView.builder(
                         // Get the List of contributors to the project from the GitHub Api
@@ -277,9 +274,9 @@ SOFTWARE.''',
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
+          ),
+        ],
+      ),
     );
   }
 

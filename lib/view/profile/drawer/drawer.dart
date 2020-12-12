@@ -1,6 +1,7 @@
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:Runbhumi/view/profile/drawer/faq.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -101,6 +102,19 @@ class _DrawerBodyState extends State<DrawerBody> {
           label: 'Feedback',
           icon: Icon(
             Feather.edit_2,
+            color: Colors.white,
+          ),
+        ),
+        //faq
+        DrawerButton(
+          onpressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Faq();
+            }));
+          },
+          label: 'FAQ',
+          icon: Icon(
+            Feather.help_circle,
             color: Colors.white,
           ),
         ),

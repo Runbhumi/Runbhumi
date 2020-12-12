@@ -56,4 +56,18 @@ class CustomMessageServices {
       'dateTime': DateTime.now(),
     });
   }
+
+  sendChallegeFirstRoomMessage(String docId) async {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(docId)
+        .collection('chats')
+        .doc()
+        .set({
+      'message':
+          "This chat room is to connect the managers of the respective teams",
+      'type': 'custom',
+      'dateTime': DateTime.now(),
+    });
+  }
 }

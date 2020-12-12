@@ -15,6 +15,12 @@ class EventService {
     }, SetOptions(merge: true));
   }
 
+  addGivenUsertoEvent(String id, String userId) {
+    _eventCollectionReference.doc(id).set({
+      "playersId": FieldValue.arrayUnion([userId])
+    }, SetOptions(merge: true));
+  }
+
   getCurrentFeed() async {
     return FirebaseFirestore.instance
         .collection("events")
@@ -62,7 +68,7 @@ class EventService {
 
 // type is private or public
 
-createNewEvent(
+String createNewEvent(
     String eventName,
     String creatorId,
     String location,
@@ -79,6 +85,7 @@ createNewEvent(
           dateTime, maxMembers, status, type)
       .toJson());
   addEventToUser(id, eventName, sportName, location, dateTime);
+  return id;
 }
 
 addEventToUser(String id, String eventName, String sportName, String location,

@@ -234,25 +234,40 @@ class NotificationServices {
     //   'dateTime': DateTime.now(),
     // });
   }
+
   //TODO: Accept Challenge Notification.
-  // acceptChallengeTeamNotification(ChallengeNotification notificationData) {
-  //   String nameOftheEvent = notificationData.myTeamName +
-  //       ' Vs ' +
-  //       notificationData.opponentTeamName;
-  //   createNewEvent(
-  //     nameOftheEvent,
-  //     notificationData.senderId,
-  //     "Challenge",
-  //     notificationData.sport,
-  //     notificationData.,
-  //     [userId],
-  //     DateTime.parse(widget._datetime.text),
-  //     widget._maxMembers.toInt(),
-  //     "private",
-  //     3,
-  //   );
-  //   // here a chatroom logic can be written
-  //   declineNotification(notificationData.notificationId);
+  acceptChallengeTeamNotification(
+      ChallengeNotification notificationData) async {
+    String nameOftheEvent = notificationData.myTeamName +
+        ' Vs ' +
+        notificationData.opponentTeamName;
+    print('I am here yo');
+    String eventId = createNewEvent(
+      nameOftheEvent,
+      notificationData.senderId,
+      "Challenge",
+      notificationData.sport,
+      "Challenge",
+      [_id],
+      DateTime.now(),
+      2,
+      "private",
+      3,
+    );
+    EventService().addGivenUsertoEvent(eventId, notificationData.senderId);
+    CustomMessageServices().sendChallegeFirstRoomMessage(eventId);
+    // here a chatroom logic can be written
+    declineNotification(notificationData.notificationId);
+  }
+
+  // getTeamInfo(String teamId) async {
+  //   await FirebaseFirestore.instance
+  //       .collection('teams')
+  //       .doc(teamId)
+  //       .snapshots()
+  //       .listen((event) {
+  //     return event.data();
+  //   });
   // }
 
   declineNotification(String notificationId) async {

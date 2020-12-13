@@ -61,15 +61,17 @@ class Events {
       this.eventName,
       this.location,
       this.dateTime,
-      this.sportName});
+      this.sportName,
+      this.creatorId});
 
   Events.miniView(String eventId, String eventName, String sportName,
-      String location, DateTime dateTime) {
+      String location, DateTime dateTime, String creatorId) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.location = location;
     this.dateTime = dateTime;
     this.sportName = sportName;
+    this.creatorId = creatorId;
   }
 
   Map<String, dynamic> minitoJson() => {
@@ -77,7 +79,8 @@ class Events {
         'eventName': eventName,
         'location': location,
         'sportName': sportName,
-        'dateTime': dateTime
+        'dateTime': dateTime,
+        'creatorId': creatorId,
       };
 
   factory Events.fromMiniJson(QueryDocumentSnapshot snapshot) {

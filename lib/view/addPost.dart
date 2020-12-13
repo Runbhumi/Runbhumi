@@ -336,6 +336,7 @@ class _Page1State extends State<Page1> {
                   widget._maxMembers.toInt(),
                   widget._status,
                   widget._type,
+                  false,
                 );
                 // to show success dialog
                 showDialog(

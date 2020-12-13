@@ -1,4 +1,5 @@
 import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
 
@@ -163,7 +164,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             _nameController.text,
                             _chosenSport,
                             _locationController.text,
-                            DateTime.parse(_datetime.text));
+                            DateTime.parse(_datetime.text),
+                            Constants.prefs.getString('userId'));
                       }
                       setState(() {
                         _locationController = new TextEditingController();

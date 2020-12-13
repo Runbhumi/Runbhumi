@@ -1,5 +1,5 @@
 export 'splash/splash.dart';
-export 'auth/secondPage.dart';
+export 'auth/gauthPage.dart';
 export 'mainapp.dart';
 export 'homePage/home.dart';
 export 'addPost.dart';

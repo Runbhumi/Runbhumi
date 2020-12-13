@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
@@ -40,6 +41,36 @@ class _ExploreEventsState extends State<ExploreEvents> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4)),
         Image.asset("assets/confirmation-illustration.png")
+      ],
+    );
+  }
+
+  SimpleDialog infoDialog(BuildContext context) {
+    return SimpleDialog(
+      title: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Icon(
+              Feather.info,
+              size: 64,
+            )),
+          ),
+          Center(child: Text("This is a premium feature")),
+        ],
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+              child: Text(
+                  "In order to use Runbhumi as a platform to host and advertise sporting tournaments or such events please submit a request on our website.",
+                  style: Theme.of(context).textTheme.subtitle1)),
+        ),
       ],
     );
   }
@@ -396,7 +427,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                         data.eventName,
                                                         data.sportName,
                                                         data.location,
-                                                        data.dateTime);
+                                                        data.dateTime,
+                                                        data.creatorId);
                                                     print("User Registered");
                                                     showDialog(
                                                         context: context,
@@ -567,6 +599,18 @@ class _ExploreEventsState extends State<ExploreEvents> {
         // title:
         //     _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
         title: buildTitle(context, "Explore Events"),
+        actions: [
+          IconButton(
+              icon: Icon(Feather.info),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return infoDialog(context);
+                  },
+                );
+              })
+        ],
         // actions: _buildActions(),
       ),
       body: Container(

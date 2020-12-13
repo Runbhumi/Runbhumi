@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/addpost': (context) => AddPost(),
         '/secondpage': (context) => GauthPage(),
         '/moreinfo': (context) => MoreInfo(),
-        '/network': (context) => Network(),
+        '/network': (context) => MessagePage(),
         '/profile': (context) => Profile(),
         '/editprofile': (context) => EditProfile(),
         '/testing': (context) => Testing(),

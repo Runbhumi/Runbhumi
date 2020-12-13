@@ -18,7 +18,7 @@ class _MainAppState extends State<MainApp> {
   //add widgets of all relevant screens here
   final List<Widget> _children = [
     Home(),
-    Network(),
+    MessagePage(),
     TeamsList(),
     Notifications(),
     Profile(),

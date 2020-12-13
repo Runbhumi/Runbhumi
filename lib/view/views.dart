@@ -2,7 +2,7 @@ export 'splash/splash.dart';
 export 'auth/gauthPage.dart';
 export 'mainapp.dart';
 export 'Explore Events/exploreEvents.dart';
-export 'addPost.dart';
+export 'Explore Events/addPost.dart';
 export 'notificationsPage.dart';
 export 'Chats/messagePage.dart';
 export 'Chats/chatSchedule.dart';

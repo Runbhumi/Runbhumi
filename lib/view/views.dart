@@ -1,8 +1,8 @@
 export 'splash/splash.dart';
-export 'auth/secondPage.dart';
+export 'auth/gauthPage.dart';
 export 'mainapp.dart';
-export 'homePage/home.dart';
-export 'addPost.dart';
+export 'Explore Events/exploreEvents.dart';
+export 'Explore Events/addPost.dart';
 export 'notificationsPage.dart';
 export 'Chats/messagePage.dart';
 export 'Chats/chatSchedule.dart';
@@ -16,3 +16,4 @@ export 'profile/drawer/drawer.dart';
 export 'profile/drawer/moreInfo.dart';
 export 'profile/drawer/editProfile.dart';
 export 'profile/drawer/testPage.dart';
+export 'profile/drawer/faq.dart';

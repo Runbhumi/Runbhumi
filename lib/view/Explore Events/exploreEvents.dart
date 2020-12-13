@@ -4,19 +4,18 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/widget/widgets.dart';
-// import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 
-class Home extends StatefulWidget {
+class ExploreEvents extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _ExploreEventsState createState() => _ExploreEventsState();
 }
 
-class _HomeState extends State<Home> {
+class _ExploreEventsState extends State<ExploreEvents> {
   // TextEditingController _searchQuery;
 
   // bool _isSearching = false;
@@ -42,6 +41,36 @@ class _HomeState extends State<Home> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4)),
         Image.asset("assets/confirmation-illustration.png")
+      ],
+    );
+  }
+
+  SimpleDialog infoDialog(BuildContext context) {
+    return SimpleDialog(
+      title: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Icon(
+              Feather.info,
+              size: 64,
+            )),
+          ),
+          Center(child: Text("This is a premium feature")),
+        ],
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+              child: Text(
+                  "In order to use Runbhumi as a platform to host and advertise sporting tournaments or such events please submit a request on our website.",
+                  style: Theme.of(context).textTheme.subtitle1)),
+        ),
       ],
     );
   }
@@ -570,6 +599,18 @@ class _HomeState extends State<Home> {
         // title:
         //     _isSearching ? _buildSearchField() : buildTitle(context, "My Feed"),
         title: buildTitle(context, "Explore Events"),
+        actions: [
+          IconButton(
+              icon: Icon(Feather.info),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return infoDialog(context);
+                  },
+                );
+              })
+        ],
         // actions: _buildActions(),
       ),
       body: Container(

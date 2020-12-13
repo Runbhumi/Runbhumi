@@ -45,9 +45,6 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                               children: [
                                 Text(
                                   data.teamName,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(32, 32, 32, 32),
-                                  ),
                                 ),
                                 Button(
                                   myText: "Register Team",
@@ -94,6 +91,9 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
 
   Widget build(context) {
     return Scaffold(
+      appBar: AppBar(
+        title: buildTitle(context, "idk the name"),
+      ),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +105,6 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
               child: Text(
                 'Teams You Manage',
                 style: TextStyle(
-                  color: Color.fromARGB(32, 32, 32, 32),
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),

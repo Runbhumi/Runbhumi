@@ -36,7 +36,7 @@ void main() {
     ),
   );
   MaterialApp secondPageUI = MaterialApp(
-    home: Scaffold(body: SafeArea(child: SecondPage())),
+    home: Scaffold(body: SafeArea(child: GauthPage())),
   );
   MaterialApp googleOauthBigUI = MaterialApp(
     home: Scaffold(

@@ -17,7 +17,7 @@ class _MainAppState extends State<MainApp> {
   final PageController _pageController = PageController(initialPage: 2);
   //add widgets of all relevant screens here
   final List<Widget> _children = [
-    Home(),
+    ExploreEvents(),
     MessagePage(),
     TeamsList(),
     Notifications(),

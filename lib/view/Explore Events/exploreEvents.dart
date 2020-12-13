@@ -3,19 +3,18 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/widget/widgets.dart';
-// import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 
-class Home extends StatefulWidget {
+class ExploreEvents extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _ExploreEventsState createState() => _ExploreEventsState();
 }
 
-class _HomeState extends State<Home> {
+class _ExploreEventsState extends State<ExploreEvents> {
   // TextEditingController _searchQuery;
 
   // bool _isSearching = false;

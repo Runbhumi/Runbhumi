@@ -1,4 +1,5 @@
 import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
@@ -397,7 +398,8 @@ class _HomeState extends State<Home> {
                                                         data.eventName,
                                                         data.sportName,
                                                         data.location,
-                                                        data.dateTime);
+                                                        data.dateTime,
+                                                        data.creatorId);
                                                     print("User Registered");
                                                     showDialog(
                                                         context: context,

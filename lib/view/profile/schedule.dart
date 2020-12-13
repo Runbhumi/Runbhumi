@@ -1,11 +1,13 @@
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../widget/widgets.dart';
 
 class Schedule extends StatefulWidget {
@@ -95,9 +97,37 @@ class _ScheduleState extends State<Schedule> {
                                     children: [
                                       SmallButton(
                                         myColor: Color(0xffEB4758),
-                                        myText: "Leave",
-                                        onPressed: () =>
-                                            {leaveEvent(data.eventId, 1)},
+                                        myText: Constants.prefs.get('userId') !=
+                                                data.creatorId
+                                            ? "Leave"
+                                            : "Delete",
+                                        onPressed: () {
+                                          print(Constants.prefs.get('userId'));
+                                          print(Constants.prefs.get('userId'));
+                                          if (Constants.prefs.get('userId') ==
+                                              data.creatorId) {
+                                            confirmationPopupForDeleting(
+                                                context,
+                                                data.eventName,
+                                                data.eventId);
+                                            // print(
+                                            //     Constants.prefs.get('userId') ==
+                                            //         data.creatorId);
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           EventConversation(
+                                            //         data: data,
+                                            //       ),
+                                            //     ));
+                                          } else {
+                                            print(
+                                                Constants.prefs.get('userId') ==
+                                                    data.creatorId);
+                                            leaveEvent(data.eventId);
+                                          }
+                                        },
                                       ),
                                     ],
                                     title: Text(
@@ -172,6 +202,63 @@ class _ScheduleState extends State<Schedule> {
       ),
     );
   }
+}
+
+confirmationPopupForDeleting(BuildContext context, String name, String id) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Delete Event",
+      desc: "Are you user you want to delete this event " + name,
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Delete",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            //TODO: Code for Deleting the event.
+            deleteEvent(id);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
 }
 
 // logic for removing a event

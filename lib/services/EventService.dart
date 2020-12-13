@@ -78,36 +78,42 @@ String createNewEvent(
     DateTime dateTime,
     int maxMembers,
     String status,
-    int type) {
+    int type,
+    bool challenge) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
   newDoc.set(Events.newEvent(id, eventName, location, sportName, description,
           dateTime, maxMembers, status, type)
       .toJson());
-  addEventToUser(id, eventName, sportName, location, dateTime);
+  if (!challenge) {
+    addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
+  } else {
+    EventService().addUserToEvent(id);
+  }
   return id;
 }
 
 addEventToUser(String id, String eventName, String sportName, String location,
-    DateTime dateTime) {
+    DateTime dateTime, String creatorId) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
       .collection('userEvent')
       .doc(id)
-      .set(Events.miniView(id, eventName, sportName, location, dateTime)
+      .set(Events.miniView(
+              id, eventName, sportName, location, dateTime, creatorId)
           .minitoJson());
   UserService().updateEventCount(1);
   EventService().addUserToEvent(id);
 }
 
 registerUserToEvent(String id, String eventName, String sportName,
-    String location, DateTime dateTime) {
-  addEventToUser(id, eventName, sportName, location, dateTime);
+    String location, DateTime dateTime, String creatorId) {
+  addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
 }
 
 addScheduleToUser(String userId, String eventName, String sportName,
-    String location, DateTime dateTime) {
+    String location, DateTime dateTime, String creatorId) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
   FirebaseFirestore.instance
@@ -115,7 +121,8 @@ addScheduleToUser(String userId, String eventName, String sportName,
       .doc(userId)
       .collection('userEvent')
       .doc(id)
-      .set(Events.miniView(id, eventName, sportName, location, dateTime)
+      .set(Events.miniView(
+              id, eventName, sportName, location, dateTime, creatorId)
           .minitoJson());
 }
 
@@ -154,7 +161,7 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
 
 // leaving a event logic
 
-leaveEvent(id, fate) {
+leaveEvent(id) {
   var userId = Constants.prefs.get('userId');
   FirebaseFirestore.instance
       .collection('users')
@@ -165,4 +172,17 @@ leaveEvent(id, fate) {
   FirebaseFirestore.instance.collection('events').doc(id).set({
     'playersId': FieldValue.arrayRemove([userId])
   }, SetOptions(merge: true));
+  UserService().updateEventCount(-1);
+}
+
+deleteEvent(id) async {
+  await FirebaseFirestore.instance.collection('events').doc(id).delete();
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(Constants.prefs.get('userId'))
+      .collection('userEvent')
+      .doc(id)
+      .delete();
+  UserService().updateEventCount(-1);
+  //TODO: Delete from all the people who joined the event as well;
 }

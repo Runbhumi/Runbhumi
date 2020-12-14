@@ -107,7 +107,7 @@ addEventToUser(String id, String eventName, String sportName, String location,
       .set(Events.miniView(
               id, eventName, sportName, location, dateTime, creatorId)
           .minitoJson());
-  UserService().updateEventCount(1);
+  //UserService().updateEventCount(1);
   EventService().addUserToEvent(id);
 }
 
@@ -176,7 +176,7 @@ leaveEvent(id) {
   FirebaseFirestore.instance.collection('events').doc(id).set({
     'playersId': FieldValue.arrayRemove([userId])
   }, SetOptions(merge: true));
-  UserService().updateEventCount(-1);
+  //UserService().updateEventCount(-1);
   CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));
 }
 
@@ -188,7 +188,7 @@ deleteEvent(id) async {
       .collection('userEvent')
       .doc(id)
       .delete();
-  UserService().updateEventCount(-1);
+  //UserService().updateEventCount(-1);
   //Trigger a cloud function
   //TODO: Delete from all the people who joined the event as well;
 }

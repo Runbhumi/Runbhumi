@@ -376,72 +376,85 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                         ],
                                       ),
                                       children: [
-                                        SmallButton(
-                                            myColor: !registrationCondition
-                                                ? Theme.of(context).primaryColor
-                                                : Theme.of(context)
-                                                    .primaryColorDark,
-                                            myText: !registrationCondition
-                                                ? data.type == 1
-                                                    ? "Join"
-                                                    : "Send Request"
-                                                : "Already Registered",
-                                            onPressed: () {
-                                              if (!registrationCondition) {
-                                                if (data.type == 2) {
-                                                  //For Private
-                                                  if (data.status == 'team') {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              TeamEventNotification(
-                                                                  data: data)),
-                                                    );
-                                                  } else {
-                                                    if (!data.notification
-                                                        .contains(Constants
-                                                            .prefs
-                                                            .getString(
-                                                                'userId'))) {
-                                                      NotificationServices()
-                                                          .createIndividualNotification(
-                                                              data);
+                                        data.notification.contains(Constants
+                                                .prefs
+                                                .getString('userId'))
+                                            ? SmallButton(
+                                                myColor: Theme.of(context)
+                                                    .primaryColor,
+                                                myText: "Notification Sent")
+                                            : SmallButton(
+                                                myColor: !registrationCondition
+                                                    ? Theme.of(context)
+                                                        .primaryColor
+                                                    : Theme.of(context)
+                                                        .primaryColorDark,
+                                                myText: !registrationCondition
+                                                    ? data.type == 1
+                                                        ? "Join"
+                                                        : "Send Request"
+                                                    : "Already Registered",
+                                                onPressed: () {
+                                                  if (!registrationCondition) {
+                                                    if (data.type == 2) {
+                                                      //For Private
+                                                      if (data.status ==
+                                                          'team') {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  TeamEventNotification(
+                                                                      data:
+                                                                          data)),
+                                                        );
+                                                      } else {
+                                                        if (!data.notification
+                                                            .contains(Constants
+                                                                .prefs
+                                                                .getString(
+                                                                    'userId'))) {
+                                                          NotificationServices()
+                                                              .createIndividualNotification(
+                                                                  data);
+                                                        }
+                                                        //TODO: Change the button to invite sent
+                                                        //Private Individual Event
+                                                      }
+                                                    } else {
+                                                      //public
+                                                      if (data.status ==
+                                                          'team') {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  TeamEventNotification(
+                                                                      data:
+                                                                          data)),
+                                                        );
+                                                      } else {
+                                                        registerUserToEvent(
+                                                            data.eventId,
+                                                            data.eventName,
+                                                            data.sportName,
+                                                            data.location,
+                                                            data.dateTime,
+                                                            data.creatorId);
+                                                        print(
+                                                            "User Registered");
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return successDialog(
+                                                                  context);
+                                                            });
+                                                      }
                                                     }
-                                                    //TODO: Change the button to invite sent
-                                                    //Private Individual Event
-                                                  }
-                                                } else {
-                                                  //public
-                                                  if (data.status == 'team') {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              TeamEventNotification(
-                                                                  data: data)),
-                                                    );
                                                   } else {
-                                                    registerUserToEvent(
-                                                        data.eventId,
-                                                        data.eventName,
-                                                        data.sportName,
-                                                        data.location,
-                                                        data.dateTime,
-                                                        data.creatorId);
-                                                    print("User Registered");
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return successDialog(
-                                                              context);
-                                                        });
+                                                    print("Already Registered");
                                                   }
-                                                }
-                                              } else {
-                                                print("Already Registered");
-                                              }
-                                            })
+                                                }),
                                       ],
                                     ),
                                     // child: Theme(

@@ -108,7 +108,7 @@ addEventToUser(String id, String eventName, String sportName, String location,
               id, eventName, sportName, location, dateTime, creatorId)
           .minitoJson());
   UserService().updateEventCount(1);
-  EventService().addUserToEvent(id);
+  //EventService().addUserToEvent(id);
 }
 
 registerUserToEvent(String id, String eventName, String sportName,

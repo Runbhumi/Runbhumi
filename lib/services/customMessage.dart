@@ -70,4 +70,30 @@ class CustomMessageServices {
       'dateTime': DateTime.now(),
     });
   }
+
+  userLeftEventMessage(String id, String name) async {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(id)
+        .collection('chats')
+        .doc()
+        .set({
+      'message': name + " has left the event",
+      'type': 'custom',
+      'dateTime': DateTime.now(),
+    });
+  }
+
+  captainChangeMessage(String teamId, String newCapName) async {
+    await FirebaseFirestore.instance
+        .collection('teams')
+        .doc(teamId)
+        .collection('chats')
+        .doc()
+        .set({
+      'message': newCapName + " is the new Captain!",
+      'type': 'custom',
+      'dateTime': DateTime.now(),
+    });
+  }
 }

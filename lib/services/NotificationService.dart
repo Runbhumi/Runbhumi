@@ -104,8 +104,14 @@ class NotificationServices {
         'playersId': FieldValue.arrayUnion([notification.senderId]),
         'notificationPlayers': FieldValue.arrayRemove([notification.senderId])
       });
-      await addScheduleToUser(notification.senderId, event.eventName,
-          event.sportName, event.location, event.dateTime, event.creatorId);
+      await addScheduleToUser(
+        notification.senderId,
+        event.eventName,
+        event.sportName,
+        event.location,
+        event.dateTime,
+        event.creatorId,
+      );
 
       await declineNotification(notification.notificationId);
       return true;
@@ -253,7 +259,8 @@ class NotificationServices {
         2,
         "private",
         3,
-        true);
+        true,
+        false);
     EventService().addGivenUsertoEvent(eventId, notificationData.senderId);
     CustomMessageServices().sendChallegeFirstRoomMessage(eventId);
     // here a chatroom logic can be written

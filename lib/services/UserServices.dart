@@ -11,6 +11,13 @@ class UserService {
         .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
+  updateEventTokens(int n) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(Constants.prefs.get('userId'))
+        .set({'eventTokens': FieldValue.increment(n)}, SetOptions(merge: true));
+  }
+
   // updateMyFriendCount(int n) {
   //   _db
   //       .collection('users')

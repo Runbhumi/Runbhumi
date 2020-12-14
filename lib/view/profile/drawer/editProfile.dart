@@ -24,7 +24,6 @@ class _EditProfileState extends State<EditProfile> {
   bool _loading = false;
   TextEditingController nameTextEditingController = new TextEditingController();
   TextEditingController bioTextEditingController = new TextEditingController();
-  TextEditingController ageTextEditingController = new TextEditingController();
   TextEditingController phoneNumberTextEditingController =
       new TextEditingController();
   TextEditingController locationTextEditingController =
@@ -32,6 +31,7 @@ class _EditProfileState extends State<EditProfile> {
   int age = 0;
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
+  String _chosenAgeCategory;
   Map data;
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _EditProfileState extends State<EditProfile> {
         data = snap.data();
         nameTextEditingController.text = data['name'];
         bioTextEditingController.text = data['bio'];
-        ageTextEditingController.text = data['age'];
+        _chosenAgeCategory = data['age'];
         locationTextEditingController.text = data['location'];
         phoneNumberTextEditingController.text = data['phoneNumber']['ph'];
         _hiddenSwitch = data['phoneNumber']['show'];
@@ -66,6 +66,54 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    var ageList = DropdownButton(
+      hint: Text("Age"),
+      elevation: 1,
+      value: _chosenAgeCategory,
+      items: [
+        DropdownMenuItem(
+          child: Text(
+            "Under 14",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+          value: "U-14",
+        ),
+        DropdownMenuItem(
+          child: Text(
+            "Under 16",
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+          value: "U-16",
+        ),
+        DropdownMenuItem(
+            child: Text(
+              "Under 19",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+            value: "U-19"),
+        DropdownMenuItem(
+            child: Text(
+              "Under 21",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+            value: "U-21"),
+        DropdownMenuItem(
+            child: Text(
+              "Open",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+            value: "Open"),
+      ],
+      onChanged: (value) {
+        setState(
+          () {
+            print(value);
+            _chosenAgeCategory = value;
+          },
+        );
+      },
+    );
+
     if (_loading) {
       return Scaffold(
         appBar: AppBar(
@@ -165,12 +213,21 @@ class _EditProfileState extends State<EditProfile> {
                   helpertext: 'Use at max 200 characters',
                   hintText: 'Bio',
                 ),
-                InputBox(
-                  controller: ageTextEditingController,
-                  textInputType: TextInputType.number,
-                  hintText: 'Age',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Theme.of(context).inputDecorationTheme.fillColor,
+                      border: Border.all(color: Color(0x00000000)),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: ageList,
+                    ),
+                  ),
                 ),
-
                 //Phone Number switch row
                 Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -230,7 +287,7 @@ class _EditProfileState extends State<EditProfile> {
                       'profileImage': Constants.prefs.getString('profileImage'),
                       'name': nameTextEditingController.text,
                       'bio': bioTextEditingController.text,
-                      'age': ageTextEditingController.text,
+                      'age': _chosenAgeCategory,
                       'phoneNumber': phoneNumber,
                       'location': locationTextEditingController.text,
                     });

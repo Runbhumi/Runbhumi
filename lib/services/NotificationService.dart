@@ -130,7 +130,7 @@ class NotificationServices {
     });
   }
 
-  teamEventNotification(Events event, TeamView teamView) {
+  teamEventNotification(Events event, TeamView teamView) async {
     var db = FirebaseFirestore.instance
         .collection('users')
         .doc(event.creatorId)
@@ -142,6 +142,12 @@ class NotificationServices {
         new EventNotification.createTeamsNotification(id, event.eventId,
             event.eventName, teamView.teamId, teamView.teamName);
     doc.set(eventNotification.toTeamJson());
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(event.eventId)
+        .update({
+      'notificationPlayers': FieldValue.arrayUnion([_id])
+    });
   }
 
   createTeamNotification(String from, String to, Teams teamView) async {
@@ -215,30 +221,46 @@ class NotificationServices {
     doc.set(challenge.toJson());
   }
 
-  acceptTeamEventNotification(EventNotification notification) async {
-    await FirebaseFirestore.instance
-        .collection('events')
-        .doc(notification.eventId)
-        .update({
-      'playersId': FieldValue.arrayUnion([notification.senderId]),
-      'teamsId': FieldValue.arrayUnion([notification.teamId])
-    });
-    await declineNotification(notification.notificationId);
-    await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
-        notification.eventId, notification.teamName, notification.eventName);
-    await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
-        notification.teamId, notification.senderName, notification.eventName);
-    // await FirebaseFirestore.instance
-    //     .collection('teams')
-    //     .doc(notification.teamId)
-    //     .collection('chats')
-    //     .doc()
-    //     .set({
-    //   'message':
-    //       "${notification.senderName} has registered you for ${notification.eventName}",
-    //   'type': 'custom',
-    //   'dateTime': DateTime.now(),
-    // });
+  Future<bool> acceptTeamEventNotification(
+      EventNotification notification) async {
+    Events event = await checkPlayerCount(notification.eventId);
+    if (event.playersId.length < event.maxMembers) {
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(notification.eventId)
+          .update({
+        'playersId': FieldValue.arrayUnion([notification.senderId]),
+        'teamsId': FieldValue.arrayUnion([notification.teamId]),
+        'notificationPlayers': FieldValue.arrayRemove([notification.senderId])
+      });
+      await addScheduleToUser(
+        notification.senderId,
+        event.eventName,
+        event.sportName,
+        event.location,
+        event.dateTime,
+        event.creatorId,
+      );
+      await declineTeamRequest(notification.eventId,
+          notification.notificationId, notification.senderId);
+      await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
+          notification.eventId, notification.teamName, notification.eventName);
+      await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
+          notification.teamId, notification.senderName, notification.eventName);
+      // await FirebaseFirestore.instance
+      //     .collection('teams')
+      //     .doc(notification.teamId)
+      //     .collection('chats')
+      //     .doc()
+      //     .set({
+      //   'message':
+      //       "${notification.senderName} has registered you for ${notification.eventName}",
+      //   'type': 'custom',
+      //   'dateTime': DateTime.now(),
+      // });
+      return true;
+    }
+    return false;
   }
 
   //TODO: Accept Challenge Notification.
@@ -284,5 +306,16 @@ class NotificationServices {
         .collection('notification')
         .doc(notificationId)
         .delete();
+  }
+
+  declineTeamRequest(String eventId, String id, String uid) {
+    var db = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_id)
+        .collection('notification');
+    FirebaseFirestore.instance.collection('events').doc(eventId).update({
+      'notificationPlayers': FieldValue.arrayRemove([uid])
+    });
+    db.doc(id).delete();
   }
 }

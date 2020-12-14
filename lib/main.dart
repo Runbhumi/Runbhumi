@@ -27,11 +27,11 @@ class MyApp extends StatelessWidget {
       // Named Routes
       routes: {
         '/mainapp': (context) => MainApp(),
-        '/home': (context) => Home(),
+        // '/home': (context) => MainApp(),
         '/addpost': (context) => AddPost(),
-        '/secondpage': (context) => SecondPage(),
+        '/secondpage': (context) => GauthPage(),
         '/moreinfo': (context) => MoreInfo(),
-        '/network': (context) => Network(),
+        '/network': (context) => MessagePage(),
         '/profile': (context) => Profile(),
         '/editprofile': (context) => EditProfile(),
         '/testing': (context) => Testing(),

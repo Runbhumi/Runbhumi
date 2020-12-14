@@ -4,12 +4,12 @@ import '../../widget/widgets.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/material.dart';
 
-class SecondPage extends StatefulWidget {
+class GauthPage extends StatefulWidget {
   @override
-  _SecondPageState createState() => _SecondPageState();
+  _GauthPageState createState() => _GauthPageState();
 }
 
-class _SecondPageState extends State<SecondPage> {
+class _GauthPageState extends State<GauthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

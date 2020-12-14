@@ -15,12 +15,12 @@ import 'eventConversation.dart';
 /*
   Code For Message Page
 */
-class Network extends StatefulWidget {
+class MessagePage extends StatefulWidget {
   @override
-  _NetworkState createState() => _NetworkState();
+  _MessagePageState createState() => _MessagePageState();
 }
 
-class _NetworkState extends State<Network> {
+class _MessagePageState extends State<MessagePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -32,6 +32,7 @@ class _NetworkState extends State<Network> {
           bottom: TabBar(
             labelColor: Colors.white,
             unselectedLabelColor: Colors.grey,
+            //tab names
             tabs: [
               Tab(child: Text("Direct")),
               Tab(child: Text("Team")),
@@ -188,7 +189,6 @@ class _TeamChatsState extends State<TeamChats> {
                       sportIcon = "assets/icons8-volleyball-96.png";
                       break;
                     case "Basketball":
-                      // sportIcon = Icons.sports_basketball;
                       sportIcon = "assets/icons8-basketball-96.png";
                       break;
                     case "Cricket":
@@ -215,11 +215,6 @@ class _TeamChatsState extends State<TeamChats> {
                         children: [
                           Text(
                             data.teamName,
-                            style: TextStyle(
-                                //color: theme.currentTheme.backgroundColor,
-                                //fontSize: 18,
-                                //fontWeight: FontWeight.w500,
-                                ),
                           ),
                           data.verified == 'Y'
                               ? Icon(

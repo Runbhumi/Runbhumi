@@ -24,7 +24,7 @@ class _SplashState extends State<Splash> {
 
   changeScreen() async {
     _userId == null
-        ? CRouter.pushPageWithFadeAnimation(context, SecondPage())
+        ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
         : CRouter.pushPageWithFadeAnimation(context, MainApp());
     // CRouter.pushPageWithFadeAnimation(context, SecondPage());
   }

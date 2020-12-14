@@ -51,16 +51,6 @@ class _DrawerBodyState extends State<DrawerBody> {
             ),
           ),
         ),
-        DrawerButton(
-          onpressed: () {
-            Navigator.pushNamed(context, "/addpost");
-          },
-          label: "Add Post",
-          icon: Icon(
-            Feather.plus_circle,
-            color: Colors.white,
-          ),
-        ),
         // only use for testing
         DrawerButton(
           onpressed: () {
@@ -82,6 +72,19 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
+        // Dark mode switch
+        DrawerButton(
+          onpressed: () {
+            theme.switchTheme();
+          },
+          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
+          icon: theme.myTheme == MyTheme.Light
+              ? Icon(
+                  Feather.sun,
+                  color: Colors.white,
+                )
+              : Icon(Feather.moon),
+        ),
         // More Info
         DrawerButton(
           icon: Icon(
@@ -93,17 +96,6 @@ class _DrawerBodyState extends State<DrawerBody> {
             Navigator.pushNamed(context, "/moreinfo");
           },
           label: "More Info",
-        ),
-        //feedback
-        DrawerButton(
-          onpressed: () {
-            _launchURL("https://runbhumi.vercel.app/feedback");
-          },
-          label: 'Feedback',
-          icon: Icon(
-            Feather.edit_2,
-            color: Colors.white,
-          ),
         ),
         //faq
         DrawerButton(
@@ -118,19 +110,16 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
-
-        // Dark mode switch
+        //feedback
         DrawerButton(
           onpressed: () {
-            theme.switchTheme();
+            _launchURL("https://runbhumi.vercel.app/feedback");
           },
-          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
-          icon: theme.myTheme == MyTheme.Light
-              ? Icon(
-                  Feather.sun,
-                  color: Colors.white,
-                )
-              : Icon(Feather.moon),
+          label: 'Feedback',
+          icon: Icon(
+            Feather.edit_2,
+            color: Colors.white,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),

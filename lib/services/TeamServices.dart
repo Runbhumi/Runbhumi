@@ -66,11 +66,12 @@ class TeamService {
         .set(team.toJson());
   }
 
-  setCaptain(String newCaptain, String teamId) async {
+  setCaptain(String newCaptain, String teamId, String nameOfnewCap) async {
     await FirebaseFirestore.instance
         .collection('teams')
         .doc(teamId)
         .update({'captain': newCaptain});
+    CustomMessageServices().captainChangeMessage(teamId, nameOfnewCap);
   }
 
   addMeInTeam(String teamId) async {

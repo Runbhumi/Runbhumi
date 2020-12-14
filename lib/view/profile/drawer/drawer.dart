@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' as Foundation;
 
 class DrawerBody extends StatefulWidget {
   const DrawerBody({
@@ -52,16 +53,17 @@ class _DrawerBodyState extends State<DrawerBody> {
           ),
         ),
         // only use for testing
-        DrawerButton(
-          onpressed: () {
-            Navigator.pushNamed(context, "/testing");
-          },
-          label: "Testing",
-          icon: Icon(
-            Feather.flag,
-            color: Colors.white,
+        if (Foundation.kDebugMode)
+          DrawerButton(
+            onpressed: () {
+              Navigator.pushNamed(context, "/testing");
+            },
+            label: "Testing",
+            icon: Icon(
+              Feather.flag,
+              color: Colors.white,
+            ),
           ),
-        ),
         DrawerButton(
           onpressed: () {
             Navigator.pushNamed(context, "/editprofile");

@@ -24,9 +24,8 @@ class _SplashState extends State<Splash> {
 
   changeScreen() async {
     _userId == null
-        ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
+        ? CRouter.pushPageWithFadeAnimation(context, OnBoardingPage())
         : CRouter.pushPageWithFadeAnimation(context, MainApp());
-    // CRouter.pushPageWithFadeAnimation(context, SecondPage());
   }
 
   @override
@@ -48,16 +47,17 @@ class _SplashState extends State<Splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-                child: Opacity(
-              opacity: 0.85,
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(32)),
-                child: Image(
-                  image: AssetImage('assets/icon.png'),
-                  width: 150,
+              child: Opacity(
+                opacity: 0.85,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(32)),
+                  child: Image(
+                    image: AssetImage('assets/icon.png'),
+                    width: 150,
+                  ),
                 ),
               ),
-            )),
+            ),
             SizedBox(
               height: 170,
             ),

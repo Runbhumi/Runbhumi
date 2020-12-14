@@ -11,10 +11,17 @@ import '../../widget/widgets.dart';
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
+  static _ProfileState of(BuildContext context) =>
+      context.findAncestorStateOfType<_ProfileState>();
 }
 
 class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   AnimationController animationController;
+
+  final db = FirebaseFirestore.instance;
+  StreamSubscription sub;
+  Map data;
+  bool loading = false;
 
   @override
   void initState() {
@@ -23,6 +30,22 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 250),
     );
+    sub = db
+        .collection('users')
+        .doc(Constants.prefs.getString('userId'))
+        .snapshots()
+        .listen((snap) {
+      setState(() {
+        data = snap.data();
+        loading = true;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    super.dispose();
   }
 
   //toggle for drawer(menu)
@@ -62,7 +85,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: buildTitle(context, "Profile"),
+          title: buildTitle(context, data["username"]),
           centerTitle: true,
           elevation: 0,
           leading: Builder(
@@ -90,7 +113,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
-        body: ProfileBody(),
+        body: ProfileBody(data: data),
       ),
     );
     return AnimatedBuilder(
@@ -116,7 +139,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 }
 
 class ProfileBody extends StatefulWidget {
+  final Map data;
   const ProfileBody({
+    @required this.data,
     Key key,
   }) : super(key: key);
 
@@ -125,35 +150,9 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
-  final db = FirebaseFirestore.instance;
-  StreamSubscription sub;
-  Map data;
-  bool _loading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    sub = db
-        .collection('users')
-        .doc(Constants.prefs.getString('userId'))
-        .snapshots()
-        .listen((snap) {
-      setState(() {
-        data = snap.data();
-        _loading = true;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    sub.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
+    if (Profile.of(context).loading) {
       return Center(
         child: Container(
           child: Column(
@@ -162,7 +161,7 @@ class _ProfileBodyState extends State<ProfileBody> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    MainUserProfile(data: data),
+                    MainUserProfile(data: widget.data),
                     ProfileFriendsList(),
                     Schedule(),
                   ],

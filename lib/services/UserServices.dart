@@ -4,12 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  updateEventCount(int n) {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(Constants.prefs.get('userId'))
-        .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
-  }
+  // updateEventCount(int n) {
+  //   FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(Constants.prefs.get('userId'))
+  //       .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
+  // }
 
   updateEventTokens(int n) {
     FirebaseFirestore.instance

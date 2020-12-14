@@ -265,7 +265,6 @@ class _Page1State extends State<Page1> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
-  bool _loading = false;
   int userTokens = 0;
   @override
   void initState() {
@@ -278,10 +277,15 @@ class _Page1State extends State<Page1> {
         .listen((snap) {
       setState(() {
         data = snap.data();
-        _loading = true;
         userTokens = data['eventTokens'];
       });
     });
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    super.dispose();
   }
 
   @override

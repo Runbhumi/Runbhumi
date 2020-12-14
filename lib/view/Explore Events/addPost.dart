@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:Runbhumi/services/services.dart';
@@ -5,6 +6,7 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -260,7 +262,32 @@ class _Page1State extends State<Page1> {
   // !
   // !
   // here is the static user token
+  final db = FirebaseFirestore.instance;
+  StreamSubscription sub;
+  Map data;
   int userTokens = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sub = db
+        .collection('users')
+        .doc(Constants.prefs.getString('userId'))
+        .snapshots()
+        .listen((snap) {
+      setState(() {
+        data = snap.data();
+        userTokens = data['eventTokens'];
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -432,18 +459,18 @@ class _Page1State extends State<Page1> {
                       // just comment this function
                       if (userTokens > 0) {
                         createNewEvent(
-                          widget._nameController.text,
-                          userId,
-                          widget._locationController.text,
-                          widget._chosenSport,
-                          widget._descController.text,
-                          [userId],
-                          DateTime.parse(widget._datetime.text),
-                          widget._maxMembers.toInt(),
-                          widget._status,
-                          widget._type,
-                          false,
-                        );
+                            widget._nameController.text,
+                            userId,
+                            widget._locationController.text,
+                            widget._chosenSport,
+                            widget._descController.text,
+                            [userId],
+                            DateTime.parse(widget._datetime.text),
+                            widget._maxMembers.toInt(),
+                            widget._status,
+                            widget._type,
+                            false,
+                            true);
                         // to show success dialog
                         showDialog(
                           context: context,

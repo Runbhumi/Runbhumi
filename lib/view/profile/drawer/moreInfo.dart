@@ -89,27 +89,28 @@ SOFTWARE.''',
             child: Card(
                 child: ListTile(
                     title: Text("Sai Rohan Bangari"),
-                    subtitle: Text("Jack of all"))),
+                    subtitle: Text("Project Lead"))),
           ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
                     title: Text("Hayat Tamboli"),
-                    subtitle: Text("UX/UI designer & frontend dev"))),
+                    subtitle: Text("UX/UI designer & frontend Lead"))),
           ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
-                    title: Text("Manas Gupta"), subtitle: Text("Backend dev"))),
+                    title: Text("Manas Gupta"),
+                    subtitle: Text("Backend & functional Lead"))),
           ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
                     title: Text("Mohit Reddy"),
-                    subtitle: Text("The non-tech guy"))),
+                    subtitle: Text("Growth Hacker"))),
           ),
           Padding(
             padding:

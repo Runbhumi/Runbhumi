@@ -79,13 +79,17 @@ String createNewEvent(
     int maxMembers,
     String status,
     int type,
-    bool challenge) {
+    bool challenge,
+    bool payed) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
   newDoc.set(Events.newEvent(id, eventName, location, sportName, description,
           dateTime, maxMembers, status, type)
       .toJson());
-  if (!challenge) {
+  if (!challenge && payed) {
+    addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
+    UserService().updateEventTokens(-1);
+  } else if (!challenge && !payed) {
     addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
   } else {
     EventService().addUserToEvent(id);
@@ -173,6 +177,7 @@ leaveEvent(id) {
     'playersId': FieldValue.arrayRemove([userId])
   }, SetOptions(merge: true));
   UserService().updateEventCount(-1);
+  CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));
 }
 
 deleteEvent(id) async {
@@ -184,5 +189,6 @@ deleteEvent(id) async {
       .doc(id)
       .delete();
   UserService().updateEventCount(-1);
+  //Trigger a cloud function
   //TODO: Delete from all the people who joined the event as well;
 }

@@ -420,7 +420,10 @@ class _TeamInfoState extends State<TeamInfo> {
                                                                 data["players"]
                                                                         [index]
                                                                     ["id"],
-                                                                data['teamId']);
+                                                                data['teamId'],
+                                                                data["players"]
+                                                                        [index]
+                                                                    ["name"]);
                                                             break;
                                                           case 'Remove member':
                                                             //add functionality

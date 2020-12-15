@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: loading? buildTitle(context, data["username"]): null,
+          title: loading ? buildTitle(context, data["username"]) : null,
           centerTitle: true,
           elevation: 0,
           leading: Builder(

@@ -17,7 +17,8 @@ class TeamsList extends StatefulWidget {
   _TeamsListState createState() => _TeamsListState();
 }
 
-class _TeamsListState extends State<TeamsList> {
+class _TeamsListState extends State<TeamsList>
+    with SingleTickerProviderStateMixin {
   int loadMoreTeams = 20;
   ScrollController _teamsScrollController;
   void initState() {
@@ -57,7 +58,6 @@ class _TeamsListState extends State<TeamsList> {
                           sportIcon = "assets/icons8-volleyball-96.png";
                           break;
                         case "Basketball":
-                          // sportIcon = Icons.sports_basketball;
                           sportIcon = "assets/icons8-basketball-96.png";
                           break;
                         case "Cricket":
@@ -246,12 +246,12 @@ class _TeamsListState extends State<TeamsList> {
         title: buildTitle(context, "Teams"),
       ),
       body: NestedScrollView(
-        headerSliverBuilder: _homePageSliverAppBar,
+        headerSliverBuilder: _teamsPageSliverAppBar,
         body: Container(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
@@ -270,7 +270,9 @@ class _TeamsListState extends State<TeamsList> {
                   children: <Widget>[feed(theme: theme)],
                 ),
               ),
-            ])),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -284,57 +286,59 @@ class _TeamsListState extends State<TeamsList> {
     );
   }
 
-  List<Widget> _homePageSliverAppBar(
+  List<Widget> _teamsPageSliverAppBar(
       BuildContext context, bool innerBoxIsScrolled) {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return <Widget>[
       SliverList(
-        delegate: SliverChildListDelegate([
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-            child: Text(
-              'Categories',
-              style: TextStyle(
-                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.start,
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Basketball",
-                    icon: "assets/icons8-basketball-96.png",
-                  ),
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Cricket",
-                    icon: "assets/icons8-cricket-96.png",
-                  ),
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Football",
-                    icon: "assets/icons8-soccer-ball-96.png",
-                  ),
-                  SportsCategory(
-                    theme: theme,
-                    sport: "Volleyball",
-                    icon: "assets/icons8-volleyball-96.png",
-                  ),
-                ],
+        delegate: SliverChildListDelegate(
+          [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                'Categories',
+                style: TextStyle(
+                  color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.start,
               ),
             ),
-          ),
-        ]),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Basketball",
+                      icon: "assets/icons8-basketball-96.png",
+                    ),
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Cricket",
+                      icon: "assets/icons8-cricket-96.png",
+                    ),
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Football",
+                      icon: "assets/icons8-soccer-ball-96.png",
+                    ),
+                    SportsCategory(
+                      theme: theme,
+                      sport: "Volleyball",
+                      icon: "assets/icons8-volleyball-96.png",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       )
     ];
   }

@@ -252,7 +252,6 @@ confirmationPopupForDeleting(BuildContext context, String name, String id) {
             ),
           ),
           onPressed: () {
-            //TODO: Code for Deleting the event.
             deleteEvent(id);
             Navigator.pop(context);
           },

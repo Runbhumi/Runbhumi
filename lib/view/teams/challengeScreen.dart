@@ -106,7 +106,6 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                             myTeam)
                                         .then(
                                       () {
-                                        //TODO : add a success notification that a challenge is created will be notified when opponents accepts it
                                         showDialog(
                                             context: context,
                                             builder: (context) {

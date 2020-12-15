@@ -16,40 +16,11 @@ class OtherUserProfile extends StatefulWidget {
 
   @override
   _OtherUserProfileState createState() => _OtherUserProfileState();
+  static _OtherUserProfileState of(BuildContext context) =>
+      context.findAncestorStateOfType<_OtherUserProfileState>();
 }
 
 class _OtherUserProfileState extends State<OtherUserProfile> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: buildTitle(context, "Profile"),
-        leading: BackButton(),
-      ),
-      body: OtherProfileBody(
-        userID: widget.userID,
-      ),
-    );
-  }
-}
-
-class OtherProfileBody extends StatefulWidget {
-  const OtherProfileBody({
-    @required this.userID,
-    Key key,
-  }) : super(key: key);
-  final String userID;
-
-  @override
-  _OtherProfileBodyState createState() => _OtherProfileBodyState();
-}
-
-class _OtherProfileBodyState extends State<OtherProfileBody> {
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
@@ -73,14 +44,38 @@ class _OtherProfileBodyState extends State<OtherProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
+    return Scaffold(
+      appBar: AppBar(
+        title: _loading ? buildTitle(context, data["username"]) : null,
+        leading: BackButton(),
+      ),
+      body: OtherProfileBody(
+          // userID: widget.userID,
+          ),
+    );
+  }
+}
+
+class OtherProfileBody extends StatefulWidget {
+  const OtherProfileBody({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _OtherProfileBodyState createState() => _OtherProfileBodyState();
+}
+
+class _OtherProfileBodyState extends State<OtherProfileBody> {
+  @override
+  Widget build(BuildContext context) {
+    if (OtherUserProfile.of(context)._loading) {
       return Center(
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: UserProfile(data: data),
+                child: UserProfile(data: OtherUserProfile.of(context).data),
               ),
             ],
           ),

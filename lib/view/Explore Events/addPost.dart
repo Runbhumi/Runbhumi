@@ -259,9 +259,6 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
-  // !
-  // !
-  // here is the static user token
   final db = FirebaseFirestore.instance;
   StreamSubscription sub;
   Map data;
@@ -446,8 +443,8 @@ class _Page1State extends State<Page1> {
                       widget.individualRadio,
                     ],
                   ),
-                  //Todo add a description feild in event from backend
-                  //TODO: add premium feature
+                  //TODO: add a description feild in event from backend
+                  //TODO: dear backend devs add premium feature
                   Button(
                     myText: "Add Post",
                     myColor: userTokens > 0

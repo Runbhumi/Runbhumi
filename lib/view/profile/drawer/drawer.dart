@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' as Foundation;
 
 class DrawerBody extends StatefulWidget {
   const DrawerBody({
@@ -51,27 +52,18 @@ class _DrawerBodyState extends State<DrawerBody> {
             ),
           ),
         ),
-        DrawerButton(
-          onpressed: () {
-            Navigator.pushNamed(context, "/addpost");
-          },
-          label: "Add Post",
-          icon: Icon(
-            Feather.plus_circle,
-            color: Colors.white,
-          ),
-        ),
         // only use for testing
-        DrawerButton(
-          onpressed: () {
-            Navigator.pushNamed(context, "/testing");
-          },
-          label: "Testing",
-          icon: Icon(
-            Feather.flag,
-            color: Colors.white,
+        if (Foundation.kDebugMode)
+          DrawerButton(
+            onpressed: () {
+              Navigator.pushNamed(context, "/testing");
+            },
+            label: "Testing",
+            icon: Icon(
+              Feather.flag,
+              color: Colors.white,
+            ),
           ),
-        ),
         DrawerButton(
           onpressed: () {
             Navigator.pushNamed(context, "/editprofile");
@@ -81,6 +73,19 @@ class _DrawerBodyState extends State<DrawerBody> {
             Feather.edit,
             color: Colors.white,
           ),
+        ),
+        // Dark mode switch
+        DrawerButton(
+          onpressed: () {
+            theme.switchTheme();
+          },
+          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
+          icon: theme.myTheme == MyTheme.Light
+              ? Icon(
+                  Feather.sun,
+                  color: Colors.white,
+                )
+              : Icon(Feather.moon),
         ),
         // More Info
         DrawerButton(
@@ -93,17 +98,6 @@ class _DrawerBodyState extends State<DrawerBody> {
             Navigator.pushNamed(context, "/moreinfo");
           },
           label: "More Info",
-        ),
-        //feedback
-        DrawerButton(
-          onpressed: () {
-            _launchURL("https://runbhumi.vercel.app/feedback");
-          },
-          label: 'Feedback',
-          icon: Icon(
-            Feather.edit_2,
-            color: Colors.white,
-          ),
         ),
         //faq
         DrawerButton(
@@ -118,19 +112,16 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
-
-        // Dark mode switch
+        //feedback
         DrawerButton(
           onpressed: () {
-            theme.switchTheme();
+            _launchURL("https://runbhumi.vercel.app/feedback");
           },
-          label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
-          icon: theme.myTheme == MyTheme.Light
-              ? Icon(
-                  Feather.sun,
-                  color: Colors.white,
-                )
-              : Icon(Feather.moon),
+          label: 'Feedback',
+          icon: Icon(
+            Feather.edit_2,
+            color: Colors.white,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),

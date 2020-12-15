@@ -7,6 +7,7 @@ class ThemeNotifier extends ChangeNotifier {
   static List<ThemeData> themes = [
     //light theme
     ThemeData(
+      dividerColor: Colors.transparent,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       cardTheme: CardTheme(
         shadowColor: Color(0x1100d2ff),
@@ -69,6 +70,7 @@ class ThemeNotifier extends ChangeNotifier {
     ),
     //dark theme
     ThemeData(
+      dividerColor: Colors.transparent,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       cardTheme: CardTheme(
         color: Color(0xff1d1d1d),

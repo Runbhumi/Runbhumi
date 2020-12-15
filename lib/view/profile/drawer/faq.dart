@@ -194,7 +194,7 @@ class Faq extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
             child: Text(
-              'If you still have any other questions 🤔, shoot it us on our feedback form 📄',
+              'If you still have any other questions🤔, shoot it to us on our feedback form📄',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,

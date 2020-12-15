@@ -145,6 +145,6 @@ class Events {
     var snap =
         await FirebaseFirestore.instance.collection('events').doc(id).get();
     Map<String, dynamic> data = snap.data();
-    return data['playersId'].length() < data['max'] ? true : false;
+    return data['playersId'].length < data['max'] ? true : false;
   }
 }

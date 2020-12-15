@@ -1,4 +1,5 @@
 export 'splash/splash.dart';
+export 'splash/onBoarding.dart';
 export 'auth/gauthPage.dart';
 export 'mainapp.dart';
 export 'Explore Events/exploreEvents.dart';

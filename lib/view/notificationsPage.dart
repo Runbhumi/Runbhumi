@@ -338,9 +338,11 @@ class TeamEventNotificationCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
-                        onTap: () {
-                          NotificationServices()
-                              .declineEventNotification(notificationData);
+                        onTap: () async {
+                          await NotificationServices().declineTeamRequest(
+                              notificationData.eventId,
+                              notificationData.notificationId,
+                              notificationData.senderId);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,

@@ -46,7 +46,7 @@ class UserProfile {
     this.emailId = emailId;
     this.bio =
         'I couldn’t find the sports car of my dreams, so I built it myself.';
-    this.age = '';
+    this.age = 'Open';
     this.friendCount = 0;
     this.teamsCount = 0;
     this.eventCount = 0;

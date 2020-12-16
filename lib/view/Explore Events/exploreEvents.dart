@@ -3,6 +3,7 @@ import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
+import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -16,17 +17,9 @@ class ExploreEvents extends StatefulWidget {
 }
 
 class _ExploreEventsState extends State<ExploreEvents> {
-  // TextEditingController _searchQuery;
-
-  // bool _isSearching = false;
-
-  // String searchQuery = "";
-
   Stream currentFeed;
   void initState() {
     super.initState();
-
-    // _searchQuery = new TextEditingController();
     getUserInfoEvents();
   }
 
@@ -79,83 +72,10 @@ class _ExploreEventsState extends State<ExploreEvents> {
     EventService().getCurrentFeed().then((snapshots) {
       setState(() {
         currentFeed = snapshots;
-        // print("we got the data + ${currentFeed.toString()} ");
         print("we got the data for UserInfoEvents");
       });
     });
   }
-
-  // void _startSearch() {
-  //   print("clicked search");
-  //   ModalRoute.of(context)
-  //       .addLocalHistoryEntry(new LocalHistoryEntry(onRemove: _stopSearching));
-
-  //   setState(() {
-  //     _isSearching = true;
-  //   });
-  // }
-
-  // void _stopSearching() {
-  //   _clearSearchQuery();
-
-  //   setState(() {
-  //     _isSearching = false;
-  //   });
-  // }
-
-  // void _clearSearchQuery() {
-  //   print("close search");
-  //   setState(() {
-  //     _searchQuery.clear();
-  //     updateSearchQuery("");
-  //   });
-  // }
-
-  // Widget _buildSearchField() {
-  //   return new TextField(
-  //     controller: _searchQuery,
-  //     autofocus: true,
-  //     decoration: const InputDecoration(
-  //       hintText: 'Search...',
-  //       border: InputBorder.none,
-  //       focusedBorder: InputBorder.none,
-  //       hintStyle: const TextStyle(color: Colors.grey),
-  //     ),
-  //     style: const TextStyle(fontSize: 16.0),
-  //     onChanged: updateSearchQuery,
-  //   );
-  // }
-
-  // void updateSearchQuery(String newQuery) {
-  //   setState(() {
-  //     searchQuery = newQuery;
-  //   });
-  //   print("searched " + newQuery);
-  // }
-
-  // List<Widget> _buildActions() {
-  //   if (_isSearching) {
-  //     return <Widget>[
-  //       new IconButton(
-  //         icon: const Icon(Feather.x),
-  //         onPressed: () {
-  //           if (_searchQuery == null || _searchQuery.text.isEmpty) {
-  //             Navigator.pop(context);
-  //             return;
-  //           }
-  //           _clearSearchQuery();
-  //         },
-  //       ),
-  //     ];
-  //   }
-
-  //   return <Widget>[
-  //     new IconButton(
-  //       icon: const Icon(Feather.search),
-  //       onPressed: _startSearch,
-  //     ),
-  //   ];
-  // }
 
   Widget feed({ThemeNotifier theme}) {
     return StreamBuilder(
@@ -163,436 +83,330 @@ class _ExploreEventsState extends State<ExploreEvents> {
       builder: (context, asyncSnapshot) {
         print("Events are loading");
         return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 600),
-            child: asyncSnapshot.hasData
-                ? asyncSnapshot.data.documents.length > 0
-                    ? ListView.builder(
-                        itemCount: asyncSnapshot.data.documents.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          Events data = new Events.fromJson(
-                              asyncSnapshot.data.documents[index]);
-                          // String sportName = asyncSnapshot.data.documents[index]
-                          //     .get('sportName')
-                          //     .toString();
-                          String sportIcon;
-                          switch (data.sportName) {
-                            case "Volleyball":
-                              sportIcon = "assets/icons8-volleyball-96.png";
-                              break;
-                            case "Basketball":
-                              sportIcon = "assets/icons8-basketball-96.png";
-                              break;
-                            case "Cricket":
-                              sportIcon = "assets/icons8-cricket-96.png";
-                              break;
-                            case "Football":
-                              sportIcon = "assets/icons8-soccer-ball-96.png";
-                              break;
-                          }
-                          bool registrationCondition = data.playersId.contains(
-                              Constants.prefs
-                                  .getString('userId')); //asyncSnapshot
-                          // .data.documents[index]
-                          // .get('playersId')
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: ExpansionCard(
-                                      maintainState: true,
-                                      // main column
-                                      alwaysShowingChild: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          //1st row
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Image(
-                                                  image: AssetImage(sportIcon),
-                                                  width: 70,
-                                                ),
-                                                // title time and location
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      data.eventName,
-                                                      style: TextStyle(
-                                                        color: theme
-                                                            .currentTheme
-                                                            .backgroundColor,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+          duration: const Duration(milliseconds: 600),
+          child: asyncSnapshot.hasData
+              ? asyncSnapshot.data.documents.length > 0
+                  ? ListView.builder(
+                      itemCount: asyncSnapshot.data.documents.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        Events data = new Events.fromJson(
+                            asyncSnapshot.data.documents[index]);
+                        String sportIcon;
+                        switch (data.sportName) {
+                          case "Volleyball":
+                            sportIcon = "assets/icons8-volleyball-96.png";
+                            break;
+                          case "Basketball":
+                            sportIcon = "assets/icons8-basketball-96.png";
+                            break;
+                          case "Cricket":
+                            sportIcon = "assets/icons8-cricket-96.png";
+                            break;
+                          case "Football":
+                            sportIcon = "assets/icons8-soccer-ball-96.png";
+                            break;
+                        }
+                        bool registrationCondition = data.playersId.contains(
+                            Constants.prefs
+                                .getString('userId')); //asyncSnapshot
+                        // .data.documents[index]
+                        // .get('playersId')
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16.0),
+                          child: Card(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: ExpansionCard(
+                                    maintainState: true,
+                                    // main column
+                                    alwaysShowingChild: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        //1st row
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Image(
+                                                image: AssetImage(sportIcon),
+                                                width: 70,
+                                              ),
+                                              // title time and location
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    data.eventName,
+                                                    style: TextStyle(
+                                                      color: theme.currentTheme
+                                                          .backgroundColor,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Feather.clock,
+                                                        size: 14.0,
                                                       ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Feather.clock,
-                                                          size: 14.0,
+                                                      SizedBox(width: 4),
+                                                      Text(
+                                                        DateFormat('MMM dd -')
+                                                            .add_jm()
+                                                            .format(
+                                                                data.dateTime)
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
-                                                        SizedBox(width: 4),
-                                                        Text(
-                                                          DateFormat('MMM dd -')
-                                                              .add_jm()
-                                                              .format(
-                                                                  data.dateTime)
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Feather.map_pin,
-                                                          size: 14.0,
-                                                        ),
-                                                        SizedBox(width: 4),
-                                                        Text(
-                                                          data.location,
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                                Stack(
-                                                  alignment:
-                                                      AlignmentDirectional
-                                                          .center,
-                                                  children: [
-                                                    Text(
-                                                      (data.playersId.length
-                                                              .toString() +
-                                                          "/" +
-                                                          data.maxMembers
-                                                              .toString()),
-                                                      style: TextStyle(
-                                                        fontSize: 11,
-                                                        fontWeight:
-                                                            FontWeight.w600,
                                                       ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Feather.map_pin,
+                                                        size: 14.0,
+                                                      ),
+                                                      SizedBox(width: 4),
+                                                      Text(
+                                                        data.location,
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              Stack(
+                                                alignment:
+                                                    AlignmentDirectional.center,
+                                                children: [
+                                                  Text(
+                                                    (data.playersId.length
+                                                            .toString() +
+                                                        "/" +
+                                                        data.maxMembers
+                                                            .toString()),
+                                                    style: TextStyle(
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
-                                                    CircularProgressIndicator(
-                                                      value: data.playersId
-                                                              .length /
-                                                          data.maxMembers,
-                                                      backgroundColor: theme
-                                                          .currentTheme
-                                                          .backgroundColor
-                                                          .withOpacity(0.15),
-                                                      strokeWidth: 7,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                                  ),
+                                                  CircularProgressIndicator(
+                                                    value:
+                                                        data.playersId.length /
+                                                            data.maxMembers,
+                                                    backgroundColor: theme
+                                                        .currentTheme
+                                                        .backgroundColor
+                                                        .withOpacity(0.15),
+                                                    strokeWidth: 7,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      data.type == 1
-                                                          ? Feather.globe
-                                                          : Feather.lock,
-                                                      size: 18,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    data.type == 1
+                                                        ? Feather.globe
+                                                        : Feather.lock,
+                                                    size: 18,
+                                                    color: data.type == 1
+                                                        ? Colors.green[400]
+                                                        : Colors.red[400],
+                                                  ),
+                                                  Text(
+                                                    data.type == 1
+                                                        ? "Public"
+                                                        : "private",
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       color: data.type == 1
                                                           ? Colors.green[400]
                                                           : Colors.red[400],
                                                     ),
-                                                    Text(
-                                                      data.type == 1
-                                                          ? "Public"
-                                                          : "private",
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: data.type == 1
-                                                            ? Colors.green[400]
-                                                            : Colors.red[400],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Text(data.status + "s can join",
-                                                    style: TextStyle(
-                                                        fontSize: 16)),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Description",
-                                                  style: TextStyle(
-                                                    color: theme.currentTheme
-                                                        .backgroundColor
-                                                        .withOpacity(0.45),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w700,
                                                   ),
-                                                  textAlign: TextAlign.start,
-                                                ),
-                                                Text(data.description.trim()),
-                                                SizedBox(height: 4),
-                                              ],
-                                            ),
+                                                ],
+                                              ),
+                                              Text(data.status + "s can join",
+                                                  style:
+                                                      TextStyle(fontSize: 16)),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      children: [
-                                        data.notification.contains(Constants
-                                                .prefs
-                                                .getString('userId'))
-                                            ? SmallButton(
-                                                myColor: Theme.of(context)
-                                                    .primaryColor,
-                                                myText: "Notification Sent")
-                                            : SmallButton(
-                                                myColor: !registrationCondition
-                                                    ? Theme.of(context)
-                                                        .primaryColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
-                                                myText: !registrationCondition
-                                                    ? data.type == 1
-                                                        ? "Join"
-                                                        : "Send Request"
-                                                    : "Already Registered",
-                                                onPressed: () {
-                                                  if (!registrationCondition) {
-                                                    if (data.type == 2) {
-                                                      //For Private
-                                                      if (data.status ==
-                                                          'team') {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  TeamEventNotification(
-                                                                      data:
-                                                                          data)),
-                                                        );
-                                                      } else {
-                                                        if (!data.notification
-                                                            .contains(Constants
-                                                                .prefs
-                                                                .getString(
-                                                                    'userId'))) {
-                                                          NotificationServices()
-                                                              .createIndividualNotification(
-                                                                  data);
-                                                        }
-                                                        //TODO: Change the button to invite sent
-                                                        //Private Individual Event
-                                                      }
-                                                    } else {
-                                                      //public
-                                                      if (data.status ==
-                                                          'team') {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  TeamEventNotification(
-                                                                      data:
-                                                                          data)),
-                                                        );
-                                                      } else {
-                                                        registerUserToEvent(
-                                                            data.eventId,
-                                                            data.eventName,
-                                                            data.sportName,
-                                                            data.location,
-                                                            data.dateTime,
-                                                            data.creatorId);
-                                                        print(
-                                                            "User Registered");
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return successDialog(
-                                                                  context);
-                                                            });
-                                                      }
-                                                    }
-                                                  } else {
-                                                    print("Already Registered");
-                                                  }
-                                                }),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Description",
+                                                style: TextStyle(
+                                                  color: theme.currentTheme
+                                                      .backgroundColor
+                                                      .withOpacity(0.45),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                              Text(data.description.trim()),
+                                              SizedBox(height: 4),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    // child: Theme(
-                                    //   data: Theme.of(context).copyWith(
-                                    //       dividerColor: Colors.transparent),
-                                    //   child: ExpansionTile(
-                                    //     tilePadding: EdgeInsets.all(0),
-                                    //     maintainState: true,
-                                    //     onExpansionChanged: (expanded) {
-                                    //       if (expanded) {
-                                    //       } else {}
-                                    //     },
-                                    //     children: [
-                                    //       SmallButton(
-                                    //           myColor: !registrationCondition
-                                    //               ? Theme.of(context)
-                                    //                   .primaryColor
-                                    //               : Theme.of(context)
-                                    //                   .accentColor,
-                                    //           myText: !registrationCondition
-                                    //               ? "Join"
-                                    //               : "Already Registered",
-                                    //           onPressed: () {
-                                    //             if (!registrationCondition) {
-                                    //               if (data.type == 2) {
-                                    //                 //For Private
-                                    //                 if (data.status == 'team') {
-                                    //                   Navigator.push(
-                                    //                     context,
-                                    //                     MaterialPageRoute(
-                                    //                         builder: (context) =>
-                                    //                             TeamEventNotification(
-                                    //                                 data:
-                                    //                                     data)),
-                                    //                   );
-                                    //                 } else {
-                                    //                   NotificationServices()
-                                    //                       .createIndividualNotification(
-                                    //                           data);
-                                    //                   //Private Individual Event
-                                    //                 }
-                                    //               } else {
-                                    //                 //public
-                                    //                 if (data.status == 'team') {
-                                    //                   Navigator.push(
-                                    //                     context,
-                                    //                     MaterialPageRoute(
-                                    //                         builder: (context) =>
-                                    //                             TeamEventNotification(
-                                    //                                 data:
-                                    //                                     data)),
-                                    //                   );
-                                    //                 } else {
-                                    //                   registerUserToEvent(
-                                    //                       data.eventId,
-                                    //                       data.eventName,
-                                    //                       data.sportName,
-                                    //                       data.location,
-                                    //                       data.dateTime);
-                                    //                   print("User Registered");
-                                    //                   showDialog(
-                                    //                       context: context,
-                                    //                       builder: (context) {
-                                    //                         return successDialog(
-                                    //                             context);
-                                    //                       });
-                                    //                 }
-                                    //               }
-                                    //             } else {
-                                    //               print("Already Registered");
-                                    //             }
-                                    //           })
-                                    //     ],
-                                    //     leading: Image.asset(sportIcon),
-                                    //     title: Text(
-                                    //       data.eventName,
-                                    //       style: TextStyle(
-                                    //         color: theme
-                                    //             .currentTheme.backgroundColor,
-                                    //         fontSize: 18,
-                                    //         fontWeight: FontWeight.w500,
-                                    //       ),
-                                    //     ),
-                                    //     subtitle: Column(
-                                    //       crossAxisAlignment:
-                                    //           CrossAxisAlignment.start,
-                                    //       children: [
-                                    //         Text(
-                                    //           data.description,
-                                    //           style: TextStyle(
-                                    //             color: theme.currentTheme
-                                    //                 .backgroundColor,
-                                    //           ),
-                                    //         ),
-                                    //         Text(
-                                    //           DateFormat('MMM dd -')
-                                    //               .add_jm()
-                                    //               .format(data.dateTime)
-                                    //               .toString(),
-                                    //           style: TextStyle(
-                                    //             fontSize: 13,
-                                    //             fontWeight: FontWeight.w600,
-                                    //           ),
-                                    //         ),
-                                    //         Row(
-                                    //           children: [
-                                    //             Icon(
-                                    //               Feather.map_pin,
-                                    //               size: 16.0,
-                                    //             ),
-                                    //             Text(
-                                    //               data.location,
-                                    //               style: TextStyle(
-                                    //                 fontSize: 13,
-                                    //                 fontWeight: FontWeight.w500,
-                                    //                 color: theme.currentTheme
-                                    //                     .backgroundColor,
-                                    //               ),
-                                    //             ),
-                                    //           ],
-                                    //         )
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    // ),
+                                    children: [
+                                      data.notification.contains(Constants.prefs
+                                              .getString('userId'))
+                                          ? SmallButton(
+                                              myColor: Theme.of(context)
+                                                  .primaryColor,
+                                              myText: "Notification Sent")
+                                          : SmallButton(
+                                              myColor: !registrationCondition
+                                                  ? Theme.of(context)
+                                                      .primaryColor
+                                                  : Theme.of(context)
+                                                      .primaryColorDark,
+                                              myText: !registrationCondition
+                                                  ? data.type == 1
+                                                      ? "Join"
+                                                      : "Send Request"
+                                                  : "Already Registered",
+                                              onPressed: () {
+                                                if (!registrationCondition) {
+                                                  if (data.type == 2) {
+                                                    //For Private
+                                                    if (data.status == 'team') {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                TeamEventNotification(
+                                                                    data:
+                                                                        data)),
+                                                      );
+                                                    } else {
+                                                      if (!data.notification
+                                                          .contains(Constants
+                                                              .prefs
+                                                              .getString(
+                                                                  'userId'))) {
+                                                        NotificationServices()
+                                                            .createIndividualNotification(
+                                                                data);
+                                                      }
+                                                      //TODO: Change the button to invite sent
+                                                      //Private Individual Event
+                                                    }
+                                                  } else {
+                                                    //public
+                                                    if (data.status == 'team') {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                TeamEventNotification(
+                                                                    data:
+                                                                        data)),
+                                                      );
+                                                    } else {
+                                                      registerUserToEvent(
+                                                          data.eventId,
+                                                          data.eventName,
+                                                          data.sportName,
+                                                          data.location,
+                                                          data.dateTime,
+                                                          data.creatorId);
+                                                      print("User Registered");
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return successDialog(
+                                                                context);
+                                                          });
+                                                    }
+                                                  }
+                                                } else {
+                                                  print("Already Registered");
+                                                }
+                                              },
+                                            ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                      )
-                    : Container(
-                        child: Center(
-                          child: Image.asset("assets/notification.png"),
-                        ),
-                      )
-                : Loader());
+                          ),
+                        );
+                      },
+                    )
+                  :
+                  // this comes when there is no event happening
+                  Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Center(
+                            child: Image.asset("assets/notification.png",
+                                width: 300),
+                          ),
+                          Text(
+                            "Didn't find any event, create one",
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Button(
+                            myColor: Theme.of(context).primaryColor,
+                            myText: "Add Event",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return AddPost();
+                                  },
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    )
+              : Loader(),
+        );
       },
     );
   }

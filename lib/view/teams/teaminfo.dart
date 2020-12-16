@@ -97,7 +97,6 @@ class _TeamInfoState extends State<TeamInfo> {
     void handleClick(String value) {
       switch (value) {
         case 'Leave team':
-          //TODO: add funtionality
           TeamService().removeMeFromTeam(widget.teamID);
           Navigator.pushNamed(context, '/mainapp');
           break;

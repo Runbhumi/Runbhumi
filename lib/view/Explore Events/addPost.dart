@@ -265,7 +265,6 @@ class _Page1State extends State<Page1> {
   int userTokens = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     sub = db
         .collection('users')
@@ -327,7 +326,7 @@ class _Page1State extends State<Page1> {
                   InputBox(
                     controller: widget._nameController,
                     hintText: "Event name",
-                    validateFunction: Validations.validateNonEmpty,
+                    validateFunction: Validations.validateName,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -354,7 +353,7 @@ class _Page1State extends State<Page1> {
                     controller: widget._locationController,
                     hintText: "Borvalli, Mumbai, MH",
                     labelText: "Location",
-                    validateFunction: Validations.validateNonEmpty,
+                    validateFunction: Validations.validateName,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -443,8 +442,6 @@ class _Page1State extends State<Page1> {
                       widget.individualRadio,
                     ],
                   ),
-                  //TODO: add a description feild in event from backend
-                  //TODO: dear backend devs add premium feature
                   Button(
                     myText: "Add Post",
                     myColor: userTokens > 0

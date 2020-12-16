@@ -7,6 +7,11 @@ class Validations {
     return null;
   }
 
+  static String validateName(String value) {
+    if (value.isEmpty) return 'This is Required!';
+    return null;
+  }
+
   static String validateEmail(String value) {
     if (value.isEmpty) return 'Please enter an Email Address.';
     final RegExp nameExp = new RegExp(

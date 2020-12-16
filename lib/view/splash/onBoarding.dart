@@ -1,3 +1,4 @@
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/views.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -11,6 +12,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
+    Constants.prefs.setString("firsttime", "done");
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => GauthPage()),
     );

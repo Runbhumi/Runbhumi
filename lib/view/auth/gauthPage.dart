@@ -23,7 +23,7 @@ class _GauthPageState extends State<GauthPage> {
                   const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
               child: Image(
                 // image: AssetImage('assets/login.png'),
-                image: AssetImage('assets/sports-illustration1.png'),
+                image: AssetImage('assets/basketballGuy.png'),
               ),
             ),
             /*Padding(

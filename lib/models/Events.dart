@@ -11,7 +11,9 @@ class Events {
   String sportName;
   String description;
   List<dynamic> playersId;
+  List playerInfo;
   List<dynamic> teamId;
+  List teamInfo;
   List notification;
   DateTime dateTime;
   int maxMembers;
@@ -26,6 +28,8 @@ class Events {
       this.sportName,
       this.description,
       this.playersId,
+      this.playerInfo,
+      this.teamInfo,
       this.dateTime,
       this.maxMembers,
       this.status,
@@ -120,6 +124,8 @@ class Events {
         playersId: data['playersId'],
         dateTime: data['dateTime'].toDate(),
         maxMembers: data['max'],
+        teamInfo :data['teamInfo'],
+        playerInfo: data['playerInfo'],
         type: data['type'],
         status: data['status'],
         notification: data['notificationPlayers']);

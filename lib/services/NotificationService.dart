@@ -95,14 +95,16 @@ class NotificationServices {
 
   acceptIndividualNotification(EventNotification notification) async {
     Events event = await checkPlayerCount(notification.eventId);
-
+    Friends friend = new Friends.newFriend(
+        notification.senderId, notification.senderName, notification.senderPic);
     if (event.playersId.length < event.maxMembers) {
       await FirebaseFirestore.instance
           .collection('events')
           .doc(notification.eventId)
           .update({
         'playersId': FieldValue.arrayUnion([notification.senderId]),
-        'notificationPlayers': FieldValue.arrayRemove([notification.senderId])
+        'notificationPlayers': FieldValue.arrayRemove([notification.senderId]),
+        'playerInfo': FieldValue.arrayUnion([friend.toJson()])
       });
       await addScheduleToUser(
         notification.senderId,
@@ -231,7 +233,10 @@ class NotificationServices {
           .update({
         'playersId': FieldValue.arrayUnion([notification.senderId]),
         'teamsId': FieldValue.arrayUnion([notification.teamId]),
-        'notificationPlayers': FieldValue.arrayRemove([notification.senderId])
+        'notificationPlayers': FieldValue.arrayRemove([notification.senderId]),
+        'teamInfo': FieldValue.arrayUnion([
+          {'teamName': notification.teamName, 'teamId': notification.teamId}
+        ])
       });
       await addScheduleToUser(
         notification.senderId,

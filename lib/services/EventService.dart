@@ -10,8 +10,13 @@ class EventService {
       FirebaseFirestore.instance.collection('events');
 
   addUserToEvent(String id) {
+    var userId = Constants.prefs.get('userId');
+    var userName = Constants.prefs.get('username');
+    var profileImage = Constants.prefs.get('profileImage');
+    Friends friend = new Friends.newFriend(userId, userName, profileImage);
     _eventCollectionReference.doc(id).set({
-      "playersId": FieldValue.arrayUnion([Constants.prefs.getString('userId')])
+      "playersId": FieldValue.arrayUnion([userId]),
+      'playerInfo': FieldValue.arrayUnion([friend.toJson()])
     }, SetOptions(merge: true));
   }
 
@@ -148,7 +153,10 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         .doc(event.eventId)
         .update({
       'playersId': FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
-      'teamsId': FieldValue.arrayUnion([team.teamId])
+      'teamsId': FieldValue.arrayUnion([team.teamId]),
+      'teamInfo': FieldValue.arrayUnion([
+        {'teamName': team.teamName, 'teamId': team.teamId}
+      ])
     });
     await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
         event.eventId, team.teamName, event.eventName);
@@ -167,6 +175,9 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
 
 leaveEvent(id) {
   var userId = Constants.prefs.get('userId');
+  var userName = Constants.prefs.get('username');
+  var profileImage = Constants.prefs.get('profileImage');
+  Friends friend = new Friends.newFriend(userId, userName, profileImage);
   FirebaseFirestore.instance
       .collection('users')
       .doc(userId)
@@ -174,7 +185,8 @@ leaveEvent(id) {
       .doc(id)
       .delete();
   FirebaseFirestore.instance.collection('events').doc(id).set({
-    'playersId': FieldValue.arrayRemove([userId])
+    'playersId': FieldValue.arrayRemove([userId]),
+    'playerInfo': FieldValue.arrayRemove([friend.toJson()])
   }, SetOptions(merge: true));
   //UserService().updateEventCount(-1);
   CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));

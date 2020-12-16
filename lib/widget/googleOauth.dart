@@ -45,7 +45,7 @@ class _GoogleOauthState extends State<GoogleOauth> {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       "Continue with Google",
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                 if (state)

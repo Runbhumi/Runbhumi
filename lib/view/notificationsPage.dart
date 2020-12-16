@@ -867,7 +867,6 @@ class ChallengeNotificationCard extends StatelessWidget {
                           NotificationServices()
                               .acceptChallengeTeamNotification(
                                   notificationData);
-                          //TODO: Still have to write the challenge notification acceptance.
                         },
                         child: Stack(
                           alignment: AlignmentDirectional.center,

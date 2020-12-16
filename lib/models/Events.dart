@@ -124,7 +124,7 @@ class Events {
         playersId: data['playersId'],
         dateTime: data['dateTime'].toDate(),
         maxMembers: data['max'],
-        teamInfo :data['teamInfo'],
+        teamInfo: data['teamInfo'],
         playerInfo: data['playerInfo'],
         type: data['type'],
         status: data['status'],

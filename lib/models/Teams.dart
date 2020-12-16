@@ -1,4 +1,4 @@
-import 'package:Runbhumi/models/Friends.dart';
+import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -66,6 +66,7 @@ class Teams {
         'image': this.image,
         'bio': this.bio,
         'players': this.player,
+        "teamSearchParam": setSearchParam(teamName),
         'playerId': this.playerId,
         'notificationPlayers': this.notificationPlayers,
         'status': this.status,

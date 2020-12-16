@@ -1,5 +1,4 @@
 import 'package:Runbhumi/view/views.dart';
-import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -32,61 +31,48 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Colors.white,
-      imagePadding: EdgeInsets.zero,
+      imagePadding: EdgeInsets.only(top: 24),
     );
 
     return IntroductionScreen(
       key: introKey,
       pages: [
         PageViewModel(
-          title: "Heading 1",
-          body: "something something something blah blah blah",
+          title: "Find friends",
+          body: "Find real friends nearby you to play with you",
           image: _buildImage('sports-illustration1'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Heading 2",
-          body: "some more something and blah blah blah",
-          image: _buildImage('sports-illustration1'),
+          title: "Have the sporty discussions",
+          body: "Chat with friends and teammates and schedule events with them",
+          image: _buildImage('chatting_illustration'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Thor is the best avenger",
-          body: "change my mind",
-          image: _buildImage('sports-illustration1'),
+          title: "Get notifications",
+          body:
+              "Recieve notifications about event requests, friend requests and much more",
+          image: _buildImage('notifications'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Another title page",
-          body: "Another beautiful body text for this example onboarding",
-          image: _buildImage('sports-illustration1'),
-          footer: Button(
-            myColor: Theme.of(context).primaryColor,
-            onPressed: () {
-              introKey.currentState?.animateScroll(0);
-            },
-            myText: "abcdefg",
-          ),
+          title: "Add teams and Events",
+          body: "Create and join teams and events nearby you",
+          image: _buildImage('post_online'),
+          // footer: Button(
+          //   myColor: Theme.of(context).primaryColor,
+          //   onPressed: () {
+          //     introKey.currentState?.animateScroll(0);
+          //   },
+          //   myText: "abcdefg",
+          // ),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Give us money by buying event tickets",
-          bodyWidget: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text("Click on", style: bodyStyle),
-              Icon(Icons.info_outline),
-              Flexible(
-                child: Text(
-                  " to get to know that events are a premium thing",
-                  style: bodyStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          image: _buildImage('sports-illustration1'),
+          title: "Connect | Schedule | Play",
+          body: "Get out of the digital zone",
+          image: _buildImage('real_life'),
           decoration: pageDecoration,
         ),
       ],
@@ -100,6 +86,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
+        activeColor: Color(0xff2DADC2),
         color: Color(0xFFBDBDBD),
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(

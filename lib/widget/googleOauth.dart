@@ -38,7 +38,8 @@ class _GoogleOauthState extends State<GoogleOauth> {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 16.0, top: 8, bottom: 8),
-                    child: Image(image: AssetImage('assets/googleicon.png')),
+                    child: Image(
+                        image: AssetImage('assets/googleicon.png'), width: 24),
                   ),
                 if (state == false)
                   Padding(

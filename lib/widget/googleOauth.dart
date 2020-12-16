@@ -19,7 +19,7 @@ class _GoogleOauthState extends State<GoogleOauth> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        RaisedButton(
+        OutlineButton(
           color: Colors.white,
           onPressed: () async {
             setState(() => state = true);
@@ -27,7 +27,9 @@ class _GoogleOauthState extends State<GoogleOauth> {
               Navigator.pushReplacementNamed(context, "/mainapp");
             });
           },
-          elevation: 1,
+          borderSide: BorderSide(
+            color: Theme.of(context).backgroundColor,
+          ),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

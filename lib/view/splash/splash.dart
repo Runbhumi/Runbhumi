@@ -14,6 +14,7 @@ class _SplashState extends State<Splash> {
   // Timer to change the screen in 2.2 seconds
 
   String _userId = Constants.prefs.getString('userId');
+  String _firsttime = Constants.prefs.getString('firsttime');
   startTimeout() {
     return Timer(Duration(milliseconds: 2200), handleTimeout);
   }
@@ -23,9 +24,11 @@ class _SplashState extends State<Splash> {
   }
 
   changeScreen() async {
-    _userId == null
+    _firsttime == null
         ? CRouter.pushPageWithFadeAnimation(context, OnBoardingPage())
-        : CRouter.pushPageWithFadeAnimation(context, MainApp());
+        : _userId == null
+            ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
+            : CRouter.pushPageWithFadeAnimation(context, MainApp());
   }
 
   @override

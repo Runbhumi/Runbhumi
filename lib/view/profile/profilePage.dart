@@ -85,7 +85,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: loading ? buildTitle(context, data["username"]) : null,
+          title: loading
+              ? buildTitle(context, data["username"] ?? "Profile")
+              : null,
           centerTitle: true,
           elevation: 0,
           leading: Builder(
@@ -324,11 +326,16 @@ class MainUserProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Feather.user,
-                          size: 24.0,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.cake_outlined,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Text(
@@ -343,11 +350,16 @@ class MainUserProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Feather.map_pin,
-                          size: 24.0,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Feather.map_pin,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Text(
@@ -361,11 +373,16 @@ class MainUserProfile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Feather.mail,
-                        size: 24.0,
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Icon(
+                          Feather.mail,
+                          size: 24.0,
+                        ),
                       ),
                     ),
                     Text(
@@ -380,11 +397,16 @@ class MainUserProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Feather.phone,
-                          size: 24.0,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Feather.phone,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Text(

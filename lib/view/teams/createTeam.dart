@@ -79,7 +79,7 @@ class _CreateTeamState extends State<CreateTeam> {
                     InputBox(
                       controller: _nameController,
                       hintText: "Team name",
-                      validateFunction: Validations.validateNonEmpty,
+                      validateFunction: Validations.validateName,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -105,7 +105,7 @@ class _CreateTeamState extends State<CreateTeam> {
                     InputBox(
                       controller: _teamLocationController,
                       hintText: "Team Location",
-                      validateFunction: Validations.validateNonEmpty,
+                      validateFunction: Validations.validateName,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),

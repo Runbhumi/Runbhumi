@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/Events.dart';
 import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -128,7 +129,18 @@ class _EventConversationState extends State<EventConversation> {
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return EventInfo(
+                    eventId: widget.data.eventId,
+                  );
+                },
+              ),
+            );
+          },
           child: Row(
             children: [
               ClipRRect(

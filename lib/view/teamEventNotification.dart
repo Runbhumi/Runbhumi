@@ -2,6 +2,9 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+
+import 'teams/createTeam.dart';
 
 class TeamEventNotification extends StatefulWidget {
   final Events data;
@@ -37,19 +40,42 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                       itemBuilder: (context, index) {
                         TeamView data = new TeamView.fromJson(
                             asyncSnapshot.data.documents[index]);
+                        String sportIcon;
+                        switch (widget.data.sportName) {
+                          case "Volleyball":
+                            sportIcon = "assets/icons8-volleyball-96.png";
+                            break;
+                          case "Basketball":
+                            sportIcon = "assets/icons8-basketball-96.png";
+                            break;
+                          case "Cricket":
+                            sportIcon = "assets/icons8-cricket-96.png";
+                            break;
+                          case "Football":
+                            sportIcon = "assets/icons8-soccer-ball-96.png";
+                            break;
+                        }
                         return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            child: Card(
-                                child: Column(
-                              children: [
-                                Text(
-                                  data.teamName,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16.0),
+                          child: Card(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(0),
+                              leading: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image(
+                                  image: AssetImage(sportIcon),
+                                  width: 70,
                                 ),
-                                Button(
-                                  myText: "Register Team",
-                                  myColor: Theme.of(context).primaryColor,
-                                  onPressed: () {
+                              ),
+                              title: Text(
+                                data.teamName,
+                              ),
+                              trailing: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 4.0, bottom: 4, left: 4, right: 8),
+                                child: GestureDetector(
+                                  onTap: () {
                                     if (widget.data.type == 2) {
                                       //private
                                       NotificationServices()
@@ -58,31 +84,70 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                           .then(Navigator.pushNamed(
                                               context, '/mainapp'));
                                     } else {
+                                      //public
                                       addTeamToEvent(widget.data, data);
                                       Navigator.pushNamed(context, '/mainapp');
-                                      //TODO: Directly add the team to the event.
+                                      //Directly add the team to the event.
                                     }
-                                    // TeamChallengeNotification myTeam =
-                                    //     new TeamChallengeNotification.newTeam(
-                                    //         data.teamId,
-                                    //         Constants.prefs.getString('userId'),
-                                    //         data.teamName);
-                                    // NotificationServices()
-                                    //     .challengeTeamNotification(
-                                    //         widget.sportName,
-                                    //         widget.teamData,
-                                    //         myTeam)
-                                    //     .then(() {
-                                    //   //TODO : add a success notification that a challenge is created will be notified when opponents accepts it
-                                    // });
                                   },
-                                )
-                              ],
-                            )));
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                          color: Colors.green[100],
+                                        ),
+                                        width: 36,
+                                        height: 36,
+                                      ),
+                                      Icon(
+                                        Feather.check,
+                                        color: Colors.green,
+                                        size: 24,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                       })
                   : Container(
                       child: Center(
-                        child: Image.asset("assets/notification.png"),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image.asset(
+                              "assets/notification.png",
+                              scale: 1.5,
+                            ),
+                            Text(
+                              "Dont have a team 😓",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Button(
+                              myText: 'Create one',
+                              myColor: Theme.of(context).primaryColor,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return CreateTeam();
+                                    },
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     )
               : Loader();
@@ -92,7 +157,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        title: buildTitle(context, "idk the name"),
+        title: buildTitle(context, "Select a team"),
       ),
       body: Container(
         child: Column(

@@ -263,7 +263,6 @@ class NotificationServices {
     return false;
   }
 
-  //TODO: Accept Challenge Notification.
   acceptChallengeTeamNotification(
       ChallengeNotification notificationData) async {
     String nameOftheEvent = notificationData.myTeamName +

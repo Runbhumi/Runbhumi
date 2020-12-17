@@ -76,6 +76,7 @@ class EventService {
 String createNewEvent(
     String eventName,
     String creatorId,
+    String creatorName,
     String location,
     String sportName,
     String description,
@@ -92,10 +93,12 @@ String createNewEvent(
           dateTime, maxMembers, status, type)
       .toJson());
   if (!challenge && payed) {
-    addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
+    addEventToUser(
+        id, eventName, sportName, location, dateTime, creatorId, creatorName);
     UserService().updateEventTokens(-1);
   } else if (!challenge && !payed) {
-    addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
+    addEventToUser(
+        id, eventName, sportName, location, dateTime, creatorId, creatorName);
   } else {
     EventService().addUserToEvent(id);
   }
@@ -103,26 +106,27 @@ String createNewEvent(
 }
 
 addEventToUser(String id, String eventName, String sportName, String location,
-    DateTime dateTime, String creatorId) {
+    DateTime dateTime, String creatorId, String creatorName) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
       .collection('userEvent')
       .doc(id)
-      .set(Events.miniView(
-              id, eventName, sportName, location, dateTime, creatorId)
+      .set(Events.miniView(id, eventName, sportName, location, dateTime,
+              creatorId, creatorName)
           .minitoJson());
   //UserService().updateEventCount(1);
   //EventService().addUserToEvent(id);
 }
 
 registerUserToEvent(String id, String eventName, String sportName,
-    String location, DateTime dateTime, String creatorId) {
-  addEventToUser(id, eventName, sportName, location, dateTime, creatorId);
+    String location, DateTime dateTime, String creatorId, String creatorName) {
+  addEventToUser(
+      id, eventName, sportName, location, dateTime, creatorId, creatorName);
 }
 
 addScheduleToUser(String userId, String eventName, String sportName,
-    String location, DateTime dateTime, String creatorId) {
+    String location, DateTime dateTime, String creatorId, String creatorName) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
   FirebaseFirestore.instance
@@ -130,8 +134,8 @@ addScheduleToUser(String userId, String eventName, String sportName,
       .doc(userId)
       .collection('userEvent')
       .doc(id)
-      .set(Events.miniView(
-              id, eventName, sportName, location, dateTime, creatorId)
+      .set(Events.miniView(id, eventName, sportName, location, dateTime,
+              creatorId, creatorName)
           .minitoJson());
 }
 

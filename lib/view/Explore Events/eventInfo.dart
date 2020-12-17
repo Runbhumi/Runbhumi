@@ -43,22 +43,39 @@ class _EventInfoState extends State<EventInfo> {
   @override
   Widget build(BuildContext context) {
     if (_loading)
-      return Scaffold(
-        appBar: AppBar(
-          title: buildTitle(
-            context,
-            data['eventName'],
-          ),
-          leading: BackButton(),
-        ),
-        body: Column(
-          children: [
-            Text(data['eventName']),
-            Text(data['description']),
-            //TODO: Display Dzte and time of the event, Location of t
-          ],
-        ),
-      );
+      return data['status'] == 'team'
+          ? Scaffold(
+              appBar: AppBar(
+                title: buildTitle(
+                  context,
+                  data['eventName'],
+                ),
+                leading: BackButton(),
+              ),
+              body: Column(
+                children: [
+                  Text(data['eventName']),
+                  Text(data['description']),
+                  //TODO: Display Dzte and time of the event, Location of t
+                ],
+              ),
+            )
+          : Scaffold(
+              appBar: AppBar(
+                title: buildTitle(
+                  context,
+                  data['eventName'],
+                ),
+                leading: BackButton(),
+              ),
+              body: Column(
+                children: [
+                  Text(data['eventName']),
+                  Text(data['description']),
+                  //TODO: Display Dzte and time of the event, Location of t
+                ],
+              ),
+            );
     return Loader();
   }
 }

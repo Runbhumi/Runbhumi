@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 // 3 - closed
 
 String userId = Constants.prefs.getString('userId');
+String name = Constants.prefs.getString('name');
 
 class AddPost extends StatefulWidget {
   @override
@@ -455,6 +456,7 @@ class _Page1State extends State<Page1> {
                         createNewEvent(
                             widget._nameController.text,
                             userId,
+                            name,
                             widget._locationController.text,
                             widget._chosenSport,
                             widget._descController.text,

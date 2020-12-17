@@ -302,11 +302,11 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
   }
 
 // make team search params
-  getUserFeed(String query) {
+  getTeamFeed(String query) {
     print("getTeamFeed");
     return FirebaseFirestore.instance
-        .collection("users")
-        .where("teamname", arrayContains: query)
+        .collection("teams")
+        .where("teamSearchParam", arrayContains: query)
         .limit(5)
         .snapshots();
   }
@@ -420,14 +420,14 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                                       data);
                                             }
                                             if (data.status == 'closed') {
-                                              // Make a custom Alert message for the user to
+                                              //TODO: Make a custom Alert message for the user to
                                               //know that he can not join a closed team
                                             }
                                             if (data.status == 'public') {
                                               TeamService()
                                                   .addMeInTeam(data.teamId)
                                                   .then(() => {
-                                                        // give a success notification that he was
+                                                        //TODO: give a success notification that he was
                                                         //added to the team and take him to the chat
                                                         //window or the info page of the team
                                                       });
@@ -492,74 +492,84 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
         });
   }
 
-  createChatRoom(String userId, BuildContext context, String username,
-      String userProfile) {
-    print(userId);
-    print(Constants.prefs.getString('userId'));
-    if (userId != Constants.prefs.getString('userId')) {
-      List<String> users = [userId, Constants.prefs.getString('userId')];
-      String chatRoomId =
-          getUsersInvolved(userId, Constants.prefs.getString('userId'));
-      List<String> usersNames = [username, Constants.prefs.getString('name')];
-      List<String> usersPics = [
-        Constants.prefs.getString('profileImage'),
-        userProfile
-      ];
+  // createChatRoom(String userId, BuildContext context, String username,
+  //     String userProfile) {
+  //   print(userId);
+  //   print(Constants.prefs.getString('userId'));
+  //   if (userId != Constants.prefs.getString('userId')) {
+  //     List<String> users = [userId, Constants.prefs.getString('userId')];
+  //     String chatRoomId =
+  //         getUsersInvolved(userId, Constants.prefs.getString('userId'));
+  //     List<String> usersNames = [username, Constants.prefs.getString('name')];
+  //     List<String> usersPics = [
+  //       Constants.prefs.getString('profileImage'),
+  //       userProfile
+  //     ];
 
-      Map<String, dynamic> chatRoom = {
-        "users": users,
-        "chatRoomId": chatRoomId,
-        "usersNames": usersNames,
-        "usersPics": usersPics,
-      };
-      ChatroomService().addChatRoom(chatRoom, chatRoomId);
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => Conversation(
-      //               chatRoomId: chatRoomId,
-      //               usersNames: usersNames,
-      //               users: users,
-      //               usersPics: usersPics,
-      //             )));
-    } else {
-      print("Cannot do that");
-    }
-  }
+  //     Map<String, dynamic> chatRoom = {
+  //       "users": users,
+  //       "chatRoomId": chatRoomId,
+  //       "usersNames": usersNames,
+  //       "usersPics": usersPics,
+  //     };
+  //     ChatroomService().addChatRoom(chatRoom, chatRoomId);
+  //     // Navigator.push(
+  //     //     context,
+  //     //     MaterialPageRoute(
+  //     //         builder: (context) => Conversation(
+  //     //               chatRoomId: chatRoomId,
+  //     //               usersNames: usersNames,
+  //     //               users: users,
+  //     //               usersPics: usersPics,
+  //     //             )));
+  //   } else {
+  //     print("Cannot do that");
+  //   }
+  // }
 
-  getUsersInvolved(String a, String b) {
-    if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-      return "$b\_$a";
-    } else {
-      return "$a\_$b";
-    }
-  }
+  // getUsersInvolved(String a, String b) {
+  //   if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+  //     return "$b\_$a";
+  //   } else {
+  //     return "$a\_$b";
+  //   }
+  // }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    String sportIcon;
     return StreamBuilder(
-        stream: getUserFeed(query),
+        stream: getTeamFeed(query),
         builder: (context, asyncSnapshot) {
-          print("Working");
+          print("Suggestions Working");
+          print(asyncSnapshot.hasData);
           return asyncSnapshot.hasData
               ? ListView.builder(
                   itemCount: asyncSnapshot.data.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
+                    print('I am here');
+                    print(asyncSnapshot.data.documents[index].get('teamname'));
+                    switch (asyncSnapshot.data.documents[index].get('sport')) {
+                      case "Volleyball":
+                        sportIcon = "assets/icons8-volleyball-96.png";
+                        break;
+                      case "Basketball":
+                        sportIcon = "assets/icons8-basketball-96.png";
+                        break;
+                      case "Cricket":
+                        sportIcon = "assets/icons8-cricket-96.png";
+                        break;
+                      case "Football":
+                        sportIcon = "assets/icons8-soccer-ball-96.png";
+                        break;
+                    }
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 4.0, horizontal: 16.0),
                       child: GestureDetector(
                         onTap: () {
-                          print("creating a chat room");
-                          //Creating a chatroom for the user he searched for
-                          // Can get any information of that other user here.
-                          createChatRoom(
-                              asyncSnapshot.data.documents[index].get('userId'),
-                              context,
-                              asyncSnapshot.data.documents[index].get('name'),
-                              asyncSnapshot.data.documents[index]
-                                  .get('profileImage'));
+                          //TODO:Take him to team Info
                         },
                         child: Card(
                           child: Padding(
@@ -568,18 +578,13 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                               contentPadding: EdgeInsets.all(0),
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
-                                child: Image(
-                                  image: NetworkImage(asyncSnapshot
-                                      .data.documents[index]
-                                      .get('profileImage')
-                                      .toString()),
-                                ),
+                                child: Image.asset(sportIcon),
                               ),
                               title: Text(asyncSnapshot.data.documents[index]
-                                  .get('name')),
+                                  .get('teamname')),
                               subtitle: Text(
                                 asyncSnapshot.data.documents[index]
-                                    .get('username'),
+                                    .get('status'),
                               ),
                             ),
                           ),

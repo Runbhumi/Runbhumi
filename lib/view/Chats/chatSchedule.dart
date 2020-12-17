@@ -165,7 +165,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             _chosenSport,
                             _locationController.text,
                             DateTime.parse(_datetime.text),
-                            Constants.prefs.getString('userId'));
+                            Constants.prefs.getString('userId'),
+                            Constants.prefs.getString('name'));
                       }
                       setState(() {
                         _locationController = new TextEditingController();

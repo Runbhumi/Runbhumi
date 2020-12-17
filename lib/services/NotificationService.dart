@@ -107,13 +107,13 @@ class NotificationServices {
         'playerInfo': FieldValue.arrayUnion([friend.toJson()])
       });
       await addScheduleToUser(
-        notification.senderId,
-        event.eventName,
-        event.sportName,
-        event.location,
-        event.dateTime,
-        event.creatorId,
-      );
+          notification.senderId,
+          event.eventName,
+          event.sportName,
+          event.location,
+          event.dateTime,
+          event.creatorId,
+          event.creatorName);
 
       await declineNotification(notification.notificationId);
       return true;
@@ -239,13 +239,13 @@ class NotificationServices {
         ])
       });
       await addScheduleToUser(
-        notification.senderId,
-        event.eventName,
-        event.sportName,
-        event.location,
-        event.dateTime,
-        event.creatorId,
-      );
+          notification.senderId,
+          event.eventName,
+          event.sportName,
+          event.location,
+          event.dateTime,
+          event.creatorId,
+          event.creatorName);
       await declineTeamRequest(notification.eventId,
           notification.notificationId, notification.senderId);
       await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
@@ -277,6 +277,7 @@ class NotificationServices {
     String eventId = createNewEvent(
         nameOftheEvent,
         notificationData.senderId,
+        notificationData.senderName,
         "Challenge",
         notificationData.sport,
         "Challenge",

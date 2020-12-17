@@ -44,8 +44,7 @@ class UserProfile {
     this.token = token;
     this.phoneNumber = {'show': false, 'ph': ""};
     this.emailId = emailId;
-    this.bio =
-        'I couldn’t find the sports car of my dreams, so I built it myself.';
+    this.bio = 'Hey I am new to Runbhumi';
     this.age = 'Open';
     this.friendCount = 0;
     this.teamsCount = 0;

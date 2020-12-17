@@ -434,15 +434,20 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                                           data)),
                                                         );
                                                       } else {
+                                                        print('Here is the me');
                                                         registerUserToEvent(
                                                             data.eventId,
                                                             data.eventName,
                                                             data.sportName,
                                                             data.location,
                                                             data.dateTime,
-                                                            data.creatorId);
+                                                            data.creatorId,
+                                                            data.creatorName);
                                                         print(
                                                             "User Registered");
+                                                        EventService()
+                                                            .addUserToEvent(
+                                                                data.eventId);
                                                         showDialog(
                                                             context: context,
                                                             builder: (context) {

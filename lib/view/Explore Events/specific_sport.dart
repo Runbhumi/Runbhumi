@@ -115,7 +115,8 @@ class _SpecificSportState extends State<SpecificSport> {
                                                   data.sportName,
                                                   data.location,
                                                   data.dateTime,
-                                                  data.creatorId);
+                                                  data.creatorId,
+                                                  data.creatorName);
                                               print("User Registered");
                                               showDialog(
                                                   context: context,

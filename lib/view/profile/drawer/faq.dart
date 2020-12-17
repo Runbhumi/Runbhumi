@@ -75,7 +75,7 @@ class Faq extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                        "A verified team represents a team which had been playing the sport promisingly for a good amount of time or for an institution. They consist of well recognized players such as district level and beyond and are actively looking for challenges."),
+                        "A verified team represents a team which has been playing the sport promisingly for a good amount of time or for an institution. They consist of well recognized players such as district level and beyond and are actively looking for challenges."),
                   ),
                 ],
               ),

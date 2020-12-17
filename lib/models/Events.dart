@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
   final String creator = Constants.prefs.getString('userId');
+  final String creatorN = Constants.prefs.getString('name');
 
   String eventName;
   String eventId;
   String creatorId;
+  String creatorName;
   String location;
   String sportName;
   String description;
@@ -24,6 +26,7 @@ class Events {
       {this.eventId,
       this.eventName,
       this.creatorId,
+      this.creatorName,
       this.location,
       this.sportName,
       this.description,
@@ -49,6 +52,7 @@ class Events {
     this.eventId = eventId;
     this.eventName = eventName;
     this.creatorId = creator;
+    this.creatorName = creatorN;
     this.location = location;
     this.sportName = sportName;
     this.playersId = [];
@@ -66,16 +70,24 @@ class Events {
       this.location,
       this.dateTime,
       this.sportName,
-      this.creatorId});
+      this.creatorId,
+      this.creatorName});
 
-  Events.miniView(String eventId, String eventName, String sportName,
-      String location, DateTime dateTime, String creatorId) {
+  Events.miniView(
+      String eventId,
+      String eventName,
+      String sportName,
+      String location,
+      DateTime dateTime,
+      String creatorId,
+      String creatorName) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.location = location;
     this.dateTime = dateTime;
     this.sportName = sportName;
     this.creatorId = creatorId;
+    this.creatorName = creatorName;
   }
 
   Map<String, dynamic> minitoJson() => {
@@ -85,6 +97,7 @@ class Events {
         'sportName': sportName,
         'dateTime': dateTime,
         'creatorId': creatorId,
+        'creatorName': creatorName,
       };
 
   factory Events.fromMiniJson(QueryDocumentSnapshot snapshot) {
@@ -96,12 +109,14 @@ class Events {
       location: data['location'],
       sportName: data['sportName'],
       dateTime: data['dateTime'].toDate(),
+      creatorName: data['creatorName'],
     );
   }
   Map<String, dynamic> toJson() => {
         'eventId': this.eventId,
         'eventName': this.eventName,
         'creatorId': this.creatorId,
+        'creatorName': this.creatorName,
         'location': this.location,
         'sportName': this.sportName,
         'description': this.description,
@@ -118,6 +133,7 @@ class Events {
         eventId: data['eventId'],
         eventName: data['eventName'],
         creatorId: data['creatorId'],
+        creatorName: data['creatorName'],
         location: data['location'],
         sportName: data['sportName'],
         description: data['description'],
@@ -136,6 +152,7 @@ class Events {
         eventId: data['eventId'],
         eventName: data['eventName'],
         creatorId: data['creatorId'],
+        creatorName: data['creatorName'],
         location: data['location'],
         sportName: data['sportName'],
         description: data['description'],

@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -124,9 +125,20 @@ class _TeamCategoryState extends State<TeamCategory> {
                                               ? !notifiedCondition
                                                   ? "Join"
                                                   : "Request Sent"
-                                              : "Already there",
+                                              : "Chats",
                                           onPressed: () {
-                                            if (!joinCondition) {
+                                            if (!joinCondition &&
+                                                notifiedCondition) {
+                                              //Notification pending
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return notifcationPending(
+                                                      context);
+                                                },
+                                              );
+                                            } else if (!joinCondition &&
+                                                !notifiedCondition) {
                                               if (data.status == 'private') {
                                                 NotificationServices()
                                                     .createTeamNotification(
@@ -149,6 +161,16 @@ class _TeamCategoryState extends State<TeamCategory> {
                                                           //window or the info page of the team
                                                         });
                                               }
+                                            }
+                                            if (joinCondition) {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TeamConversation(
+                                                      data: data,
+                                                    ),
+                                                  ));
                                             }
                                           })
                                     ],
@@ -291,7 +313,6 @@ class _TeamCategoryState extends State<TeamCategory> {
   }
 }
 
-// TODO: dear backend devs please complete the search functionality
 class TeamCategorySearchDirect extends SearchDelegate<ListView> {
   getTeams(String query) {
     print("getTeams");
@@ -409,9 +430,20 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                             ? !notifiedCondition
                                                 ? "Join"
                                                 : "Request Sent"
-                                            : "Already there",
+                                            : "Chats",
                                         onPressed: () {
-                                          if (!joinCondition) {
+                                          if (!joinCondition &&
+                                              notifiedCondition) {
+                                            //Notification pending
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return notifcationPending(
+                                                    context);
+                                              },
+                                            );
+                                          } else if (!joinCondition &&
+                                              !notifiedCondition) {
                                             if (data.status == 'private') {
                                               NotificationServices()
                                                   .createTeamNotification(
@@ -421,18 +453,28 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                                       data);
                                             }
                                             if (data.status == 'closed') {
-                                              //TODO: Make a custom Alert message for the user to
+                                              // Make a custom Alert message for the user to
                                               //know that he can not join a closed team
                                             }
                                             if (data.status == 'public') {
                                               TeamService()
                                                   .addMeInTeam(data.teamId)
                                                   .then(() => {
-                                                        //TODO: give a success notification that he was
+                                                        // give a success notification that he was
                                                         //added to the team and take him to the chat
                                                         //window or the info page of the team
                                                       });
                                             }
+                                          }
+                                          if (joinCondition) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TeamConversation(
+                                                    data: data,
+                                                  ),
+                                                ));
                                           }
                                         })
                                   ],
@@ -570,7 +612,6 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                           vertical: 4.0, horizontal: 16.0),
                       child: GestureDetector(
                         onTap: () {
-                          //TODO:Take him to team Info
                           Navigator.push(
                             context,
                             MaterialPageRoute(

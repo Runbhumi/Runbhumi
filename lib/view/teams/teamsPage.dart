@@ -6,6 +6,7 @@ import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:Runbhumi/view/teams/challengeScreen.dart';
 //import 'package:Runbhumi/view/teams/challengeScreen.dart';
 import 'package:Runbhumi/view/teams/teamCategory.dart';
+import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -95,41 +96,58 @@ class _TeamsListState extends State<TeamsList>
                                       } else {}
                                     },
                                     children: [
-                                      SmallButton(
-                                          myColor: !joinCondition
-                                              ? Theme.of(context).primaryColor
-                                              : Theme.of(context).accentColor,
-                                          myText: !joinCondition
-                                              ? !notifiedCondition
-                                                  ? "Join"
-                                                  : "Request Sent"
-                                              : "Already there",
-                                          onPressed: () {
-                                            if (!joinCondition) {
-                                              if (data.status == 'private') {
-                                                NotificationServices()
-                                                    .createTeamNotification(
-                                                        Constants.prefs
-                                                            .getString(
-                                                                'userId'),
-                                                        data.manager,
-                                                        data);
-                                              }
-                                              if (data.status == 'closed') {
-                                                // Make a custom Alert message for the user to
-                                                //know that he can not join a closed team
-                                              }
-                                              if (data.status == 'public') {
-                                                TeamService()
-                                                    .addMeInTeam(data.teamId)
-                                                    .then(() => {
-                                                          // give a success notification that he was
-                                                          //added to the team and take him to the chat
-                                                          //window or the info page of the team
-                                                        });
-                                              }
-                                            }
-                                          }),
+                                      !joinCondition
+                                          ? SmallButton(
+                                              myColor: !joinCondition
+                                                  ? Theme.of(context)
+                                                      .primaryColor
+                                                  : Theme.of(context)
+                                                      .accentColor,
+                                              myText: !joinCondition
+                                                  ? !notifiedCondition
+                                                      ? "Join"
+                                                      : "Request Sent"
+                                                  : "Already there",
+                                              onPressed: () {
+                                                if (!joinCondition &&
+                                                    notifiedCondition) {
+                                                  //Notification pending
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return notifcationPending(
+                                                          context);
+                                                    },
+                                                  );
+                                                } else if (!joinCondition &&
+                                                    !notifiedCondition) {
+                                                  if (data.status ==
+                                                      'private') {
+                                                    NotificationServices()
+                                                        .createTeamNotification(
+                                                            Constants.prefs
+                                                                .getString(
+                                                                    'userId'),
+                                                            data.manager,
+                                                            data);
+                                                  }
+                                                  if (data.status == 'closed') {
+                                                    // Make a custom Alert message for the user to
+                                                    //know that he can not join a closed team
+                                                  }
+                                                  if (data.status == 'public') {
+                                                    TeamService()
+                                                        .addMeInTeam(
+                                                            data.teamId)
+                                                        .then(() => {
+                                                              // give a success notification that he was
+                                                              //added to the team and take him to the chat
+                                                              //window or the info page of the team
+                                                            });
+                                                  }
+                                                }
+                                              })
+                                          : Container(),
                                       SmallButton(
                                         myColor: !joinCondition
                                             ? Theme.of(context).primaryColor

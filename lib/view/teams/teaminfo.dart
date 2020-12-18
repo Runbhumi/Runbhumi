@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/views.dart';
@@ -115,6 +116,41 @@ class _TeamInfoState extends State<TeamInfo> {
           //   _loading = true;
           // });
           break;
+        case 'Join Team':
+          if (data['notificationPlayers']
+              .contains(Constants.prefs.getString('userId'))) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return notifcationPending(context);
+              },
+            );
+          } else {
+            if (data['status'] == 'private') {
+              Teams teamView = Teams.newTeam(data['teamId'], data['sport'],
+                  data['teamName'], data['bio'], data['status']);
+              NotificationServices().createTeamNotification(
+                  Constants.prefs.getString('userId'),
+                  data['manager'],
+                  teamView);
+            }
+            if (data['status'] == 'closed') {
+              //TODO: Front-end Part of the closed dialog box
+              // Make a custom Alert message for the user to
+              //know that he can not join a closed team
+            }
+            if (data['status'] == 'public') {
+              TeamService().addMeInTeam(data['teamId']).then(() => {
+                    //TODO: Front-end Part of the sucess dialog box
+                    // give a success notification that he was
+                    //added to the team and take him to the chat
+                    //window or the info page of the team
+                  });
+            }
+          }
+          break;
+        case 'Challenge':
+          break;
       }
     }
 
@@ -130,29 +166,40 @@ class _TeamInfoState extends State<TeamInfo> {
             PopupMenuButton<String>(
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
-                return Constants.prefs.getString('userId') == data['manager']
-                    ? data["verified"] == 'N'
-                        ? {'Delete team', 'Send Verification Application'}
-                            .map((String choice) {
-                            return PopupMenuItem<String>(
-                              value: choice,
-                              child: Text(choice),
-                            );
-                          }).toList()
-                        : {
-                            'Delete team',
-                          }.map((String choice) {
-                            return PopupMenuItem<String>(
-                              value: choice,
-                              child: Text(choice),
-                            );
-                          }).toList()
-                    : {'Leave team'}.map((String choice) {
-                        return PopupMenuItem<String>(
-                          value: choice,
-                          child: Text(choice),
-                        );
-                      }).toList();
+                if (!data['playerId']
+                    .contains(Constants.prefs.getString('userId'))) {
+                  //For all the users who are viwing the teamInfo and not part of the team
+                  return {'Join Team', 'Challenge'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                } else {
+                  return Constants.prefs.getString('userId') == data['manager']
+                      ? data["verified"] == 'N'
+                          ? {'Delete team', 'Send Verification Application'}
+                              .map((String choice) {
+                              return PopupMenuItem<String>(
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList()
+                          : {
+                              'Delete team',
+                            }.map((String choice) {
+                              return PopupMenuItem<String>(
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList()
+                      : {'Leave team'}.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
+                }
               },
             ),
           ],
@@ -315,77 +362,58 @@ class _TeamInfoState extends State<TeamInfo> {
                                             data["players"][index]["name"],
                                             style: TextStyle(fontSize: 18),
                                           ),
-                                          subtitle: (Constants.prefs.getString(
-                                                          'userId') ==
-                                                      data['manager'] ||
-                                                  Constants.prefs.getString(
-                                                          'userId') ==
-                                                      data['captain'])
-                                              ? Row(
-                                                  children: [
-                                                    if (data["players"][index]
-                                                            ["id"] ==
-                                                        data["manager"])
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(2.0),
-                                                        child: Container(
-                                                          padding:
-                                                              EdgeInsets.all(4),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border:
-                                                                Border.all(),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            8)),
-                                                          ),
-                                                          child: Text(
-                                                            "Manager",
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    if (data["players"][index]
-                                                            ["id"] ==
-                                                        data["captain"])
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(2.0),
-                                                        child: Container(
-                                                          padding:
-                                                              EdgeInsets.all(4),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border:
-                                                                Border.all(),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            8)),
-                                                          ),
-                                                          child: Text(
-                                                            "Captain",
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                  ],
-                                                )
-                                              : null,
+                                          subtitle: Row(
+                                            children: [
+                                              if (data["players"][index]
+                                                      ["id"] ==
+                                                  data["manager"])
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(2.0),
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(4),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  8)),
+                                                    ),
+                                                    child: Text(
+                                                      "Manager",
+                                                      style: TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ),
+                                              if (data["players"][index]
+                                                      ["id"] ==
+                                                  data["captain"])
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(2.0),
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(4),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  8)),
+                                                    ),
+                                                    child: Text(
+                                                      "Captain",
+                                                      style: TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
                                           trailing: Constants.prefs
                                                       .getString('userId') ==
                                                   data['manager']
@@ -490,7 +518,7 @@ confirmationPopup(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Cancel",
+              "Close",
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 18,
@@ -581,4 +609,34 @@ confirmationPopup2(BuildContext context, String teamId, String manager) {
           color: Color.fromRGBO(128, 128, 128, 0),
         )
       ]).show();
+}
+
+SimpleDialog notifcationPending(BuildContext context) {
+  return SimpleDialog(
+    title: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Icon(
+            Feather.info,
+            size: 64,
+          )),
+        ),
+        Center(child: Text("Notification Pending")),
+      ],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+            child: Text(
+                "Your notification is still pending. Therefore you cannot send another join request",
+                style: Theme.of(context).textTheme.subtitle1)),
+      ),
+    ],
+  );
 }

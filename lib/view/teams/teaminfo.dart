@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Runbhumi/models/Teams.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/view/teams/challengeScreen.dart';
 import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -150,6 +151,15 @@ class _TeamInfoState extends State<TeamInfo> {
           }
           break;
         case 'Challenge':
+          final TeamChallengeNotification teamData =
+              new TeamChallengeNotification.newTeam(
+                  data['teamId'], data['manager'], data['teamName']);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChallangeTeam(
+                    sportName: data['sport'], teamData: teamData)),
+          );
           break;
       }
     }

@@ -136,9 +136,12 @@ class _TeamInfoState extends State<TeamInfo> {
                   teamView);
             }
             if (data['status'] == 'closed') {
-              //TODO: Front-end Part of the closed dialog box
-              // Make a custom Alert message for the user to
-              //know that he can not join a closed team
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return closedTeam(context);
+                },
+              );
             }
             if (data['status'] == 'public') {
               TeamService().addMeInTeam(data['teamId']).then(() => {
@@ -645,6 +648,35 @@ SimpleDialog notifcationPending(BuildContext context) {
         child: Center(
             child: Text(
                 "Your notification is still pending. Therefore you cannot send another join request",
+                style: Theme.of(context).textTheme.subtitle1)),
+      ),
+    ],
+  );
+}
+
+SimpleDialog closedTeam(BuildContext context) {
+  return SimpleDialog(
+    title: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Icon(
+            Feather.info,
+            size: 64,
+          )),
+        ),
+        Center(child: Text("Closed Team")),
+      ],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+            child: Text("This team is not open for players to join",
                 style: Theme.of(context).textTheme.subtitle1)),
       ),
     ],

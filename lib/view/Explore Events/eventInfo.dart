@@ -45,6 +45,7 @@ class _EventInfoState extends State<EventInfo> {
     if (_loading)
       return data['status'] == 'team'
           ? Scaffold(
+              //For all the team events
               appBar: AppBar(
                 title: buildTitle(
                   context,
@@ -61,6 +62,7 @@ class _EventInfoState extends State<EventInfo> {
               ),
             )
           : Scaffold(
+              //For all the individual events
               appBar: AppBar(
                 title: buildTitle(
                   context,

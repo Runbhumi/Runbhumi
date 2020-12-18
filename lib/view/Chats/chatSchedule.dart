@@ -1,5 +1,6 @@
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../widget/widgets.dart';
 
@@ -158,6 +159,9 @@ class _ChatScheduleState extends State<ChatSchedule> {
                     myText: "Schedule",
                     myColor: Theme.of(context).primaryColor,
                     onPressed: () {
+                      var newDoc =
+                          FirebaseFirestore.instance.collection('events').doc();
+                      String id = newDoc.id;
                       for (int i = 0; i < widget.users.length; i++) {
                         addScheduleToUser(
                             widget.users[i],
@@ -166,7 +170,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             _locationController.text,
                             DateTime.parse(_datetime.text),
                             Constants.prefs.getString('userId'),
-                            Constants.prefs.getString('name'));
+                            Constants.prefs.getString('name'),
+                            id);
                       }
                       setState(() {
                         _locationController = new TextEditingController();

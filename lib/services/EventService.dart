@@ -125,16 +125,21 @@ registerUserToEvent(String id, String eventName, String sportName,
       id, eventName, sportName, location, dateTime, creatorId, creatorName);
 }
 
-addScheduleToUser(String userId, String eventName, String sportName,
-    String location, DateTime dateTime, String creatorId, String creatorName) {
-  var newDoc = FirebaseFirestore.instance.collection('events').doc();
-  String id = newDoc.id;
+addScheduleToUser(
+    String userId,
+    String eventName,
+    String sportName,
+    String location,
+    DateTime dateTime,
+    String creatorId,
+    String creatorName,
+    String eventId) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(userId)
       .collection('userEvent')
-      .doc(id)
-      .set(Events.miniView(id, eventName, sportName, location, dateTime,
+      .doc(eventId)
+      .set(Events.miniView(eventId, eventName, sportName, location, dateTime,
               creatorId, creatorName)
           .minitoJson());
 }
@@ -196,8 +201,18 @@ leaveEvent(id) {
   CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));
 }
 
-deleteEvent(id) async {
+deleteEvent(id, List<dynamic> playerIds) async {
   await FirebaseFirestore.instance.collection('events').doc(id).delete();
+  for (int i = 0; i < playerIds.length; i++) {
+    if (playerIds[i] != Constants.prefs.get('userId')) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerIds[i])
+          .collection('userEvent')
+          .doc(id)
+          .delete();
+    }
+  }
   await FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
@@ -206,5 +221,5 @@ deleteEvent(id) async {
       .delete();
   //UserService().updateEventCount(-1);
   //Trigger a cloud function
-  //TODO: Delete from all the people who joined the event as well;
+  //TODO: Should check this code
 }

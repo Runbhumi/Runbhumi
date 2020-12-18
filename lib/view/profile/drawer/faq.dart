@@ -32,7 +32,7 @@ class Faq extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                        "The person who creates a team is initially the captain and the manager of the team. A team manager represents the team in events and challenge matches as he is only one who gets attend to the events and team challenge chatrooms. The managers are expected to communicate with each other and then pass the information to their respective teams."),
+                        "The person who creates a team is initially the captain and the manager of the team. A team manager represents the team in events and challenge matches as he is only one who gets added to the event/challenge chatroom. The managers are expected to communicate with each other and then pass the information to their respective teams."),
                   ),
                 ],
               ),
@@ -46,7 +46,7 @@ class Faq extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                        "A team manager can transfer captainship. They can apply for team to be verified. They can challenge other teams with their team. Since they are the only people who get added to the event and challenge chatrooms they are referred to as point of contact.  We recommend user to manage only one team for each sport to avoid confusion."),
+                        "A team manager can transfer captainship. They can apply for team to be verified. They can challenge other teams with their team. Since they are the only people who get added to the event and challenge chatrooms they are referred to as point of contact. We recommend user to manage only one team for each sport to avoid confusion."),
                   ),
                 ],
               ),

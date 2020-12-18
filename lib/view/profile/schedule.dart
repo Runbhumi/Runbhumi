@@ -109,7 +109,8 @@ class _ScheduleState extends State<Schedule> {
                                             confirmationPopupForDeleting(
                                                 context,
                                                 data.eventName,
-                                                data.eventId);
+                                                data.eventId,
+                                                data.playersId);
                                             // print(
                                             //     Constants.prefs.get('userId') ==
                                             //         data.creatorId);
@@ -204,7 +205,8 @@ class _ScheduleState extends State<Schedule> {
   }
 }
 
-confirmationPopupForDeleting(BuildContext context, String name, String id) {
+confirmationPopupForDeleting(
+    BuildContext context, String name, String id, List<dynamic> playerId) {
   var alertStyle = AlertStyle(
     animationType: AnimationType.fromBottom,
     isCloseButton: false,
@@ -252,7 +254,7 @@ confirmationPopupForDeleting(BuildContext context, String name, String id) {
             ),
           ),
           onPressed: () {
-            deleteEvent(id);
+            deleteEvent(id, playerId);
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),

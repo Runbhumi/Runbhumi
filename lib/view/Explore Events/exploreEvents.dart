@@ -3,6 +3,7 @@ import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
+import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
@@ -329,7 +330,19 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                             .createIndividualNotification(
                                                                 data);
                                                       }
-                                                      //TODO: Change the button to invite sent
+                                                      if (data.notification
+                                                          .contains(Constants
+                                                              .prefs
+                                                              .getString(
+                                                                  'userId'))) {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return notifcationPending(
+                                                                context);
+                                                          },
+                                                        );
+                                                      }
                                                       //Private Individual Event
                                                     }
                                                   } else {

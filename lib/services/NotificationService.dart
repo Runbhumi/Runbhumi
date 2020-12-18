@@ -113,7 +113,8 @@ class NotificationServices {
           event.location,
           event.dateTime,
           event.creatorId,
-          event.creatorName);
+          event.creatorName,
+          event.eventId);
 
       await declineNotification(notification.notificationId);
       return true;
@@ -245,7 +246,8 @@ class NotificationServices {
           event.location,
           event.dateTime,
           event.creatorId,
-          event.creatorName);
+          event.creatorName,
+          event.eventId);
       await declineTeamRequest(notification.eventId,
           notification.notificationId, notification.senderId);
       await CustomMessageServices().sendEventAcceptEventChatCustomMessage(

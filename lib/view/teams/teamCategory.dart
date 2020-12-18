@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -570,6 +571,17 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                       child: GestureDetector(
                         onTap: () {
                           //TODO:Take him to team Info
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TeamInfo(
+                                  teamID: asyncSnapshot.data.documents[index]
+                                      .get('teamId'),
+                                );
+                              },
+                            ),
+                          );
                         },
                         child: Card(
                           child: Padding(

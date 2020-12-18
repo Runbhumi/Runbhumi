@@ -285,6 +285,38 @@ class _Page1State extends State<Page1> {
     super.dispose();
   }
 
+  SimpleDialog statusInfo(BuildContext context) {
+    return SimpleDialog(
+      title: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Icon(
+              Feather.info,
+              size: 64,
+            )),
+          ),
+          Center(child: Text("What is a status")),
+        ],
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+              child: Text(
+                  "Public: Anyone can join the event. Use this for events which needs to be filled fast" +
+                      '\n' +
+                      "Private: You will be notified when someone tries to join your event. You can then accept or decline.",
+                  style: Theme.of(context).textTheme.subtitle1)),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -410,16 +442,31 @@ class _Page1State extends State<Page1> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 24.0, vertical: 4.0),
-                        child: Text(
-                          'Status',
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .backgroundColor
-                                .withOpacity(0.35),
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.start,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Status',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .backgroundColor
+                                    .withOpacity(0.35),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                            IconButton(
+                                icon: Icon(Feather.info),
+                                iconSize: 15.0,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return statusInfo(context);
+                                    },
+                                  );
+                                })
+                          ],
                         ),
                       ),
                       widget.publicRadio,

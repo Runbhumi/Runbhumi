@@ -42,216 +42,225 @@ class _TeamsListState extends State<TeamsList>
           .limit(loadMoreTeams)
           .snapshots(),
       builder: (context, asyncSnapshot) {
-        return asyncSnapshot.hasData
-            ? asyncSnapshot.data.documents.length > 0
-                ? ListView.builder(
-                    controller: _teamsScrollController,
-                    itemCount: asyncSnapshot.data.documents.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      Teams data = new Teams.fromJson(
-                          asyncSnapshot.data.documents[index]);
+        if (asyncSnapshot.hasData) {
+          if (asyncSnapshot.data.documents.length > 0) {
+            return ListView.builder(
+              controller: _teamsScrollController,
+              itemCount: asyncSnapshot.data.documents.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                Teams data =
+                    new Teams.fromJson(asyncSnapshot.data.documents[index]);
 
-                      String sportIcon;
-                      // IconData sportIcon;
-                      switch (data.sport) {
-                        case "Volleyball":
-                          sportIcon = "assets/icons8-volleyball-96.png";
-                          break;
-                        case "Basketball":
-                          sportIcon = "assets/icons8-basketball-96.png";
-                          break;
-                        case "Cricket":
-                          sportIcon = "assets/icons8-cricket-96.png";
-                          break;
-                        case "Football":
-                          sportIcon = "assets/icons8-soccer-ball-96.png";
-                          break;
-                      }
-                      bool notifiedCondition = false;
-                      bool joinCondition = data.playerId
-                          .contains(Constants.prefs.getString('userId'));
-                      if (data.notificationPlayers.length > 0)
-                        notifiedCondition = data.notificationPlayers
-                            .contains(Constants.prefs.getString('userId'));
+                String sportIcon;
+                // IconData sportIcon;
+                switch (data.sport) {
+                  case "Volleyball":
+                    sportIcon = "assets/icons8-volleyball-96.png";
+                    break;
+                  case "Basketball":
+                    sportIcon = "assets/icons8-basketball-96.png";
+                    break;
+                  case "Cricket":
+                    sportIcon = "assets/icons8-cricket-96.png";
+                    break;
+                  case "Football":
+                    sportIcon = "assets/icons8-soccer-ball-96.png";
+                    break;
+                }
+                bool notifiedCondition = false;
+                bool joinCondition =
+                    data.playerId.contains(Constants.prefs.getString('userId'));
+                if (data.notificationPlayers.length > 0)
+                  notifiedCondition = data.notificationPlayers
+                      .contains(Constants.prefs.getString('userId'));
 
-                      //asyncSnapshot
-                      // .data.documents[index]
-                      // .get('playersId')
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Card(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                      dividerColor: Colors.transparent),
-                                  child: ExpansionTile(
-                                    maintainState: true,
-                                    onExpansionChanged: (expanded) {
-                                      if (expanded) {
-                                      } else {}
-                                    },
-                                    children: [
-                                      !joinCondition
-                                          ? SmallButton(
-                                              myColor: !joinCondition
-                                                  ? Theme.of(context)
-                                                      .primaryColor
-                                                  : Theme.of(context)
-                                                      .accentColor,
-                                              myText: !joinCondition
-                                                  ? !notifiedCondition
-                                                      ? "Join"
-                                                      : "Request Sent"
-                                                  : "Already there",
-                                              onPressed: () {
-                                                if (!joinCondition &&
-                                                    notifiedCondition) {
-                                                  //Notification pending
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return notifcationPending(
-                                                          context);
-                                                    },
-                                                  );
-                                                } else if (!joinCondition &&
-                                                    !notifiedCondition) {
-                                                  if (data.status ==
-                                                      'private') {
-                                                    NotificationServices()
-                                                        .createTeamNotification(
-                                                            Constants.prefs
-                                                                .getString(
-                                                                    'userId'),
-                                                            data.manager,
-                                                            data);
-                                                  }
-                                                  if (data.status == 'closed') {
-                                                    // Make a custom Alert message for the user to
-                                                    //know that he can not join a closed team
-                                                  }
-                                                  if (data.status == 'public') {
-                                                    TeamService()
-                                                        .addMeInTeam(
-                                                            data.teamId)
-                                                        .then(() => {
-                                                              // give a success notification that he was
-                                                              //added to the team and take him to the chat
-                                                              //window or the info page of the team
-                                                            });
-                                                  }
-                                                }
-                                              })
-                                          : Container(),
-                                      SmallButton(
+                //asyncSnapshot
+                // .data.documents[index]
+                // .get('playersId')
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Theme(
+                            data: Theme.of(context)
+                                .copyWith(dividerColor: Colors.transparent),
+                            child: ExpansionTile(
+                              maintainState: true,
+                              onExpansionChanged: (expanded) {
+                                if (expanded) {
+                                } else {}
+                              },
+                              children: [
+                                !joinCondition
+                                    ? SmallButton(
                                         myColor: !joinCondition
                                             ? Theme.of(context).primaryColor
                                             : Theme.of(context).accentColor,
                                         myText: !joinCondition
-                                            ? 'Challenge'
-                                            : 'Chats',
+                                            ? !notifiedCondition
+                                                ? "Join"
+                                                : "Request Sent"
+                                            : "Already there",
                                         onPressed: () {
-                                          if (!joinCondition) {
-                                            // Challenge logic
-                                            final TeamChallengeNotification
-                                                teamData =
-                                                new TeamChallengeNotification
-                                                        .newTeam(
-                                                    data.teamId,
-                                                    data.manager,
-                                                    data.teamName);
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChallangeTeam(
-                                                          sportName: data.sport,
-                                                          teamData: teamData)),
+                                          if (!joinCondition &&
+                                              notifiedCondition) {
+                                            //Notification pending
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return notifcationPending(
+                                                    context);
+                                              },
                                             );
-                                          } else {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      TeamConversation(
-                                                    data: data,
-                                                  ),
-                                                ));
-                                            //Go to the team ChatRoom
+                                          } else if (!joinCondition &&
+                                              !notifiedCondition) {
+                                            if (data.status == 'private') {
+                                              NotificationServices()
+                                                  .createTeamNotification(
+                                                      Constants.prefs
+                                                          .getString('userId'),
+                                                      data.manager,
+                                                      data);
+                                            }
+                                            if (data.status == 'closed') {
+                                              // Make a custom Alert message for the user to
+                                              //know that he can not join a closed team
+                                            }
+                                            if (data.status == 'public') {
+                                              TeamService()
+                                                  .addMeInTeam(data.teamId)
+                                                  .then(() => {
+                                                        // give a success notification that he was
+                                                        //added to the team and take him to the chat
+                                                        //window or the info page of the team
+                                                      });
+                                            }
                                           }
-                                        },
-                                      )
-                                    ],
-                                    leading: Image.asset(sportIcon),
-                                    title: Row(
-                                      children: [
-                                        Text(
-                                          data.teamName,
-                                          style: TextStyle(
-                                            color: theme
-                                                .currentTheme.backgroundColor,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        data.verified == 'Y'
-                                            ? Icon(
-                                                Icons.verified,
-                                                size: 16.0,
-                                              )
-                                            : Container(),
-                                      ],
-                                    ),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.bio,
-                                          style: TextStyle(
-                                            color: theme
-                                                .currentTheme.backgroundColor,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Feather.map_pin,
-                                              size: 16.0,
+                                        })
+                                    : Container(),
+                                SmallButton(
+                                  myColor: !joinCondition
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context).accentColor,
+                                  myText:
+                                      !joinCondition ? 'Challenge' : 'Chats',
+                                  onPressed: () {
+                                    if (!joinCondition) {
+                                      // Challenge logic
+                                      final TeamChallengeNotification teamData =
+                                          new TeamChallengeNotification.newTeam(
+                                              data.teamId,
+                                              data.manager,
+                                              data.teamName);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ChallangeTeam(
+                                                sportName: data.sport,
+                                                teamData: teamData)),
+                                      );
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                TeamConversation(
+                                              data: data,
                                             ),
-                                            Text(
-                                              data.status,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle1,
-                                            ),
-                                          ],
-                                        )
-                                      ],
+                                          ));
+                                      //Go to the team ChatRoom
+                                    }
+                                  },
+                                )
+                              ],
+                              leading: Image.asset(sportIcon),
+                              title: Row(
+                                children: [
+                                  Text(
+                                    data.teamName,
+                                    style: TextStyle(
+                                      color: theme.currentTheme.backgroundColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    trailing:
-                                        Text(data.playerId.length.toString()),
                                   ),
-                                ),
+                                  data.verified == 'Y'
+                                      ? Icon(
+                                          Icons.verified,
+                                          size: 16.0,
+                                        )
+                                      : Container(),
+                                ],
                               ),
-                            ],
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data.bio,
+                                    style: TextStyle(
+                                      color: theme.currentTheme.backgroundColor,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Feather.map_pin,
+                                        size: 16.0,
+                                      ),
+                                      Text(
+                                        data.status,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              trailing: Text(data.playerId.length.toString()),
+                            ),
                           ),
                         ),
-                      );
-                    },
-                  )
-                : // if there is no event in the DB you will get this illustration
-                Container(
-                    child: Center(
-                      child: Image.asset("assets/notification.png"),
+                      ],
                     ),
-                  )
-            : Loader();
+                  ),
+                );
+              },
+            );
+          } else {
+            return Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: Image.asset("assets/teams_illustration.png",
+                          width: 300),
+                    ),
+                    Text(
+                      "Didn't find any team, create one",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Button(
+                      myColor: Theme.of(context).primaryColor,
+                      myText: "Create team",
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/createteam");
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
+        } else {
+          return Loader();
+        }
       },
     );
   }

@@ -12,11 +12,11 @@ class UserProfile {
   int eventCount;
   int teamsCount;
   int eventTokens;
+  List<String> userDeviceToken;
   Map<String, dynamic> phoneNumber;
   List<String> userSearchIndex;
   String emailId;
   List friends;
-  String token;
 
   UserProfile(
       {this.userId,
@@ -28,20 +28,21 @@ class UserProfile {
       this.emailId,
       this.bio,
       this.age,
-      this.token,
       this.friends,
-      this.eventTokens});
+      this.eventTokens,
+      this.userDeviceToken});
 
   UserProfile.loadUser(this.userId, this.username, this.name, this.profileImage,
       this.location, this.phoneNumber, this.emailId, this.bio, this.age);
 
-  UserProfile.newuser(userId, username, name, profileImage, emailId, token) {
+  UserProfile.newuser(
+      userId, username, name, profileImage, emailId, userDeviceToken) {
     this.userId = userId;
     this.username = username;
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
-    this.token = token;
+    this.userDeviceToken = userDeviceToken;
     this.phoneNumber = {'show': false, 'ph': ""};
     this.emailId = emailId;
     this.bio = 'Hey I am new to Runbhumi';
@@ -72,7 +73,6 @@ class UserProfile {
         'emailId': emailId,
         'bio': bio,
         'age': age,
-        'token': token,
         'friendCount': friendCount,
         'teamsCount': teamsCount,
         'eventCount': eventCount,
@@ -80,6 +80,7 @@ class UserProfile {
         "friends": friends,
         "notification": [],
         'eventTokens': eventTokens,
+        'userDeviceToken': userDeviceToken,
       };
 
   factory UserProfile.fromMap(Map data) {
@@ -124,6 +125,7 @@ setSearchParam(String username) {
   }
   return userSearchList;
 }
+
 // getImageURL() async {
 //   final String profileImage = await Constants.getProfileImage();
 //   return profileImage;

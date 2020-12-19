@@ -253,8 +253,8 @@ confirmationPopupForDeleting(
               ),
             ),
           ),
-          onPressed: () {
-            deleteEvent(id, playerId);
+          onPressed: () async {
+            await deleteEvent(id, playerId);
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),

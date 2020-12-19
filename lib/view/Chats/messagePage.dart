@@ -230,8 +230,25 @@ class _TeamChatsState extends State<TeamChats> {
                 });
           } else {
             return Container(
-              child: Center(
-                child: Image.asset("assets/add-friends.png"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Center(
+                    child: Image.asset("assets/teams_illustration.png",
+                        width: 300),
+                  ),
+                  Text(
+                    "Didn't join any team, create one",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Button(
+                    myColor: Theme.of(context).primaryColor,
+                    myText: "Create team",
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/createteam");
+                    },
+                  )
+                ],
               ),
             );
           }
@@ -445,6 +462,8 @@ class UserSearchDirect extends SearchDelegate<ListView> {
     return ThemeData(
       primaryColor: theme.currentTheme.appBarTheme.color,
       appBarTheme: theme.currentTheme.appBarTheme,
+      inputDecorationTheme: theme.currentTheme.inputDecorationTheme,
+      textTheme: theme.currentTheme.textTheme,
     );
   }
 

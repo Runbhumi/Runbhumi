@@ -294,6 +294,12 @@ class _DirectChatsState extends State<DirectChats> {
                 itemCount: asyncSnapshot.data.documents.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  int indexOfOtherUser = 0;
+                  if (Constants.prefs.getString('name') ==
+                      asyncSnapshot.data.documents[index]
+                          .get('usersNames')[0]) {
+                    indexOfOtherUser = 1;
+                  }
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -318,32 +324,19 @@ class _DirectChatsState extends State<DirectChats> {
                             ),
                           );
                         },
-                        title: Constants.prefs.getString('name') ==
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[0]
-                            ? Text(
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[1],
-                                style: TextStyle(fontSize: 18),
-                              )
-                            : Text(
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[0],
-                                style: TextStyle(fontSize: 18),
-                              ),
+                        title: Text(
+                          asyncSnapshot.data.documents[index]
+                              .get('usersNames')[indexOfOtherUser],
+                          style: TextStyle(fontSize: 18),
+                        ),
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
                             width: 48,
                             height: 48,
                             image: NetworkImage(
-                              Constants.prefs.getString('profileImage') ==
-                                      asyncSnapshot.data.documents[index]
-                                          .get('usersPics')[0]
-                                  ? asyncSnapshot.data.documents[index]
-                                      .get('usersPics')[1]
-                                  : asyncSnapshot.data.documents[index]
-                                      .get('usersPics')[0],
+                              asyncSnapshot.data.documents[index]
+                                  .get('usersPics')[indexOfOtherUser],
                             ),
                           ),
                         ),
@@ -536,8 +529,8 @@ class UserSearchDirect extends SearchDelegate<ListView> {
           getUsersInvolved(userId, Constants.prefs.getString('userId'));
       List<String> usersNames = [username, Constants.prefs.getString('name')];
       List<String> usersPics = [
-        Constants.prefs.getString('profileImage'),
-        userProfile
+        userProfile,
+        Constants.prefs.getString('profileImage')
       ];
 
       Map<String, dynamic> chatRoom = {

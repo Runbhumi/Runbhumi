@@ -107,10 +107,23 @@ class _ConversationState extends State<Conversation> {
 
   @override
   Widget build(BuildContext context) {
+    int indexOfOtherUser = 0;
+    if (Constants.prefs.getString('name') == widget.usersNames[0]) {
+      indexOfOtherUser = 1;
+    }
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OtherUserProfile(
+                  userID: widget.users[indexOfOtherUser],
+                ),
+              ),
+            );
+          },
           child: Row(
             children: [
               ClipRRect(
@@ -119,32 +132,21 @@ class _ConversationState extends State<Conversation> {
                   fit: BoxFit.fitWidth,
                   height: 32,
                   image: NetworkImage(
-                    Constants.prefs.getString('name') == widget.usersNames[0]
-                        ? widget.usersPics[0]
-                        : widget.usersPics[1],
+                    widget.usersPics[indexOfOtherUser],
                   ),
                 ),
               ),
               SizedBox(
                 width: 8,
               ),
-              Constants.prefs.getString('name') == widget.usersNames[0]
-                  ? Text(
-                      widget.usersNames[1],
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    )
-                  : Text(
-                      widget.usersNames[0],
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).backgroundColor,
-                      ),
-                    ),
+              Text(
+                widget.usersNames[indexOfOtherUser],
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).backgroundColor,
+                ),
+              ),
             ],
           ),
         ),

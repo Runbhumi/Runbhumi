@@ -33,16 +33,19 @@ class _MoreInfoState extends State<MoreInfo>
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     final _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(leading: BackButton(), title: Text("More Info"), actions: [
-        IconButton(
-          icon: Icon(Icons.info_outline),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => AboutDialog(
-                applicationName: "Runbhumi",
-                applicationVersion: "v0.6.0",
-                applicationLegalese: '''
+      appBar: AppBar(
+          leading: BackButton(),
+          title: buildTitle(context, "More Info"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.info_outline),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AboutDialog(
+                    applicationName: "Runbhumi",
+                    applicationVersion: "v0.7.0",
+                    applicationLegalese: '''
 MIT License
 
 Copyright (c) 2020 Runbhumi
@@ -64,11 +67,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''',
-              ),
-            );
-          },
-        )
-      ]),
+                  ),
+                );
+              },
+            )
+          ]),
       body: Column(
         children: [
           Padding(

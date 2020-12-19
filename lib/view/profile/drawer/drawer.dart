@@ -117,9 +117,9 @@ class _DrawerBodyState extends State<DrawerBody> {
           onpressed: () {
             _launchURL("https://runbhumi.vercel.app/feedback");
           },
-          label: 'Feedback',
+          label: 'Give Feedback',
           icon: Icon(
-            Feather.edit_2,
+            Feather.thumbs_up,
             color: Colors.white,
           ),
         ),

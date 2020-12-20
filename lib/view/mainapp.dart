@@ -52,8 +52,8 @@ class _MainAppState extends State<MainApp> {
         },
       ),
       //bottom navbar
-      bottomNavigationBar:
-          buildBottomNavigationBar(context, onTabTapped, _currentIndex),
+      // bottomNavigationBar:
+      //     buildBottomNavigationBar(context, onTabTapped, _currentIndex),
     );
   }
 }

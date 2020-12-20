@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/utils/router.dart';
@@ -28,7 +29,8 @@ class _SplashState extends State<Splash> {
         ? CRouter.pushPageWithFadeAnimation(context, OnBoardingPage())
         : _userId == null
             ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
-            : CRouter.pushPageWithFadeAnimation(context, MainApp());
+            : Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
   }
 
   @override

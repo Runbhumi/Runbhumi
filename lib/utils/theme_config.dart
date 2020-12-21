@@ -137,11 +137,12 @@ class ThemeNotifier extends ChangeNotifier {
     ),
   ];
 
-  MyTheme _current =
-      (_darkmode == "true" || _darkmode != null) ? MyTheme.Dark : MyTheme.Light;
+  MyTheme _current = (_darkmode == "false" || _darkmode == null)
+      ? MyTheme.Light
+      : MyTheme.Dark;
   // MyTheme _current = MyTheme.Light;
   ThemeData _currentTheme =
-      (_darkmode == "true" || _darkmode != null) ? themes[1] : themes[0];
+      (_darkmode == "false" || _darkmode == null) ? themes[0] : themes[1];
   // MyTheme _current = MyTheme.Dark;
   // ThemeData _currentTheme = themes[1];
 
@@ -159,11 +160,11 @@ class ThemeNotifier extends ChangeNotifier {
 
   void switchTheme() {
     if (_current == MyTheme.Light) {
-      currentTheme = MyTheme.Dark;
       Constants.prefs.setString("darkmode", "true");
+      currentTheme = MyTheme.Dark;
     } else {
-      currentTheme = MyTheme.Light;
       Constants.prefs.setString("darkmode", "false");
+      currentTheme = MyTheme.Light;
     }
   }
 }

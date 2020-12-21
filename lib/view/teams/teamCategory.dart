@@ -339,6 +339,8 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
     return ThemeData(
       primaryColor: theme.currentTheme.appBarTheme.color,
       appBarTheme: theme.currentTheme.appBarTheme,
+      inputDecorationTheme: theme.currentTheme.inputDecorationTheme,
+      textTheme: theme.currentTheme.textTheme,
     );
   }
 

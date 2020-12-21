@@ -262,11 +262,16 @@ class UserProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Feather.user,
-                          size: 24.0,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.cake_outlined,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Text(
@@ -281,11 +286,16 @@ class UserProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Feather.map_pin,
-                          size: 24.0,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Feather.map_pin,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Text(
@@ -299,11 +309,16 @@ class UserProfile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Feather.mail,
-                        size: 24.0,
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Icon(
+                          Feather.mail,
+                          size: 24.0,
+                        ),
                       ),
                     ),
                     Text(
@@ -318,11 +333,16 @@ class UserProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Feather.phone,
-                          size: 24.0,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            Feather.phone,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                       Text(

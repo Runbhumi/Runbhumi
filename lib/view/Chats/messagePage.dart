@@ -230,8 +230,25 @@ class _TeamChatsState extends State<TeamChats> {
                 });
           } else {
             return Container(
-              child: Center(
-                child: Image.asset("assets/add-friends.png"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Center(
+                    child: Image.asset("assets/teams_illustration.png",
+                        width: 300),
+                  ),
+                  Text(
+                    "Didn't join any team, create one",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Button(
+                    myColor: Theme.of(context).primaryColor,
+                    myText: "Create team",
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/createteam");
+                    },
+                  )
+                ],
               ),
             );
           }
@@ -294,6 +311,12 @@ class _DirectChatsState extends State<DirectChats> {
                 itemCount: asyncSnapshot.data.documents.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  int indexOfOtherUser = 0;
+                  if (Constants.prefs.getString('name') ==
+                      asyncSnapshot.data.documents[index]
+                          .get('usersNames')[0]) {
+                    indexOfOtherUser = 1;
+                  }
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -318,32 +341,19 @@ class _DirectChatsState extends State<DirectChats> {
                             ),
                           );
                         },
-                        title: Constants.prefs.getString('name') ==
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[0]
-                            ? Text(
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[1],
-                                style: TextStyle(fontSize: 18),
-                              )
-                            : Text(
-                                asyncSnapshot.data.documents[index]
-                                    .get('usersNames')[0],
-                                style: TextStyle(fontSize: 18),
-                              ),
+                        title: Text(
+                          asyncSnapshot.data.documents[index]
+                              .get('usersNames')[indexOfOtherUser],
+                          style: TextStyle(fontSize: 18),
+                        ),
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
                             width: 48,
                             height: 48,
                             image: NetworkImage(
-                              Constants.prefs.getString('profileImage') ==
-                                      asyncSnapshot.data.documents[index]
-                                          .get('usersPics')[0]
-                                  ? asyncSnapshot.data.documents[index]
-                                      .get('usersPics')[1]
-                                  : asyncSnapshot.data.documents[index]
-                                      .get('usersPics')[0],
+                              asyncSnapshot.data.documents[index]
+                                  .get('usersPics')[indexOfOtherUser],
                             ),
                           ),
                         ),
@@ -452,6 +462,8 @@ class UserSearchDirect extends SearchDelegate<ListView> {
     return ThemeData(
       primaryColor: theme.currentTheme.appBarTheme.color,
       appBarTheme: theme.currentTheme.appBarTheme,
+      inputDecorationTheme: theme.currentTheme.inputDecorationTheme,
+      textTheme: theme.currentTheme.textTheme,
     );
   }
 
@@ -536,8 +548,8 @@ class UserSearchDirect extends SearchDelegate<ListView> {
           getUsersInvolved(userId, Constants.prefs.getString('userId'));
       List<String> usersNames = [username, Constants.prefs.getString('name')];
       List<String> usersPics = [
-        Constants.prefs.getString('profileImage'),
-        userProfile
+        userProfile,
+        Constants.prefs.getString('profileImage')
       ];
 
       Map<String, dynamic> chatRoom = {

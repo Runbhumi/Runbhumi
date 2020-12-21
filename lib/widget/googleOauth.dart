@@ -24,7 +24,8 @@ class _GoogleOauthState extends State<GoogleOauth> {
           onPressed: () async {
             setState(() => state = true);
             await signInWithGoogle().whenComplete(() {
-              Navigator.pushReplacementNamed(context, "/mainapp");
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
             });
           },
           borderSide: BorderSide(

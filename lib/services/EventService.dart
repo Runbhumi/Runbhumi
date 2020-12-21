@@ -11,7 +11,7 @@ class EventService {
 
   addUserToEvent(String id) {
     var userId = Constants.prefs.get('userId');
-    var userName = Constants.prefs.get('username');
+    var userName = Constants.prefs.get('name');
     var profileImage = Constants.prefs.get('profileImage');
     Friends friend = new Friends.newFriend(userId, userName, profileImage);
     _eventCollectionReference.doc(id).set({
@@ -170,7 +170,7 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
     await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
         event.eventId, team.teamName, event.eventName);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
-        team.teamId, Constants.prefs.getString('username'), event.eventName);
+        team.teamId, Constants.prefs.getString('name'), event.eventName);
     return true;
   }
 
@@ -184,7 +184,7 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
 
 leaveEvent(id) {
   var userId = Constants.prefs.get('userId');
-  var userName = Constants.prefs.get('username');
+  var userName = Constants.prefs.get('name');
   var profileImage = Constants.prefs.get('profileImage');
   Friends friend = new Friends.newFriend(userId, userName, profileImage);
   FirebaseFirestore.instance
@@ -202,15 +202,10 @@ leaveEvent(id) {
 }
 
 deleteEvent(id, List<dynamic> playerIds) async {
-  await FirebaseFirestore.instance.collection('events').doc(id).delete();
+  print(playerIds.length);
   for (int i = 0; i < playerIds.length; i++) {
     if (playerIds[i] != Constants.prefs.get('userId')) {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(playerIds[i])
-          .collection('userEvent')
-          .doc(id)
-          .delete();
+      deleteIndividualUserMini(id, playerIds[i]);
     }
   }
   await FirebaseFirestore.instance
@@ -219,7 +214,15 @@ deleteEvent(id, List<dynamic> playerIds) async {
       .collection('userEvent')
       .doc(id)
       .delete();
-  //UserService().updateEventCount(-1);
-  //Trigger a cloud function
-  //TODO: Should check this code
+  await FirebaseFirestore.instance.collection('events').doc(id).delete();
+  //TODO: Should fix this code.
+}
+
+deleteIndividualUserMini(String eventId, String userId) async {
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .collection('userEvent')
+      .doc(eventId)
+      .delete();
 }

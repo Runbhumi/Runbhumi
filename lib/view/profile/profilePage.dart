@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
     var _myDuration = Duration(milliseconds: 250);
     var myChild = AnimatedContainer(
-      clipBehavior: Clip.antiAlias,
+      // clipBehavior: Clip.antiAlias,
       duration: _myDuration,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(_myValue),
@@ -106,9 +106,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: loading
-                ? buildTitle(context, data["username"] ?? "Profile")
-                : null,
+            //TODO: removed for the backend issue to fix(I am not able to log in)
+            // title: loading
+            //     ? buildTitle(context, data["username"] ?? "Profile")
+            //     : null,
             centerTitle: true,
             elevation: 0,
             leading: Builder(

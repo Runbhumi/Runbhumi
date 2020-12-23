@@ -170,4 +170,11 @@ class Events {
     Map<String, dynamic> data = snap.data();
     return data['playersId'].length < data['max'] ? true : false;
   }
+
+  Future<List<dynamic>> players(String id) async {
+    var snap =
+        await FirebaseFirestore.instance.collection('events').doc(id).get();
+    Map<String, dynamic> data = snap.data();
+    return data['playersId'];
+  }
 }

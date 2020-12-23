@@ -307,7 +307,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                       ? "Join"
                                                       : "Send Request"
                                                   : "Already Registered",
-                                              onPressed: () {
+                                              onPressed: () async {
                                                 if (!registrationCondition) {
                                                   if (data.type == 2) {
                                                     //For Private
@@ -358,24 +358,30 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                       );
                                                     } else {
                                                       print('Here is the me');
-                                                      registerUserToEvent(
-                                                          data.eventId,
-                                                          data.eventName,
-                                                          data.sportName,
-                                                          data.location,
-                                                          data.dateTime,
-                                                          data.creatorId,
-                                                          data.creatorName);
-                                                      print("User Registered");
-                                                      EventService()
-                                                          .addUserToEvent(
-                                                              data.eventId);
-                                                      showDialog(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return successDialog(
-                                                                context);
-                                                          });
+                                                      if (await Events()
+                                                          .checkingAvailability(
+                                                              data.eventId)) {
+                                                        registerUserToEvent(
+                                                            data.eventId,
+                                                            data.eventName,
+                                                            data.sportName,
+                                                            data.location,
+                                                            data.dateTime,
+                                                            data.creatorId,
+                                                            data.creatorName);
+                                                        print(
+                                                            "User Registered");
+                                                        EventService()
+                                                            .addUserToEvent(
+                                                                data.eventId);
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return successDialog(
+                                                                  context);
+                                                            });
+                                                        //TODO : To add a dialouge box for people who are not in the event
+                                                      }
                                                     }
                                                   }
                                                 } else {

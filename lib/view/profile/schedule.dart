@@ -2,7 +2,6 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
@@ -23,10 +22,6 @@ class _ScheduleState extends State<Schedule> {
   Stream currentFeed;
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      setState(() {});
-    });
     getUserInfoEvents();
   }
 
@@ -37,11 +32,6 @@ class _ScheduleState extends State<Schedule> {
         print("we got the data + ${currentFeed.toString()} ");
       });
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   Widget feed() {
@@ -254,7 +244,7 @@ confirmationPopupForDeleting(
             ),
           ),
           onPressed: () async {
-            await deleteEvent(id, playerId);
+            await deleteEvent(id);
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),

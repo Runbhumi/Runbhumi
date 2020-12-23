@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/profile/profileFriendsList.dart';
+import 'package:Runbhumi/widget/customAnimatedContainer.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   //distance for profile to move right when the drawer is opened
   //variables for drawer animations
-  static const double maxSlide = 250.0;
+  static const double maxSlide = 300.0;
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +83,25 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         // to close drawer
         leading: Builder(
           builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Feather.x,
-                color: Colors.white,
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey[200].withOpacity(0.2),
+                    width: 0.2,
+                  ),
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Feather.x,
+                    color: Colors.white,
+                  ),
+                  onPressed: toggle,
+                ),
               ),
-              onPressed: toggle,
             );
           },
         ),
@@ -96,8 +110,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
 
     var _myDuration = Duration(milliseconds: 250);
-    var myChild = AnimatedContainer(
-      // clipBehavior: Clip.antiAlias,
+    var myChild = CustomAnimatedContainer(
+      clipBehavior: Clip.antiAlias,
       duration: _myDuration,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(_myValue),
@@ -113,11 +127,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
             elevation: 0,
             leading: Builder(
               builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(
-                    Feather.menu,
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey[200].withOpacity(0.2),
+                        width: 0.2,
+                      ),
+                      color: Colors.grey.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Feather.menu,
+                      ),
+                      onPressed: toggle,
+                    ),
                   ),
-                  onPressed: toggle,
                 );
               },
             ),
@@ -144,7 +171,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       animation: animationController,
       builder: (context, _) {
         double slide = maxSlide * animationController.value;
-        double scale = 1 - (animationController.value * 0.3);
+        double scale = 1 - (animationController.value * 0.2);
         return Stack(
           children: [
             myDrawer,

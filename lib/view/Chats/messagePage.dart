@@ -341,19 +341,25 @@ class _DirectChatsState extends State<DirectChats> {
                             ),
                           );
                         },
-                        title: Text(
-                          asyncSnapshot.data.documents[index]
-                              .get('usersNames')[indexOfOtherUser],
-                          style: TextStyle(fontSize: 18),
+                        title: Hero(
+                          tag: "name",
+                          child: Text(
+                            asyncSnapshot.data.documents[index]
+                                .get('usersNames')[indexOfOtherUser],
+                            style: TextStyle(fontSize: 18),
+                          ),
                         ),
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
-                          child: Image(
-                            width: 48,
-                            height: 48,
-                            image: NetworkImage(
-                              asyncSnapshot.data.documents[index]
-                                  .get('usersPics')[indexOfOtherUser],
+                          child: Hero(
+                            tag: "image",
+                            child: Image(
+                              width: 48,
+                              height: 48,
+                              image: NetworkImage(
+                                asyncSnapshot.data.documents[index]
+                                    .get('usersPics')[indexOfOtherUser],
+                              ),
                             ),
                           ),
                         ),

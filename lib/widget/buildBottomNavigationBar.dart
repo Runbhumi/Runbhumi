@@ -104,7 +104,8 @@ class AnimatedBottomNav extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: InkWell(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () => onChange(0),
               child: BottomNavItem(
                 icon: Feather.compass,
@@ -114,7 +115,8 @@ class AnimatedBottomNav extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: InkWell(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () => onChange(1),
               child: BottomNavItem(
                 icon: Feather.message_square,
@@ -124,7 +126,8 @@ class AnimatedBottomNav extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: InkWell(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () => onChange(2),
               child: BottomNavItem(
                 icon: Feather.users,
@@ -134,7 +137,8 @@ class AnimatedBottomNav extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: InkWell(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () => onChange(3),
               child: BottomNavItem(
                 icon: Feather.bell,
@@ -144,7 +148,8 @@ class AnimatedBottomNav extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: InkWell(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () => onChange(4),
               child: BottomNavItem(
                 icon: Feather.user,
@@ -185,7 +190,7 @@ class BottomNavItem extends StatelessWidget {
           child: child,
         );
       },
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 300),
       reverseDuration: Duration(milliseconds: 200),
       child: isActive
           ? Container(
@@ -202,7 +207,7 @@ class BottomNavItem extends StatelessWidget {
                         color: activeColor ?? Theme.of(context).primaryColor,
                       ),
                       maxLines: 1,
-                      overflow: TextOverflow.visible,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                   const SizedBox(height: 5.0),
@@ -217,9 +222,12 @@ class BottomNavItem extends StatelessWidget {
                 ],
               ),
             )
-          : Icon(
-              icon,
-              color: inactiveColor ?? Colors.grey,
+          : SizedBox(
+              height: kToolbarHeight,
+              child: Icon(
+                icon,
+                color: inactiveColor ?? Colors.grey,
+              ),
             ),
     );
   }

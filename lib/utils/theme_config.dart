@@ -51,7 +51,6 @@ class ThemeNotifier extends ChangeNotifier {
         ),
       ),
       primaryColor: Color(0xff2dadc2),
-      // primaryColor: Color(0xff00adb5),
       primaryColorLight: Color(0xff00d2ff),
       primaryColorDark: Color(0xff0052ff),
       accentColor: Color(0xff00d2ff),
@@ -68,6 +67,11 @@ class ThemeNotifier extends ChangeNotifier {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         foregroundColor: Colors.white,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        selectedItemColor: Color(0xff2dadc2),
       ),
     ),
     //dark theme
@@ -129,7 +133,7 @@ class ThemeNotifier extends ChangeNotifier {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black45,
         elevation: 0,
-        selectedItemColor: Color(0xff00adb5),
+        selectedItemColor: Color(0xff2dadc2),
       ),
       fontFamily: 'Montserrat',
       brightness: Brightness.dark,

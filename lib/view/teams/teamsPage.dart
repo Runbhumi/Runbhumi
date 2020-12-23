@@ -242,9 +242,12 @@ class _TeamsListState extends State<TeamsList>
                       child: Image.asset("assets/teams_illustration.png",
                           width: 300),
                     ),
-                    Text(
-                      "Didn't find any team, create one",
-                      style: Theme.of(context).textTheme.subtitle1,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Didn't find any team, create one",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                     ),
                     Button(
                       myColor: Theme.of(context).primaryColor,
@@ -392,29 +395,30 @@ class SportsCategory extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => TeamCategory(sportName: this.sport))),
       },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(icon, scale: 1.8),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  sport,
-                  style: TextStyle(
-                    color: theme.currentTheme.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(200)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.asset(icon, scale: 1.8),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              sport,
+              style: TextStyle(
+                color: theme.currentTheme.backgroundColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

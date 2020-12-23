@@ -42,7 +42,7 @@ class UserProfile {
     this.name = name;
     this.profileImage = profileImage;
     this.location = '';
-    this.userDeviceToken = userDeviceToken;
+    this.userDeviceToken = [userDeviceToken];
     this.phoneNumber = {'show': false, 'ph': ""};
     this.emailId = emailId;
     this.bio = 'Hey I am new to Runbhumi';

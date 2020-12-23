@@ -47,7 +47,7 @@ class _OtherUserProfileState extends State<OtherUserProfile> {
     return Scaffold(
       appBar: AppBar(
         title: _loading ? buildTitle(context, data["username"]) : null,
-        leading: BackButton(),
+        leading: CustomBackButton(),
       ),
       body: OtherProfileBody(
           // userID: widget.userID,

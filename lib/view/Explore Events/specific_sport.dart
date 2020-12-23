@@ -204,7 +204,7 @@ class _SpecificSportState extends State<SpecificSport> {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: CustomBackButton(),
         title: buildTitle(context, widget.sportName),
       ),
       body: Container(

@@ -118,7 +118,7 @@ class _EditProfileState extends State<EditProfile> {
       return Scaffold(
         appBar: AppBar(
           title: buildTitle(context, "Edit Profile"),
-          leading: BackButton(),
+          leading: CustomBackButton(),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height -

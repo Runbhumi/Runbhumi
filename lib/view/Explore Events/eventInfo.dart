@@ -51,7 +51,7 @@ class _EventInfoState extends State<EventInfo> {
                   context,
                   data['eventName'],
                 ),
-                leading: BackButton(),
+                leading: CustomBackButton(),
               ),
               body: Column(
                 children: [
@@ -68,7 +68,7 @@ class _EventInfoState extends State<EventInfo> {
                   context,
                   data['eventName'],
                 ),
-                leading: BackButton(),
+                leading: CustomBackButton(),
               ),
               body: Column(
                 children: [

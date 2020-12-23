@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Runbhumi/services/ImageUpload.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -77,7 +78,7 @@ class _ImageCaptureState extends State<ImageCapture> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: CustomBackButton(),
         actions: [
           IconButton(
             icon: Icon(Feather.camera, semanticLabel: "Camera"),

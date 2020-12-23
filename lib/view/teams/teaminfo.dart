@@ -175,7 +175,7 @@ class _TeamInfoState extends State<TeamInfo> {
             context,
             data['teamname'],
           ),
-          leading: BackButton(),
+          leading: CustomBackButton(),
           actions: [
             PopupMenuButton<String>(
               onSelected: handleClick,

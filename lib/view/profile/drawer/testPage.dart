@@ -12,7 +12,7 @@ class _TestingState extends State<Testing> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: CustomBackButton(),
         title: buildTitle(context, "Testing"),
       ),
       body: Container(),

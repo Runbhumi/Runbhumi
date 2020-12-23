@@ -101,7 +101,7 @@ class CustomBackButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: IconButton(
-          padding: const EdgeInsets.only(left:8.0),
+          padding: const EdgeInsets.only(left: 8.0),
           icon: const BackButtonIcon(),
           color: color,
           tooltip: MaterialLocalizations.of(context).backButtonTooltip,

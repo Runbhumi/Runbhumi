@@ -121,7 +121,6 @@ addEventToUser(String id, String eventName, String sportName, String location,
 
 registerUserToEvent(String id, String eventName, String sportName,
     String location, DateTime dateTime, String creatorId, String creatorName) {
-      
   addEventToUser(
       id, eventName, sportName, location, dateTime, creatorId, creatorName);
 }

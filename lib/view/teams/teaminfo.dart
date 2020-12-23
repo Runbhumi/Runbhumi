@@ -333,7 +333,7 @@ class _TeamInfoState extends State<TeamInfo> {
                           itemCount: data["playerId"].length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                               child: Card(
                                 child: GestureDetector(
                                   onTap: () {

@@ -14,6 +14,7 @@ import 'package:Runbhumi/services/services.dart';
 // import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
+// import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 import '../Chats/inviteFriends.dart';
@@ -26,10 +27,18 @@ class CreateTeam extends StatefulWidget {
 class _CreateTeamState extends State<CreateTeam> {
   GlobalKey<FormState> _createNewTeamkey = GlobalKey<FormState>();
   String _chosenSport;
+  // GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
   Teams team;
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _descController = new TextEditingController();
   TextEditingController _teamLocationController = new TextEditingController();
+  // TextEditingController _autoCompleteController = new TextEditingController();
+  // List<String> stateNames = [
+  //   "Maharashtra",
+  //   "Tamil Nadu",
+  //   "Manipal",
+  //   "Telangana",
+  // ];
   String _type = "open";
   @override
   Widget build(BuildContext context) {
@@ -107,6 +116,31 @@ class _CreateTeamState extends State<CreateTeam> {
                       hintText: "Team Location",
                       validateFunction: Validations.validateName,
                     ),
+                    // AutoCompleteTextField(
+                    //   key: key,
+                    //   clearOnSubmit: false,
+                    //   controller: _autoCompleteController,
+                    //   suggestions: stateNames,
+                    //   style: TextStyle(fontSize: 16),
+                    //   itemFilter: (item, query) {
+                    //     return item
+                    //         .toString()
+                    //         .toLowerCase()
+                    //         .startsWith(query.toLowerCase());
+                    //   },
+                    //   itemSorter: (a, b) {
+                    //     return a.compareTo(b);
+                    //   },
+                    //   itemSubmitted: (item) {
+                    //     _autoCompleteController.text = item.toString();
+                    //   },
+                    //   itemBuilder: (context, item) {
+                    //     return Container(
+                    //         padding: EdgeInsets.all(15),
+                    //         child: Text(item.toString()));
+                    //   },
+                    //   suggestionsAmount: 5,
+                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: Card(

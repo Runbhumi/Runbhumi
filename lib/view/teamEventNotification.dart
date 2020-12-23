@@ -81,12 +81,19 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                       NotificationServices()
                                           .teamEventNotification(
                                               widget.data, data)
-                                          .then(Navigator.pushNamed(
-                                              context, '/mainapp'));
+                                          .then(Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AnimatedBottomBar())));
                                     } else {
                                       //public
                                       addTeamToEvent(widget.data, data);
-                                      Navigator.pushNamed(context, '/mainapp');
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AnimatedBottomBar()));
                                       //Directly add the team to the event.
                                     }
                                   },

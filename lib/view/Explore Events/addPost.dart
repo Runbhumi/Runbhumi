@@ -520,7 +520,11 @@ class _Page1State extends State<Page1> {
                           builder: (context) {
                             //wait for 3 sec
                             Future.delayed(Duration(seconds: 3), () {
-                              Navigator.pushNamed(context, "/mainapp");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AnimatedBottomBar()));
                             });
                             return successDialog(context);
                           },

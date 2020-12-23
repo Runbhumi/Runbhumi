@@ -48,8 +48,21 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  // starting radius
+  var _myValue = 0.0;
+
+// ending radius
+  final _myNewValue = 48.0;
+
   //toggle for drawer(menu)
   void toggle() {
+    setState(() {
+      if (_myValue == _myNewValue) {
+        _myValue = 0;
+      } else {
+        _myValue = _myNewValue;
+      }
+    });
     animationController.isDismissed
         ? animationController.forward()
         : animationController.reverse();
@@ -81,41 +94,50 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       ),
       body: DrawerBody(),
     );
-    var myChild = DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: loading
-              ? buildTitle(context, data["username"] ?? "Profile")
-              : null,
-          centerTitle: true,
-          elevation: 0,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(
-                  Feather.menu,
-                ),
-                onPressed: toggle,
-              );
-            },
-          ),
-          bottom: TabBar(
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey,
-            tabs: [
-              Tab(child: Text("Profile")),
-              Tab(child: Text("Friends")),
-              Tab(child: Text("Schedule")),
-            ],
-            indicator: new BubbleTabIndicator(
-              indicatorHeight: 30.0,
-              indicatorColor: Theme.of(context).primaryColor,
-              tabBarIndicatorSize: TabBarIndicatorSize.tab,
+
+    var _myDuration = Duration(milliseconds: 250);
+    var myChild = AnimatedContainer(
+      // clipBehavior: Clip.antiAlias,
+      duration: _myDuration,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(_myValue),
+      ),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: loading
+                ? buildTitle(context, data["username"] ?? "Profile")
+                : null,
+            centerTitle: true,
+            elevation: 0,
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(
+                    Feather.menu,
+                  ),
+                  onPressed: toggle,
+                );
+              },
+            ),
+            bottom: TabBar(
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(child: Text("Profile")),
+                Tab(child: Text("Friends")),
+                Tab(child: Text("Schedule")),
+              ],
+              indicator: new BubbleTabIndicator(
+                indicatorHeight: 30.0,
+                indicatorColor: Theme.of(context).primaryColor,
+                tabBarIndicatorSize: TabBarIndicatorSize.tab,
+              ),
             ),
           ),
+          body: ProfileBody(data: data),
         ),
-        body: ProfileBody(data: data),
       ),
     );
     return AnimatedBuilder(

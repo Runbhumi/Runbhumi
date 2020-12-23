@@ -100,7 +100,8 @@ class _TeamInfoState extends State<TeamInfo> {
       switch (value) {
         case 'Leave team':
           TeamService().removeMeFromTeam(widget.teamID);
-          Navigator.pushNamed(context, '/mainapp');
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
           break;
         case 'Send Verification Application':
           confirmationPopup(
@@ -332,7 +333,7 @@ class _TeamInfoState extends State<TeamInfo> {
                           itemCount: data["playerId"].length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                               child: Card(
                                 child: GestureDetector(
                                   onTap: () {
@@ -597,7 +598,8 @@ confirmationPopup2(BuildContext context, String teamId, String manager) {
           ),
           onPressed: () {
             Navigator.pop(context);
-            // Navigator.pushNamed(context, '/mainapp');
+            // Navigator.push(context,
+            // MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
           },
           color: Color.fromRGBO(128, 128, 128, 0),
         ),
@@ -617,7 +619,8 @@ confirmationPopup2(BuildContext context, String teamId, String manager) {
             // FriendServices().removeFriend(id1, id2);
             TeamService().deleteTeam(manager, teamId);
             Navigator.pop(context);
-            Navigator.pushNamed(context, '/mainapp');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
           },
           color: Color.fromRGBO(128, 128, 128, 0),
         )

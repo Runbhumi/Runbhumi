@@ -201,13 +201,9 @@ leaveEvent(id) {
   CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));
 }
 
-deleteEvent(id, List<dynamic> playerIds) async {
-  print(playerIds.length);
-  for (int i = 0; i < playerIds.length; i++) {
-    if (playerIds[i] != Constants.prefs.get('userId')) {
-      deleteIndividualUserMini(id, playerIds[i]);
-    }
-  }
+deleteEvent(id) async {
+  getEventInfo(id);
+  print('I am here');
   await FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
@@ -215,7 +211,16 @@ deleteEvent(id, List<dynamic> playerIds) async {
       .doc(id)
       .delete();
   await FirebaseFirestore.instance.collection('events').doc(id).delete();
+
   //TODO: Should fix this code.
+}
+
+getEventInfo(String eventId) async {
+  List<dynamic> players = await Events().players(eventId);
+  for (int i = 0; i < players.length; i++) {
+    if (players[i] != Constants.prefs.get('userId'))
+      deleteIndividualUserMini(eventId, players[i]);
+  }
 }
 
 deleteIndividualUserMini(String eventId, String userId) async {

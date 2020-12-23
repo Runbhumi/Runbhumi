@@ -1,5 +1,6 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+// import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:Runbhumi/widget/showOffline.dart';
 // import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ Future main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Runbhumi',
       // Named Routes
       routes: {
-        '/mainapp': (context) => MainApp(),
+        // '/mainapp': (context) => AnimatedBottomNav(),
         '/addpost': (context) => AddPost(),
         '/secondpage': (context) => GauthPage(),
         '/moreinfo': (context) => MoreInfo(),

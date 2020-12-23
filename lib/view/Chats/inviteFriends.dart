@@ -4,6 +4,7 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/widget/buildTitle.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
 class InviteFriends extends StatefulWidget {
@@ -135,7 +136,8 @@ class _InviteFriendsState extends State<InviteFriends> {
           myText: 'Leave',
           myColor: Colors.blue,
           onPressed: () {
-            Navigator.pushNamed(context, '/mainapp');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
           },
         ),
       ]),

@@ -82,152 +82,244 @@ class _TeamsListState extends State<TeamsList>
                   padding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 16.0),
                   child: Card(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Theme(
-                            data: Theme.of(context)
-                                .copyWith(dividerColor: Colors.transparent),
-                            child: ExpansionTile(
-                              maintainState: true,
-                              onExpansionChanged: (expanded) {
-                                if (expanded) {
-                                } else {}
-                              },
-                              children: [
-                                !joinCondition
-                                    ? SmallButton(
-                                        myColor: !joinCondition
-                                            ? Theme.of(context).primaryColor
-                                            : Theme.of(context).accentColor,
-                                        myText: !joinCondition
-                                            ? !notifiedCondition
-                                                ? "Join"
-                                                : "Request Sent"
-                                            : "Already there",
-                                        onPressed: () {
-                                          if (!joinCondition &&
-                                              notifiedCondition) {
-                                            //Notification pending
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return notifcationPending(
-                                                    context);
-                                              },
-                                            );
-                                          } else if (!joinCondition &&
-                                              !notifiedCondition) {
-                                            if (data.status == 'private') {
-                                              NotificationServices()
-                                                  .createTeamNotification(
-                                                      Constants.prefs
-                                                          .getString('userId'),
-                                                      data.manager,
-                                                      data);
-                                            }
-                                            if (data.status == 'closed') {
-                                              // Make a custom Alert message for the user to
-                                              //know that he can not join a closed team
-                                            }
-                                            if (data.status == 'public') {
-                                              TeamService()
-                                                  .addMeInTeam(data.teamId)
-                                                  .then(() => {
-                                                        // give a success notification that he was
-                                                        //added to the team and take him to the chat
-                                                        //window or the info page of the team
-                                                      });
-                                            }
-                                          }
-                                        })
-                                    : Container(),
-                                SmallButton(
+                    child: ExpansionCard(
+                        maintainState: true,
+                        children: [
+                          !joinCondition
+                              ? SmallButton(
                                   myColor: !joinCondition
                                       ? Theme.of(context).primaryColor
                                       : Theme.of(context).accentColor,
-                                  myText:
-                                      !joinCondition ? 'Challenge' : 'Chats',
+                                  myText: !joinCondition
+                                      ? !notifiedCondition
+                                          ? "Join"
+                                          : "Request Sent"
+                                      : "Already there",
                                   onPressed: () {
-                                    if (!joinCondition) {
-                                      // Challenge logic
-                                      final TeamChallengeNotification teamData =
-                                          new TeamChallengeNotification.newTeam(
-                                              data.teamId,
-                                              data.manager,
-                                              data.teamName);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ChallangeTeam(
-                                                sportName: data.sport,
-                                                teamData: teamData)),
+                                    if (!joinCondition && notifiedCondition) {
+                                      //Notification pending
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return notifcationPending(context);
+                                        },
                                       );
-                                    } else {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                TeamConversation(
-                                              data: data,
-                                            ),
-                                          ));
-                                      //Go to the team ChatRoom
+                                    } else if (!joinCondition &&
+                                        !notifiedCondition) {
+                                      if (data.status == 'private') {
+                                        NotificationServices()
+                                            .createTeamNotification(
+                                                Constants.prefs
+                                                    .getString('userId'),
+                                                data.manager,
+                                                data);
+                                      }
+                                      if (data.status == 'closed') {
+                                        // Make a custom Alert message for the user to
+                                        //know that he can not join a closed team
+                                      }
+                                      if (data.status == 'public') {
+                                        TeamService()
+                                            .addMeInTeam(data.teamId)
+                                            .then(() => {
+                                                  // give a success notification that he was
+                                                  //added to the team and take him to the chat
+                                                  //window or the info page of the team
+                                                });
+                                      }
                                     }
-                                  },
-                                )
-                              ],
-                              leading: Image.asset(sportIcon),
-                              title: Row(
-                                children: [
-                                  Text(
-                                    data.teamName,
-                                    style: TextStyle(
-                                      color: theme.currentTheme.backgroundColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
+                                  })
+                              : Container(),
+                          SmallButton(
+                            myColor: !joinCondition
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).accentColor,
+                            myText: !joinCondition ? 'Challenge' : 'Message',
+                            onPressed: () {
+                              if (!joinCondition) {
+                                // Challenge logic
+                                final TeamChallengeNotification teamData =
+                                    new TeamChallengeNotification.newTeam(
+                                        data.teamId,
+                                        data.manager,
+                                        data.teamName);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChallangeTeam(
+                                          sportName: data.sport,
+                                          teamData: teamData)),
+                                );
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TeamConversation(
+                                        data: data,
+                                      ),
+                                    ));
+                                //Go to the team ChatRoom
+                              }
+                            },
+                          )
+                        ],
+                        alwaysShowingChild: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Container(
+                                height: 30,
+                                child: Stack(
+                                  children: [
+                                    Stack(
+                                      // scrollDirection: Axis.horizontal,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(2),
+                                          child: CircleAvatar(
+                                            radius: 13,
+                                            backgroundColor:
+                                                Theme.of(context).cardColor,
+                                            child: Padding(
+                                                padding: EdgeInsets.all(3),
+                                                child: CircleAvatar(
+                                                    backgroundImage: NetworkImage(
+                                                        "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
+                                          ),
+                                        ),
+                                        PlayerPreview(),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 32.0),
+                                          child: Container(
+                                            padding: EdgeInsets.all(2),
+                                            child: CircleAvatar(
+                                              radius: 13,
+                                              backgroundColor:
+                                                  Theme.of(context).cardColor,
+                                              child: Padding(
+                                                  padding: EdgeInsets.all(3),
+                                                  child: CircleAvatar(
+                                                      backgroundImage: NetworkImage(
+                                                          "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  data.verified == 'Y'
-                                      ? Icon(
-                                          Icons.verified,
-                                          size: 16.0,
-                                        )
-                                      : Container(),
-                                ],
+                                  ],
+                                ),
                               ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data.bio,
-                                    style: TextStyle(
-                                      color: theme.currentTheme.backgroundColor,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Image.asset(
+                                        sportIcon,
+                                        width: 70,
+                                      ),
                                     ),
-                                  ),
-                                  Row(
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                data.teamName,
+                                                style: TextStyle(
+                                                  color: theme.currentTheme
+                                                      .backgroundColor,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              data.verified == 'Y'
+                                                  ? Icon(
+                                                      Icons.verified,
+                                                      size: 16.0,
+                                                    )
+                                                  : Container(),
+                                            ],
+                                          ),
+                                          Text(
+                                            data.bio,
+                                            style: TextStyle(
+                                              color: theme
+                                                  .currentTheme.backgroundColor,
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 4.0),
+                                                child: Icon(
+                                                  data.status == "public"
+                                                      ? Feather.globe
+                                                      : Feather.lock,
+                                                  size: 16,
+                                                  color: data.status == "public"
+                                                      ? Colors.green[400]
+                                                      : Colors.red[400],
+                                                ),
+                                              ),
+                                              Text(
+                                                data.status == "public"
+                                                    ? "Public"
+                                                    : "private",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: data.status == "public"
+                                                      ? Colors.green[400]
+                                                      : Colors.red[400],
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
                                     children: [
-                                      Icon(
-                                        Feather.map_pin,
-                                        size: 16.0,
+                                      CircularProgressIndicator(
+                                        value: data.playerId.length / 20,
+                                        backgroundColor: theme
+                                            .currentTheme.backgroundColor
+                                            .withOpacity(0.15),
+                                        strokeWidth: 7,
                                       ),
                                       Text(
-                                        data.status,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
+                                        data.playerId.length.toString() + "/20",
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ],
-                                  )
-                                ],
-                              ),
-                              trailing: Text(data.playerId.length.toString()),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          ],
+                        )),
                   ),
                 );
               },
@@ -242,9 +334,12 @@ class _TeamsListState extends State<TeamsList>
                       child: Image.asset("assets/teams_illustration.png",
                           width: 300),
                     ),
-                    Text(
-                      "Didn't find any team, create one",
-                      style: Theme.of(context).textTheme.subtitle1,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Didn't find any team, create one",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                     ),
                     Button(
                       myColor: Theme.of(context).primaryColor,
@@ -371,6 +466,31 @@ class _TeamsListState extends State<TeamsList>
   }
 }
 
+class PlayerPreview extends StatelessWidget {
+  const PlayerPreview({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Container(
+        padding: EdgeInsets.all(2),
+        child: CircleAvatar(
+          radius: 13,
+          backgroundColor: Theme.of(context).cardColor,
+          child: Padding(
+              padding: EdgeInsets.all(3),
+              child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
+        ),
+      ),
+    );
+  }
+}
+
 class SportsCategory extends StatelessWidget {
   const SportsCategory({
     Key key,
@@ -392,29 +512,30 @@ class SportsCategory extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => TeamCategory(sportName: this.sport))),
       },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(icon, scale: 1.8),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  sport,
-                  style: TextStyle(
-                    color: theme.currentTheme.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(200)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.asset(icon, scale: 1.8),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              sport,
+              style: TextStyle(
+                color: theme.currentTheme.backgroundColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

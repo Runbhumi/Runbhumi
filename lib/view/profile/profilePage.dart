@@ -243,34 +243,30 @@ class MainUserProfile extends StatelessWidget {
         children: [
           //profile image
           if (data['profileImage'] != null)
-            Stack(
-              children: [
-                Container(
-                  width: 115,
-                  height: 115,
-                  child: Loader(),
-                  margin: EdgeInsets.only(top: 8),
-                ),
-                Container(
-                  width: 115,
-                  height: 115,
-                  margin: EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(32)),
-                    image: DecorationImage(
-                      image: NetworkImage(data['profileImage']),
-                      fit: BoxFit.fitWidth,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x0800d2ff),
-                        blurRadius: 20,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
+            Container(
+              width: 115,
+              height: 115,
+              clipBehavior: Clip.antiAlias,
+              margin: EdgeInsets.only(top: 8),
+              child: FadeInImage(
+                image: NetworkImage(data['profileImage']),
+                fit: BoxFit.fitWidth,
+                placeholder: AssetImage("assets/ProfilePlaceholder.png"),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(32)),
+                // image: DecorationImage(
+                //   image: NetworkImage(data['profileImage']),
+                //   fit: BoxFit.fitWidth,
+                // ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x0800d2ff),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           //Name
           Padding(

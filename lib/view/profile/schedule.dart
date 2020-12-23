@@ -23,10 +23,6 @@ class _ScheduleState extends State<Schedule> {
   Stream currentFeed;
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      setState(() {});
-    });
     getUserInfoEvents();
   }
 
@@ -37,11 +33,6 @@ class _ScheduleState extends State<Schedule> {
         print("we got the data + ${currentFeed.toString()} ");
       });
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   Widget feed() {
@@ -254,7 +245,7 @@ confirmationPopupForDeleting(
             ),
           ),
           onPressed: () async {
-            await deleteEvent(id, playerId);
+            await deleteEvent(id);
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),

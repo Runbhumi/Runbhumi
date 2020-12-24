@@ -132,76 +132,76 @@ class _EditProfileState extends State<EditProfile> {
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //The photo Stack
-                GestureDetector(
-                  onTap: () {
-                    print("upload image");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ImageCapture()));
-                  },
-                  child: Stack(
-                    children: [
-                      Container(
-                        //  constraints: BoxConstraints(maxHeight: 150, maxWidth: 150.0),
-                        width: 180,
-                        height: 180,
-                        // margin: EdgeInsets.only(top: 15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          image: DecorationImage(
-                            // now only assets image
-                            image: NetworkImage(
-                                Constants.prefs.getString('profileImage')),
+                // GestureDetector(
+                //   onTap: () {
+                //     print("upload image");
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => ImageCapture()));
+                //   },
+                //   child: Stack(
+                //     children: [
+                //       Container(
+                //         //  constraints: BoxConstraints(maxHeight: 150, maxWidth: 150.0),
+                //         width: 180,
+                //         height: 180,
+                //         // margin: EdgeInsets.only(top: 15),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.all(Radius.circular(40)),
+                //           image: DecorationImage(
+                //             // now only assets image
+                //             image: NetworkImage(
+                //                 Constants.prefs.getString('profileImage')),
 
-                            fit: BoxFit.fill,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0x3A353580),
-                              blurRadius: 20,
-                              offset: Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          height: 180,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                const Color(0xff393e46),
-                                const Color(0x00393e46)
-                              ],
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  FlutterIcons.upload_fea,
-                                  color: Colors.white,
-                                ),
-                                onPressed: null,
-                              ),
-                              Text(
-                                'Upload image',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              )
-                            ],
-                          ))
-                    ],
-                  ),
-                ),
+                //             fit: BoxFit.fill,
+                //           ),
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: Color(0x3A353580),
+                //               blurRadius: 20,
+                //               offset: Offset(0, 10),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       Container(
+                //           height: 180,
+                //           width: 180,
+                //           decoration: BoxDecoration(
+                //             gradient: LinearGradient(
+                //               begin: Alignment.bottomCenter,
+                //               end: Alignment.topCenter,
+                //               colors: [
+                //                 const Color(0xff393e46),
+                //                 const Color(0x00393e46)
+                //               ],
+                //             ),
+                //             borderRadius: BorderRadius.all(Radius.circular(40)),
+                //           ),
+                //           child: Column(
+                //             mainAxisAlignment: MainAxisAlignment.end,
+                //             children: [
+                //               IconButton(
+                //                 icon: Icon(
+                //                   FlutterIcons.upload_fea,
+                //                   color: Colors.white,
+                //                 ),
+                //                 onPressed: null,
+                //               ),
+                //               Text(
+                //                 'Upload image',
+                //                 style: TextStyle(
+                //                     fontSize: 18, color: Colors.white),
+                //               ),
+                //               SizedBox(
+                //                 height: 10.0,
+                //               )
+                //             ],
+                //           ))
+                //     ],
+                //   ),
+                // ),
                 InputBox(
                   controller: nameTextEditingController,
                   textInputType: TextInputType.name,

@@ -3,6 +3,25 @@ import 'dart:async';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+//TODO: event info
+// Team Event :
+//Event Name
+// Creator Name
+// Date of the Event
+// Description
+// Location
+// Max ??
+// Every Team's name which joined [Dynamic]
+//Private or Public
+// Individual:
+//Event Name
+// Creator Name
+// Date of the Event
+// Description
+// Location
+// Max ??
+// Every Participants name, profile Pic which joined [Dynamic]
+//Private or Public
 
 class EventInfo extends StatefulWidget {
   final String eventId;

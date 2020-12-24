@@ -130,29 +130,23 @@ class _ConversationState extends State<Conversation> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
-                child: Hero(
-                  tag: "image",
-                  child: Image(
-                    fit: BoxFit.fitWidth,
-                    height: 32,
-                    image: NetworkImage(
-                      widget.usersPics[indexOfOtherUser],
-                    ),
+                child: Image(
+                  fit: BoxFit.fitWidth,
+                  height: 32,
+                  image: NetworkImage(
+                    widget.usersPics[indexOfOtherUser],
                   ),
                 ),
               ),
               SizedBox(
                 width: 8,
               ),
-              Hero(
-                tag: "name",
-                child: Text(
-                  widget.usersNames[indexOfOtherUser],
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).backgroundColor,
-                  ),
+              Text(
+                widget.usersNames[indexOfOtherUser],
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).backgroundColor,
                 ),
               ),
             ],

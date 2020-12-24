@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 /// A "back" icon that's appropriate for the current [TargetPlatform].
 ///
@@ -20,6 +19,7 @@ class BackButtonIcon extends StatelessWidget {
   const BackButtonIcon({key}) : super(key: key);
 
   /// Returns the appropriate "back" icon for the given `platform`.
+  // ignore: missing_return
   static IconData _getIconData(TargetPlatform platform) {
     switch (platform) {
       case TargetPlatform.android:

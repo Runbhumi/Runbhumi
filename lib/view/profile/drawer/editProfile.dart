@@ -2,14 +2,14 @@
 
 import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/profile/drawer/ImageCrop.dart';
+// import 'package:Runbhumi/view/profile/drawer/ImageCrop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+// import 'package:flutter_icons/flutter_icons.dart';
 // import 'dart:io';
 // import 'package:image_picker/image_picker.dart';
 // import 'package:image_cropper/image_cropper.dart';

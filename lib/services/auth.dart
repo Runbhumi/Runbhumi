@@ -27,12 +27,14 @@ Future signInWithGoogle() async {
   final User user = authResult.user;
 
   if (user != null) {
+    //The user has authenticated already
     var result = await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
         .get();
 
     if (!result.exists) {
+      //Creating a documnet
       Constants.prefs.setString("userId", user.uid);
       Constants.prefs.setString("profileImage", user.photoURL);
       Constants.prefs.setString("name", user.displayName);
@@ -44,7 +46,16 @@ Future signInWithGoogle() async {
                   user.photoURL, user.email, token)
               .toJson());
     } else {
+      //Document already exists
+      print('I am Here');
       if (Constants.prefs.get('userId') != user.uid) {
+        print('Reached');
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .update({
+          'userDeviceToken': FieldValue.arrayUnion([token]),
+        });
         Constants.prefs.setString('userId', user.uid);
         Constants.prefs.setString("name", user.displayName);
         Constants.prefs.setString("profileImage", user.photoURL);
@@ -55,8 +66,18 @@ Future signInWithGoogle() async {
 }
 
 Future<void> signOutGoogle() async {
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(Constants.prefs.getString("userId"))
+      .update({
+    'userDeviceToken':
+        FieldValue.arrayRemove([Constants.prefs.getString("token")]),
+  });
   await FirebaseAuth.instance.signOut();
   await googleSignIn.disconnect();
+  print(Constants.prefs.getString("token"));
+  print(Constants.prefs.getString("userId"));
+  Constants.prefs.setString('token', null);
   Constants.prefs.setString('userId', null);
   print("User Signed Out");
 }

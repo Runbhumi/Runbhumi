@@ -69,6 +69,36 @@ class _ExploreEventsState extends State<ExploreEvents> {
     );
   }
 
+  SimpleDialog infoDialog2(BuildContext context) {
+    return SimpleDialog(
+      title: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Icon(
+              Feather.info,
+              size: 64,
+            )),
+          ),
+          Center(child: Text("This Event is full!")),
+        ],
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+              child: Text(
+                  "The event is currently full, please try again later.",
+                  style: Theme.of(context).textTheme.subtitle1)),
+        ),
+      ],
+    );
+  }
+
   getUserInfoEvents() async {
     EventService().getCurrentFeed().then((snapshots) {
       setState(() {
@@ -381,6 +411,14 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                                   context);
                                                             });
                                                         //TODO : To add a dialouge box for people who are not in the event
+                                                      } else {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return infoDialog2(
+                                                                  context);
+                                                              //TODO: Return saying you cant join the event.
+                                                            });
                                                       }
                                                     }
                                                   }

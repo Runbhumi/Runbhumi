@@ -211,8 +211,6 @@ deleteEvent(id) async {
       .doc(id)
       .delete();
   await FirebaseFirestore.instance.collection('events').doc(id).delete();
-
-  //TODO: Should fix this code.
 }
 
 getEventInfo(String eventId) async {

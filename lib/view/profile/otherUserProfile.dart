@@ -47,7 +47,7 @@ class _OtherUserProfileState extends State<OtherUserProfile> {
     return Scaffold(
       appBar: AppBar(
         title: _loading ? buildTitle(context, data["username"]) : null,
-        leading: BackButton(),
+        leading: CustomBackButton(),
       ),
       body: OtherProfileBody(
           // userID: widget.userID,
@@ -107,13 +107,21 @@ class UserProfile extends StatelessWidget {
           Container(
             width: 115,
             height: 115,
-            margin: EdgeInsets.only(top: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(32)),
-              image: DecorationImage(
+            clipBehavior: Clip.antiAlias,
+            child: Hero(
+              tag: "image",
+              child: Image(
                 image: NetworkImage(data['profileImage']),
                 fit: BoxFit.fitWidth,
               ),
+            ),
+            margin: EdgeInsets.only(top: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(32)),
+              // image: DecorationImage(
+              //   image: NetworkImage(data['profileImage']),
+              //   fit: BoxFit.fitWidth,
+              // ),
               boxShadow: [
                 BoxShadow(
                   color: Color(0x0800d2ff),
@@ -126,9 +134,12 @@ class UserProfile extends StatelessWidget {
         //Name
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text(
-            data['name'],
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          child: Hero(
+            tag: "name",
+            child: Text(
+              data['name'],
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
         //Bio

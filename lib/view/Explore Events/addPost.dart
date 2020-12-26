@@ -5,6 +5,7 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
+import 'package:Runbhumi/widget/customBackButton.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -157,8 +158,8 @@ class _AddPostState extends State<AddPost> {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
-        leading: BackButton(),
+        elevation: 0,
+        leading: CustomBackButton(),
         title: buildTitle(context, "Add Post"),
         actions: [
           IconButton(
@@ -174,10 +175,6 @@ class _AddPostState extends State<AddPost> {
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/chat background.png"),
-                fit: BoxFit.cover)),
         child: PageView(
           controller: _addPostPageController,
           children: [
@@ -320,11 +317,6 @@ class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24.0),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/chat background.png"), fit: BoxFit.cover),
-      ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 32, sigmaY: 32),
         child: Container(
@@ -560,7 +552,7 @@ class _Page1State extends State<Page1> {
 //   return <Widget>[
 //     SliverAppBar(
 //       expandedHeight: 250.0,
-//       leading: BackButton(),
+//       leading: CustomBackButton(),
 //       elevation: 0,
 //       floating: false,
 //       pinned: true,

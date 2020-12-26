@@ -34,7 +34,7 @@ class _MoreInfoState extends State<MoreInfo>
     final _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-          leading: BackButton(),
+          leading: CustomBackButton(),
           title: buildTitle(context, "More Info"),
           actions: [
             IconButton(

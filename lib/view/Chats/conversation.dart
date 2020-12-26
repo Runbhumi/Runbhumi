@@ -1,6 +1,7 @@
 import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -113,6 +114,7 @@ class _ConversationState extends State<Conversation> {
     }
     return Scaffold(
       appBar: AppBar(
+        leading: CustomBackButton(),
         title: GestureDetector(
           onTap: () {
             Navigator.push(

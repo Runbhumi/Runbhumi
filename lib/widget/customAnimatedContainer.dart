@@ -832,7 +832,7 @@ class _CustomAnimatedContainerState
       constraints: _constraints?.evaluate(animation),
       margin: _margin?.evaluate(animation),
       transform: _transform?.evaluate(animation),
-      transformAlignment: _transformAlignment?.evaluate(animation),
+      // transformAlignment: _transformAlignment?.evaluate(animation),
       clipBehavior: widget.clipBehavior,
     );
   }

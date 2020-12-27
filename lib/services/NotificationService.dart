@@ -175,12 +175,8 @@ class NotificationServices {
     //final Friends user = Friends.newFriend(_id, _name, _profileImage);
     // print(team.teamId);
     // print(team.senderId);
-    final Friends user =
-        Friends.newFriend(team.senderId, team.senderName, team.senderPic);
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(team.senderId)
-        .update({
+    final Friends user = Friends.newFriend(_id, _name, _profileImage);
+    await FirebaseFirestore.instance.collection('users').doc(_id).update({
       'teams': FieldValue.arrayUnion([team.teamId])
     });
     await FirebaseFirestore.instance
@@ -191,8 +187,7 @@ class NotificationServices {
       'playerId': FieldValue.arrayUnion([user.friendId]),
       'notificationPlayers': FieldValue.arrayRemove([user.friendId]),
     });
-    CustomMessageServices()
-        .sendTeamNewMemberJoinMessage(team.teamId, team.senderName);
+    CustomMessageServices().sendTeamNewMemberJoinMessage(team.teamId, _name);
     declineTeamInviteNotification(team);
   }
 

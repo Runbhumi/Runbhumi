@@ -637,7 +637,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "wants to join",
+                            "wants you to join",
                             style: TextStyle(
                               color: Theme.of(context)
                                   .backgroundColor

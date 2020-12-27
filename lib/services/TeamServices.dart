@@ -118,6 +118,12 @@ class TeamService {
     }
   }
 
+  makeTeamClosed(String teamId) async {
+    await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
+      'status': 'closed',
+    });
+  }
+
   sendVerificationApplication(
       String teamId, String sport, String teamName) async {
     var newDoc =

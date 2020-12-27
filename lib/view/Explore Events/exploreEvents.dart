@@ -410,14 +410,13 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                               return successDialog(
                                                                   context);
                                                             });
-                                                        //TODO : To add a dialouge box for people who are not in the event
                                                       } else {
                                                         showDialog(
                                                             context: context,
                                                             builder: (context) {
                                                               return infoDialog2(
                                                                   context);
-                                                              //TODO: Return saying you cant join the event.
+                                                              // A dialouge box for people who are not in the event
                                                             });
                                                       }
                                                     }

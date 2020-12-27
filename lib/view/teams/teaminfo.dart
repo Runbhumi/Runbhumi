@@ -136,7 +136,7 @@ class _TeamInfoState extends State<TeamInfo> {
                   data['manager'],
                   teamView);
             }
-            if (data['status'] == 'closed') {
+            if (data['status'] == 'closed' || data['playerId'].length >= 20) {
               showDialog(
                 context: context,
                 builder: (context) {
@@ -145,12 +145,13 @@ class _TeamInfoState extends State<TeamInfo> {
               );
             }
             if (data['status'] == 'public') {
-              TeamService().addMeInTeam(data['teamId']).then(() => {
-                    //TODO: Front-end Part of the sucess dialog box
-                    // give a success notification that he was
-                    //added to the team and take him to the chat
-                    //window or the info page of the team
-                  });
+              TeamService().addMeInTeam(data['teamId']);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return teamJoinSuccessDialog(context, data['teamname']);
+                },
+              );
             }
           }
           break;
@@ -164,6 +165,9 @@ class _TeamInfoState extends State<TeamInfo> {
                 builder: (context) => ChallangeTeam(
                     sportName: data['sport'], teamData: teamData)),
           );
+          break;
+        case 'Make team closed':
+          return closingATeam(context, data['teamId']);
           break;
       }
     }
@@ -190,29 +194,59 @@ class _TeamInfoState extends State<TeamInfo> {
                     );
                   }).toList();
                 } else {
-                  return Constants.prefs.getString('userId') == data['manager']
-                      ? data["verified"] == 'N'
-                          ? {'Delete team', 'Send Verification Application'}
-                              .map((String choice) {
-                              return PopupMenuItem<String>(
-                                value: choice,
-                                child: Text(choice),
-                              );
-                            }).toList()
-                          : {
-                              'Delete team',
-                            }.map((String choice) {
-                              return PopupMenuItem<String>(
-                                value: choice,
-                                child: Text(choice),
-                              );
-                            }).toList()
-                      : {'Leave team'}.map((String choice) {
-                          return PopupMenuItem<String>(
-                            value: choice,
-                            child: Text(choice),
-                          );
-                        }).toList();
+                  if (data['status'] == 'closed') {
+                    return Constants.prefs.getString('userId') ==
+                            data['manager']
+                        ? data["verified"] == 'N'
+                            ? {'Delete team', 'Send Verification Application'}
+                                .map((String choice) {
+                                return PopupMenuItem<String>(
+                                  value: choice,
+                                  child: Text(choice),
+                                );
+                              }).toList()
+                            : {
+                                'Delete team',
+                              }.map((String choice) {
+                                return PopupMenuItem<String>(
+                                  value: choice,
+                                  child: Text(choice),
+                                );
+                              }).toList()
+                        : {'Leave team'}.map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice),
+                            );
+                          }).toList();
+                  } else {
+                    return Constants.prefs.getString('userId') ==
+                            data['manager']
+                        ? data["verified"] == 'N'
+                            ? {
+                                'Delete team',
+                                'Send Verification Application',
+                                'Make team closed'
+                              }.map((String choice) {
+                                return PopupMenuItem<String>(
+                                  value: choice,
+                                  child: Text(choice),
+                                );
+                              }).toList()
+                            : {'Delete team', 'Make team closed'}
+                                .map((String choice) {
+                                return PopupMenuItem<String>(
+                                  value: choice,
+                                  child: Text(choice),
+                                );
+                              }).toList()
+                        : {'Leave team'}.map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice),
+                            );
+                          }).toList();
+                  }
                 }
               },
             ),
@@ -684,4 +718,76 @@ SimpleDialog closedTeam(BuildContext context) {
       ),
     ],
   );
+}
+
+SimpleDialog teamJoinSuccessDialog(BuildContext context, String teamName) {
+  return SimpleDialog(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    children: [
+      Center(
+          child: Text("You Have been added to the team " + teamName,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline4)),
+      Image.asset("assets/confirmation-illustration.png")
+    ],
+  );
+}
+
+closingATeam(BuildContext context, String teamId) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Close Team",
+      desc:
+          "Are you sure you want to close this team, after this others will not be able apply for joining your team",
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Close",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            TeamService().makeTeamClosed(teamId);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
 }

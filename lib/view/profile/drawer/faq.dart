@@ -7,7 +7,7 @@ class Faq extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: CustomBackButton(),
         title: buildTitle(context, "FAQ"),
       ),
       body: ListView(

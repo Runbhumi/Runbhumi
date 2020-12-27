@@ -72,7 +72,7 @@ class _CreateTeamState extends State<CreateTeam> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: CustomBackButton(),
         title: buildTitle(context, "Make a new Team"),
         automaticallyImplyLeading: false,
       ),

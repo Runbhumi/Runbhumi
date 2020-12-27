@@ -209,7 +209,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
     return <Widget>[
       SliverAppBar(
         expandedHeight: 250.0,
-        leading: BackButton(),
+        leading: CustomBackButton(),
         elevation: 0,
         floating: false,
         pinned: true,

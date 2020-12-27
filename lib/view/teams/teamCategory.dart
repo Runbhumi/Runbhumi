@@ -238,7 +238,7 @@ class _TeamCategoryState extends State<TeamCategory> {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: CustomBackButton(),
         title: buildTitle(context, widget.sportName),
       ),
       body: Container(

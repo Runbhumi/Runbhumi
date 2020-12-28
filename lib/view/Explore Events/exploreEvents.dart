@@ -181,64 +181,105 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Image(
-                                                  image: AssetImage(sportIcon),
-                                                  width: 70,
-                                                ),
-                                                // title time and location
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                Row(
                                                   children: [
-                                                    Text(
-                                                      data.eventName,
-                                                      style: TextStyle(
-                                                        color: theme
-                                                            .currentTheme
-                                                            .backgroundColor,
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                    Image(
+                                                      image:
+                                                          AssetImage(sportIcon),
+                                                      width: 70,
+                                                    ),
+                                                    SizedBox(width: 4),
+                                                    // title time and location
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          //event name
+                                                          Container(
+                                                            child: Text(
+                                                              data.eventName,
+                                                              style: TextStyle(
+                                                                color: theme
+                                                                    .currentTheme
+                                                                    .backgroundColor,
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .visible,
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Feather.clock,
+                                                                size: 14.0,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                DateFormat(
+                                                                        'MMM dd -')
+                                                                    .add_jm()
+                                                                    .format(data
+                                                                        .dateTime)
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Feather.map_pin,
+                                                                size: 14.0,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 4),
+                                                              Container(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    2.4,
+                                                                child: Text(
+                                                                  data.location,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .visible,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Feather.clock,
-                                                          size: 14.0,
-                                                        ),
-                                                        SizedBox(width: 4),
-                                                        Text(
-                                                          DateFormat('MMM dd -')
-                                                              .add_jm()
-                                                              .format(
-                                                                  data.dateTime)
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Feather.map_pin,
-                                                          size: 14.0,
-                                                        ),
-                                                        SizedBox(width: 4),
-                                                        Text(
-                                                          data.location,
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
                                                   ],
                                                 ),
                                                 Stack(

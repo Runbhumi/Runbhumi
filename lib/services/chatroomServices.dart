@@ -89,6 +89,7 @@ class ChatroomService {
         .snapshots();
   }
 
+  //This method calls back all the previous messages for the Direct Chat room, note the limit
   getDirectMessages(String chatRoomId, int limit) async {
     return FirebaseFirestore.instance
         .collection("DirectChats")

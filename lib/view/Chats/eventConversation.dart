@@ -151,7 +151,17 @@ class _EventConversationState extends State<EventConversation> {
               SizedBox(
                 width: 8,
               ),
-              Text(widget.data.eventName),
+              Flexible(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 1.6,
+                  child: Text(
+                    widget.data.eventName,
+                    style: TextStyle(color: Theme.of(context).backgroundColor),
+                    overflow: TextOverflow.fade,
+                    maxLines: 1,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

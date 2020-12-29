@@ -66,6 +66,16 @@ class _EventInfoState extends State<EventInfo> {
     if (_loading) {
       return Scaffold(
         //For all the team events
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, "/addpost");
+        //   },
+        //   child: Icon(
+        //     Feather.user_plus,
+        //     size: 32,
+        //   ),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         appBar: AppBar(
           title: buildTitle(
             context,
@@ -158,7 +168,7 @@ class _EventInfoState extends State<EventInfo> {
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
                             child: ListTile(
-                              title: Text("bye"),
+                              title: Text(data["teamInfo"][index]["teamName"]),
                             ),
                           );
                         },

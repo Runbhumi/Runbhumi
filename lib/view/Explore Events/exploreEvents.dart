@@ -2,6 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/view/views.dart';
@@ -152,281 +153,345 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
-                                  child: ExpansionCard(
-                                    maintainState: true,
-                                    // main column
-                                    alwaysShowingChild: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        //1st row
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Image(
-                                                image: AssetImage(sportIcon),
-                                                width: 70,
-                                              ),
-                                              // title time and location
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    data.eventName,
-                                                    style: TextStyle(
-                                                      color: theme.currentTheme
-                                                          .backgroundColor,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Feather.clock,
-                                                        size: 14.0,
-                                                      ),
-                                                      SizedBox(width: 4),
-                                                      Text(
-                                                        DateFormat('MMM dd -')
-                                                            .add_jm()
-                                                            .format(
-                                                                data.dateTime)
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Feather.map_pin,
-                                                        size: 14.0,
-                                                      ),
-                                                      SizedBox(width: 4),
-                                                      Text(
-                                                        data.location,
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              Stack(
-                                                alignment:
-                                                    AlignmentDirectional.center,
-                                                children: [
-                                                  Text(
-                                                    (data.playersId.length
-                                                            .toString() +
-                                                        "/" +
-                                                        data.maxMembers
-                                                            .toString()),
-                                                    style: TextStyle(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  CircularProgressIndicator(
-                                                    value:
-                                                        data.playersId.length /
-                                                            data.maxMembers,
-                                                    backgroundColor: theme
-                                                        .currentTheme
-                                                        .backgroundColor
-                                                        .withOpacity(0.15),
-                                                    strokeWidth: 7,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                  child: GestureDetector(
+                                    onLongPress: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return EventInfo(
+                                              eventId: data.eventId,
+                                            );
+                                          },
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    data.type == 1
-                                                        ? Feather.globe
-                                                        : Feather.lock,
-                                                    size: 18,
-                                                    color: data.type == 1
-                                                        ? Colors.green[400]
-                                                        : Colors.red[400],
-                                                  ),
-                                                  Text(
-                                                    data.type == 1
-                                                        ? "Public"
-                                                        : "private",
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                      );
+                                    },
+                                    child: ExpansionCard(
+                                      maintainState: true,
+                                      // main column
+                                      alwaysShowingChild: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          //1st row
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image(
+                                                      image:
+                                                          AssetImage(sportIcon),
+                                                      width: 70,
+                                                    ),
+                                                    SizedBox(width: 4),
+                                                    // title time and location
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          //event name
+                                                          Container(
+                                                            child: Text(
+                                                              data.eventName,
+                                                              style: TextStyle(
+                                                                color: theme
+                                                                    .currentTheme
+                                                                    .backgroundColor,
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .visible,
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Feather.clock,
+                                                                size: 14.0,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                DateFormat(
+                                                                        'MMM dd -')
+                                                                    .add_jm()
+                                                                    .format(data
+                                                                        .dateTime)
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Feather.map_pin,
+                                                                size: 14.0,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 4),
+                                                              Container(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    2.4,
+                                                                child: Text(
+                                                                  data.location,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .visible,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Stack(
+                                                  alignment:
+                                                      AlignmentDirectional
+                                                          .center,
+                                                  children: [
+                                                    Text(
+                                                      (data.playersId.length
+                                                              .toString() +
+                                                          "/" +
+                                                          data.maxMembers
+                                                              .toString()),
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    CircularProgressIndicator(
+                                                      value: data.playersId
+                                                              .length /
+                                                          data.maxMembers,
+                                                      backgroundColor: theme
+                                                          .currentTheme
+                                                          .backgroundColor
+                                                          .withOpacity(0.15),
+                                                      strokeWidth: 7,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      data.type == 1
+                                                          ? Feather.globe
+                                                          : Feather.lock,
+                                                      size: 18,
                                                       color: data.type == 1
                                                           ? Colors.green[400]
                                                           : Colors.red[400],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Text(data.status + "s can join",
-                                                  style:
-                                                      TextStyle(fontSize: 16)),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Description",
-                                                style: TextStyle(
-                                                  color: theme.currentTheme
-                                                      .backgroundColor
-                                                      .withOpacity(0.45),
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
+                                                    Text(
+                                                      data.type == 1
+                                                          ? "Public"
+                                                          : "Private",
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: data.type == 1
+                                                            ? Colors.green[400]
+                                                            : Colors.red[400],
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              Text(data.description.trim()),
-                                              SizedBox(height: 4),
-                                            ],
+                                                Text(data.status + "s can join",
+                                                    style: TextStyle(
+                                                        fontSize: 16)),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    children: [
-                                      data.notification.contains(Constants.prefs
-                                              .getString('userId'))
-                                          ? SmallButton(
-                                              myColor: Theme.of(context)
-                                                  .primaryColor,
-                                              myText: "Notification Sent")
-                                          : SmallButton(
-                                              myColor: !registrationCondition
-                                                  ? Theme.of(context)
-                                                      .primaryColor
-                                                  : Theme.of(context)
-                                                      .primaryColorDark,
-                                              myText: !registrationCondition
-                                                  ? data.type == 1
-                                                      ? "Join"
-                                                      : "Send Request"
-                                                  : "Already Registered",
-                                              onPressed: () async {
-                                                if (!registrationCondition) {
-                                                  if (data.type == 2) {
-                                                    //For Private
-                                                    if (data.status == 'team') {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                TeamEventNotification(
-                                                                    data:
-                                                                        data)),
-                                                      );
-                                                    } else {
-                                                      if (!data.notification
-                                                          .contains(Constants
-                                                              .prefs
-                                                              .getString(
-                                                                  'userId'))) {
-                                                        NotificationServices()
-                                                            .createIndividualNotification(
-                                                                data);
-                                                      }
-                                                      if (data.notification
-                                                          .contains(Constants
-                                                              .prefs
-                                                              .getString(
-                                                                  'userId'))) {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return notifcationPending(
-                                                                context);
-                                                          },
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Description",
+                                                  style: TextStyle(
+                                                    color: theme.currentTheme
+                                                        .backgroundColor
+                                                        .withOpacity(0.45),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                                Text(data.description.trim()),
+                                                SizedBox(height: 4),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      children: [
+                                        data.notification.contains(Constants
+                                                .prefs
+                                                .getString('userId'))
+                                            ? SmallButton(
+                                                myColor: Theme.of(context)
+                                                    .primaryColor,
+                                                myText: "Notification Sent")
+                                            : SmallButton(
+                                                myColor: !registrationCondition
+                                                    ? Theme.of(context)
+                                                        .primaryColor
+                                                    : Theme.of(context)
+                                                        .primaryColorDark,
+                                                myText: !registrationCondition
+                                                    ? data.type == 1
+                                                        ? "Join"
+                                                        : "Send Request"
+                                                    : "Already Registered",
+                                                onPressed: () async {
+                                                  if (!registrationCondition) {
+                                                    if (data.type == 2) {
+                                                      //For Private
+                                                      if (data.status ==
+                                                          'team') {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  TeamEventNotification(
+                                                                      data:
+                                                                          data)),
                                                         );
+                                                      } else {
+                                                        if (!data.notification
+                                                            .contains(Constants
+                                                                .prefs
+                                                                .getString(
+                                                                    'userId'))) {
+                                                          NotificationServices()
+                                                              .createIndividualNotification(
+                                                                  data);
+                                                        }
+                                                        if (data.notification
+                                                            .contains(Constants
+                                                                .prefs
+                                                                .getString(
+                                                                    'userId'))) {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return notifcationPending(
+                                                                  context);
+                                                            },
+                                                          );
+                                                        }
+                                                        //Private Individual Event
                                                       }
-                                                      //Private Individual Event
+                                                    } else {
+                                                      //public
+                                                      if (data.status ==
+                                                          'team') {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  TeamEventNotification(
+                                                                      data:
+                                                                          data)),
+                                                        );
+                                                      } else {
+                                                        print('Here is the me');
+                                                        if (await Events()
+                                                            .checkingAvailability(
+                                                                data.eventId)) {
+                                                          registerUserToEvent(
+                                                              data.eventId,
+                                                              data.eventName,
+                                                              data.sportName,
+                                                              data.location,
+                                                              data.dateTime,
+                                                              data.creatorId,
+                                                              data.creatorName);
+                                                          print(
+                                                              "User Registered");
+                                                          EventService()
+                                                              .addUserToEvent(
+                                                                  data.eventId);
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return successDialog(
+                                                                    context);
+                                                              });
+                                                        } else {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return infoDialog2(
+                                                                    context);
+                                                                // A dialouge box for people who are not in the event
+                                                              });
+                                                        }
+                                                      }
                                                     }
                                                   } else {
-                                                    //public
-                                                    if (data.status == 'team') {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                TeamEventNotification(
-                                                                    data:
-                                                                        data)),
-                                                      );
-                                                    } else {
-                                                      print('Here is the me');
-                                                      if (await Events()
-                                                          .checkingAvailability(
-                                                              data.eventId)) {
-                                                        registerUserToEvent(
-                                                            data.eventId,
-                                                            data.eventName,
-                                                            data.sportName,
-                                                            data.location,
-                                                            data.dateTime,
-                                                            data.creatorId,
-                                                            data.creatorName);
-                                                        print(
-                                                            "User Registered");
-                                                        EventService()
-                                                            .addUserToEvent(
-                                                                data.eventId);
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return successDialog(
-                                                                  context);
-                                                            });
-                                                      } else {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return infoDialog2(
-                                                                  context);
-                                                              // A dialouge box for people who are not in the event
-                                                            });
-                                                      }
-                                                    }
+                                                    print("Already Registered");
                                                   }
-                                                } else {
-                                                  print("Already Registered");
-                                                }
-                                              },
-                                            ),
-                                    ],
+                                                },
+                                              ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

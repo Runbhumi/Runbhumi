@@ -171,7 +171,9 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             DateTime.parse(_datetime.text),
                             Constants.prefs.getString('userId'),
                             Constants.prefs.getString('name'),
-                            id);
+                            id,
+                            4,
+                            widget.users);
                       }
                       setState(() {
                         _locationController = new TextEditingController();

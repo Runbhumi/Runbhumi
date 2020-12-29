@@ -93,36 +93,52 @@ String createNewEvent(
           dateTime, maxMembers, status, type)
       .toJson());
   if (!challenge && payed) {
-    addEventToUser(
-        id, eventName, sportName, location, dateTime, creatorId, creatorName);
+    addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
+        creatorName, type, playersId);
     UserService().updateEventTokens(-1);
   } else if (!challenge && !payed) {
-    addEventToUser(
-        id, eventName, sportName, location, dateTime, creatorId, creatorName);
+    addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
+        creatorName, type, playersId);
   } else {
     EventService().addUserToEvent(id);
   }
   return id;
 }
 
-addEventToUser(String id, String eventName, String sportName, String location,
-    DateTime dateTime, String creatorId, String creatorName) {
+addEventToUser(
+    String id,
+    String eventName,
+    String sportName,
+    String location,
+    DateTime dateTime,
+    String creatorId,
+    String creatorName,
+    int type,
+    List<String> playersId) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
       .collection('userEvent')
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime,
-              creatorId, creatorName)
+              creatorId, creatorName, type, playersId)
           .minitoJson());
   //UserService().updateEventCount(1);
   //EventService().addUserToEvent(id);
 }
 
-registerUserToEvent(String id, String eventName, String sportName,
-    String location, DateTime dateTime, String creatorId, String creatorName) {
-  addEventToUser(
-      id, eventName, sportName, location, dateTime, creatorId, creatorName);
+registerUserToEvent(
+    String id,
+    String eventName,
+    String sportName,
+    String location,
+    DateTime dateTime,
+    String creatorId,
+    String creatorName,
+    int type,
+    List<dynamic> playersId) {
+  addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
+      creatorName, type, playersId);
 }
 
 addScheduleToUser(
@@ -133,14 +149,16 @@ addScheduleToUser(
     DateTime dateTime,
     String creatorId,
     String creatorName,
-    String eventId) {
+    String eventId,
+    int type,
+    List<dynamic> playersId) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(userId)
       .collection('userEvent')
       .doc(eventId)
       .set(Events.miniView(eventId, eventName, sportName, location, dateTime,
-              creatorId, creatorName)
+              creatorId, creatorName, type, playersId)
           .minitoJson());
 }
 

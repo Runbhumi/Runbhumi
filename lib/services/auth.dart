@@ -12,10 +12,11 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 
 Future signInWithGoogle() async {
   await Firebase.initializeApp();
-
+  //Initializing the Firebase auth Serivices
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount.authentication;
+  //Getting the device token of the device for FCM purposes
   final String token = await FirebaseMessagingServices().getTokenz();
   final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
@@ -27,6 +28,7 @@ Future signInWithGoogle() async {
   final User user = authResult.user;
 
   if (user != null) {
+    print('User is not null');
     //The user has authenticated already
     var result = await FirebaseFirestore.instance
         .collection('users')
@@ -41,6 +43,7 @@ Future signInWithGoogle() async {
       Constants.prefs.setString("token", token);
       print('User Signed Up');
       String _username = generateusername(user.email);
+      //Writing to the backend and making a document for the user
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
           UserProfile.newuser(user.uid, _username, user.displayName,
                   user.photoURL, user.email, token)
@@ -66,6 +69,7 @@ Future signInWithGoogle() async {
 }
 
 Future<void> signOutGoogle() async {
+  //Removing the device token, since the user is logging out
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.getString("userId"))

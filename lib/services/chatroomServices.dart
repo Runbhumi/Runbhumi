@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:Runbhumi/models/Events.dart';
 
 class ChatroomService {
+  //Searching a user by his username, while searching for friends
   searchByName(String searchField) {
     return FirebaseFirestore.instance
         .collection("users")
@@ -12,10 +13,11 @@ class ChatroomService {
         .snapshots();
   }
 
-  getAllusers() {
-    return FirebaseFirestore.instance.collection("users").snapshots();
-  }
+  // getAllusers() {
+  //   return FirebaseFirestore.instance.collection("users").snapshots();
+  // }
 
+  //This method creates a chatroom for two user for direct chats
   addChatRoom(chatRoom, chatRoomId) {
     FirebaseFirestore.instance
         .collection("DirectChats")
@@ -26,6 +28,7 @@ class ChatroomService {
     });
   }
 
+  //This method adds a new message whenever a user sends a new message to the chatroom
   void sendNewMessage(DateTime dateTime, String sentby, String message,
       String sentByName, chatRoomId) {
     FirebaseFirestore.instance
@@ -38,6 +41,7 @@ class ChatroomService {
     });
   }
 
+  //This method adds a new message whenever a user sends a new message to the Team chatroom
   void sendNewMessageTeam(DateTime dateTime, String sentby, String message,
       String sentByName, teamId) {
     FirebaseFirestore.instance
@@ -50,6 +54,7 @@ class ChatroomService {
     });
   }
 
+  //This method adds a new message whenever a user sends a new message to the Event chatroom
   void sendNewMessageEvent(DateTime dateTime, String sentby, String message,
       String sentByName, eventId) {
     FirebaseFirestore.instance
@@ -62,6 +67,7 @@ class ChatroomService {
     });
   }
 
+  //This method calls back all the previous messages for the team Chat room, note the limit
   getTeamMessages(String teamId, int limit) async {
     return FirebaseFirestore.instance
         .collection("teams")
@@ -72,6 +78,7 @@ class ChatroomService {
         .snapshots();
   }
 
+  //This method calls back all the previous messages for the Event Chat room, note the limit
   getEventMessages(String eventId, int limit) async {
     return FirebaseFirestore.instance
         .collection("events")
@@ -82,6 +89,7 @@ class ChatroomService {
         .snapshots();
   }
 
+  //This method calls back all the previous messages for the Direct Chat room, note the limit
   getDirectMessages(String chatRoomId, int limit) async {
     return FirebaseFirestore.instance
         .collection("DirectChats")

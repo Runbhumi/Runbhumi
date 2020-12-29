@@ -74,6 +74,26 @@ class _EventInfoState extends State<EventInfo> {
           leading: CustomBackButton(),
         ),
         body: SlidingUpPanel(
+          // header: Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Container(
+          //         padding: EdgeInsets.all(4),
+          //         height: 12,
+          //         width: 50,
+          //         decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.all(
+          //             Radius.circular(50.0),
+          //           ),
+          //           color: Colors.grey,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          parallaxEnabled: true,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24.0),
             topRight: Radius.circular(24.0),
@@ -244,29 +264,29 @@ class _EventInfoState extends State<EventInfo> {
                         ),
                       ],
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     Card(
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(100),
-                    //       ),
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.all(12.0),
-                    //         child: Icon(
-                    //           Feather.star,
-                    //           size: 24.0,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Text(
-                    //       data['eventName'],
-                    //       style: TextStyle(
-                    //         fontSize: 16,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Icon(
+                              data["type"] == 1 ? Feather.globe : Feather.lock,
+                              size: 24.0,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          data["type"] == 1 ? "Public" : "Private",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

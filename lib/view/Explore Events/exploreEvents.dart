@@ -335,7 +335,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                     Text(
                                                       data.type == 1
                                                           ? "Public"
-                                                          : "private",
+                                                          : "Private",
                                                       style: TextStyle(
                                                         fontSize: 16,
                                                         fontWeight:

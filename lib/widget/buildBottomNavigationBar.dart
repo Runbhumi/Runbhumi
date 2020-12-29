@@ -99,7 +99,10 @@ class AnimatedBottomNav extends StatelessWidget {
     return Container(
       height: kToolbarHeight,
       decoration: BoxDecoration(
-        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        color: Theme.of(context)
+            .bottomNavigationBarTheme
+            .backgroundColor
+            .withOpacity(0.3),
       ),
       child: Row(
         children: <Widget>[

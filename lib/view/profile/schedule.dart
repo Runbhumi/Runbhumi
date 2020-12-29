@@ -100,7 +100,8 @@ class _ScheduleState extends State<Schedule> {
                                                 context,
                                                 data.eventName,
                                                 data.eventId,
-                                                data.playersId);
+                                                data.playersId,
+                                                data.type);
                                             // print(
                                             //     Constants.prefs.get('userId') ==
                                             //         data.creatorId);
@@ -113,9 +114,6 @@ class _ScheduleState extends State<Schedule> {
                                             //       ),
                                             //     ));
                                           } else {
-                                            print(
-                                                Constants.prefs.get('userId') ==
-                                                    data.creatorId);
                                             leaveEvent(data.eventId);
                                           }
                                         },
@@ -195,8 +193,8 @@ class _ScheduleState extends State<Schedule> {
   }
 }
 
-confirmationPopupForDeleting(
-    BuildContext context, String name, String id, List<dynamic> playerId) {
+confirmationPopupForDeleting(BuildContext context, String name, String id,
+    List<dynamic> playerId, int type) {
   var alertStyle = AlertStyle(
     animationType: AnimationType.fromBottom,
     isCloseButton: false,
@@ -243,8 +241,15 @@ confirmationPopupForDeleting(
               ),
             ),
           ),
-          onPressed: () async {
-            await deleteEvent(id);
+          onPressed: () {
+            if (type < 4) {
+              deleteEvent(id);
+            } else {
+              for (int i = 0; i < playerId.length; i++) {
+                deleteIndividualUserMini(id, playerId[i]);
+              }
+              //deleting the chatroom events.
+            }
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),
@@ -252,6 +257,66 @@ confirmationPopupForDeleting(
       ]).show();
 }
 
+confirmationPopupForLeaving(BuildContext context, String name, String id,
+    List<dynamic> playerId, int type) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Leave Event",
+      desc: "Are you user you want to leave this event " + name,
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Leave",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            if (type < 4) {
+              leaveEvent(id);
+            } else {
+              deleteIndividualUserMini(id, Constants.prefs.getString('userId'));
+            }
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
+}
 // logic for removing a event
 
 /*

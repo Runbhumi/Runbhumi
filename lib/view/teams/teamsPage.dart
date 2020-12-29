@@ -81,245 +81,180 @@ class _TeamsListState extends State<TeamsList>
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 16.0),
-                  child: Card(
-                    child: ExpansionCard(
-                        maintainState: true,
-                        children: [
-                          !joinCondition
-                              ? SmallButton(
-                                  myColor: !joinCondition
-                                      ? Theme.of(context).primaryColor
-                                      : Theme.of(context).accentColor,
-                                  myText: !joinCondition
-                                      ? !notifiedCondition
-                                          ? "Join"
-                                          : "Request Sent"
-                                      : "Already there",
-                                  onPressed: () {
-                                    if (!joinCondition && notifiedCondition) {
-                                      //Notification pending
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return notifcationPending(context);
-                                        },
-                                      );
-                                    } else if (!joinCondition &&
-                                        !notifiedCondition) {
-                                      if (data.status == 'private') {
-                                        NotificationServices()
-                                            .createTeamNotification(
-                                                Constants.prefs
-                                                    .getString('userId'),
-                                                data.manager,
-                                                data);
+                  child: GestureDetector(
+                    onLongPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return TeamInfo(
+                              teamID: data.teamId,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Card(
+                      child: ExpansionCard(
+                          maintainState: true,
+                          children: [
+                            !joinCondition
+                                ? SmallButton(
+                                    myColor: !joinCondition
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context).accentColor,
+                                    myText: !joinCondition
+                                        ? !notifiedCondition
+                                            ? "Join"
+                                            : "Request Sent"
+                                        : "Already there",
+                                    onPressed: () {
+                                      if (!joinCondition && notifiedCondition) {
+                                        //Notification pending
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return notifcationPending(context);
+                                          },
+                                        );
+                                      } else if (!joinCondition &&
+                                          !notifiedCondition) {
+                                        if (data.status == 'private') {
+                                          NotificationServices()
+                                              .createTeamNotification(
+                                                  Constants.prefs
+                                                      .getString('userId'),
+                                                  data.manager,
+                                                  data);
+                                        }
+                                        if (data.status == 'closed') {
+                                          // Make a custom Alert message for the user to
+                                          //know that he can not join a closed team
+                                        }
+                                        if (data.status == 'public') {
+                                          TeamService()
+                                              .addMeInTeam(data.teamId)
+                                              .then(() => {
+                                                    // give a success notification that he was
+                                                    //added to the team and take him to the chat
+                                                    //window or the info page of the team
+                                                  });
+                                        }
                                       }
-                                      if (data.status == 'closed') {
-                                        // Make a custom Alert message for the user to
-                                        //know that he can not join a closed team
-                                      }
-                                      if (data.status == 'public') {
-                                        TeamService()
-                                            .addMeInTeam(data.teamId)
-                                            .then(() => {
-                                                  // give a success notification that he was
-                                                  //added to the team and take him to the chat
-                                                  //window or the info page of the team
-                                                });
-                                      }
-                                    }
-                                  })
-                              : Container(),
-                          SmallButton(
-                            myColor: !joinCondition
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).accentColor,
-                            myText: !joinCondition ? 'Challenge' : 'Message',
-                            onPressed: () {
-                              if (!joinCondition) {
-                                // Challenge logic
-                                final TeamChallengeNotification teamData =
-                                    new TeamChallengeNotification.newTeam(
-                                        data.teamId,
-                                        data.manager,
-                                        data.teamName);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChallangeTeam(
-                                          sportName: data.sport,
-                                          teamData: teamData)),
-                                );
-                              } else {
-                                Navigator.push(
+                                    })
+                                : Container(),
+                            SmallButton(
+                              myColor: !joinCondition
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).accentColor,
+                              myText: !joinCondition ? 'Challenge' : 'Message',
+                              onPressed: () {
+                                if (!joinCondition) {
+                                  // Challenge logic
+                                  final TeamChallengeNotification teamData =
+                                      new TeamChallengeNotification.newTeam(
+                                          data.teamId,
+                                          data.manager,
+                                          data.teamName);
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => TeamConversation(
-                                        data: data,
-                                      ),
-                                    ));
-                                //Go to the team ChatRoom
-                              }
-                            },
-                          )
-                        ],
-                        alwaysShowingChild: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Container(
-                                height: 30,
-                                child: Stack(
-                                  children: [
-                                    Stack(
-                                      // scrollDirection: Axis.horizontal,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.all(2),
-                                          child: CircleAvatar(
-                                            radius: 13,
-                                            backgroundColor:
-                                                Theme.of(context).cardColor,
-                                            child: Padding(
-                                                padding: EdgeInsets.all(3),
-                                                child: CircleAvatar(
-                                                    backgroundImage: NetworkImage(
-                                                        "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
-                                          ),
+                                        builder: (context) => ChallangeTeam(
+                                            sportName: data.sport,
+                                            teamData: teamData)),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TeamConversation(
+                                          data: data,
                                         ),
-                                        PlayerPreview(),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 32.0),
-                                          child: Container(
-                                            padding: EdgeInsets.all(2),
-                                            child: CircleAvatar(
-                                              radius: 13,
-                                              backgroundColor:
-                                                  Theme.of(context).cardColor,
-                                              child: Padding(
-                                                  padding: EdgeInsets.all(3),
-                                                  child: CircleAvatar(
-                                                      backgroundImage: NetworkImage(
-                                                          "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Image.asset(
-                                        sportIcon,
-                                        width: 70,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                data.teamName,
-                                                style: TextStyle(
-                                                  color: theme.currentTheme
-                                                      .backgroundColor,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              data.verified == 'Y'
-                                                  ? Icon(
-                                                      Icons.verified,
-                                                      size: 16.0,
-                                                    )
-                                                  : Container(),
-                                            ],
-                                          ),
-                                          Text(
-                                            data.bio,
-                                            style: TextStyle(
-                                              color: theme
-                                                  .currentTheme.backgroundColor,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 4.0),
-                                                child: Icon(
-                                                  data.status == "public"
-                                                      ? Feather.globe
-                                                      : Feather.lock,
-                                                  size: 16,
-                                                  color: data.status == "public"
-                                                      ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                ),
-                                              ),
-                                              Text(
-                                                data.status == "public"
-                                                    ? "Public"
-                                                    : "private",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: data.status == "public"
-                                                      ? Colors.green[400]
-                                                      : Colors.red[400],
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
+                                      ));
+                                  //Go to the team ChatRoom
+                                }
+                              },
+                            )
+                          ],
+                          alwaysShowingChild: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Container(
+                                  height: 30,
                                   child: Stack(
-                                    alignment: AlignmentDirectional.center,
                                     children: [
-                                      CircularProgressIndicator(
-                                        value: data.playerId.length / 20,
-                                        backgroundColor: theme
-                                            .currentTheme.backgroundColor
-                                            .withOpacity(0.15),
-                                        strokeWidth: 7,
-                                      ),
-                                      Text(
-                                        data.playerId.length.toString() + "/20",
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                      Stack(
+                                        // scrollDirection: Axis.horizontal,
+                                        children: [
+                                          PlayerPreview1(),
+                                          PlayerPreview2(),
+                                          PlayerPreview3(),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        )),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      TeamSportLeading(sportIcon: sportIcon),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2.2,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              TeamName(data: data),
+                                              TypeofTeam(data: data),
+                                              TeamDescription(data: data),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Stack(
+                                      alignment: AlignmentDirectional.center,
+                                      children: [
+                                        CircularProgressIndicator(
+                                          value: data.playerId.length / 20,
+                                          backgroundColor: theme
+                                              .currentTheme.backgroundColor
+                                              .withOpacity(0.15),
+                                          strokeWidth: 7,
+                                        ),
+                                        Text(
+                                          data.playerId.length.toString() +
+                                              "/20",
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
                 );
               },
@@ -466,8 +401,169 @@ class _TeamsListState extends State<TeamsList>
   }
 }
 
-class PlayerPreview extends StatelessWidget {
-  const PlayerPreview({
+class PlayerPreview3 extends StatelessWidget {
+  const PlayerPreview3({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 32.0),
+      child: Container(
+        padding: EdgeInsets.all(2),
+        child: CircleAvatar(
+          radius: 13,
+          backgroundColor: Theme.of(context).cardColor,
+          child: Padding(
+              padding: EdgeInsets.all(3),
+              child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
+        ),
+      ),
+    );
+  }
+}
+
+class PlayerPreview1 extends StatelessWidget {
+  const PlayerPreview1({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(2),
+      child: CircleAvatar(
+        radius: 13,
+        backgroundColor: Theme.of(context).cardColor,
+        child: Padding(
+            padding: EdgeInsets.all(3),
+            child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://pbs.twimg.com/profile_images/1286371379768516608/KKBFYV_t.jpg"))),
+      ),
+    );
+  }
+}
+
+class TeamSportLeading extends StatelessWidget {
+  const TeamSportLeading({
+    Key key,
+    @required this.sportIcon,
+  }) : super(key: key);
+
+  final String sportIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Image.asset(
+        sportIcon,
+        width: 70,
+      ),
+    );
+  }
+}
+
+class TeamName extends StatelessWidget {
+  const TeamName({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
+  final Teams data;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
+    return Row(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width / 2.2,
+          child: Text(
+            data.teamName,
+            style: TextStyle(
+              color: theme.currentTheme.backgroundColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.clip,
+          ),
+        ),
+        data.verified == 'Y'
+            ? Icon(
+                Icons.verified,
+                size: 16.0,
+              )
+            : Container(),
+      ],
+    );
+  }
+}
+
+class TeamDescription extends StatelessWidget {
+  const TeamDescription({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
+  final Teams data;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
+    return Text(
+      data.bio,
+      style: TextStyle(
+        color: theme.currentTheme.backgroundColor,
+      ),
+      maxLines: 2,
+      overflow: TextOverflow.visible,
+    );
+  }
+}
+
+class TypeofTeam extends StatelessWidget {
+  const TypeofTeam({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
+  final Teams data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 4.0),
+          child: Icon(
+            data.status == "public" ? Feather.globe : Feather.lock,
+            size: 16,
+            color:
+                data.status == "public" ? Colors.green[400] : Colors.red[400],
+          ),
+        ),
+        Text(
+          data.status == "public" ? "Public" : "private",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color:
+                data.status == "public" ? Colors.green[400] : Colors.red[400],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PlayerPreview2 extends StatelessWidget {
+  const PlayerPreview2({
     Key key,
   }) : super(key: key);
 

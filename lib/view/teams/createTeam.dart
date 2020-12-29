@@ -39,7 +39,7 @@ class _CreateTeamState extends State<CreateTeam> {
   //   "Manipal",
   //   "Telangana",
   // ];
-  String _type = "open";
+  String _type = "public";
   @override
   Widget build(BuildContext context) {
     //sports
@@ -149,7 +149,7 @@ class _CreateTeamState extends State<CreateTeam> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           title: Text(
-                            'Open',
+                            'Public',
                             style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                           selected: _type == "public" ? true : false,
@@ -169,7 +169,7 @@ class _CreateTeamState extends State<CreateTeam> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           title: Text(
-                            'Invite only',
+                            'Private',
                             style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                           selected: _type == "private" ? true : false,
@@ -181,26 +181,26 @@ class _CreateTeamState extends State<CreateTeam> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 36.0),
-                      child: Card(
-                        child: ListTile(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          title: Text(
-                            'Closed',
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          selected: _type == "closed" ? true : false,
-                          onTap: () {
-                            setState(() {
-                              _type = "closed";
-                            });
-                          },
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                    //   child: Card(
+                    //     child: ListTile(
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(20)),
+                    //       ),
+                    //       title: Text(
+                    //         'Closed',
+                    //         style: TextStyle(fontWeight: FontWeight.w700),
+                    //       ),
+                    //       selected: _type == "closed" ? true : false,
+                    //       onTap: () {
+                    //         setState(() {
+                    //           _type = "closed";
+                    //         });
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

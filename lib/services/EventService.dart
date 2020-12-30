@@ -80,7 +80,7 @@ String createNewEvent(
     String location,
     String sportName,
     String description,
-    List<String> playersId,
+    List<dynamic> playersId,
     DateTime dateTime,
     int maxMembers,
     String status,
@@ -114,7 +114,7 @@ addEventToUser(
     String creatorId,
     String creatorName,
     int type,
-    List<String> playersId) {
+    List<dynamic> playersId) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))

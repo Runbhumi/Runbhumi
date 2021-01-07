@@ -13,6 +13,7 @@ class Events {
   String sportName;
   String description;
   List<dynamic> playersId;
+  List<dynamic> participants;
   List playerInfo;
   List<dynamic> teamId;
   List teamInfo;
@@ -31,6 +32,7 @@ class Events {
       this.sportName,
       this.description,
       this.playersId,
+      this.participants,
       this.playerInfo,
       this.teamInfo,
       this.dateTime,
@@ -60,6 +62,7 @@ class Events {
     this.dateTime = dateTime;
     this.maxMembers = maxMembers; // members can deonote the max number of teams
     this.type = type;
+    this.participants = [creator];
     this.status = status;
     this.notification = [];
   }
@@ -135,7 +138,8 @@ class Events {
         'max': this.maxMembers,
         'type': this.type,
         'status': this.status,
-        'notificationPlayers': this.notification
+        'notificationPlayers': this.notification,
+        'participants': this.participants
       };
   factory Events.fromJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
@@ -154,7 +158,8 @@ class Events {
         playerInfo: data['playerInfo'],
         type: data['type'],
         status: data['status'],
-        notification: data['notificationPlayers']);
+        notification: data['notificationPlayers'],
+        participants: data['participants']);
   }
 
   factory Events.fromMap(Map<String, dynamic> data) {
@@ -171,7 +176,8 @@ class Events {
         maxMembers: data['max'],
         type: data['type'],
         status: data['status'],
-        notification: data['notificationPlayers']);
+        notification: data['notificationPlayers'],
+        participants: data['participants']);
   }
 
   Future<bool> checkingAvailability(String id) async {

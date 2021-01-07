@@ -70,15 +70,17 @@ Future signInWithGoogle() async {
 
 Future<void> signOutGoogle() async {
   //Removing the device token, since the user is logging out
+  print(Constants.prefs.getString("token"));
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.getString("userId"))
       .update({
     'userDeviceToken':
         FieldValue.arrayRemove([Constants.prefs.getString("token")]),
+  }).then((_) async {
+    await FirebaseAuth.instance.signOut();
+    await googleSignIn.disconnect();
   });
-  await FirebaseAuth.instance.signOut();
-  await googleSignIn.disconnect();
   print(Constants.prefs.getString("token"));
   print(Constants.prefs.getString("userId"));
   Constants.prefs.setString('token', null);

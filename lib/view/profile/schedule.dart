@@ -114,7 +114,12 @@ class _ScheduleState extends State<Schedule> {
                                             //       ),
                                             //     ));
                                           } else {
-                                            leaveEvent(data.eventId);
+                                            confirmationPopupForLeaving(
+                                                context,
+                                                data.eventName,
+                                                data.eventId,
+                                                data.playersId,
+                                                data.type);
                                           }
                                         },
                                       ),

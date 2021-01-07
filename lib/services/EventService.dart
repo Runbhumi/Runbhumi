@@ -16,13 +16,15 @@ class EventService {
     Friends friend = new Friends.newFriend(userId, userName, profileImage);
     _eventCollectionReference.doc(id).set({
       "playersId": FieldValue.arrayUnion([userId]),
-      'playerInfo': FieldValue.arrayUnion([friend.toJson()])
+      'playerInfo': FieldValue.arrayUnion([friend.toJson()]),
+      'participants': FieldValue.arrayUnion([userId]),
     }, SetOptions(merge: true));
   }
 
   addGivenUsertoEvent(String id, String userId) {
     _eventCollectionReference.doc(id).set({
-      "playersId": FieldValue.arrayUnion([userId])
+      "playersId": FieldValue.arrayUnion([userId]),
+      'participants': FieldValue.arrayUnion([userId]),
     }, SetOptions(merge: true));
   }
 
@@ -54,7 +56,7 @@ class EventService {
   getCurrentUserEventChats() async {
     return FirebaseFirestore.instance
         .collection("events")
-        .where('playersId', arrayContains: Constants.prefs.get('userId'))
+        .where('participants', arrayContains: Constants.prefs.get('userId'))
         // .orderBy('dateTime', descending: true)
         .snapshots();
   }
@@ -180,6 +182,8 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         .doc(event.eventId)
         .update({
       'playersId': FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
+      'participants':
+          FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
       'teamsId': FieldValue.arrayUnion([team.teamId]),
       'teamInfo': FieldValue.arrayUnion([
         {'teamName': team.teamName, 'teamId': team.teamId}
@@ -213,7 +217,8 @@ leaveEvent(id) {
       .delete();
   FirebaseFirestore.instance.collection('events').doc(id).set({
     'playersId': FieldValue.arrayRemove([userId]),
-    'playerInfo': FieldValue.arrayRemove([friend.toJson()])
+    'playerInfo': FieldValue.arrayRemove([friend.toJson()]),
+    'participants': FieldValue.arrayRemove([userId]),
   }, SetOptions(merge: true));
   //UserService().updateEventCount(-1);
   CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));

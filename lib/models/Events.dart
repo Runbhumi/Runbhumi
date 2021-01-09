@@ -2,7 +2,6 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
-
   // name of the event
   String eventName;
 
@@ -24,11 +23,11 @@ class Events {
   // description of the event given by the user
   String description;
 
-  // list of all the participants userid 
+  // list of all the participants userid
   // EXCLUDING THE CREATOR
   List<dynamic> playersId;
 
-  // list of all the participants userid 
+  // list of all the participants userid
   // INCLUDING THE CREATOR
   List<dynamic> participants;
 
@@ -44,7 +43,7 @@ class Events {
   // List of all the ids who are invited or are send any kind of invitation from the creator
   List notification;
 
-  // contains the date and time of the event 
+  // contains the date and time of the event
   DateTime dateTime;
 
   // members can deonote the max number of teams
@@ -55,7 +54,6 @@ class Events {
 
   // contains the type of the event that is 1 -public , 2- private , 3- closed
   int type;
-
 
   // this is a default constructor for event class
   Events(
@@ -164,7 +162,6 @@ class Events {
     );
   }
 
-  
   Map<String, dynamic> toJson() => {
         'eventId': this.eventId,
         'eventName': this.eventName,
@@ -182,7 +179,7 @@ class Events {
         'participants': this.participants
       };
 
-  // takes a query snapshot as a input and returns a the events class     
+  // takes a query snapshot as a input and returns a the events class
   factory Events.fromJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
     return Events(
@@ -204,7 +201,7 @@ class Events {
         participants: data['participants']);
   }
 
-  // takes a map as a input and returns a the events class 
+  // takes a map as a input and returns a the events class
 
   factory Events.fromMap(Map<String, dynamic> data) {
     return Events(

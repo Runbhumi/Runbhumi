@@ -461,6 +461,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                               data.dateTime,
                                                               data.creatorId,
                                                               data.creatorName,
+                                                              data.status,
                                                               data.type,
                                                               data.playersId);
                                                           print(

@@ -97,11 +97,7 @@ class _ScheduleState extends State<Schedule> {
                                           if (Constants.prefs.get('userId') ==
                                               data.creatorId) {
                                             confirmationPopupForDeleting(
-                                                context,
-                                                data.eventName,
-                                                data.eventId,
-                                                data.playersId,
-                                                data.type);
+                                                context, data);
                                             // print(
                                             //     Constants.prefs.get('userId') ==
                                             //         data.creatorId);
@@ -115,11 +111,7 @@ class _ScheduleState extends State<Schedule> {
                                             //     ));
                                           } else {
                                             confirmationPopupForLeaving(
-                                                context,
-                                                data.eventName,
-                                                data.eventId,
-                                                data.playersId,
-                                                data.type);
+                                                context, data);
                                           }
                                         },
                                       ),
@@ -198,8 +190,7 @@ class _ScheduleState extends State<Schedule> {
   }
 }
 
-confirmationPopupForDeleting(BuildContext context, String name, String id,
-    List<dynamic> playerId, int type) {
+confirmationPopupForDeleting(BuildContext context, Events data) {
   var alertStyle = AlertStyle(
     animationType: AnimationType.fromBottom,
     isCloseButton: false,
@@ -215,7 +206,7 @@ confirmationPopupForDeleting(BuildContext context, String name, String id,
       context: context,
       style: alertStyle,
       title: "Delete Event",
-      desc: "Are you user you want to delete this event " + name,
+      desc: "Are you user you want to delete this event " + data.eventName,
       buttons: [
         DialogButton(
           child: Padding(
@@ -247,11 +238,12 @@ confirmationPopupForDeleting(BuildContext context, String name, String id,
             ),
           ),
           onPressed: () {
-            if (type < 4) {
-              deleteEvent(id);
+            if (data.type < 4) {
+              deleteEvent(data.eventId);
             } else {
+              List<dynamic> playerId = data.playersId;
               for (int i = 0; i < playerId.length; i++) {
-                deleteIndividualUserMini(id, playerId[i]);
+                deleteIndividualUserMini(data.eventId, playerId[i]);
               }
               //deleting the chatroom events.
             }
@@ -262,8 +254,7 @@ confirmationPopupForDeleting(BuildContext context, String name, String id,
       ]).show();
 }
 
-confirmationPopupForLeaving(BuildContext context, String name, String id,
-    List<dynamic> playerId, int type) {
+confirmationPopupForLeaving(BuildContext context, Events data) {
   var alertStyle = AlertStyle(
     animationType: AnimationType.fromBottom,
     isCloseButton: false,
@@ -279,7 +270,7 @@ confirmationPopupForLeaving(BuildContext context, String name, String id,
       context: context,
       style: alertStyle,
       title: "Leave Event",
-      desc: "Are you user you want to leave this event " + name,
+      desc: "Are you user you want to leave this event " + data.eventName,
       buttons: [
         DialogButton(
           child: Padding(
@@ -311,10 +302,11 @@ confirmationPopupForLeaving(BuildContext context, String name, String id,
             ),
           ),
           onPressed: () {
-            if (type < 4) {
-              leaveEvent(id);
+            if (data.type < 4) {
+              leaveEvent(data);
             } else {
-              deleteIndividualUserMini(id, Constants.prefs.getString('userId'));
+              deleteIndividualUserMini(
+                  data.eventId, Constants.prefs.getString('userId'));
             }
             Navigator.pop(context);
           },

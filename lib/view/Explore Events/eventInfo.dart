@@ -164,7 +164,7 @@ class _EventInfoState extends State<EventInfo> {
                   : Container(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: data["teamsId"].length,
+                        itemCount: data["playersId"].length,
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
                             child: ListTile(

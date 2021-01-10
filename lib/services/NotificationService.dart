@@ -115,6 +115,7 @@ class NotificationServices {
           event.creatorId,
           event.creatorName,
           event.eventId,
+          event.status,
           event.type,
           event.playersId);
 
@@ -245,6 +246,7 @@ class NotificationServices {
           event.creatorId,
           event.creatorName,
           event.eventId,
+          event.status,
           event.type,
           event.playersId);
       await declineTeamRequest(notification.eventId,

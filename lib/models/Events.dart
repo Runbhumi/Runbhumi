@@ -2,27 +2,60 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
-  final String creator = Constants.prefs.getString('userId');
-  final String creatorN = Constants.prefs.getString('name');
-
+  // name of the event
   String eventName;
+
+  // unique id of the event
   String eventId;
+
+  // unique user id of the creator
   String creatorId;
+
+  // name of the creator
   String creatorName;
+
+  // location of the event
   String location;
+
+  // name of the sport for the event
   String sportName;
+
+  // description of the event given by the user
   String description;
+
+  // list of all the participants userid
+  // EXCLUDING THE CREATOR
   List<dynamic> playersId;
+
+  // list of all the participants userid
+  // INCLUDING THE CREATOR
   List<dynamic> participants;
+
+  // list which includes all the info of all the players
   List playerInfo;
+
+  // List of al the team id for team events
   List<dynamic> teamId;
+
+  // List of the team Info for the team related events
   List teamInfo;
+
+  // List of all the ids who are invited or are send any kind of invitation from the creator
   List notification;
+
+  // contains the date and time of the event
   DateTime dateTime;
+
+  // members can deonote the max number of teams
   int maxMembers;
+
+  // contains the info which distinguish a team event and a individual event
   String status;
+
+  // contains the type of the event that is 1 -public , 2- private , 3- closed
   int type;
 
+  // this is a default constructor for event class
   Events(
       {this.eventId,
       this.eventName,
@@ -41,6 +74,9 @@ class Events {
       this.notification,
       this.type});
 
+  //  this is a constructor which can we used to initialise the values of a class
+  // when a new class is initialised .
+
   Events.newEvent(
       String eventId,
       String eventName,
@@ -53,16 +89,16 @@ class Events {
       int type) {
     this.eventId = eventId;
     this.eventName = eventName;
-    this.creatorId = creator;
-    this.creatorName = creatorN;
+    this.creatorId = Constants.prefs.getString('userId');
+    this.creatorName = Constants.prefs.getString('name');
     this.location = location;
     this.sportName = sportName;
     this.playersId = [];
     this.description = description;
     this.dateTime = dateTime;
-    this.maxMembers = maxMembers; // members can deonote the max number of teams
+    this.maxMembers = maxMembers;
     this.type = type;
-    this.participants = [creator];
+    this.participants = [Constants.prefs.getString('userId')];
     this.status = status;
     this.notification = [];
   }
@@ -125,6 +161,7 @@ class Events {
       playersId: data['playersId'],
     );
   }
+
   Map<String, dynamic> toJson() => {
         'eventId': this.eventId,
         'eventName': this.eventName,
@@ -141,6 +178,8 @@ class Events {
         'notificationPlayers': this.notification,
         'participants': this.participants
       };
+
+  // takes a query snapshot as a input and returns a the events class
   factory Events.fromJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
     return Events(
@@ -162,6 +201,8 @@ class Events {
         participants: data['participants']);
   }
 
+  // takes a map as a input and returns a the events class
+
   factory Events.fromMap(Map<String, dynamic> data) {
     return Events(
         eventId: data['eventId'],
@@ -180,12 +221,39 @@ class Events {
         participants: data['participants']);
   }
 
+  /* 
+  This functions takes the data from the firestore for a specific event to check
+  if the user can get in the event or not. 
+
+  INPUT -  id (STRING) ----- eventId
+  OUTPUT - true or false (FUTURE BOOL)
+
+  NOTE : Use this function with async/await  
+ 
+  LOGIC :
+    if (playersId.length < maxMembers)
+      true
+    else 
+      false  
+
+  */
   Future<bool> checkingAvailability(String id) async {
     var snap =
         await FirebaseFirestore.instance.collection('events').doc(id).get();
     Map<String, dynamic> data = snap.data();
     return data['playersId'].length < data['max'] ? true : false;
   }
+
+  /* 
+
+  This functions takes the data from the firestore and return list of all the players. 
+
+  INPUT -  id (STRING) ----- eventId
+  OUTPUT - playersId (FUTURE LIST DYNAMIC) ----- list of all the players in the event
+
+  NOTE : Use this function with async/await  
+
+  */
 
   Future<List<dynamic>> players(String id) async {
     var snap =

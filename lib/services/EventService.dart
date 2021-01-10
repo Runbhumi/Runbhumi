@@ -96,11 +96,11 @@ String createNewEvent(
       .toJson());
   if (!challenge && payed) {
     addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
-        creatorName, type, playersId);
+        creatorName, status, type, playersId);
     UserService().updateEventTokens(-1);
   } else if (!challenge && !payed) {
     addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
-        creatorName, type, playersId);
+        creatorName, status, type, playersId);
   } else {
     EventService().addUserToEvent(id);
   }
@@ -115,6 +115,7 @@ addEventToUser(
     DateTime dateTime,
     String creatorId,
     String creatorName,
+    String status,
     int type,
     List<dynamic> playersId) {
   FirebaseFirestore.instance
@@ -122,7 +123,7 @@ addEventToUser(
       .doc(Constants.prefs.get('userId'))
       .collection('userEvent')
       .doc(id)
-      .set(Events.miniView(id, eventName, sportName, location, dateTime,
+      .set(Events.miniView(id, eventName, sportName, location, dateTime, status,
               creatorId, creatorName, type, playersId)
           .minitoJson());
   //UserService().updateEventCount(1);
@@ -137,10 +138,11 @@ registerUserToEvent(
     DateTime dateTime,
     String creatorId,
     String creatorName,
+    String status,
     int type,
     List<dynamic> playersId) {
   addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
-      creatorName, type, playersId);
+      creatorName, status, type, playersId);
 }
 
 addScheduleToUser(
@@ -152,6 +154,7 @@ addScheduleToUser(
     String creatorId,
     String creatorName,
     String eventId,
+    String status,
     int type,
     List<dynamic> playersId) {
   FirebaseFirestore.instance
@@ -160,7 +163,7 @@ addScheduleToUser(
       .collection('userEvent')
       .doc(eventId)
       .set(Events.miniView(eventId, eventName, sportName, location, dateTime,
-              creatorId, creatorName, type, playersId)
+              status, creatorId, creatorName, type, playersId)
           .minitoJson());
 }
 
@@ -189,6 +192,17 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         {'teamName': team.teamName, 'teamId': team.teamId}
       ])
     });
+    addEventToUser(
+        event.eventId,
+        event.eventName,
+        event.sportName,
+        event.location,
+        event.dateTime,
+        event.creatorId,
+        event.creatorName,
+        event.status,
+        event.type,
+        event.playersId);
     await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
         event.eventId, team.teamName, event.eventName);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
@@ -204,24 +218,33 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
 
 // leaving a event logic
 
-leaveEvent(id) {
+leaveEvent(Events data) async {
   var userId = Constants.prefs.get('userId');
   var userName = Constants.prefs.get('name');
   var profileImage = Constants.prefs.get('profileImage');
-  Friends friend = new Friends.newFriend(userId, userName, profileImage);
   FirebaseFirestore.instance
       .collection('users')
       .doc(userId)
       .collection('userEvent')
-      .doc(id)
+      .doc(data.eventId)
       .delete();
-  FirebaseFirestore.instance.collection('events').doc(id).set({
-    'playersId': FieldValue.arrayRemove([userId]),
-    'playerInfo': FieldValue.arrayRemove([friend.toJson()]),
-    'participants': FieldValue.arrayRemove([userId]),
-  }, SetOptions(merge: true));
+  if (data.status == 'individual') {
+    Friends friend = new Friends.newFriend(userId, userName, profileImage);
+    FirebaseFirestore.instance.collection('events').doc(data.eventId).set({
+      'playersId': FieldValue.arrayRemove([userId]),
+      'playerInfo': FieldValue.arrayRemove([friend.toJson()]),
+      'participants': FieldValue.arrayRemove([userId]),
+    }, SetOptions(merge: true));
+  } else if (data.status == 'team') {
+    //TODO: Logic fix for deleting the team associated with this user
+    FirebaseFirestore.instance.collection('events').doc(data.eventId).set({
+      'playersId': FieldValue.arrayRemove([userId]),
+      'participants': FieldValue.arrayRemove([userId]),
+    }, SetOptions(merge: true));
+  }
   //UserService().updateEventCount(-1);
-  CustomMessageServices().userLeftEventMessage(id, Constants.prefs.get('name'));
+  CustomMessageServices()
+      .userLeftEventMessage(data.eventId, Constants.prefs.get('name'));
 }
 
 deleteEvent(id) async {

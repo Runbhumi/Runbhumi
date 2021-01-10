@@ -172,6 +172,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             Constants.prefs.getString('userId'),
                             Constants.prefs.getString('name'),
                             id,
+                            'chatroom',
                             4,
                             widget.users);
                       }

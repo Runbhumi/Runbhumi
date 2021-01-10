@@ -112,6 +112,7 @@ class Events {
       this.creatorId,
       this.creatorName,
       this.type,
+      this.status,
       this.playersId});
 
   Events.miniView(
@@ -120,6 +121,7 @@ class Events {
       String sportName,
       String location,
       DateTime dateTime,
+      String status,
       String creatorId,
       String creatorName,
       int type,
@@ -129,6 +131,7 @@ class Events {
     this.location = location;
     this.dateTime = dateTime;
     this.sportName = sportName;
+    this.status = status;
     this.creatorId = creatorId;
     this.creatorName = creatorName;
     this.type = type;
@@ -145,6 +148,7 @@ class Events {
         'creatorName': creatorName,
         'type': type,
         'playersId': playersId,
+        'status': status,
       };
 
   factory Events.fromMiniJson(QueryDocumentSnapshot snapshot) {
@@ -159,6 +163,7 @@ class Events {
       creatorName: data['creatorName'],
       type: data['type'],
       playersId: data['playersId'],
+      status: data['status'],
     );
   }
 

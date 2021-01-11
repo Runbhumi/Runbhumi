@@ -252,20 +252,9 @@ class NotificationServices {
       await declineTeamRequest(notification.eventId,
           notification.notificationId, notification.senderId);
       await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
-          notification.eventId, notification.teamName, notification.eventName);
+          notification.eventId, notification.teamName);
       await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
           notification.teamId, notification.senderName, notification.eventName);
-      // await FirebaseFirestore.instance
-      //     .collection('teams')
-      //     .doc(notification.teamId)
-      //     .collection('chats')
-      //     .doc()
-      //     .set({
-      //   'message':
-      //       "${notification.senderName} has registered you for ${notification.eventName}",
-      //   'type': 'custom',
-      //   'dateTime': DateTime.now(),
-      // });
       return true;
     }
     return false;

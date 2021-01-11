@@ -2,8 +2,14 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FriendServices {
+  //FirebaseFirestore instance in order to connect with the database
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  /*
+  This method increments the friend count by the number specified in the parameter for the current user 
+  Parameter: n: int
+  Friend count of the user increases by n 
+  */
   updateMyFriendCount(int n) {
     _db
         .collection('users')
@@ -11,6 +17,10 @@ class FriendServices {
         .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
+  /*
+  This method increments the friend count by the number specified in the parameter for the other user who has been added as a friend
+  Parameter: n: int, id: unique user id, currUser: Id of the user who is being updated.
+  */
   addUpdateMyFriendCount(int n, String id, String currUser) {
     print("Done");
     _db.collection('users').doc(currUser).update({
@@ -19,6 +29,10 @@ class FriendServices {
     });
   }
 
+  /*
+  This method removes a user as the current user's friend.
+  Parameter: id: other user id, currUser: current user Id
+  */
   removeFriend(String id, String currUser) {
     _db
         .collection('users')
@@ -44,10 +58,16 @@ class FriendServices {
     });
   }
 
+  /*
+  This method increments the friend count by the number specified in the parameter for the current user 
+  Parameter: uid: user id of the user we want to update n: int
+  Friend count of the user increases by n 
+  */
   updateFriendCount(String uid, int n) {
     _db
         .collection('users')
         .doc(uid)
         .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
+  //End of the FriendServices
 }

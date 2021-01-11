@@ -203,8 +203,8 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         event.status,
         event.type,
         event.playersId);
-    await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
-        event.eventId, team.teamName, event.eventName);
+    await CustomMessageServices()
+        .sendEventAcceptEventChatCustomMessage(event.eventId, team.teamName);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
         team.teamId, Constants.prefs.getString('name'), event.eventName);
     return true;

@@ -49,6 +49,8 @@ dependencies:
   # # connectivity
   # connectivity_widget: ^0.1.7
 
+  #stripe_payments
+  stripe_payment: ^1.0.9
   #icons
   flutter_icons: ^1.1.0
 

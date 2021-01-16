@@ -136,7 +136,7 @@ class _InviteFriendsState extends State<InviteFriends> {
           myText: 'Leave',
           myColor: Colors.blue,
           onPressed: () {
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
           },
         ),

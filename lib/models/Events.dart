@@ -35,7 +35,7 @@ class Events {
   List playerInfo;
 
   // List of al the team id for team events
-  List<dynamic> teamId;
+  String teamId;
 
   // List of the team Info for the team related events
   List teamInfo;
@@ -55,6 +55,9 @@ class Events {
   // contains the type of the event that is 1 -public , 2- private , 3- closed
   int type;
 
+  //Contains teamName
+  String teamName;
+
   // this is a default constructor for event class
   Events(
       {this.eventId,
@@ -72,7 +75,9 @@ class Events {
       this.maxMembers,
       this.status,
       this.notification,
-      this.type});
+      this.type,
+      this.teamId,
+      this.teamName});
 
   //  this is a constructor which can we used to initialise the values of a class
   // when a new class is initialised .
@@ -102,7 +107,7 @@ class Events {
     this.status = status;
     this.notification = [];
   }
-
+//teamName and teamId
   Events.miniEvent(
       {this.eventId,
       this.eventName,
@@ -138,6 +143,48 @@ class Events {
     this.playersId = playersId;
   }
 
+  Events.miniTeamView(
+      String eventId,
+      String eventName,
+      String sportName,
+      String location,
+      DateTime dateTime,
+      String status,
+      String creatorId,
+      String creatorName,
+      int type,
+      List<dynamic> playersId,
+      String teamName,
+      String teamId) {
+    this.eventId = eventId;
+    this.eventName = eventName;
+    this.location = location;
+    this.dateTime = dateTime;
+    this.sportName = sportName;
+    this.status = status;
+    this.creatorId = creatorId;
+    this.creatorName = creatorName;
+    this.type = type;
+    this.playersId = playersId;
+    this.teamId = teamId;
+    this.teamName = teamName;
+  }
+
+  Map<String, dynamic> miniTeamtoJson() => {
+        'eventId': eventId,
+        'eventName': eventName,
+        'location': location,
+        'sportName': sportName,
+        'dateTime': dateTime,
+        'creatorId': creatorId,
+        'creatorName': creatorName,
+        'type': type,
+        'playersId': playersId,
+        'status': status,
+        'teamName': teamName,
+        'teamId': teamId,
+      };
+
   Map<String, dynamic> minitoJson() => {
         'eventId': eventId,
         'eventName': eventName,
@@ -164,6 +211,8 @@ class Events {
       type: data['type'],
       playersId: data['playersId'],
       status: data['status'],
+      teamName: data['teamName'] ?? "",
+      teamId: data['teamId'] ?? "",
     );
   }
 

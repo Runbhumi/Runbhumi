@@ -130,6 +130,31 @@ addEventToUser(
   //EventService().addUserToEvent(id);
 }
 
+addTeamEventToUser(
+    String id,
+    String eventName,
+    String sportName,
+    String location,
+    DateTime dateTime,
+    String creatorId,
+    String creatorName,
+    String status,
+    int type,
+    List<dynamic> playersId,
+    String teamName,
+    String teamId) {
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(Constants.prefs.get('userId'))
+      .collection('userEvent')
+      .doc(id)
+      .set(Events.miniTeamView(id, eventName, sportName, location, dateTime,
+              status, creatorId, creatorName, type, playersId, teamName, teamId)
+          .miniTeamtoJson());
+  //UserService().updateEventCount(1);
+  //EventService().addUserToEvent(id);
+}
+
 registerUserToEvent(
     String id,
     String eventName,
@@ -192,7 +217,7 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         {'teamName': team.teamName, 'teamId': team.teamId}
       ])
     });
-    addEventToUser(
+    addTeamEventToUser(
         event.eventId,
         event.eventName,
         event.sportName,
@@ -202,7 +227,9 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         event.creatorName,
         event.status,
         event.type,
-        event.playersId);
+        event.playersId,
+        team.teamName,
+        team.teamId);
     await CustomMessageServices()
         .sendEventAcceptEventChatCustomMessage(event.eventId, team.teamName);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
@@ -236,10 +263,13 @@ leaveEvent(Events data) async {
       'participants': FieldValue.arrayRemove([userId]),
     }, SetOptions(merge: true));
   } else if (data.status == 'team') {
-    //TODO: Logic fix for deleting the team associated with this user
     FirebaseFirestore.instance.collection('events').doc(data.eventId).set({
       'playersId': FieldValue.arrayRemove([userId]),
       'participants': FieldValue.arrayRemove([userId]),
+      'teamsId': FieldValue.arrayRemove([data.teamId]),
+      'teamInfo': FieldValue.arrayRemove([
+        {'teamName': data.teamName, 'teamId': data.teamId}
+      ])
     }, SetOptions(merge: true));
   }
   //UserService().updateEventCount(-1);
@@ -249,7 +279,6 @@ leaveEvent(Events data) async {
 
 deleteEvent(id) async {
   getEventInfo(id);
-  print('I am here');
   await FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))

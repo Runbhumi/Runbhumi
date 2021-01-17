@@ -5,6 +5,7 @@ import 'package:Runbhumi/utils/theme_config.dart';
 // import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'view/payments/cards.dart';
 import 'view/views.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/editprofile': (context) => EditProfile(),
         '/testing': (context) => Testing(),
         '/createteam': (context) => CreateTeam(),
+        '/cards': (context) => Cards(),
       },
       //theme
       theme: Provider.of<ThemeNotifier>(context).currentTheme,

@@ -49,7 +49,6 @@ class _MessagePageState extends State<MessagePage> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Expanded(child: DirectChats()),
               Expanded(
                 child: TabBarView(
                   children: [
@@ -213,8 +212,12 @@ class _TeamChatsState extends State<TeamChats> {
                       leading: Image.asset(sportIcon),
                       title: Row(
                         children: [
-                          Text(
-                            data.teamName,
+                          Flexible(
+                            child: Text(
+                              data.teamName,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                           data.verified == 'Y'
                               ? Icon(

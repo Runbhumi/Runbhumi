@@ -87,7 +87,7 @@ class _GauthPageState extends State<GauthPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: GoogleOauth(),
             ),
             Padding(

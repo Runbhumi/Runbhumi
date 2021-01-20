@@ -29,9 +29,8 @@ class _GoogleOauthState extends State<GoogleOauth> {
             });
           },
           borderSide: BorderSide(
-            color: Theme.of(context).backgroundColor.withOpacity(0.7),
-            width: 2.0
-          ),
+              color: Theme.of(context).backgroundColor.withOpacity(0.7),
+              width: 2.0),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

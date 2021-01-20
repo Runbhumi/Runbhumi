@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../widget/widgets.dart';
 import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ class _GauthPageState extends State<GauthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(elevation: 0, title: buildTitle(context, "Runbhumi")),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -22,7 +26,6 @@ class _GauthPageState extends State<GauthPage> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
               child: Image(
-                // image: AssetImage('assets/login.png'),
                 image: AssetImage('assets/basketballGuy.png'),
               ),
             ),
@@ -83,7 +86,44 @@ class _GauthPageState extends State<GauthPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            GoogleOauth(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:24.0),
+              child: GoogleOauth(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'By continuing you agree to our ',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Privacy Policy',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch('https://runbhumi.vercel.app/privacy-policy');
+                        },
+                    ),
+                    TextSpan(text: ' and '),
+                    TextSpan(
+                      text: 'Terms & Conditions',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch(
+                              'https://runbhumi.vercel.app/terms-and-condition');
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(
               height: 20,
             ),

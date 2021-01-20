@@ -26,12 +26,16 @@ class _DrawerBodyState extends State<DrawerBody> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Spacer(),
         Padding(
           padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 24,
+                ),
                 Text(
                   "Hello,",
                   style: TextStyle(
@@ -145,6 +149,49 @@ class _DrawerBodyState extends State<DrawerBody> {
             color: Colors.white,
           ),
         ),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 0, 0, 36),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  launch('https://runbhumi.vercel.app/privacy-policy');
+                },
+                child: Text(
+                  "Privacy Policy",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 8),
+              GestureDetector(
+                onTap: () {
+                  launch('https://runbhumi.vercel.app/terms-and-condition');
+                },
+                child: Text(
+                  "Terms & Conditions",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                "© 2020-2021 Runbhumi",
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Spacer(),
       ],
     );
   }

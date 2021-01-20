@@ -179,25 +179,25 @@ class _TeamsListState extends State<TeamsList>
                           alwaysShowingChild: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  height: 30,
-                                  child: Stack(
-                                    children: [
-                                      Stack(
-                                        // scrollDirection: Axis.horizontal,
-                                        children: [
-                                          PlayerPreview1(),
-                                          PlayerPreview2(),
-                                          PlayerPreview3(),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 8.0),
+                              //   child: Container(
+                              //     height: 30,
+                              //     child: Stack(
+                              //       children: [
+                              //         Stack(
+                              //           // scrollDirection: Axis.horizontal,
+                              //           children: [
+                              //             PlayerPreview1(),
+                              //             PlayerPreview2(),
+                              //             PlayerPreview3(),
+                              //           ],
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

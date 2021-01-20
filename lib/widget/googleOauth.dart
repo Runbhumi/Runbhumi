@@ -29,7 +29,8 @@ class _GoogleOauthState extends State<GoogleOauth> {
             });
           },
           borderSide: BorderSide(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).backgroundColor.withOpacity(0.7),
+            width: 2.0
           ),
           child: Center(
             child: Row(
@@ -59,7 +60,7 @@ class _GoogleOauthState extends State<GoogleOauth> {
             ),
           ),
           shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(30.0),
+            borderRadius: new BorderRadius.circular(16.0),
           ),
         ),
       ],

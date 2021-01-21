@@ -16,6 +16,7 @@ import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:provider/provider.dart';
 import '../Chats/inviteFriends.dart';
 
@@ -210,25 +211,34 @@ class _CreateTeamState extends State<CreateTeam> {
                   myText: "Create Team",
                   myColor: Theme.of(context).primaryColor,
                   onPressed: () {
-                    //------- Code to create a team just remember to pass all the arguments ---------------
-
-                    team = TeamService().createNewTeam(_chosenSport,
-                        _nameController.text, _descController.text, _type);
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        //wait for 3 sec
-                        Future.delayed(Duration(seconds: 3), () {
-                          //This will be replaced by actual team IDs
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      InviteFriends(team: team)));
-                        });
-                        return successDialog(context);
-                      },
-                    );
+                    if (_createNewTeamkey.currentState.validate() &&
+                        _chosenSport != null) {
+                      //------- Code to create a team just remember to pass all the arguments ---------------
+                      team = TeamService().createNewTeam(_chosenSport,
+                          _nameController.text, _descController.text, _type);
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          //wait for 3 sec
+                          Future.delayed(Duration(seconds: 3), () {
+                            //This will be replaced by actual team IDs
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        InviteFriends(team: team)));
+                          });
+                          return successDialog(context);
+                        },
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return inValidInput(context);
+                        },
+                      );
+                    }
                   },
                 ),
               ),
@@ -253,6 +263,35 @@ SimpleDialog successDialog(BuildContext context) {
           child: Text("Team Created",
               style: Theme.of(context).textTheme.headline4)),
       Image.asset("assets/confirmation-illustration.png"),
+    ],
+  );
+}
+
+SimpleDialog inValidInput(BuildContext context) {
+  return SimpleDialog(
+    title: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Icon(
+            Feather.info,
+            size: 64,
+          )),
+        ),
+        Center(child: Text("Invalid Input")),
+      ],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+            child: Text("The given input is invalid, please try again",
+                style: Theme.of(context).textTheme.subtitle1)),
+      ),
     ],
   );
 }

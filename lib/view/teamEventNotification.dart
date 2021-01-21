@@ -81,7 +81,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                       NotificationServices()
                                           .teamEventNotification(
                                               widget.data, data)
-                                          .then(Navigator.push(
+                                          .then(Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
@@ -89,7 +89,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                     } else {
                                       //public
                                       addTeamToEvent(widget.data, data);
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>

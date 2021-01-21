@@ -653,7 +653,7 @@ confirmationPopup2(BuildContext context, String teamId, String manager) {
             // FriendServices().removeFriend(id1, id2);
             TeamService().deleteTeam(manager, teamId);
             Navigator.pop(context);
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
           },
           color: Color.fromRGBO(128, 128, 128, 0),

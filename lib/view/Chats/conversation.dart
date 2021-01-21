@@ -196,12 +196,14 @@ class _ConversationState extends State<Conversation> {
                   children: [
                     Expanded(
                       child: TextField(
+                        maxLength: 256,
                         onTap: () {
                           _controller
                               .jumpTo(_controller.position.minScrollExtent);
                         },
                         controller: messageEditingController,
                         decoration: InputDecoration(
+                          counterText: "",
                           hintText: "Message ...",
                           hintStyle: TextStyle(
                             color: Colors.grey,

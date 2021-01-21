@@ -462,34 +462,45 @@ class _Page1State extends State<Page1> {
                       // this funtion writes in the DB and adds an
                       // event when manually testing anything,
                       // just comment this function
-                      if (userTokens > 0) {
-                        createNewEvent(
-                            widget._nameController.text,
-                            userId,
-                            name,
-                            widget._locationController.text,
-                            widget._chosenSport,
-                            widget._descController.text,
-                            [userId],
-                            DateTime.parse(widget._datetime.text),
-                            widget._maxMembers.toInt(),
-                            widget._status,
-                            widget._type,
-                            false,
-                            true);
-                        // to show success dialog
+                      if (widget._addpostkey.currentState.validate() &&
+                          widget._descController.text != null &&
+                          widget._datetime.text != null) {
+                        if (userTokens > 0) {
+                          createNewEvent(
+                              widget._nameController.text,
+                              userId,
+                              name,
+                              widget._locationController.text,
+                              widget._chosenSport,
+                              widget._descController.text,
+                              [userId],
+                              DateTime.parse(widget._datetime.text),
+                              widget._maxMembers.toInt(),
+                              widget._status,
+                              widget._type,
+                              false,
+                              true);
+                          // to show success dialog
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              //wait for 3 sec
+                              Future.delayed(Duration(seconds: 3), () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AnimatedBottomBar()));
+                              });
+                              return successDialog(context);
+                            },
+                          );
+                        }
+                      } else {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            //wait for 3 sec
-                            Future.delayed(Duration(seconds: 3), () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          AnimatedBottomBar()));
-                            });
-                            return successDialog(context);
+                            return inValid(context);
                           },
                         );
                       }
@@ -540,3 +551,31 @@ class _Page1State extends State<Page1> {
 //     ),
 //   ];
 // }
+SimpleDialog inValid(BuildContext context) {
+  return SimpleDialog(
+    title: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Icon(
+            Feather.info,
+            size: 64,
+          )),
+        ),
+        Center(child: Text("Invalid Input")),
+      ],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+            child: Text("The given input is invalid, please try again",
+                style: Theme.of(context).textTheme.subtitle1)),
+      ),
+    ],
+  );
+}

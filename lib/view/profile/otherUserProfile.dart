@@ -176,8 +176,8 @@ class UserProfile extends StatelessWidget {
           OutlineButton(
             padding: const EdgeInsets.all(16.0),
             borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-              width: 2.0,
+              color: Theme.of(context).primaryColor.withOpacity(0.4),
+              width: 4.0,
             ),
             highlightedBorderColor: Theme.of(context).primaryColor,
             color: Theme.of(context).primaryColor,
@@ -186,7 +186,7 @@ class UserProfile extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
+                borderRadius: BorderRadius.circular(16.0)),
             onPressed: () {},
           ),
         if (data['userId'] != _id &&

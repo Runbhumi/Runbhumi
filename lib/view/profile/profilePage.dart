@@ -29,7 +29,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 250),
+      duration: Duration(milliseconds: 300),
     );
     sub = db
         .collection('users')
@@ -109,8 +109,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       body: DrawerBody(),
     );
 
-    var _myDuration = Duration(milliseconds: 250);
+    var _myDuration = Duration(milliseconds: 300);
     var myChild = CustomAnimatedContainer(
+      curve: Curves.easeInOut,
       clipBehavior: Clip.antiAlias,
       duration: _myDuration,
       decoration: BoxDecoration(

@@ -26,26 +26,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _statusText = "Waiting...";
-  final String _finished = "Finished creating channel";
-  final String _error = "Error while creating channel";
   static const MethodChannel _channel =
       MethodChannel('testing.com/channel_test');
 
   Map<String, String> channelMap = {
     "id": "Notifications",
-    "name": "Testing",
+    "name": "Show Notifications",
     "description": "All Notifications",
   };
   void _createNewChannel() async {
     try {
       await _channel.invokeMethod('createNotificationChannel', channelMap);
-      setState(() {
-        _statusText = _finished;
-      });
+      setState(() {});
     } on PlatformException catch (e) {
-      _statusText = _error;
-      print(e);
+      print(e.toString());
     }
   }
 

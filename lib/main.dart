@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'view/payments/cards.dart';
 import 'view/views.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 Future main() async {
   // initialize shared prefs
@@ -19,8 +20,34 @@ Future main() async {
   ], child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  static const MethodChannel _channel =
+      MethodChannel('testing.com/channel_test');
+
+  Map<String, String> channelMap = {
+    "id": "Notifications",
+    "name": "Show Notifications",
+    "description": "All Notifications",
+  };
+  void _createNewChannel() async {
+    try {
+      await _channel.invokeMethod('createNotificationChannel', channelMap);
+      setState(() {});
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _createNewChannel();
+  }
 
   @override
   Widget build(BuildContext context) {

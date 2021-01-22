@@ -1,4 +1,5 @@
 import 'package:Runbhumi/services/auth.dart';
+import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -23,14 +24,20 @@ class _GoogleOauthState extends State<GoogleOauth> {
           color: Colors.white,
           onPressed: () async {
             setState(() => state = true);
-            await signInWithGoogle().whenComplete(() {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
+            await signInWithGoogle().catchError((err) {
+              setState(() => state = false);
+            }).then((_) {
+              if (Constants.prefs.getString('userId') != null) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AnimatedBottomBar()));
+              }
             });
           },
           borderSide: BorderSide(
-            color: Theme.of(context).backgroundColor,
-          ),
+              color: Theme.of(context).backgroundColor.withOpacity(0.7),
+              width: 2.0),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +66,7 @@ class _GoogleOauthState extends State<GoogleOauth> {
             ),
           ),
           shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(30.0),
+            borderRadius: new BorderRadius.circular(16.0),
           ),
         ),
       ],

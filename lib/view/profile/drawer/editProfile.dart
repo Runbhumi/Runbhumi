@@ -209,9 +209,10 @@ class _EditProfileState extends State<EditProfile> {
                   hintText: 'Name',
                 ),
                 InputBox(
+                  maxLength: 100,
                   controller: bioTextEditingController,
                   textInputType: TextInputType.multiline,
-                  helpertext: 'Use at max 200 characters',
+                  helpertext: 'Use at max 100 characters',
                   hintText: 'Bio',
                 ),
                 Padding(

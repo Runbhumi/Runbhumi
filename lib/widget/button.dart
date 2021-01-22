@@ -36,7 +36,7 @@ class _ButtonState extends State<Button> {
             Navigator.pushNamed(context, widget.routeName);
           },
       shape: new RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(30.0),
+        borderRadius: new BorderRadius.circular(16.0),
       ),
     );
   }

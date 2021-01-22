@@ -505,35 +505,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                     )
                   :
                   // this comes when there is no event happening
-                  Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Center(
-                            child: Image.asset("assets/notification.png",
-                                width: 300),
-                          ),
-                          Text(
-                            "Didn't find any event, create one",
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                          Button(
-                            myColor: Theme.of(context).primaryColor,
-                            myText: "Add Event",
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return AddPost();
-                                  },
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                    )
+                  ExploreEventEmptyState()
               : Loader(),
         );
       },
@@ -607,6 +579,44 @@ class _ExploreEventsState extends State<ExploreEvents> {
           Feather.plus,
           size: 32,
         ),
+      ),
+    );
+  }
+}
+
+class ExploreEventEmptyState extends StatelessWidget {
+  const ExploreEventEmptyState({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Center(
+            child: Image.asset("assets/notification.png", width: 300),
+          ),
+          Text(
+            "Didn't find any event, create one",
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          Button(
+            myColor: Theme.of(context).primaryColor,
+            myText: "Add Event",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddPost();
+                  },
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }

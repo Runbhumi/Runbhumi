@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class InputBox extends StatelessWidget {
   final String initialValue;
+  final int maxLength;
   final bool enabled;
   final String hintText;
   final String labelText;
@@ -20,6 +21,7 @@ class InputBox extends StatelessWidget {
 
   InputBox({
     this.initialValue,
+    this.maxLength,
     this.enabled,
     this.hintText,
     this.labelText,
@@ -46,6 +48,7 @@ class InputBox extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width / 1.2,
         child: TextFormField(
+          maxLength: maxLength,
           obscureText: obscureText,
           enabled: enabled,
           onChanged: onChange,

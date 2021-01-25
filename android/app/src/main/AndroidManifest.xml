@@ -53,6 +53,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="update_notification_channel"/>    
         <!-- this is used for using google maps -->
         <meta-data 
             android:name="com.google.android.geo.API_KEY"

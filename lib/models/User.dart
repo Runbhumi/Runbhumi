@@ -51,7 +51,7 @@ class UserProfile {
     this.teamsCount = 0;
     this.eventCount = 0;
     this.friends = [];
-    this.eventTokens = 0;
+    this.eventTokens = 3;
   }
 
   UserProfile.miniView(String userId, String name, String profileImage) {

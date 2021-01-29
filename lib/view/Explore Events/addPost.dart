@@ -135,13 +135,13 @@ class _AddPostState extends State<AddPost> {
           IconButton(
               icon: Icon(Feather.info),
               onPressed: () {
-                Navigator.pushNamed(context, "/cards");
-                // showDialog(
-                //   context: context,
-                //   builder: (context) {
-                //     return infoDialog(context);
-                //   },
-                // );
+                //Navigator.pushNamed(context, "/cards");
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return infoDialog(context);
+                  },
+                );
               })
         ],
       ),
@@ -574,6 +574,36 @@ SimpleDialog inValid(BuildContext context) {
         padding: const EdgeInsets.all(16.0),
         child: Center(
             child: Text("The given input is invalid, please try again",
+                style: Theme.of(context).textTheme.subtitle1)),
+      ),
+    ],
+  );
+}
+
+SimpleDialog infoDialog(BuildContext context) {
+  return SimpleDialog(
+    title: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Icon(
+            Feather.info,
+            size: 64,
+          )),
+        ),
+        Center(child: Text("This is a premium feature")),
+      ],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+            child: Text(
+                "In order to use Runbhumi as a platform to host and advertise sporting tournaments you would need tokens. Please contact sales for more detailes",
                 style: Theme.of(context).textTheme.subtitle1)),
       ),
     ],

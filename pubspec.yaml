@@ -50,9 +50,12 @@ dependencies:
   # connectivity_widget: ^0.1.7
 
   #stripe_payments
-  stripe_payment: ^1.0.9
+  # stripe_payment: ^1.0.9
   #icons
   flutter_icons: ^1.1.0
+
+  #modal_progress_hud
+  #modal_progress_hud: ^0.1.3
 
   #http
   http: ^0.12.2

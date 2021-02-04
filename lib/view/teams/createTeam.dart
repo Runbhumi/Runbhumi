@@ -41,6 +41,38 @@ class _CreateTeamState extends State<CreateTeam> {
   //   "Telangana",
   // ];
   String _type = "public";
+  SimpleDialog teamTypeInfo(BuildContext context) {
+    return SimpleDialog(
+      title: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Icon(
+              Feather.info,
+              size: 64,
+            )),
+          ),
+          Center(child: Text("What is a status")),
+        ],
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+              child: Text(
+                  "Public: Anyone can join the Team until it gets full" +
+                      '\n' +
+                      "Private: You will be notified when someone tries to join your team. You can then accept or decline the request.",
+                  style: Theme.of(context).textTheme.subtitle1)),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //sports
@@ -142,6 +174,36 @@ class _CreateTeamState extends State<CreateTeam> {
                     //   },
                     //   suggestionsAmount: 5,
                     // ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0, vertical: 4.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            'What type is the team?',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .backgroundColor
+                                  .withOpacity(0.35),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                          IconButton(
+                              icon: Icon(Feather.info),
+                              iconSize: 15.0,
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return teamTypeInfo(context);
+                                  },
+                                );
+                              })
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: Card(

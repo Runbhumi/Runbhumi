@@ -463,7 +463,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                               data.creatorName,
                                                               data.status,
                                                               data.type,
-                                                              data.playersId);
+                                                              data.playersId,
+                                                              data.paid);
                                                           print(
                                                               "User Registered");
                                                           EventService()

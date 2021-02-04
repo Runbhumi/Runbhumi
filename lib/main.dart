@@ -6,7 +6,6 @@ import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 // import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'view/payments/cards.dart';
 import 'view/views.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
@@ -74,19 +73,10 @@ class _MyAppState extends State<MyApp> {
           '/editprofile': (context) => EditProfile(),
           '/testing': (context) => Testing(),
           '/createteam': (context) => CreateTeam(),
-          '/cards': (context) => Cards(),
+          //'/cards': (context) => Cards(),
         },
         //theme
         theme: Provider.of<ThemeNotifier>(context).currentTheme,
-        //connectivity widget used to check internet connection
-        // home: ConnectivityWidget(
-        //     showOfflineBanner: false,
-        //     offlineCallback: () {
-        //       print("-----------------we Are offline----------------");
-        //     },
-        //     builder: (context, isOnline) {
-        //       return isOnline ? Splash() : ShowOffline();
-        //     }),
         home: Splash(),
         // debug tag which comes on top left corner
         debugShowCheckedModeBanner: false,

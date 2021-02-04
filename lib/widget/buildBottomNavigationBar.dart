@@ -42,6 +42,8 @@
 // }
 
 import 'package:Runbhumi/view/views.dart';
+import 'package:Runbhumi/widget/showOffline.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -62,7 +64,10 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: getPage(_currentPage),
+      body: ConnectivityWidgetWrapper(
+        offlineWidget: ShowOffline(),
+        child: getPage(_currentPage),
+      ),
       bottomNavigationBar: AnimatedBottomNav(
           currentIndex: _currentPage,
           onChange: (index) {

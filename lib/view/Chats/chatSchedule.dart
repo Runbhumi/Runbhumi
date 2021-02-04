@@ -174,7 +174,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             id,
                             'chatroom',
                             4,
-                            widget.users);
+                            widget.users,
+                            'free');
                       }
                       setState(() {
                         _locationController = new TextEditingController();

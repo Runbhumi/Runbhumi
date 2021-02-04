@@ -58,6 +58,9 @@ class Events {
   //Contains teamName
   String teamName;
 
+  //Checks if this event is paid or not
+  String paid;
+
   // this is a default constructor for event class
   Events(
       {this.eventId,
@@ -77,7 +80,8 @@ class Events {
       this.notification,
       this.type,
       this.teamId,
-      this.teamName});
+      this.teamName,
+      this.paid});
 
   //  this is a constructor which can we used to initialise the values of a class
   // when a new class is initialised .
@@ -91,7 +95,8 @@ class Events {
       DateTime dateTime,
       int maxMembers,
       String status,
-      int type) {
+      int type,
+      String paid) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.creatorId = Constants.prefs.getString('userId');
@@ -106,6 +111,7 @@ class Events {
     this.participants = [Constants.prefs.getString('userId')];
     this.status = status;
     this.notification = [];
+    this.paid = paid;
   }
 //teamName and teamId
   Events.miniEvent(
@@ -118,7 +124,8 @@ class Events {
       this.creatorName,
       this.type,
       this.status,
-      this.playersId});
+      this.playersId,
+      this.paid});
 
   Events.miniView(
       String eventId,
@@ -130,7 +137,8 @@ class Events {
       String creatorId,
       String creatorName,
       int type,
-      List<dynamic> playersId) {
+      List<dynamic> playersId,
+      String paid) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.location = location;
@@ -141,6 +149,7 @@ class Events {
     this.creatorName = creatorName;
     this.type = type;
     this.playersId = playersId;
+    this.paid = paid;
   }
 
   Events.miniTeamView(
@@ -155,7 +164,8 @@ class Events {
       int type,
       List<dynamic> playersId,
       String teamName,
-      String teamId) {
+      String teamId,
+      String paid) {
     this.eventId = eventId;
     this.eventName = eventName;
     this.location = location;
@@ -168,6 +178,7 @@ class Events {
     this.playersId = playersId;
     this.teamId = teamId;
     this.teamName = teamName;
+    this.paid = paid;
   }
 
   Map<String, dynamic> miniTeamtoJson() => {
@@ -183,6 +194,7 @@ class Events {
         'status': status,
         'teamName': teamName,
         'teamId': teamId,
+        'paid': paid,
       };
 
   Map<String, dynamic> minitoJson() => {
@@ -196,6 +208,7 @@ class Events {
         'type': type,
         'playersId': playersId,
         'status': status,
+        'paid': paid
       };
 
   factory Events.fromMiniJson(QueryDocumentSnapshot snapshot) {
@@ -213,6 +226,7 @@ class Events {
       status: data['status'],
       teamName: data['teamName'] ?? "",
       teamId: data['teamId'] ?? "",
+      paid: data['paid'] ?? "",
     );
   }
 
@@ -230,7 +244,8 @@ class Events {
         'type': this.type,
         'status': this.status,
         'notificationPlayers': this.notification,
-        'participants': this.participants
+        'participants': this.participants,
+        'paid': this.paid,
       };
 
   // takes a query snapshot as a input and returns a the events class
@@ -252,7 +267,8 @@ class Events {
         type: data['type'],
         status: data['status'],
         notification: data['notificationPlayers'],
-        participants: data['participants']);
+        participants: data['participants'],
+        paid: data['paid']);
   }
 
   // takes a map as a input and returns a the events class
@@ -272,7 +288,8 @@ class Events {
         type: data['type'],
         status: data['status'],
         notification: data['notificationPlayers'],
-        participants: data['participants']);
+        participants: data['participants'],
+        paid: data['paid']);
   }
 
   /* 

@@ -1,5 +1,6 @@
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 // import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:Runbhumi/widget/showOffline.dart';
 // import 'package:connectivity_widget/connectivity_widget.dart';
@@ -58,36 +59,38 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //name of app
-      title: 'Runbhumi',
-      // Named Routes
-      routes: {
-        // '/mainapp': (context) => AnimatedBottomNav(),
-        '/addpost': (context) => AddPost(),
-        '/secondpage': (context) => GauthPage(),
-        '/moreinfo': (context) => MoreInfo(),
-        '/network': (context) => MessagePage(),
-        '/profile': (context) => Profile(),
-        '/editprofile': (context) => EditProfile(),
-        '/testing': (context) => Testing(),
-        '/createteam': (context) => CreateTeam(),
-        '/cards': (context) => Cards(),
-      },
-      //theme
-      theme: Provider.of<ThemeNotifier>(context).currentTheme,
-      //connectivity widget used to check internet connection
-      // home: ConnectivityWidget(
-      //     showOfflineBanner: false,
-      //     offlineCallback: () {
-      //       print("-----------------we Are offline----------------");
-      //     },
-      //     builder: (context, isOnline) {
-      //       return isOnline ? Splash() : ShowOffline();
-      //     }),
-      home: Splash(),
-      // debug tag which comes on top left corner
-      debugShowCheckedModeBanner: false,
+    return ConnectivityAppWrapper(
+      app: MaterialApp(
+        //name of app
+        title: 'Runbhumi',
+        // Named Routes
+        routes: {
+          // '/mainapp': (context) => AnimatedBottomNav(),
+          '/addpost': (context) => AddPost(),
+          '/secondpage': (context) => GauthPage(),
+          '/moreinfo': (context) => MoreInfo(),
+          '/network': (context) => MessagePage(),
+          '/profile': (context) => Profile(),
+          '/editprofile': (context) => EditProfile(),
+          '/testing': (context) => Testing(),
+          '/createteam': (context) => CreateTeam(),
+          '/cards': (context) => Cards(),
+        },
+        //theme
+        theme: Provider.of<ThemeNotifier>(context).currentTheme,
+        //connectivity widget used to check internet connection
+        // home: ConnectivityWidget(
+        //     showOfflineBanner: false,
+        //     offlineCallback: () {
+        //       print("-----------------we Are offline----------------");
+        //     },
+        //     builder: (context, isOnline) {
+        //       return isOnline ? Splash() : ShowOffline();
+        //     }),
+        home: Splash(),
+        // debug tag which comes on top left corner
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

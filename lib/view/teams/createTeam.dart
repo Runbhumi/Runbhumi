@@ -10,6 +10,8 @@ closed(lowercase)- is when the team is not accepting invites or any new player
 */
 
 import 'package:Runbhumi/models/models.dart';
+import 'package:Runbhumi/widget/showOffline.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:Runbhumi/services/services.dart';
 // import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
@@ -109,7 +111,9 @@ class _CreateTeamState extends State<CreateTeam> {
         title: buildTitle(context, "Make a new Team"),
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
+      body: ConnectivityWidgetWrapper(
+        offlineWidget: ShowOffline(),
+        child:SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
@@ -311,6 +315,7 @@ class _CreateTeamState extends State<CreateTeam> {
           ),
         ),
       ),
+    ),
     );
   }
 }

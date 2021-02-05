@@ -57,7 +57,7 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
 
   @override
   void initState() {
-    _currentPage = 2;
+    _currentPage = 0;
     super.initState();
   }
 

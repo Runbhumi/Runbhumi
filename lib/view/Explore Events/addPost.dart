@@ -8,9 +8,11 @@ import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/customBackButton.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:Runbhumi/widget/showOffline.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
@@ -704,6 +706,10 @@ SimpleDialog inValid(BuildContext context) {
   );
 }
 
+final Uri _emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'runbhumi12@gmail.com',
+    queryParameters: {'subject': 'Token Request'});
 SimpleDialog infoDialog(BuildContext context) {
   return SimpleDialog(
     title: Column(
@@ -726,9 +732,23 @@ SimpleDialog infoDialog(BuildContext context) {
       Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-            child: Text(
-                "In order to use Runbhumi as a platform to host and advertise sporting tournaments you would need tokens. Please contact sales for more details",
-                style: Theme.of(context).textTheme.subtitle1)),
+          child: RichText(
+            text: TextSpan(children: [
+              new TextSpan(
+                  text:
+                      "In order to use Runbhumi as a platform to host and advertise sporting tournaments you would need tokens. \n",
+                  style: Theme.of(context).textTheme.subtitle1),
+              new TextSpan(
+                  //TODO: update the UI for this part
+                  text: "Please click here to contact sales for tokens",
+                  style: Theme.of(context).textTheme.subtitle1,
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () {
+                      launch(_emailLaunchUri.toString());
+                    }),
+            ]),
+          ),
+        ),
       ),
     ],
   );

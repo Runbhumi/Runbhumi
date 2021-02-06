@@ -127,7 +127,7 @@ class _EventChatsState extends State<EventChats> {
           } else {
             return Container(
               child: Center(
-                child: Image.asset("assets/add-friends.png"),
+                child: Image.asset("assets/team chat.png"),
               ),
             );
           }
@@ -368,8 +368,9 @@ class _DirectChatsState extends State<DirectChats> {
             );
           } else {
             return Container(
+              padding: EdgeInsets.all(16),
               child: Center(
-                child: Image.asset("assets/add-friends.png"),
+                child: Image.asset("assets/chatting_illustration.png"),
               ),
             );
           }

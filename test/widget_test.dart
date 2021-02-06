@@ -35,7 +35,7 @@ void main() {
       body: InputBox(hintText: "inp"),
     ),
   );
-  MaterialApp secondPageUI = MaterialApp(
+  MaterialApp gauthPageUI = MaterialApp(
     home: Scaffold(body: SafeArea(child: GauthPage())),
   );
   MaterialApp googleOauthBigUI = MaterialApp(
@@ -49,12 +49,12 @@ void main() {
 
     expect(find.byType(TextFormField), findsNWidgets(1));
   });
-  testWidgets('secondPageUI test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(secondPageUI);
+  // testWidgets('GauthPageUI test', (WidgetTester tester) async {
+  //   // Build our app and trigger a frame.
+  //   await tester.pumpWidget(gauthPageUI);
 
-    expect(find.byType(Column), findsNWidgets(1));
-  });
+  //   expect(find.byType(Column), findsNWidgets(1));
+  // });
   testWidgets('GoogleOauthBig UI Test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(googleOauthBigUI);

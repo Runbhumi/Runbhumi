@@ -14,6 +14,9 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:Runbhumi/widget/showOffline.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+
 // status map
 
 // 1 - public
@@ -165,34 +168,37 @@ class _AddPostState extends State<AddPost> {
               })
         ],
       ),
-      body: Container(
-        child: PageView(
-          controller: _addPostPageController,
-          children: [
-            Page1(
-              theme: theme,
-              addpostkey: _addpostkey,
-              nameController: _nameController,
-              sportsList: sportsList,
-              datetime: _datetime,
-              locationController: _locationController,
-              descController: _descController,
-              slider: slider,
-              chosenSport: _chosenSport,
-              maxMembers: _maxMembers,
-              status: _status,
-              type: _type,
-              publicRadio: publicRadio,
-              privateRadio: privateRadio,
-              teamRadio: teamRadio,
-              individualRadio: individualRadio,
-              paid: _paid,
-              paidRadio: paidRadio,
-              notPaidRadio: notPaidRadio,
-            ),
-            // MyPage2Widget(),
-            // MyPage3Widget(),
-          ],
+      body: ConnectivityWidgetWrapper(
+        offlineWidget: ShowOffline(),
+        child: Container(
+          child: PageView(
+            controller: _addPostPageController,
+            children: [
+              Page1(
+                theme: theme,
+                addpostkey: _addpostkey,
+                nameController: _nameController,
+                sportsList: sportsList,
+                datetime: _datetime,
+                locationController: _locationController,
+                descController: _descController,
+                slider: slider,
+                chosenSport: _chosenSport,
+                maxMembers: _maxMembers,
+                status: _status,
+                type: _type,
+                publicRadio: publicRadio,
+                privateRadio: privateRadio,
+                teamRadio: teamRadio,
+                individualRadio: individualRadio,
+                paid: _paid,
+                paidRadio: paidRadio,
+                notPaidRadio: notPaidRadio,
+              ),
+              // MyPage2Widget(),
+              // MyPage3Widget(),
+            ],
+          ),
         ),
       ),
     );

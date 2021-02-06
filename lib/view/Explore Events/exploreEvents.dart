@@ -617,7 +617,7 @@ class ExploreEventEmptyState extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Center(
-            child: Image.asset("assets/notification.png", width: 300),
+            child: Image.asset("assets/post_online.png", width: 300),
           ),
           Text(
             "Didn't find any event, create one",

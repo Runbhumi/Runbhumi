@@ -88,19 +88,20 @@ String createNewEvent(
     String status,
     int type,
     bool challenge,
-    bool payed) {
+    bool payed,
+    String paid) {
   var newDoc = FirebaseFirestore.instance.collection('events').doc();
   String id = newDoc.id;
   newDoc.set(Events.newEvent(id, eventName, location, sportName, description,
-          dateTime, maxMembers, status, type)
+          dateTime, maxMembers, status, type, paid)
       .toJson());
   if (!challenge && payed) {
     addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
-        creatorName, status, type, playersId);
+        creatorName, status, type, playersId, paid);
     UserService().updateEventTokens(-1);
   } else if (!challenge && !payed) {
     addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
-        creatorName, status, type, playersId);
+        creatorName, status, type, playersId, paid);
   } else {
     EventService().addUserToEvent(id);
   }
@@ -117,14 +118,15 @@ addEventToUser(
     String creatorName,
     String status,
     int type,
-    List<dynamic> playersId) {
+    List<dynamic> playersId,
+    String paid) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
       .collection('userEvent')
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime, status,
-              creatorId, creatorName, type, playersId)
+              creatorId, creatorName, type, playersId, paid)
           .minitoJson());
   //UserService().updateEventCount(1);
   //EventService().addUserToEvent(id);
@@ -142,14 +144,27 @@ addTeamEventToUser(
     int type,
     List<dynamic> playersId,
     String teamName,
-    String teamId) {
+    String teamId,
+    String paid) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(Constants.prefs.get('userId'))
       .collection('userEvent')
       .doc(id)
-      .set(Events.miniTeamView(id, eventName, sportName, location, dateTime,
-              status, creatorId, creatorName, type, playersId, teamName, teamId)
+      .set(Events.miniTeamView(
+              id,
+              eventName,
+              sportName,
+              location,
+              dateTime,
+              status,
+              creatorId,
+              creatorName,
+              type,
+              playersId,
+              teamName,
+              teamId,
+              paid)
           .miniTeamtoJson());
   //UserService().updateEventCount(1);
   //EventService().addUserToEvent(id);
@@ -165,9 +180,10 @@ registerUserToEvent(
     String creatorName,
     String status,
     int type,
-    List<dynamic> playersId) {
+    List<dynamic> playersId,
+    String paid) {
   addEventToUser(id, eventName, sportName, location, dateTime, creatorId,
-      creatorName, status, type, playersId);
+      creatorName, status, type, playersId, paid);
 }
 
 addScheduleToUser(
@@ -181,14 +197,15 @@ addScheduleToUser(
     String eventId,
     String status,
     int type,
-    List<dynamic> playersId) {
+    List<dynamic> playersId,
+    String paid) {
   FirebaseFirestore.instance
       .collection('users')
       .doc(userId)
       .collection('userEvent')
       .doc(eventId)
       .set(Events.miniView(eventId, eventName, sportName, location, dateTime,
-              status, creatorId, creatorName, type, playersId)
+              status, creatorId, creatorName, type, playersId, paid)
           .minitoJson());
 }
 
@@ -229,7 +246,8 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         event.type,
         event.playersId,
         team.teamName,
-        team.teamId);
+        team.teamId,
+        event.paid);
     await CustomMessageServices()
         .sendEventAcceptEventChatCustomMessage(event.eventId, team.teamName);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(

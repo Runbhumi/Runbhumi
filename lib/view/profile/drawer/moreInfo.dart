@@ -1,37 +1,38 @@
 import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/widget/contributers/contributor_detail_model.dart';
-import 'package:Runbhumi/widget/contributers/contributors_card_model.dart';
-import 'package:Runbhumi/widget/contributers/contributors_data_model.dart';
+// import 'package:Runbhumi/widget/contributers/contributor_detail_model.dart';
+// import 'package:Runbhumi/widget/contributers/contributors_card_model.dart';
+// import 'package:Runbhumi/widget/contributers/contributors_data_model.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:http/http.dart' as http;
+//import 'package:flutter_icons/flutter_icons.dart';
+// import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class MoreInfo extends StatefulWidget {
   @override
   _MoreInfoState createState() => _MoreInfoState();
 }
 
-class _MoreInfoState extends State<MoreInfo>
-    with AutomaticKeepAliveClientMixin {
-  List<ContributorCard> cardList = [];
-  @override
-  void initState() {
-    super.initState();
-    getContributors(username: 'Runbhumi', repository: 'Runbhumi').then((cards) {
-      setState(() {
-        cardList = cards;
-      });
-    });
-  }
+// class _MoreInfoState extends State<MoreInfo>
+//     with AutomaticKeepAliveClientMixin {
+class _MoreInfoState extends State<MoreInfo> {
+//   List<ContributorCard> cardList = [];
+//   @override
+//   void initState() {
+//     super.initState();
+//     getContributors(username: 'Runbhumi', repository: 'Runbhumi').then((cards) {
+//       setState(() {
+//         cardList = cards;
+//       });
+//     });
+//   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+//     super.build(context);
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
-    final _deviceWidth = MediaQuery.of(context).size.width;
+    //final _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           leading: CustomBackButton(),
@@ -284,46 +285,46 @@ SOFTWARE.''',
     );
   }
 
-  @override
-  bool get wantKeepAlive => true;
+//   @override
+//   bool get wantKeepAlive => true;
 }
 
-Future<List<ContributorCard>> getContributors(
-    {@required String username, @required String repository}) async {
-  const String head = 'https://api.github.com/repos/';
-  const String tail = '/contributors';
-  String url = head + username + '/' + repository + tail;
-  http.Response response = await http.get(url);
-  List<Contributor> contributors = contributorFromJson(response.body);
-  List<ContributorCard> contriCards = [];
-  for (final contributor in contributors) {
-    http.Response contributorResponse =
-        await http.get('https://api.github.com/users/' + contributor.login);
-    ContributorDetail contributorDetail =
-        contributorDetailFromJson(contributorResponse.body);
-    contriCards.add(
-      ContributorCard(
-        userName: contributor.login,
-        name: contributorDetail.name ?? '',
-        desc: contributorDetail.bio ?? '',
-        location: contributorDetail.location ?? '',
-        twitterUsername: contributorDetail.twitterUsername ?? '',
-        displayImgUrl: contributorDetail.avatarUrl,
-        website: contributorDetail.blog.isEmpty
-            ? contributorDetail.htmlUrl
-            : contributorDetail.blog,
-      ),
-    );
-  }
+// Future<List<ContributorCard>> getContributors(
+//     {@required String username, @required String repository}) async {
+//   const String head = 'https://api.github.com/repos/';
+//   const String tail = '/contributors';
+//   String url = head + username + '/' + repository + tail;
+//   http.Response response = await http.get(url);
+//   List<Contributor> contributors = contributorFromJson(response.body);
+//   List<ContributorCard> contriCards = [];
+//   for (final contributor in contributors) {
+//     http.Response contributorResponse =
+//         await http.get('https://api.github.com/users/' + contributor.login);
+//     ContributorDetail contributorDetail =
+//         contributorDetailFromJson(contributorResponse.body);
+//     contriCards.add(
+//       ContributorCard(
+//         userName: contributor.login,
+//         name: contributorDetail.name ?? '',
+//         desc: contributorDetail.bio ?? '',
+//         location: contributorDetail.location ?? '',
+//         twitterUsername: contributorDetail.twitterUsername ?? '',
+//         displayImgUrl: contributorDetail.avatarUrl,
+//         website: contributorDetail.blog.isEmpty
+//             ? contributorDetail.htmlUrl
+//             : contributorDetail.blog,
+//       ),
+//     );
+//   }
 
-  return contriCards;
-}
+//   return contriCards;
+// }
 
-_launchURL(String gurl) async {
-  String url = gurl;
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
+// _launchURL(String gurl) async {
+//   String url = gurl;
+//   if (await canLaunch(url)) {
+//     await launch(url);
+//   } else {
+//     throw 'Could not launch $url';
+//   }
+// }

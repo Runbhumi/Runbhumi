@@ -307,6 +307,29 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
+                              Feather.dollar_sign,
+                              size: 24.0,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          data["paid"] == "paid" ? "Paid" : "Free",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Icon(
                               Feather.calendar,
                               size: 24.0,
                             ),

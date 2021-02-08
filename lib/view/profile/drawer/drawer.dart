@@ -119,7 +119,7 @@ class _DrawerBodyState extends State<DrawerBody> {
         //feedback
         DrawerButton(
           onpressed: () {
-            _launchURL("https://runbhumi.vercel.app/feedback");
+            _launchURL(websiteURL + "feedback");
           },
           label: 'Give Feedback',
           icon: Icon(
@@ -157,7 +157,7 @@ class _DrawerBodyState extends State<DrawerBody> {
             children: [
               GestureDetector(
                 onTap: () {
-                  launch('https://runbhumi.vercel.app/privacy-policy');
+                  launch(websiteURL + 'privacy-policy');
                 },
                 child: Text(
                   "Privacy Policy",
@@ -170,7 +170,7 @@ class _DrawerBodyState extends State<DrawerBody> {
               SizedBox(height: 8),
               GestureDetector(
                 onTap: () {
-                  launch('https://runbhumi.vercel.app/terms-and-condition');
+                  launch(websiteURL + 'terms-and-condition');
                 },
                 child: Text(
                   "Terms & Conditions",
@@ -182,7 +182,7 @@ class _DrawerBodyState extends State<DrawerBody> {
               ),
               SizedBox(height: 8),
               Text(
-                "© 2020-2021 Runbhumi",
+                "© 2020-" + DateTime.now().year.toString() + " Runbhumi",
                 style: TextStyle(
                   color: Colors.white70,
                   fontWeight: FontWeight.bold,
@@ -205,3 +205,5 @@ _launchURL(String gurl) async {
     throw 'Could not launch $url';
   }
 }
+
+var websiteURL = "https://runbhumi-website.vercel.app/";

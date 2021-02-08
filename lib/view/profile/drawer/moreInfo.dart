@@ -44,7 +44,7 @@ class _MoreInfoState extends State<MoreInfo>
                   context: context,
                   builder: (context) => AboutDialog(
                     applicationName: "Runbhumi",
-                    applicationVersion: "v0.7.0",
+                    applicationVersion: "v0.9.0",
                     applicationLegalese: '''
 MIT License
 
@@ -115,170 +115,170 @@ SOFTWARE.''',
                     title: Text("Mohit Reddy"),
                     subtitle: Text("Growth Hacker"))),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
-            child: Text(
-              "Github Contributors",
-              style: TextStyle(
-                color: theme.currentTheme.backgroundColor.withOpacity(0.35),
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.start,
-            ),
-          ),
-          Expanded(
-            child: cardList.isEmpty
-                ? Loader()
-                : Stack(
-                    children: [
-                      ListView.builder(
-                        // Get the List of contributors to the project from the GitHub Api
-                        // Append the details of the card to the cardList
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: cardList.length,
-                        itemBuilder: (ctx, index) {
-                          return Card(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 35,
-                                        backgroundImage: NetworkImage(
-                                            cardList[index].displayImgUrl),
-                                      ),
-                                      SmallButton(
-                                        myColor: Theme.of(context).primaryColor,
-                                        myText: "View Profile",
-                                        onPressed: () {
-                                          _launchURL(cardList[index].website);
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      cardList[index].name.isNotEmpty
-                                          ? Text(
-                                              cardList[index].name,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6,
-                                            )
-                                          : SizedBox(),
-                                      Text(
-                                        cardList[index].userName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      SizedBox(
-                                        width: _deviceWidth / 1.7,
-                                        child: Text(
-                                          cardList[index].desc == ''
-                                              ? 'Contributor'
-                                              : cardList[index].desc,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          maxLines: 2,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      cardList[index].location.isNotEmpty
-                                          ? Row(
-                                              children: [
-                                                Icon(
-                                                  Feather.map_pin,
-                                                  size: 14,
-                                                ),
-                                                Text(
-                                                  cardList[index].location,
-                                                  softWrap: true,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : SizedBox(),
-                                      cardList[index].location.isNotEmpty
-                                          ? SizedBox(
-                                              height: 5,
-                                            )
-                                          : SizedBox(),
-                                      if (cardList[index]
-                                          .twitterUsername
-                                          .isNotEmpty)
-                                        GestureDetector(
-                                          onTap: () {
-                                            _launchURL('https://twitter.com/' +
-                                                cardList[index]
-                                                    .twitterUsername);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              SizedBox(
-                                                height: 14,
-                                                width: 14,
-                                                child: Image.network(
-                                                  'https://img.icons8.com/fluent-systems-filled/344/twitter.png',
-                                                  color: Colors.blueAccent,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Icon(
-                                                Icons.alternate_email,
-                                                size: 14,
-                                                color: Colors.blueAccent,
-                                              ),
-                                              Text(
-                                                cardList[index].twitterUsername,
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.blueAccent),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      else
-                                        SizedBox(),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-          ),
+          // Padding(
+          //   padding:
+          //       const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+          //   child: Text(
+          //     "Github Contributors",
+          //     style: TextStyle(
+          //       color: theme.currentTheme.backgroundColor.withOpacity(0.35),
+          //       fontSize: 17,
+          //       fontWeight: FontWeight.w700,
+          //     ),
+          //     textAlign: TextAlign.start,
+          //   ),
+          // ),
+          // Expanded(
+          //   child: cardList.isEmpty
+          //       ? Loader()
+          //       : Stack(
+          //           children: [
+          //             ListView.builder(
+          //               // Get the List of contributors to the project from the GitHub Api
+          //               // Append the details of the card to the cardList
+          //               scrollDirection: Axis.horizontal,
+          //               shrinkWrap: true,
+          //               itemCount: cardList.length,
+          //               itemBuilder: (ctx, index) {
+          //                 return Card(
+          //                   child: Container(
+          //                     padding: EdgeInsets.symmetric(vertical: 4),
+          //                     child: Row(
+          //                       crossAxisAlignment: CrossAxisAlignment.start,
+          //                       children: [
+          //                         Column(
+          //                           mainAxisAlignment:
+          //                               MainAxisAlignment.spaceBetween,
+          //                           children: [
+          //                             CircleAvatar(
+          //                               radius: 35,
+          //                               backgroundImage: NetworkImage(
+          //                                   cardList[index].displayImgUrl),
+          //                             ),
+          //                             SmallButton(
+          //                               myColor: Theme.of(context).primaryColor,
+          //                               myText: "View Profile",
+          //                               onPressed: () {
+          //                                 _launchURL(cardList[index].website);
+          //                               },
+          //                             )
+          //                           ],
+          //                         ),
+          //                         SizedBox(
+          //                           width: 4,
+          //                         ),
+          //                         Column(
+          //                           crossAxisAlignment:
+          //                               CrossAxisAlignment.start,
+          //                           children: [
+          //                             cardList[index].name.isNotEmpty
+          //                                 ? Text(
+          //                                     cardList[index].name,
+          //                                     style: Theme.of(context)
+          //                                         .textTheme
+          //                                         .headline6,
+          //                                   )
+          //                                 : SizedBox(),
+          //                             Text(
+          //                               cardList[index].userName,
+          //                               style: Theme.of(context)
+          //                                   .textTheme
+          //                                   .subtitle2,
+          //                             ),
+          //                             SizedBox(
+          //                               height: 4,
+          //                             ),
+          //                             SizedBox(
+          //                               width: _deviceWidth / 1.7,
+          //                               child: Text(
+          //                                 cardList[index].desc == ''
+          //                                     ? 'Contributor'
+          //                                     : cardList[index].desc,
+          //                                 style: Theme.of(context)
+          //                                     .textTheme
+          //                                     .bodyText2,
+          //                                 maxLines: 2,
+          //                                 softWrap: true,
+          //                                 overflow: TextOverflow.ellipsis,
+          //                               ),
+          //                             ),
+          //                             SizedBox(
+          //                               height: 4,
+          //                             ),
+          //                             cardList[index].location.isNotEmpty
+          //                                 ? Row(
+          //                                     children: [
+          //                                       Icon(
+          //                                         Feather.map_pin,
+          //                                         size: 14,
+          //                                       ),
+          //                                       Text(
+          //                                         cardList[index].location,
+          //                                         softWrap: true,
+          //                                         maxLines: 1,
+          //                                         overflow:
+          //                                             TextOverflow.ellipsis,
+          //                                         style: TextStyle(
+          //                                           fontSize: 12,
+          //                                         ),
+          //                                       ),
+          //                                     ],
+          //                                   )
+          //                                 : SizedBox(),
+          //                             cardList[index].location.isNotEmpty
+          //                                 ? SizedBox(
+          //                                     height: 5,
+          //                                   )
+          //                                 : SizedBox(),
+          //                             if (cardList[index]
+          //                                 .twitterUsername
+          //                                 .isNotEmpty)
+          //                               GestureDetector(
+          //                                 onTap: () {
+          //                                   _launchURL('https://twitter.com/' +
+          //                                       cardList[index]
+          //                                           .twitterUsername);
+          //                                 },
+          //                                 child: Row(
+          //                                   children: [
+          //                                     SizedBox(
+          //                                       height: 14,
+          //                                       width: 14,
+          //                                       child: Image.network(
+          //                                         'https://img.icons8.com/fluent-systems-filled/344/twitter.png',
+          //                                         color: Colors.blueAccent,
+          //                                       ),
+          //                                     ),
+          //                                     SizedBox(
+          //                                       width: 5,
+          //                                     ),
+          //                                     Icon(
+          //                                       Icons.alternate_email,
+          //                                       size: 14,
+          //                                       color: Colors.blueAccent,
+          //                                     ),
+          //                                     Text(
+          //                                       cardList[index].twitterUsername,
+          //                                       style: TextStyle(
+          //                                           fontSize: 14,
+          //                                           color: Colors.blueAccent),
+          //                                     ),
+          //                                   ],
+          //                                 ),
+          //                               )
+          //                             else
+          //                               SizedBox(),
+          //                           ],
+          //                         ),
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 );
+          //               },
+          //             ),
+          //           ],
+          //         ),
+          // ),
         ],
       ),
     );

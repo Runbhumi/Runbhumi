@@ -380,6 +380,32 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
+                                                Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      data.paid == "paid"
+                                                          ? "\$paid"
+                                                          : "free",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black45,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: data.paid == "paid"
+                                                        ? Colors.yellow
+                                                        : Colors.green,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(50),
+                                                    ),
+                                                  ),
+                                                ),
                                                 Text(
                                                   "Description",
                                                   style: TextStyle(

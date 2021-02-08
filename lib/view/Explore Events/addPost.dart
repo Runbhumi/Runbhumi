@@ -654,13 +654,28 @@ class _Page1State extends State<Page1> {
                       }
                     },
                   ),
-                  if (userTokens < 1)
+                  if (userTokens < 2)
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Please contact us to purchase more tokens",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                      padding: const EdgeInsets.all(16.0),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        textScaleFactor: 1.3,
+                        text: TextSpan(
+                          text: 'Please ',
+                          style: Theme.of(context).textTheme.bodyText1,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'contact us',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launch(_emailLaunchUri.toString());
+                                },
+                            ),
+                            TextSpan(text: ' to purchase more tokens.'),
+                          ],
                         ),
                       ),
                     ),
@@ -741,7 +756,11 @@ SimpleDialog infoDialog(BuildContext context) {
               new TextSpan(
                   //TODO: update the UI for this part
                   text: "Please click here to contact sales for tokens",
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                  ),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () {
                       launch(_emailLaunchUri.toString());

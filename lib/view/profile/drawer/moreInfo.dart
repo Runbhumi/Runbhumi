@@ -30,7 +30,7 @@ class _MoreInfoState extends State<MoreInfo> {
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+//     super.build(context);
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     //final _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(

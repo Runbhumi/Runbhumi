@@ -70,7 +70,6 @@ class _MyAppState extends State<MyApp> {
           '/network': (context) => MessagePage(),
           '/profile': (context) => Profile(),
           '/editprofile': (context) => EditProfile(),
-          '/testing': (context) => Testing(),
           '/createteam': (context) => CreateTeam(),
           //'/cards': (context) => Cards(),
         },

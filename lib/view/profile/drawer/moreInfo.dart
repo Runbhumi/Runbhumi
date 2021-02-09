@@ -47,7 +47,7 @@ class _MoreInfoState extends State<MoreInfo> {
                     applicationName: "Runbhumi",
                     applicationVersion: "v0.9.0",
                     applicationLegalese: '''
-MIT License
+GNU Affero General Public License v3.0
 
 Copyright (c) 2020 Runbhumi
 

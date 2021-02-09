@@ -566,10 +566,10 @@ confirmationPopup(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Info",
+              "Read More",
               style: TextStyle(
                 color: Colors.yellow[600],
-                fontSize: 18,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -587,7 +587,7 @@ confirmationPopup(
               "Apply",
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 18,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),

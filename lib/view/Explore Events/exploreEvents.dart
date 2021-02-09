@@ -5,7 +5,6 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

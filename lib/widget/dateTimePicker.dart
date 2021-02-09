@@ -34,7 +34,7 @@ class DateTimePicker extends StatelessWidget {
               context: context,
               firstDate: DateTime.now(),
               initialDate: currentValue ?? DateTime.now(),
-              lastDate: DateTime(2050));
+              lastDate: DateTime((DateTime.now().year + 2)));
           if (date != null) {
             final time = await showTimePicker(
               context: context,

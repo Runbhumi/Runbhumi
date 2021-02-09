@@ -15,7 +15,7 @@
 
 > A Flutter app which aims to build a sports community
 
-### 🏠 [Homepage](https://runbhumi.vercel.app)
+### 🏠 [Homepage](https://runbhumi-website.vercel.app)
 
 ### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=3%3A198&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down)
 
@@ -48,10 +48,6 @@ flutter format .
 flutter analyze .
 flutter test
 ```
-
-<details><summary>Block Diagram of Runbhumi</summary>
-  
-<img src="./documentation/block diagram.png" height="500" />
   
 </details>
 

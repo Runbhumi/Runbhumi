@@ -108,7 +108,7 @@ class _GauthPageState extends State<GauthPage> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             launch(
-                                'https://runbhumi.vercel.app/privacy-policy');
+                                'https://runbhumi-website.vercel.app/privacy-policy');
                           },
                       ),
                       TextSpan(text: ' and '),
@@ -120,7 +120,7 @@ class _GauthPageState extends State<GauthPage> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             launch(
-                                'https://runbhumi.vercel.app/terms-and-condition');
+                                'https://runbhumi-website.vercel.app/terms-and-condition');
                           },
                       ),
                     ],

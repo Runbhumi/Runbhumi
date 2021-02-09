@@ -42,8 +42,7 @@ class _MyAppState extends State<MyApp> {
   void _createNewChannel() async {
     try {
       await _channel.invokeMethod('createNotificationChannel', channelMap);
-      await _channel.invokeListMethod(
-          'createNotificationChannel', chatchannelMap);
+      await _channel.invokeMethod('createNotificationChannel', chatchannelMap);
       setState(() {});
     } on PlatformException catch (e) {
       print(e.toString());

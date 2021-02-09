@@ -5,7 +5,6 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -643,26 +642,28 @@ class ExploreEventEmptyState extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Center(
-            child: Image.asset("assets/post_online.png", width: 300),
+            child: SizedBox(
+                width: 200,
+                child: Image.asset("assets/post_online.png", width: 300)),
           ),
           Text(
             "Didn't find any event, create one",
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          Button(
-            myColor: Theme.of(context).primaryColor,
-            myText: "Add Event",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AddPost();
-                  },
-                ),
-              );
-            },
-          )
+          // Button(
+          //   myColor: Theme.of(context).primaryColor,
+          //   myText: "Add Event",
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) {
+          //           return AddPost();
+          //         },
+          //       ),
+          //     );
+          //   },
+          // )
         ],
       ),
     );

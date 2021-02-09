@@ -546,7 +546,7 @@ confirmationPopup(
     BuildContext context, String teamId, String sport, String teamName) {
   var alertStyle = AlertStyle(
     animationType: AnimationType.fromBottom,
-    isCloseButton: false,
+    isCloseButton: true,
     isOverlayTapDismiss: true,
     titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
     descStyle: TextStyle(
@@ -560,22 +560,23 @@ confirmationPopup(
       style: alertStyle,
       title: "Apply for Verification",
       desc:
-          "Please read the requirmnets for a verified team before applying for verifications. Our team will be in contact with you via email for any queries",
+          "Please read the requirements for a verified team before applying for verifications. Our team will be in contact with you via email for any queries",
       buttons: [
         DialogButton(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Close",
+              "Read More",
               style: TextStyle(
-                color: Colors.grey,
-                fontSize: 18,
+                color: Colors.yellow[600],
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Faq()));
           },
           color: Color.fromRGBO(128, 128, 128, 0),
         ),
@@ -586,7 +587,7 @@ confirmationPopup(
               "Apply",
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 18,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),

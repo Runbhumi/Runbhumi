@@ -169,6 +169,12 @@ class _TeamInfoState extends State<TeamInfo> {
         case 'Make team closed':
           return closingATeam(context, data['teamId']);
           break;
+        case 'Make team public':
+          return publicisingATeam(context, data['teamId']);
+          break;
+        case 'Make team private':
+          return privatizingATeam(context, data['teamId']);
+          break;
       }
     }
 
@@ -194,12 +200,17 @@ class _TeamInfoState extends State<TeamInfo> {
                     );
                   }).toList();
                 } else {
+                  //For the users who are in the team
                   if (data['status'] == 'closed') {
                     return Constants.prefs.getString('userId') ==
                             data['manager']
                         ? data["verified"] == 'N'
-                            ? {'Delete team', 'Send Verification Application'}
-                                .map((String choice) {
+                            ? {
+                                'Delete team',
+                                'Send Verification Application',
+                                'Make team public',
+                                'Make team private'
+                              }.map((String choice) {
                                 return PopupMenuItem<String>(
                                   value: choice,
                                   child: Text(choice),
@@ -226,7 +237,10 @@ class _TeamInfoState extends State<TeamInfo> {
                             ? {
                                 'Delete team',
                                 'Send Verification Application',
-                                'Make team closed'
+                                'Make team closed',
+                                data['status'] == 'public'
+                                    ? 'Make team private'
+                                    : 'Make team public'
                               }.map((String choice) {
                                 return PopupMenuItem<String>(
                                   value: choice,
@@ -786,6 +800,118 @@ closingATeam(BuildContext context, String teamId) {
           ),
           onPressed: () {
             TeamService().makeTeamClosed(teamId);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
+}
+
+publicisingATeam(BuildContext context, String teamId) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Close Team",
+      desc: "Are you sure you want to make this team public?",
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Yes",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            TeamService().makeTeamPublic(teamId);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
+}
+
+privatizingATeam(BuildContext context, String teamId) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Make Team private",
+      desc: "Are you sure you want to make this team private?",
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Yes",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            TeamService().makeTeamPrivate(teamId);
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),

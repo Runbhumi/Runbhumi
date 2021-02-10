@@ -124,6 +124,18 @@ class TeamService {
     });
   }
 
+  makeTeamPublic(String teamId) async {
+    await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
+      'status': 'public',
+    });
+  }
+
+  makeTeamPrivate(String teamId) async {
+    await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
+      'status': 'private',
+    });
+  }
+
   sendVerificationApplication(
       String teamId, String sport, String teamName) async {
     var newDoc =

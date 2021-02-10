@@ -147,7 +147,7 @@ class _CreateTeamState extends State<CreateTeam> {
                       InputBox(
                         controller: _descController,
                         hintText: "Description",
-                        validateFunction: Validations.validateNonEmpty,
+                        validateFunction: Validations.validateName,
                       ),
                       InputBox(
                         controller: _teamLocationController,

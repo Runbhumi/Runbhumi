@@ -206,4 +206,4 @@ _launchURL(String gurl) async {
   }
 }
 
-var websiteURL = "https://runbhumi-website.vercel.app/feedback";
+var websiteURL = "https://runbhumi-website.vercel.app";

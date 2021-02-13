@@ -55,7 +55,9 @@ class _CreateTeamState extends State<CreateTeam> {
               size: 64,
             )),
           ),
-          Center(child: Text("What is a status")),
+          Center(
+              child: Text("What is a type",
+                  style: new TextStyle(color: Colors.black, fontSize: 18))),
         ],
       ),
       shape: RoundedRectangleBorder(
@@ -63,17 +65,53 @@ class _CreateTeamState extends State<CreateTeam> {
       ),
       children: [
         Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
-              child: Text(
-                  "Public: Anyone can join the Team until it gets full" +
-                      '\n' +
-                      "Private: You will be notified when someone tries to join your team. You can then accept or decline the request.",
-                  style: Theme.of(context).textTheme.subtitle1)),
-        ),
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+                child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Public : ',
+                    style: new TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text: 'Anyone can join the Team until it gets full',
+                    style: new TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+                ],
+              ),
+            ))),
+        Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+                child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Private: ',
+                    style: new TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text:
+                        'You will be notified when someone tries to join your team',
+                    style: new TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+                ],
+              ),
+            ))),
       ],
     );
   }
+
+// "Public: Anyone can join the Team until it gets full" +
+//                       "Private: You will be notified when someone tries to join your team. You can then accept or decline the request.",
+//                   style: Theme.of(context).textTheme.subtitle1)),
 
   @override
   Widget build(BuildContext context) {

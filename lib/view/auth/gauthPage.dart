@@ -120,7 +120,7 @@ class _GauthPageState extends State<GauthPage> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             launch(
-                                'https://runbhumi-website.vercel.app/terms-and-condition');
+                                'https://runbhumi-website.vercel.app/terms-and-conditions');
                           },
                       ),
                     ],

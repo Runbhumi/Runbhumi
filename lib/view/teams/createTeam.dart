@@ -56,8 +56,8 @@ class _CreateTeamState extends State<CreateTeam> {
             )),
           ),
           Center(
-              child: Text("What is a type",
-                  style: new TextStyle(color: Colors.black, fontSize: 18))),
+              child:
+                  Text("What is a type", style: new TextStyle(fontSize: 18))),
         ],
       ),
       shape: RoundedRectangleBorder(
@@ -73,13 +73,11 @@ class _CreateTeamState extends State<CreateTeam> {
                   TextSpan(
                     text: 'Public : ',
                     style: new TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
                     text: 'Anyone can join the Team until it gets full',
-                    style: new TextStyle(color: Colors.black, fontSize: 14),
+                    style: new TextStyle(fontSize: 14),
                   ),
                 ],
               ),
@@ -93,14 +91,12 @@ class _CreateTeamState extends State<CreateTeam> {
                   TextSpan(
                     text: 'Private: ',
                     style: new TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
                     text:
                         'You will be notified when someone tries to join your team',
-                    style: new TextStyle(color: Colors.black, fontSize: 14),
+                    style: new TextStyle(fontSize: 14),
                   ),
                 ],
               ),

@@ -76,7 +76,11 @@ class _ExploreEventsState extends State<ExploreEvents> {
                 new TextSpan(
                     //TODO: update the UI for this part
                     text: "Please click here to contact sales for tokens",
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launch(_emailLaunchUri.toString());

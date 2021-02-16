@@ -207,6 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: nameTextEditingController,
                   textInputType: TextInputType.name,
                   hintText: 'Name',
+                  maxLength: 36,
                 ),
                 InputBox(
                   maxLength: 100,
@@ -240,6 +241,7 @@ class _EditProfileState extends State<EditProfile> {
                         // obscureText: _hiddenSwitch,
                         textInputType: TextInputType.phone,
                         hintText: 'Phone Number',
+                        maxLength: 10,
                       ),
                     ),
                     Column(
@@ -271,6 +273,7 @@ class _EditProfileState extends State<EditProfile> {
                   controller: locationTextEditingController,
                   textInputType: TextInputType.streetAddress,
                   hintText: 'Location',
+                  maxLength: 100,
                 ),
 
                 //Switch button

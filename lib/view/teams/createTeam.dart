@@ -340,21 +340,22 @@ class _CreateTeamState extends State<CreateTeam> {
                         //------- Code to create a team just remember to pass all the arguments ---------------
                         team = TeamService().createNewTeam(_chosenSport,
                             _nameController.text, _descController.text, _type);
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            //wait for 3 sec
-                            Future.delayed(Duration(seconds: 3), () {
-                              //This will be replaced by actual team IDs
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          InviteFriends(team: team)));
-                            });
-                            return successDialog(context);
-                          },
-                        );
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) {
+                        //     //wait for 3 sec
+
+                        //     return successDialog(context);
+                        //   },
+                        // );
+                        //Future.delayed(Duration(milliseconds: 150), () {
+                        //This will be replaced by actual team IDs
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    InviteFriends(team: team)));
+                        // });
                       } else {
                         showDialog(
                           context: context,

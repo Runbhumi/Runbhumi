@@ -33,7 +33,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Colors.white,
-      imagePadding: EdgeInsets.only(top: 24),
+      imagePadding: EdgeInsets.only(top: 50),
     );
 
     return IntroductionScreen(

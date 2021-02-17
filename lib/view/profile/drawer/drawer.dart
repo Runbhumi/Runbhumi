@@ -170,7 +170,7 @@ class _DrawerBodyState extends State<DrawerBody> {
               SizedBox(height: 8),
               GestureDetector(
                 onTap: () {
-                  launch(websiteURL + 'terms-and-condition');
+                  launch(websiteURL + 'terms-and-conditions');
                 },
                 child: Text(
                   "Terms & Conditions",
@@ -206,4 +206,4 @@ _launchURL(String gurl) async {
   }
 }
 
-var websiteURL = "https://runbhumi-website.vercel.app";
+var websiteURL = "https://runbhumi-website.vercel.app/";

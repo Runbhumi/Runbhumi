@@ -227,7 +227,7 @@ class _TeamChatsState extends State<TeamChats> {
                               : Container(),
                         ],
                       ),
-                      subtitle: Text(data.bio),
+                      // subtitle: Text(data.bio),
                     ),
                   );
                 });

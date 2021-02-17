@@ -160,6 +160,7 @@ class _CreateTeamState extends State<CreateTeam> {
                         controller: _nameController,
                         hintText: "Team name",
                         validateFunction: Validations.validateName,
+                        maxLength: 24,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -178,15 +179,35 @@ class _CreateTeamState extends State<CreateTeam> {
                           ),
                         ),
                       ),
-                      InputBox(
-                        controller: _descController,
-                        hintText: "Description",
-                        validateFunction: Validations.validateName,
+                      // InputBox(
+                      //   controller: _descController,
+                      //   hintText: "Description",
+                      //   validateFunction: Validations.validateName,
+                      //   maxLength: 200,
+                      //   maxLines: 3,
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          child: TextFormField(
+                            controller: _descController,
+                            // maxLengthEnforced: false,
+                            maxLength: 200,
+                            validator: Validations.validateName,
+                            maxLines: 2,
+                            decoration: InputDecoration(
+                              labelText: "Description",
+                              hintText: "Our team...",
+                            ),
+                          ),
+                        ),
                       ),
                       InputBox(
                         controller: _teamLocationController,
                         hintText: "Team Location",
                         validateFunction: Validations.validateName,
+                        maxLength: 100,
                       ),
                       // AutoCompleteTextField(
                       //   key: key,

@@ -629,20 +629,20 @@ class _Page1State extends State<Page1> {
                               true,
                               widget._paid);
                           // to show success dialog
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              //wait for 3 sec
-                              Future.delayed(Duration(seconds: 3), () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AnimatedBottomBar()));
-                              });
-                              return successDialog(context);
-                            },
-                          );
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AnimatedBottomBar()));
+                          //  // showDialog(
+                          //     context: context,
+                          //     builder: (context) {
+                          //       //wait for 3 sec
+                          //      // Future.delayed(Duration(seconds: 3), () {
+
+                          //       //});
+                          //       return successDialog(context);
+                          //     },
+                          //   );
                         }
                       } else {
                         showDialog(

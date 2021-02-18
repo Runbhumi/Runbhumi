@@ -22,6 +22,20 @@ class _ChatScheduleState extends State<ChatSchedule> {
   // Use widget.userNames for displaying the names og the people in the chat Id
   // Use widget.users fot the users ID's to be put into the backend.
   //Use the widget.usersPics for the Url for the pictures of the Partiipants.
+  SimpleDialog successDialog(BuildContext context) {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      children: [
+        Center(
+            child: Text("Added to schedule",
+                style: Theme.of(context).textTheme.headline4)),
+        Image.asset("assets/confirmation-illustration.png"),
+      ],
+    );
+  }
+
   GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
   String _chosenSport;
   TextEditingController _locationController = new TextEditingController();
@@ -177,6 +191,12 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             widget.users,
                             'free');
                       }
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return successDialog(context);
+                        },
+                      );
                       setState(() {
                         _locationController = new TextEditingController();
                         _datetime = new TextEditingController();
@@ -191,20 +211,6 @@ class _ChatScheduleState extends State<ChatSchedule> {
           ),
         ),
       ),
-    );
-  }
-
-  SimpleDialog successDialog(BuildContext context) {
-    return SimpleDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      children: [
-        Center(
-            child: Text("Post added",
-                style: Theme.of(context).textTheme.headline4)),
-        Image.asset("assets/confirmation-illustration.png"),
-      ],
     );
   }
 

@@ -117,7 +117,8 @@ class NotificationServices {
           event.eventId,
           event.status,
           event.type,
-          event.playersId);
+          event.playersId,
+          event.paid);
 
       await declineNotification(notification.notificationId);
       return true;
@@ -248,7 +249,8 @@ class NotificationServices {
           event.eventId,
           event.status,
           event.type,
-          event.playersId);
+          event.playersId,
+          event.paid);
       await declineTeamRequest(notification.eventId,
           notification.notificationId, notification.senderId);
       await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
@@ -279,7 +281,8 @@ class NotificationServices {
         "private",
         3,
         true,
-        false);
+        false,
+        'free');
     EventService().addGivenUsertoEvent(eventId, notificationData.senderId);
     CustomMessageServices().sendChallegeFirstRoomMessage(eventId);
     // here a chatroom logic can be written

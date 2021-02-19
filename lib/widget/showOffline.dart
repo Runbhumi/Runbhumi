@@ -21,15 +21,12 @@ class ShowOffline extends StatelessWidget {
                 color: Colors.red[300],
               ),
               Text("It seems you are offline!",
-                  style: TextStyle(
-                      fontSize: 32,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
               Text("Please check you internet connectivity",
                   style: TextStyle(
                       fontSize: 18,
-                      color: Colors.grey[800],
+                      color: Colors.grey[600],
                       fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center),
             ],

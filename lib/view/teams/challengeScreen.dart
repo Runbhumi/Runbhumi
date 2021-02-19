@@ -99,24 +99,21 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                             data.teamId,
                                             Constants.prefs.getString('userId'),
                                             data.teamName);
-                                    NotificationServices()
-                                        .challengeTeamNotification(
-                                            widget.sportName,
-                                            widget.teamData,
-                                            myTeam)
-                                        .then(
-                                      () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              Future.delayed(
-                                                  Duration(seconds: 3), () {
-                                                Navigator.pop(context);
-                                              });
-                                              return successDialog(context);
-                                            });
-                                      },
-                                    );
+
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          NotificationServices()
+                                              .challengeTeamNotification(
+                                                  widget.sportName,
+                                                  widget.teamData,
+                                                  myTeam);
+                                          Future.delayed(Duration(seconds: 3),
+                                              () {
+                                            Navigator.pop(context);
+                                          });
+                                          return successDialog(context);
+                                        });
                                   },
                                   child: Stack(
                                     alignment: AlignmentDirectional.center,

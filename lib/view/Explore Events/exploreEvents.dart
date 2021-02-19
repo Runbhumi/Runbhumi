@@ -5,13 +5,14 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:Runbhumi/view/teamEventNotification.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/widgets.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExploreEvents extends StatefulWidget {
   @override
@@ -40,6 +41,10 @@ class _ExploreEventsState extends State<ExploreEvents> {
     );
   }
 
+  final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'runbhumi12@gmail.com',
+      queryParameters: {'subject': 'Token Request'});
   SimpleDialog infoDialog(BuildContext context) {
     return SimpleDialog(
       title: Column(
@@ -62,9 +67,27 @@ class _ExploreEventsState extends State<ExploreEvents> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Center(
-              child: Text(
-                  "In order to use Runbhumi as a platform to host and advertise sporting tournaments or such events please submit a request on our website.",
-                  style: Theme.of(context).textTheme.subtitle1)),
+            child: RichText(
+              text: TextSpan(children: [
+                new TextSpan(
+                    text:
+                        "In order to use Runbhumi as a platform to host and advertise sporting tournaments you would need tokens. \n",
+                    style: Theme.of(context).textTheme.subtitle1),
+                new TextSpan(
+                    //TODO: update the UI for this part
+                    text: "Please click here to contact sales for tokens",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launch(_emailLaunchUri.toString());
+                      }),
+              ]),
+            ),
+          ),
         ),
       ],
     );
@@ -360,6 +383,32 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
+                                                Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      data.paid == "paid"
+                                                          ? "\$paid"
+                                                          : "free",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black45,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: data.paid == "paid"
+                                                        ? Colors.yellow
+                                                        : Colors.green,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(50),
+                                                    ),
+                                                  ),
+                                                ),
                                                 Text(
                                                   "Description",
                                                   style: TextStyle(
@@ -463,7 +512,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                               data.creatorName,
                                                               data.status,
                                                               data.type,
-                                                              data.playersId);
+                                                              data.playersId,
+                                                              data.paid);
                                                           print(
                                                               "User Registered");
                                                           EventService()
@@ -596,26 +646,28 @@ class ExploreEventEmptyState extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Center(
-            child: Image.asset("assets/notification.png", width: 300),
+            child: SizedBox(
+                width: 200,
+                child: Image.asset("assets/post_online.png", width: 300)),
           ),
           Text(
             "Didn't find any event, create one",
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          Button(
-            myColor: Theme.of(context).primaryColor,
-            myText: "Add Event",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AddPost();
-                  },
-                ),
-              );
-            },
-          )
+          // Button(
+          //   myColor: Theme.of(context).primaryColor,
+          //   myText: "Add Event",
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) {
+          //           return AddPost();
+          //         },
+          //       ),
+          //     );
+          //   },
+          // )
         ],
       ),
     );

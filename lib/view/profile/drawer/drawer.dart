@@ -56,18 +56,18 @@ class _DrawerBodyState extends State<DrawerBody> {
             ),
           ),
         ),
-        // only use for testing
-        if (Foundation.kDebugMode)
-          DrawerButton(
-            onpressed: () {
-              Navigator.pushNamed(context, "/testing");
-            },
-            label: "Testing",
-            icon: Icon(
-              Feather.flag,
-              color: Colors.white,
-            ),
-          ),
+        // // only use for testing
+        // if (Foundation.kDebugMode)
+        //   DrawerButton(
+        //     onpressed: () {
+        //       Navigator.pushNamed(context, "/testing");
+        //     },
+        //     label: "Testing",
+        //     icon: Icon(
+        //       Feather.flag,
+        //       color: Colors.white,
+        //     ),
+        //   ),
         DrawerButton(
           onpressed: () {
             Navigator.pushNamed(context, "/editprofile");
@@ -83,6 +83,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           onpressed: () {
             theme.switchTheme();
           },
+          beta: true,
           label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
           icon: theme.myTheme == MyTheme.Light
               ? Icon(

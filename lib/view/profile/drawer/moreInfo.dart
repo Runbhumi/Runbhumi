@@ -736,7 +736,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
               subtitle: Text("Project Lead"),
               trailing: GestureDetector(
                   onTap: () {
-                    _launchURL("https://www.linkedin.com/in/sai-rohan-bangari/");
+                    _launchURL(
+                        "https://www.linkedin.com/in/sai-rohan-bangari/");
                   },
                   child: Icon(Feather.linkedin)),
             )),
@@ -762,7 +763,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
               subtitle: Text("Backend & functional Lead"),
               trailing: GestureDetector(
                   onTap: () {
-                    _launchURL("https://www.linkedin.com/in/manas-gupta-253760192/");
+                    _launchURL(
+                        "https://www.linkedin.com/in/manas-gupta-253760192/");
                   },
                   child: Icon(Feather.linkedin)),
             )),
@@ -775,7 +777,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
               subtitle: Text("Growth Hacker"),
               trailing: GestureDetector(
                   onTap: () {
-                    _launchURL("https://www.linkedin.com/in/mohit-l-48a2121ab/");
+                    _launchURL(
+                        "https://www.linkedin.com/in/mohit-l-48a2121ab/");
                   },
                   child: Icon(Feather.linkedin)),
             )),

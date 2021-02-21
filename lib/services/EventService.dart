@@ -207,6 +207,7 @@ addScheduleToUser(
       .set(Events.miniView(eventId, eventName, sportName, location, dateTime,
               status, creatorId, creatorName, type, playersId, paid)
           .minitoJson());
+  UserService().updateEventCount(1, userId);
 }
 
 Future<Events> getEventDetails(String notificationId) async {
@@ -303,6 +304,7 @@ deleteEvent(id) async {
       .collection('userEvent')
       .doc(id)
       .delete();
+  UserService().updateEventCount(-1, Constants.prefs.get('userId'));
   await FirebaseFirestore.instance.collection('events').doc(id).delete();
 }
 
@@ -321,4 +323,5 @@ deleteIndividualUserMini(String eventId, String userId) async {
       .collection('userEvent')
       .doc(eventId)
       .delete();
+  UserService().updateEventCount(-1, userId);
 }

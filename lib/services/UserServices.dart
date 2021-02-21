@@ -51,6 +51,13 @@ class UserService {
         .set({'teamsCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
+  updateEventCount(int n, String userId) {
+    _db
+        .collection('users')
+        .doc(userId)
+        .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
+  }
+
   Future<UserProfile> getUserProfile(String id) async {
     var snap = await _db.collection('users').doc(id).get();
     return UserProfile.fromMap(snap.data as Map);

@@ -212,7 +212,7 @@ class _TeamsListState extends State<TeamsList>
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width /
-                                              2.2,
+                                              2.5,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -482,7 +482,7 @@ class TeamName extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width / 2.2,
+          width: MediaQuery.of(context).size.width / 2.5,
           child: Text(
             data.teamName,
             style: TextStyle(

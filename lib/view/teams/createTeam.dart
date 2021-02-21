@@ -160,6 +160,7 @@ class _CreateTeamState extends State<CreateTeam> {
                         controller: _nameController,
                         hintText: "Team name",
                         validateFunction: Validations.validateName,
+                        maxLength: 24,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -178,15 +179,35 @@ class _CreateTeamState extends State<CreateTeam> {
                           ),
                         ),
                       ),
-                      InputBox(
-                        controller: _descController,
-                        hintText: "Description",
-                        validateFunction: Validations.validateName,
+                      // InputBox(
+                      //   controller: _descController,
+                      //   hintText: "Description",
+                      //   validateFunction: Validations.validateName,
+                      //   maxLength: 200,
+                      //   maxLines: 3,
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          child: TextFormField(
+                            controller: _descController,
+                            // maxLengthEnforced: false,
+                            maxLength: 200,
+                            validator: Validations.validateName,
+                            maxLines: 2,
+                            decoration: InputDecoration(
+                              labelText: "Description",
+                              hintText: "Our team...",
+                            ),
+                          ),
+                        ),
                       ),
                       InputBox(
                         controller: _teamLocationController,
                         hintText: "Team Location",
                         validateFunction: Validations.validateName,
+                        maxLength: 100,
                       ),
                       // AutoCompleteTextField(
                       //   key: key,
@@ -319,21 +340,22 @@ class _CreateTeamState extends State<CreateTeam> {
                         //------- Code to create a team just remember to pass all the arguments ---------------
                         team = TeamService().createNewTeam(_chosenSport,
                             _nameController.text, _descController.text, _type);
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            //wait for 3 sec
-                            Future.delayed(Duration(seconds: 3), () {
-                              //This will be replaced by actual team IDs
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          InviteFriends(team: team)));
-                            });
-                            return successDialog(context);
-                          },
-                        );
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) {
+                        //     //wait for 3 sec
+
+                        //     return successDialog(context);
+                        //   },
+                        // );
+                        //Future.delayed(Duration(milliseconds: 150), () {
+                        //This will be replaced by actual team IDs
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    InviteFriends(team: team)));
+                        // });
                       } else {
                         showDialog(
                           context: context,

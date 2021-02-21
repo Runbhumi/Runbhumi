@@ -778,33 +778,43 @@ class ChallengeNotificationCard extends StatelessWidget {
         child: Column(
           children: [
             Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          child: Image(
-                            height: 48,
-                            width: 48,
-                            fit: BoxFit.fitWidth,
-                            image: AssetImage(sportIcon),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.6,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            child: Image(
+                              height: 48,
+                              width: 48,
+                              fit: BoxFit.fitWidth,
+                              image: AssetImage(sportIcon),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
                         children: [
-                          Text(
-                            notificationData.opponentTeamName,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: Center(
+                              child: Text(
+                                notificationData.opponentTeamName,
+                                overflow: TextOverflow.fade,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                           Text(
@@ -817,17 +827,23 @@ class ChallengeNotificationCard extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Text(
-                            notificationData.myTeamName,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: Center(
+                              child: Text(
+                                notificationData.myTeamName,
+                                overflow: TextOverflow.fade,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

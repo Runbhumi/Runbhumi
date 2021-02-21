@@ -4,10 +4,10 @@ import 'package:Runbhumi/utils/theme_config.dart';
 // import 'package:Runbhumi/widget/contributers/contributors_data_model.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MoreInfo extends StatefulWidget {
   @override
@@ -45,7 +45,7 @@ class _MoreInfoState extends State<MoreInfo> {
                   context: context,
                   builder: (context) => AboutDialog(
                     applicationName: "Runbhumi",
-                    applicationVersion: "v0.9.0",
+                    applicationVersion: "v1.0.0",
                     applicationLegalese: '''
 GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
@@ -732,29 +732,56 @@ For more information on this, and how to apply and follow the GNU AGPL, see
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
-                    title: Text("Sai Rohan Bangari"),
-                    subtitle: Text("Project Lead"))),
+              title: Text("Sai Rohan Bangari"),
+              subtitle: Text("Project Lead"),
+              trailing: GestureDetector(
+                  onTap: () {
+                    _launchURL(
+                        "https://www.linkedin.com/in/sai-rohan-bangari/");
+                  },
+                  child: Icon(Feather.linkedin)),
+            )),
           ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
-                    title: Text("Hayat Tamboli"),
-                    subtitle: Text("UX/UI designer & frontend Lead"))),
+              title: Text("Hayat Tamboli"),
+              subtitle: Text("UX/UI designer & frontend Lead"),
+              trailing: GestureDetector(
+                  onTap: () {
+                    _launchURL("https://www.linkedin.com/in/hayat-tamboli/");
+                  },
+                  child: Icon(Feather.linkedin)),
+            )),
           ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
-                    title: Text("Manas Gupta"),
-                    subtitle: Text("Backend & functional Lead"))),
+              title: Text("Manas Gupta"),
+              subtitle: Text("Backend & functional Lead"),
+              trailing: GestureDetector(
+                  onTap: () {
+                    _launchURL(
+                        "https://www.linkedin.com/in/manas-gupta-253760192/");
+                  },
+                  child: Icon(Feather.linkedin)),
+            )),
           ),
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
                 child: ListTile(
-                    title: Text("Mohit Reddy"),
-                    subtitle: Text("Growth Hacker"))),
+              title: Text("Mohit Reddy"),
+              subtitle: Text("Growth Hacker"),
+              trailing: GestureDetector(
+                  onTap: () {
+                    _launchURL(
+                        "https://www.linkedin.com/in/mohit-l-48a2121ab/");
+                  },
+                  child: Icon(Feather.linkedin)),
+            )),
           ),
           // Padding(
           //   padding:
@@ -960,11 +987,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 //   return contriCards;
 // }
 
-// _launchURL(String gurl) async {
-//   String url = gurl;
-//   if (await canLaunch(url)) {
-//     await launch(url);
-//   } else {
-//     throw 'Could not launch $url';
-//   }
-// }
+_launchURL(String gurl) async {
+  String url = gurl;
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}

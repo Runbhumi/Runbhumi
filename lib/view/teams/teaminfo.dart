@@ -298,20 +298,21 @@ class _TeamInfoState extends State<TeamInfo> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //Bio
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 8.0,
-                          left: 16.0,
-                          right: 16.0,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            data['bio'],
+                            style: TextStyle(fontSize: 20),
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                          ),
                         ),
-                        child: Text(
-                          data['bio'],
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),

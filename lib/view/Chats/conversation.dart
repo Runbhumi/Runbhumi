@@ -141,12 +141,16 @@ class _ConversationState extends State<Conversation> {
               SizedBox(
                 width: 8,
               ),
-              Text(
-                widget.usersNames[indexOfOtherUser],
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).backgroundColor,
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2.5,
+                child: Text(
+                  widget.usersNames[indexOfOtherUser],
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).backgroundColor,
+                  ),
                 ),
               ),
             ],

@@ -6,11 +6,13 @@ class DrawerButton extends StatelessWidget {
     @required this.onpressed,
     @required this.label,
     @required this.icon,
+    this.beta,
   }) : super(key: key);
 
   final Function onpressed;
   final String label;
   final Widget icon;
+  final bool beta;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,25 @@ class DrawerButton extends StatelessWidget {
               topRight: Radius.circular(20),
               bottomRight: Radius.circular(20),
               bottomLeft: Radius.circular(0))),
-      label: Text(
-        label,
-        style: TextStyle(color: Colors.white),
+      label: Row(
+        children: [
+          Text(
+            label,
+            style: TextStyle(color: Colors.white),
+          ),
+          if (beta == true)
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+              margin: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.circular(8)),
+              child: Text(
+                "Beta",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+        ],
       ),
       icon: icon,
       textColor: Colors.white,

@@ -318,24 +318,24 @@ class MainUserProfile extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            data['teamsCount'].toString(),
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            "Teams",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(16.0),
+                    //   child: Column(
+                    //     children: [
+                    //       Text(
+                    //         data['teamsCount'].toString(),
+                    //         style: TextStyle(
+                    //             fontSize: 24, fontWeight: FontWeight.w500),
+                    //       ),
+                    //       Text(
+                    //         "Teams",
+                    //         style: TextStyle(
+                    //           fontWeight: FontWeight.w600,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     GestureDetector(
                       onTap: () {},
                       child: Padding(

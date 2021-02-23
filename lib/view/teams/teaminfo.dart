@@ -81,21 +81,22 @@ class _TeamInfoState extends State<TeamInfo> {
 
   Widget build(BuildContext context) {
     // IconData sportIcon;
-    switch (data['sport']) {
-      case "Volleyball":
-        sportIcon = "assets/icons8-volleyball-96.png";
-        break;
-      case "Basketball":
-        // sportIcon = Icons.sports_basketball;
-        sportIcon = "assets/icons8-basketball-96.png";
-        break;
-      case "Cricket":
-        sportIcon = "assets/icons8-cricket-96.png";
-        break;
-      case "Football":
-        sportIcon = "assets/icons8-soccer-ball-96.png";
-        break;
-    }
+    if (_loading)
+      switch (data['sport']) {
+        case "Volleyball":
+          sportIcon = "assets/icons8-volleyball-96.png";
+          break;
+        case "Basketball":
+          // sportIcon = Icons.sports_basketball;
+          sportIcon = "assets/icons8-basketball-96.png";
+          break;
+        case "Cricket":
+          sportIcon = "assets/icons8-cricket-96.png";
+          break;
+        case "Football":
+          sportIcon = "assets/icons8-soccer-ball-96.png";
+          break;
+      }
     void handleClick(String value) {
       switch (value) {
         case 'Leave team':
@@ -485,27 +486,45 @@ class _TeamInfoState extends State<TeamInfo> {
                                                   ? PopupMenuButton(
                                                       icon:
                                                           Icon(Icons.more_vert),
-                                                      itemBuilder: (_) => <
-                                                          PopupMenuItem<
-                                                              String>>[
-                                                        new PopupMenuItem<
-                                                                String>(
-                                                            child: new Text(
-                                                                'Transfer captainship'),
-                                                            value:
-                                                                'Transfer captainship'),
-                                                        new PopupMenuItem<
-                                                                String>(
-                                                            child: new Text(
-                                                                'Remove member'),
-                                                            value:
-                                                                'Remove member'),
-                                                      ],
+                                                      itemBuilder: (_) =>
+                                                          data["players"]
+                                                                          [
+                                                                          index]
+                                                                      ["id"] !=
+                                                                  data[
+                                                                      "captain"]
+                                                              ? <
+                                                                  PopupMenuItem<
+                                                                      String>>[
+                                                                  new PopupMenuItem<
+                                                                          String>(
+                                                                      child: new Text(
+                                                                          'Transfer captainship'),
+                                                                      value:
+                                                                          'Transfer captainship'),
+                                                                  new PopupMenuItem<
+                                                                          String>(
+                                                                      child: new Text(
+                                                                          'Remove member'),
+                                                                      value:
+                                                                          'Remove member'),
+                                                                ]
+                                                              : <
+                                                                  PopupMenuItem<
+                                                                      String>>[
+                                                                  new PopupMenuItem<
+                                                                          String>(
+                                                                      child: new Text(
+                                                                          'Remove member'),
+                                                                      value:
+                                                                          'Remove member'),
+                                                                ],
                                                       onSelected:
                                                           (theChosenOne) {
                                                         switch (theChosenOne) {
                                                           case 'Transfer captainship':
                                                             //add functionality
+
                                                             TeamService().setCaptain(
                                                                 data["players"]
                                                                         [index]

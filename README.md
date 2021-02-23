@@ -7,7 +7,7 @@
   <img alt="Documentation" src="https://img.shields.io/badge/-Flutter-blue?&logo=flutter" />
   <img alt="Documentation" src="https://img.shields.io/badge/-Firebase-blue?&logo=firebase" />
   <a href="https://github.com/Runbhumi/Runbhumi/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-AGPL-yellow.svg" />
   </a>
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Runbhumi/Runbhumi">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/Runbhumi/Runbhumi/Flutter%20CI?logo=dart&logoColor=lightblue">

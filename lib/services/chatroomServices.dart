@@ -138,5 +138,21 @@ class ChatroomService {
         .where('users', arrayContains: Constants.prefs.getString('userId'))
         .snapshots();
   }
+
+  /*
+  This method will be deleting the message 
+  NOTE : Use this function with async/await
+  */
+
+  deleteThisMessage(
+      String chatroomType, String chatRoomId, String messageId) async {
+    FirebaseFirestore.instance
+        .collection(chatroomType)
+        .doc(chatRoomId)
+        .collection("chats")
+        .doc(messageId)
+        .delete();
+  }
+
   //End of ChatroomService class
 }

@@ -86,7 +86,7 @@ class TeamService {
   removeMeFromTeam(String teamId) async {
     await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
       'playerId': FieldValue.arrayRemove([me.friendId]),
-      'player': FieldValue.arrayRemove([me.toJson()]),
+      'players': FieldValue.arrayRemove([me.toJson()]),
     });
     CustomMessageServices()
         .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name'));
@@ -101,7 +101,7 @@ class TeamService {
     Friends player = new Friends.newFriend(userId, userName, profilePic);
     await FirebaseFirestore.instance.collection('teams').doc(teamId).update({
       'playerId': FieldValue.arrayRemove([player.friendId]),
-      'player': FieldValue.arrayRemove([player.toJson()]),
+      'players': FieldValue.arrayRemove([player.toJson()]),
     });
     CustomMessageServices().sendTeamLeaveMemberMessage(teamId, userName);
   }

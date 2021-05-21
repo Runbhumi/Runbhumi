@@ -7,7 +7,7 @@
   <img alt="Documentation" src="https://img.shields.io/badge/-Flutter-blue?&logo=flutter" />
   <img alt="Documentation" src="https://img.shields.io/badge/-Firebase-blue?&logo=firebase" />
   <a href="https://github.com/Runbhumi/Runbhumi/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-AGPL-yellow.svg" />
   </a>
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Runbhumi/Runbhumi">
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/Runbhumi/Runbhumi/Flutter%20CI?logo=dart&logoColor=lightblue">
@@ -17,7 +17,8 @@
 
 ### 🏠 [Homepage](https://runbhumi-website.vercel.app)
 
-### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=3%3A198&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down)
+### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=2%3A42&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down)
+
 
 ### 💪 Motivation/Inspiration
 

@@ -200,6 +200,15 @@ class UserProfile extends StatelessWidget {
               NotificationServices().createRequest(data['userId']);
             },
           ),
+        
+        Button(
+          myColor: Theme.of(context).primaryColor,
+          myText: "Add Friend",
+          onPressed: () async{
+            await reportPopup(context,data['name'],data['userId']);
+          },
+        ),
+
         //stats
         Card(
           child: Row(
@@ -424,6 +433,63 @@ confirmationPopup(BuildContext context, String name, String id1, String id2) {
           ),
           onPressed: () {
             FriendServices().removeFriend(id1, id2);
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        )
+      ]).show();
+}
+
+
+reportPopup(BuildContext context, String userId,String name) {
+  var alertStyle = AlertStyle(
+    animationType: AnimationType.fromBottom,
+    isCloseButton: false,
+    isOverlayTapDismiss: true,
+    titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    descStyle: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.grey[600]),
+    alertAlignment: Alignment.center,
+    animationDuration: Duration(milliseconds: 400),
+  );
+
+  Alert(
+      context: context,
+      style: alertStyle,
+      title: "Report",
+      desc: "Are you sure you want to report " + name + " ",
+      buttons: [
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(128, 128, 128, 0),
+        ),
+        DialogButton(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Report",
+              style: TextStyle(
+                color: Colors.redAccent[400],
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onPressed: () {
+            UserService().reportUser(userId);
             Navigator.pop(context);
           },
           color: Color.fromRGBO(128, 128, 128, 0),

@@ -87,6 +87,14 @@ class UserService {
         .where('sport', isEqualTo: sport)
         .snapshots();
   }
+  
+  reportUser(String userId,String reason)async{
+    _db
+        .collection('report')
+        .doc(userId)
+        .set({'reported_by': Constants.prefs.get('userId'),"reason":reason,"status":"pending"});
+  }
+  
 }
 
 //data['friends'].contains(data['userId'])

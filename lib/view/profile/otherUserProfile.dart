@@ -175,9 +175,8 @@ class UserProfile extends StatelessWidget {
           //request sent btn
           Button(
             bgColor: Theme.of(context).primaryColor,
-            buttonTitle:
-              "Request Sent",
-              onPressed: (){},
+            buttonTitle: "Request Sent",
+            onPressed: () {},
           ),
         if (data['userId'] != _id &&
             !(data['friends'].contains(_id)) &&

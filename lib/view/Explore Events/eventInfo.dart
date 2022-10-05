@@ -132,7 +132,8 @@ class _EventInfoState extends State<EventInfo> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => OtherUserProfile(
-                                  userID: (data as Map)["playerInfo"][index]["id"],
+                                  userID: (data as Map)["playerInfo"][index]
+                                      ["id"],
                                 ),
                               ),
                             );
@@ -147,7 +148,8 @@ class _EventInfoState extends State<EventInfo> {
                                     placeholder: AssetImage(
                                         "assets/ProfilePlaceholder.png"),
                                     image: NetworkImage(
-                                      (data as Map)["playerInfo"][index]["profileImage"],
+                                      (data as Map)["playerInfo"][index]
+                                          ["profileImage"],
                                     ),
                                   ),
                                 ),
@@ -168,7 +170,8 @@ class _EventInfoState extends State<EventInfo> {
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
                             child: ListTile(
-                              title: Text((data as Map)["teamInfo"][index]["teamName"]),
+                              title: Text(
+                                  (data as Map)["teamInfo"][index]["teamName"]),
                             ),
                           );
                         },
@@ -239,7 +242,8 @@ class _EventInfoState extends State<EventInfo> {
                               ),
                             ),
                             CircularProgressIndicator(
-                              value: (data as Map)["playersId"].length / (data as Map)["max"],
+                              value: (data as Map)["playersId"].length /
+                                  (data as Map)["max"],
                               backgroundColor: theme
                                   .currentTheme.backgroundColor
                                   .withOpacity(0.15),

@@ -89,11 +89,11 @@ class _TeamCategoryState extends State<TeamCategory> {
                           break;
                       }
                       bool notifiedCondition = false;
-                      bool joinCondition = data.playerId
-                          !.contains(Constants.prefs.getString('userId'));
+                      bool joinCondition = data.playerId!
+                          .contains(Constants.prefs.getString('userId'));
                       if (data.notificationPlayers!.length > 0)
-                        notifiedCondition = data.notificationPlayers
-                            !.contains(Constants.prefs.getString('userId'));
+                        notifiedCondition = data.notificationPlayers!
+                            .contains(Constants.prefs.getString('userId'));
 
                       //asyncSnapshot
                       // .data.documents[index]
@@ -371,14 +371,14 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return StreamBuilder(
         stream: getTeams(query),
-        builder: (context,AsyncSnapshot asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
                   itemCount: asyncSnapshot.data!.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    Teams data =
-                        new Teams.fromJson(asyncSnapshot.data!.documents[index]);
+                    Teams data = new Teams.fromJson(
+                        asyncSnapshot.data!.documents[index]);
 
                     late String sportIcon;
                     switch (data.sport) {
@@ -396,11 +396,11 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                         break;
                     }
                     bool notifiedCondition = false;
-                    bool joinCondition = data.playerId
-                        !.contains(Constants.prefs.getString('userId'));
+                    bool joinCondition = data.playerId!
+                        .contains(Constants.prefs.getString('userId'));
                     if (data.notificationPlayers!.length > 0)
-                      notifiedCondition = data.notificationPlayers
-                          !.contains(Constants.prefs.getString('userId'));
+                      notifiedCondition = data.notificationPlayers!
+                          .contains(Constants.prefs.getString('userId'));
 
                     //asyncSnapshot
                     // .data.documents[index]
@@ -584,7 +584,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
     late String sportIcon;
     return StreamBuilder(
         stream: getTeamFeed(query),
-        builder: (context,AsyncSnapshot asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           print("Suggestions Working");
           print(asyncSnapshot.hasData);
           return asyncSnapshot.hasData

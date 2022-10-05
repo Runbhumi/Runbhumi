@@ -47,7 +47,7 @@ class _ConversationState extends State<Conversation> {
     //displaying previous chats
     return StreamBuilder(
       stream: chats,
-      builder: (context,AsyncSnapshot snapshot) {
+      builder: (context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? ListView.builder(
                 reverse: true,

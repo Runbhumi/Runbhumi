@@ -410,7 +410,8 @@ class _DirectChatsState extends State<DirectChats> {
                   children: <Widget>[
                     Icon(
                       UniconsLine.search,
-                      color: Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                      color:
+                          Theme.of(context).iconTheme.color!.withOpacity(0.5),
                     ),
                     SizedBox(
                       width: 10,
@@ -420,8 +421,8 @@ class _DirectChatsState extends State<DirectChats> {
                       style: TextStyle(
                         color: Theme.of(context)
                             .inputDecorationTheme
-                            .hintStyle
-                            !.color,
+                            .hintStyle!
+                            .color,
                         fontSize: 16,
                       ),
                     )
@@ -498,7 +499,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
   Widget buildResults(BuildContext context) {
     return StreamBuilder(
         stream: getUser(query),
-        builder: (context,AsyncSnapshot asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
                   itemCount: asyncSnapshot.data.documents.length,
@@ -589,7 +590,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder(
         stream: getUserFeed(query),
-        builder: (context,AsyncSnapshot asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           print("Working");
           return asyncSnapshot.hasData
               ? ListView.builder(

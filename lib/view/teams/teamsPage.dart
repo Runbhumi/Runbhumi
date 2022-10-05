@@ -40,7 +40,7 @@ class _TeamsListState extends State<TeamsList>
           .collection("teams")
           .limit(loadMoreTeams)
           .snapshots(),
-      builder: (context,AsyncSnapshot asyncSnapshot) {
+      builder: (context, AsyncSnapshot asyncSnapshot) {
         if (asyncSnapshot.hasData) {
           if (asyncSnapshot.data!.documents.length > 0) {
             return ListView.builder(
@@ -68,11 +68,11 @@ class _TeamsListState extends State<TeamsList>
                     break;
                 }
                 bool notifiedCondition = false;
-                bool joinCondition =
-                    data.playerId!.contains(Constants.prefs.getString('userId'));
+                bool joinCondition = data.playerId!
+                    .contains(Constants.prefs.getString('userId'));
                 if (data.notificationPlayers!.length > 0)
-                  notifiedCondition = data.notificationPlayers
-                      !.contains(Constants.prefs.getString('userId'));
+                  notifiedCondition = data.notificationPlayers!
+                      .contains(Constants.prefs.getString('userId'));
 
                 //asyncSnapshot
                 // .data.documents[index]

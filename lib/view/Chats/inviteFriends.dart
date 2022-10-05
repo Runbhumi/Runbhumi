@@ -73,8 +73,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                           ),
                         );
                       else if (widget.team.notificationPlayers!.length > 0 &&
-                          widget.team.notificationPlayers
-                              !.contains(data.friendId))
+                          widget.team.notificationPlayers!
+                              .contains(data.friendId))
                         return buttonInviteFriends(
                             data, context, "Invite Sent");
                       else

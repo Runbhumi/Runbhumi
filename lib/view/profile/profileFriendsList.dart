@@ -204,7 +204,7 @@ class UserSearch extends SearchDelegate<ListView> {
   Widget buildResults(BuildContext context) {
     return StreamBuilder<AsyncSnapshot<Friends>>(
         stream: getUser(query),
-        builder: (context,AsyncSnapshot asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
                   itemCount: asyncSnapshot.data?.docs.length,
@@ -252,7 +252,7 @@ class UserSearch extends SearchDelegate<ListView> {
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder(
         stream: getUserFeed(query),
-        builder: (context,AsyncSnapshot asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           print("suggestions are loading");
           return asyncSnapshot.hasData
               ? ListView.builder(

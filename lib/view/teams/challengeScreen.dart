@@ -96,7 +96,8 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                     TeamChallengeNotification myTeam =
                                         new TeamChallengeNotification.newTeam(
                                             data.teamId,
-                                            Constants.prefs.getString('userId')!,
+                                            Constants.prefs
+                                                .getString('userId')!,
                                             data.teamName);
 
                                     showDialog(

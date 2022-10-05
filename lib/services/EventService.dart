@@ -277,7 +277,8 @@ leaveEvent(Events data) async {
       .doc(data.eventId)
       .delete();
   if (data.status == 'individual') {
-    Friends friend = new Friends.newFriend(userId, userName as String, profileImage as String);
+    Friends friend = new Friends.newFriend(
+        userId, userName as String, profileImage as String);
     FirebaseFirestore.instance.collection('events').doc(data.eventId).set({
       'playersId': FieldValue.arrayRemove([userId]),
       'playerInfo': FieldValue.arrayRemove([friend.toJson()]),
@@ -294,8 +295,8 @@ leaveEvent(Events data) async {
     }, SetOptions(merge: true));
   }
   //UserService().updateEventCount(-1);
-  CustomMessageServices()
-      .userLeftEventMessage(data.eventId!, Constants.prefs.get('name') as String);
+  CustomMessageServices().userLeftEventMessage(
+      data.eventId!, Constants.prefs.get('name') as String);
 }
 
 deleteEvent(id) async {

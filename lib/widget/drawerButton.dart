@@ -9,22 +9,31 @@ class DrawerButton extends StatelessWidget {
     this.beta,
   }) : super(key: key);
 
-  final Function onpressed;
+  final Function()? onpressed;
   final String label;
   final Widget icon;
   final bool? beta;
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton.icon(
-      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+        backgroundColor:
+            MaterialStateProperty.all<Color?>(Theme.of(context).primaryColor),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
+            EdgeInsets.symmetric(vertical: 4, horizontal: 4)),
+        shape: MaterialStateProperty.resolveWith<OutlinedBorder>(
+          (_) {
+            return RoundedRectangleBorder(
+              side: BorderSide.none,
+              borderRadius: BorderRadius.circular(8),
+            );
+          },
+        ),
+        elevation: MaterialStateProperty.all<double>(0),
+      ),
       onPressed: onpressed,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(0),
-              topRight: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-              bottomLeft: Radius.circular(0))),
       label: Row(
         children: [
           Text(
@@ -46,8 +55,6 @@ class DrawerButton extends StatelessWidget {
         ],
       ),
       icon: icon,
-      textColor: Colors.white,
-      color: Theme.of(context).primaryColor,
     );
   }
 }

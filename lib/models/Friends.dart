@@ -13,7 +13,8 @@ class Friends {
   Map<String, dynamic> toJson() =>
       {'id': friendId, 'name': name, 'profileImage': profileImage};
 
-  Friends({required this.friendId, required this.name, required this.profileImage});
+  Friends(
+      {required this.friendId, required this.name, required this.profileImage});
 
   factory Friends.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();

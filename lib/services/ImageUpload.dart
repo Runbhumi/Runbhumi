@@ -4,11 +4,10 @@ import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class Uploader extends StatefulWidget {
-  final File file;
+  final File? file;
 
   Uploader({Key? key, this.file}) : super(key: key);
 

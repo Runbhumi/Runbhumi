@@ -1,22 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserProfile {
-  String userId;
-  String username;
-  String name;
-  String profileImage;
-  String location;
-  String age;
-  String bio;
-  int friendCount;
-  int eventCount;
-  int teamsCount;
-  int eventTokens;
-  List<String> userDeviceToken;
-  Map<String, dynamic> phoneNumber;
-  List<String> userSearchIndex;
-  String emailId;
-  List friends;
+  String? userId;
+  String? username;
+  String? name;
+  String? profileImage;
+  String? location;
+  String? age;
+  String? bio;
+  int? friendCount;
+  int? eventCount;
+  int? teamsCount;
+  int? eventTokens;
+  List<String>? userDeviceToken;
+  Map<String, dynamic>? phoneNumber;
+  List<String>? userSearchIndex;
+  String? emailId;
+  List? friends;
 
   UserProfile(
       {this.userId,
@@ -76,7 +76,7 @@ class UserProfile {
         'friendCount': friendCount,
         'teamsCount': teamsCount,
         'eventCount': eventCount,
-        "userSearchParam": setSearchParam(username),
+        "userSearchParam": setSearchParam(username!),
         "friends": friends,
         "notification": [],
         'eventTokens': eventTokens,
@@ -95,7 +95,7 @@ class UserProfile {
   }
 
   factory UserProfile.fromJson(QueryDocumentSnapshot snapshot) {
-    var data = snapshot.data();
+    var data = snapshot.data() as Map;
     return UserProfile(
         userId: data['userId'],
         username: data['username'],
@@ -117,7 +117,7 @@ String generateusername(String email) {
 }
 
 setSearchParam(String username) {
-  List<String> userSearchList = List();
+  List<String> userSearchList = [];
   String temp = "";
   for (int i = 0; i < username.length; i++) {
     temp = temp + username[i];

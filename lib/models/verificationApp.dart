@@ -3,13 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class VerificationApplication {
   //All the details needed for the verification application to be sent
   //Id of the team
-  String teamId;
+  String? teamId;
   //Sport which the team represents
-  String sport;
+  String? sport;
   //Name of the team
-  String teamName;
+  String? teamName;
   //application Id
-  String applicationId;
+  String? applicationId;
 
   /*
   Constructor for making a new verification application.
@@ -36,7 +36,7 @@ class VerificationApplication {
 
   // takes a query snapshot as a input and returns a the VerificationApplication class
   factory VerificationApplication.fromJson(QueryDocumentSnapshot data) {
-    var parsedJson = data.data();
+    var parsedJson = data.data() as Map;
     return VerificationApplication(
         teamId: parsedJson['teamId'],
         sport: parsedJson['sport'],

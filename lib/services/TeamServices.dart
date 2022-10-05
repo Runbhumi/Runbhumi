@@ -11,9 +11,10 @@ class TeamService {
       FirebaseFirestore.instance.collection('teams');
 
   final Friends me = new Friends.newFriend(
-      Constants.prefs.getString('userId'),
-      Constants.prefs.getString('name'),
-      Constants.prefs.getString('profileImage'));
+    Constants.prefs.getString('userId')!,
+    Constants.prefs.getString('name')!,
+    Constants.prefs.getString('profileImage')!,
+  );
   Teams createNewTeam(
       String sport, String teamName, String bio, String status) {
     var newDoc = _teamCollectionReference.doc();
@@ -22,7 +23,7 @@ class TeamService {
     final TeamView teamsView = new TeamView.newTeam(id, sport, teamName);
     // newDoc.set(Teams.newTeam(id, sport, teamName, bio).toJson());
     newDoc.set(team.toJson());
-    setManager("me", me.friendId, teamsView);
+    setManager("me", me.friendId!, teamsView);
     return team;
   }
 
@@ -80,7 +81,7 @@ class TeamService {
       'players': FieldValue.arrayUnion([me.toJson()]),
     });
     CustomMessageServices().sendTeamNewMemberJoinMessage(
-        teamId, Constants.prefs.getString('name'));
+        teamId, Constants.prefs.getString('name')!);
   }
 
   removeMeFromTeam(String teamId) async {
@@ -89,7 +90,7 @@ class TeamService {
       'players': FieldValue.arrayRemove([me.toJson()]),
     });
     CustomMessageServices()
-        .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name'));
+        .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name')!);
   }
 
   removePlayerFromTeam(

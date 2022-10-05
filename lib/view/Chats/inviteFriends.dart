@@ -15,7 +15,7 @@ class InviteFriends extends StatefulWidget {
 }
 
 class _InviteFriendsState extends State<InviteFriends> {
-  Stream userFriends;
+  late Stream userFriends;
 
   void initState() {
     super.initState();
@@ -46,11 +46,11 @@ class _InviteFriendsState extends State<InviteFriends> {
                       Friends data = new Friends.fromJson(
                           asyncSnapshot.data.documents[index]);
 
-                      if (widget.team.playerId.contains(data.friendId))
+                      if (widget.team.playerId!.contains(data.friendId))
                         return ListTile(
                           leading:
-                              Image(image: NetworkImage(data.profileImage)),
-                          title: Text(data.name),
+                              Image(image: NetworkImage(data.profileImage!)),
+                          title: Text(data.name!),
                           trailing: Button(
                             buttonTitle: "Aready In Team",
                             bgColor: Theme.of(context).primaryColor,
@@ -59,11 +59,11 @@ class _InviteFriendsState extends State<InviteFriends> {
                             },
                           ),
                         );
-                      else if (widget.team.notificationPlayers.length > 20)
+                      else if (widget.team.notificationPlayers!.length > 20)
                         return ListTile(
                           leading:
-                              Image(image: NetworkImage(data.profileImage)),
-                          title: Text(data.name),
+                              Image(image: NetworkImage(data.profileImage!)),
+                          title: Text(data.name!),
                           trailing: Button(
                             buttonTitle: "Invite Sent",
                             bgColor: Theme.of(context).primaryColor,
@@ -72,23 +72,23 @@ class _InviteFriendsState extends State<InviteFriends> {
                             },
                           ),
                         );
-                      else if (widget.team.notificationPlayers.length > 0 &&
+                      else if (widget.team.notificationPlayers!.length > 0 &&
                           widget.team.notificationPlayers
-                              .contains(data.friendId))
+                              !.contains(data.friendId))
                         return buttonInviteFriends(
                             data, context, "Invite Sent");
                       else
                         return ListTile(
                           leading:
-                              Image(image: NetworkImage(data.profileImage)),
-                          title: Text(data.name),
+                              Image(image: NetworkImage(data.profileImage!)),
+                          title: Text(data.name!),
                           trailing: Button(
                             buttonTitle: "Invite",
                             bgColor: Theme.of(context).primaryColor,
                             onPressed: () {
                               // ------- When the user is not in the team  ---------------
                               NotificationServices().createTeamNotification(
-                                  data.friendId, data.friendId, widget.team);
+                                  data.friendId!, data.friendId!, widget.team);
                             },
                           ),
                         );
@@ -107,8 +107,8 @@ class _InviteFriendsState extends State<InviteFriends> {
   ListTile buttonInviteFriends(
       Friends data, BuildContext context, String text) {
     return ListTile(
-      leading: Image(image: NetworkImage(data.profileImage)),
-      title: Text(data.name),
+      leading: Image(image: NetworkImage(data.profileImage!)),
+      title: Text(data.name!),
       trailing: Button(
         buttonTitle: text,
         bgColor: Theme.of(context).primaryColor,

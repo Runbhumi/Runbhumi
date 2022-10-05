@@ -37,7 +37,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
   }
 
   GlobalKey<FormState> _addpostkey = GlobalKey<FormState>();
-  String _chosenSport;
+  late String _chosenSport;
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _datetime = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
@@ -65,7 +65,7 @@ class _ChatScheduleState extends State<ChatSchedule> {
         setState(
           () {
             print(value);
-            _chosenSport = value;
+            _chosenSport = value!;
           },
         );
       },
@@ -183,8 +183,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             _chosenSport,
                             _locationController.text,
                             DateTime.parse(_datetime.text),
-                            Constants.prefs.getString('userId'),
-                            Constants.prefs.getString('name'),
+                            Constants.prefs.getString('userId')!,
+                            Constants.prefs.getString('name')!,
                             id,
                             'chatroom',
                             4,

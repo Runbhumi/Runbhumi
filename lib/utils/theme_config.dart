@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // dark mode switch
 enum MyTheme { Light, Dark }
 
-String _darkmode = Constants.prefs.getString("darkmode");
+String _darkmode = Constants.prefs.getString("darkmode")!;
 
 class ThemeNotifier extends ChangeNotifier {
   static List<ThemeData> themes = [

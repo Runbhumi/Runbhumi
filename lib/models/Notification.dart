@@ -158,17 +158,17 @@ class TeamNotification {
 }
 
 class ChallengeNotification {
-  String notificationId;
-  String senderId;
-  String senderName;
-  String sport;
-  String opponentTeamName;
-  String myTeamName;
-  String type;
-  String myTeamId;
-  String opponentTeamId;
+  String? notificationId;
+  String? senderId;
+  String? senderName;
+  String? sport;
+  String? opponentTeamName;
+  String? myTeamName;
+  String? type;
+  String? myTeamId;
+  String? opponentTeamId;
 
-  createNewRequest(
+  ChallengeNotification.createNewRequest(
       String notificationId,
       String sport,
       TeamChallengeNotification myteam,
@@ -241,7 +241,7 @@ class EventNotification {
   // team - for teams reated private events
   // individual -for individual private events
 
-  createIndividualNotification(
+  EventNotification.createIndividualNotification(
       String notificationId, String eventId, String eventName) {
     this.notificationId = notificationId;
     this.eventName = eventName;
@@ -253,7 +253,7 @@ class EventNotification {
     this.subtype = 'individual';
   }
 
-  createTeamsNotification(
+  EventNotification.createTeamsNotification(
     String? notificationId,
     String? eventId,
     String? eventName,

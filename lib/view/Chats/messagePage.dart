@@ -75,7 +75,7 @@ class EventChats extends StatefulWidget {
 }
 
 class _EventChatsState extends State<EventChats> {
-  Stream userEventChats;
+  late Stream userEventChats;
   @override
   void initState() {
     getEventChats();
@@ -119,8 +119,8 @@ class _EventChatsState extends State<EventChats> {
                             ));
                         //Go to the team ChatRoom
                       },
-                      title: Text(data.eventName),
-                      subtitle: Text(data.description),
+                      title: Text(data.eventName!),
+                      subtitle: Text(data.description!),
                     ),
                   );
                 });
@@ -150,7 +150,7 @@ class TeamChats extends StatefulWidget {
 }
 
 class _TeamChatsState extends State<TeamChats> {
-  Stream userTeamChats;
+  late Stream userTeamChats;
   @override
   void initState() {
     getTeamChats();
@@ -181,7 +181,7 @@ class _TeamChatsState extends State<TeamChats> {
                   Teams data =
                       new Teams.fromJson(asyncSnapshot.data.documents[index]);
                   print(data.bio);
-                  String sportIcon;
+                  late String sportIcon;
                   // IconData sportIcon;
                   switch (data.sport) {
                     case "Volleyball":
@@ -214,7 +214,7 @@ class _TeamChatsState extends State<TeamChats> {
                         children: [
                           Flexible(
                             child: Text(
-                              data.teamName,
+                              data.teamName!,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
@@ -276,8 +276,8 @@ class DirectChats extends StatefulWidget {
 }
 
 class _DirectChatsState extends State<DirectChats> {
-  Stream userDirectChats;
-  TextEditingController friendsSearch;
+  late Stream userDirectChats;
+  late TextEditingController friendsSearch;
   String searchQuery = "";
   void initState() {
     getUserChats(); //Getting the chats of the particular user
@@ -421,7 +421,7 @@ class _DirectChatsState extends State<DirectChats> {
                         color: Theme.of(context)
                             .inputDecorationTheme
                             .hintStyle
-                            .color,
+                            !.color,
                         fontSize: 16,
                       ),
                     )
@@ -489,7 +489,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
     return IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () {
-          close(context, null);
+          close(context, null as ListView);
         });
     // throw UnimplementedError();
   }
@@ -547,13 +547,13 @@ class UserSearchDirect extends SearchDelegate<ListView> {
     print(userId);
     print(Constants.prefs.getString('userId'));
     if (userId != Constants.prefs.getString('userId')) {
-      List<String> users = [userId, Constants.prefs.getString('userId')];
+      List<String> users = [userId, Constants.prefs.getString('userId')!];
       String chatRoomId =
-          getUsersInvolved(userId, Constants.prefs.getString('userId'));
-      List<String> usersNames = [username, Constants.prefs.getString('name')];
+          getUsersInvolved(userId, Constants.prefs.getString('userId')!);
+      List<String> usersNames = [username, Constants.prefs.getString('name')!];
       List<String> usersPics = [
         userProfile,
-        Constants.prefs.getString('profileImage')
+        Constants.prefs.getString('profileImage')!
       ];
 
       Map<String, dynamic> chatRoom = {

@@ -23,7 +23,7 @@ class Conversation extends StatefulWidget {
 }
 
 class _ConversationState extends State<Conversation> {
-  Stream<QuerySnapshot> chats;
+  late Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   ScrollController _controller = ScrollController();
   int limit = 20;
@@ -32,9 +32,9 @@ class _ConversationState extends State<Conversation> {
     if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessage(
           DateTime.now(),
-          Constants.prefs.getString('userId'),
+          Constants.prefs.getString('userId')!,
           messageEditingController.text.trim(),
-          Constants.prefs.getString('name'),
+          Constants.prefs.getString('name')!,
           widget.chatRoomId);
       setState(() {
         messageEditingController.text = "";
@@ -58,11 +58,11 @@ class _ConversationState extends State<Conversation> {
                       new Message.fromJson(snapshot.data.documents[index]);
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
-                    message: data.message,
+                    message: data.message!,
                     sendByMe:
                         Constants.prefs.getString('userId') == data.sentby,
-                    sentByName: data.sentByName,
-                    dateTime: data.dateTime,
+                    sentByName: data.sentByName!,
+                    dateTime: data.dateTime!,
                   );
                 })
             : Center(

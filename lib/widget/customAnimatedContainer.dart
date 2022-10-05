@@ -275,7 +275,7 @@ abstract class ImplicitlyAnimatedWidget extends StatefulWidget {
   ///
   /// The [curve] and [duration] arguments must not be null.
   const ImplicitlyAnimatedWidget({
-    Key key,
+    Key? key,
     this.curve = Curves.linear,
     @required this.duration,
     this.onEnd,
@@ -626,7 +626,7 @@ class CustomAnimatedContainer extends ImplicitlyAnimatedWidget {
   ///
   /// The [curve] and [duration] arguments must not be null.
   CustomAnimatedContainer({
-    Key key,
+    Key? key,
     this.alignment,
     this.padding,
     Color color,
@@ -886,7 +886,7 @@ class AnimatedPadding extends ImplicitlyAnimatedWidget {
   ///
   /// The [padding], [curve], and [duration] arguments must not be null.
   AnimatedPadding({
-    Key key,
+    Key? key,
     @required this.padding,
     this.child,
     Curve curve = Curves.linear,
@@ -1009,7 +1009,7 @@ class AnimatedAlign extends ImplicitlyAnimatedWidget {
   ///
   /// The [alignment], [curve], and [duration] arguments must not be null.
   const AnimatedAlign({
-    Key key,
+    Key? key,
     @required this.alignment,
     this.child,
     this.heightFactor,
@@ -1157,7 +1157,7 @@ class AnimatedPositioned extends ImplicitlyAnimatedWidget {
   ///
   /// The [curve] and [duration] arguments must not be null.
   const AnimatedPositioned({
-    Key key,
+    Key? key,
     @required this.child,
     this.left,
     this.top,
@@ -1176,7 +1176,7 @@ class AnimatedPositioned extends ImplicitlyAnimatedWidget {
   ///
   /// The [curve] and [duration] arguments must not be null.
   AnimatedPositioned.fromRect({
-    Key key,
+    Key? key,
     @required this.child,
     @required Rect rect,
     Curve curve = Curves.linear,
@@ -1323,7 +1323,7 @@ class AnimatedPositionedDirectional extends ImplicitlyAnimatedWidget {
   ///
   /// The [curve] and [duration] arguments must not be null.
   const AnimatedPositionedDirectional({
-    Key key,
+    Key? key,
     @required this.child,
     this.start,
     this.top,
@@ -1503,7 +1503,7 @@ class AnimatedOpacity extends ImplicitlyAnimatedWidget {
   /// The [opacity] argument must not be null and must be between 0.0 and 1.0,
   /// inclusive. The [curve] and [duration] arguments must not be null.
   const AnimatedOpacity({
-    Key key,
+    Key? key,
     this.child,
     @required this.opacity,
     Curve curve = Curves.linear,
@@ -1641,7 +1641,7 @@ class SliverAnimatedOpacity extends ImplicitlyAnimatedWidget {
   /// The [opacity] argument must not be null and must be between 0.0 and 1.0,
   /// inclusive. The [curve] and [duration] arguments must not be null.
   const SliverAnimatedOpacity({
-    Key key,
+    Key? key,
     this.sliver,
     @required this.opacity,
     Curve curve = Curves.linear,
@@ -1735,7 +1735,7 @@ class AnimatedDefaultTextStyle extends ImplicitlyAnimatedWidget {
   /// The [child], [style], [softWrap], [overflow], [curve], and [duration]
   /// arguments must not be null.
   const AnimatedDefaultTextStyle({
-    Key key,
+    Key? key,
     @required this.child,
     @required this.style,
     this.textAlign,
@@ -1877,7 +1877,7 @@ class AnimatedPhysicalModel extends ImplicitlyAnimatedWidget {
   ///
   /// Animating [shadowColor] is optional and is controlled by the [animateShadowColor] flag.
   const AnimatedPhysicalModel({
-    Key key,
+    Key? key,
     @required this.child,
     @required this.shape,
     this.clipBehavior = Clip.none,

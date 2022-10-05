@@ -10,7 +10,7 @@ import 'package:unicons/unicons.dart';
 
 class SpecificSport extends StatefulWidget {
   final String sportName;
-  SpecificSport({Key key, this.sportName}) : super(key: key);
+  SpecificSport({Key? key, this.sportName}) : super(key: key);
   @override
   _SpecificSportState createState() => _SpecificSportState();
 }

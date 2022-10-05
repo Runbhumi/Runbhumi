@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 class DrawerButton extends StatelessWidget {
   const DrawerButton({
-    Key key,
-    @required this.onpressed,
-    @required this.label,
-    @required this.icon,
+    Key? key,
+    required this.onpressed,
+    required this.label,
+    required this.icon,
     this.beta,
   }) : super(key: key);
 
   final Function onpressed;
   final String label;
   final Widget icon;
-  final bool beta;
+  final bool? beta;
 
   @override
   Widget build(BuildContext context) {

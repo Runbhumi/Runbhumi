@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
 class InputBox extends StatelessWidget {
-  final String initialValue;
-  final int maxLength;
-  final bool enabled;
-  final String hintText;
-  final String labelText;
-  final TextInputType textInputType;
-  final TextEditingController controller;
-  final TextInputAction textInputAction;
-  final FocusNode focusNode, nextFocusNode;
-  final VoidCallback submitAction;
+  final String? initialValue;
+  final int? maxLength;
+  final bool? enabled;
+  final String? hintText;
+  final String? labelText;
+  final TextInputType? textInputType;
+  final TextEditingController? controller;
+  final TextInputAction? textInputAction;
+  final FocusNode? focusNode, nextFocusNode;
+  final VoidCallback? submitAction;
   final bool obscureText;
-  final FormFieldValidator<String> validateFunction;
-  final void Function(String) onSaved, onChange;
-  final Widget sufIcon;
-  final Widget icon;
-  final String helpertext;
-  final Key key;
+  final FormFieldValidator<String>? validateFunction;
+  final void Function(String?)? onSaved, onChange;
+  final Widget? sufIcon;
+  final Widget? icon;
+  final String? helpertext;
+  final Key? key;
 
   InputBox({
     this.initialValue,
@@ -61,10 +61,10 @@ class InputBox extends StatelessWidget {
           focusNode: focusNode,
           onFieldSubmitted: (String term) {
             if (nextFocusNode != null) {
-              focusNode.unfocus();
+              focusNode?.unfocus();
               FocusScope.of(context).requestFocus(nextFocusNode);
             } else {
-              submitAction();
+              submitAction!();
             }
           },
           decoration: InputDecoration(

@@ -6,7 +6,7 @@ class DateTimePicker extends StatelessWidget {
   final format = DateFormat('yyyy-MM-dd kk:mm:ss');
   final TextEditingController controller;
   DateTimePicker({
-    this.controller,
+    required this.controller,
   });
 
   @override

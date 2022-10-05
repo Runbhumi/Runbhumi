@@ -7,7 +7,7 @@ class TypeWrite extends StatefulWidget {
   final int seconds;
 
   TypeWrite({
-    Key key,
+    Key? key,
     this.word,
     this.style,
     this.textScaleFactor,

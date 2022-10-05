@@ -10,7 +10,7 @@ import 'package:unicons/unicons.dart';
 class OtherUserProfile extends StatefulWidget {
   const OtherUserProfile({
     @required this.userID,
-    Key key,
+    Key? key,
   }) : super(key: key);
   final String userID;
 
@@ -58,7 +58,7 @@ class _OtherUserProfileState extends State<OtherUserProfile> {
 
 class OtherProfileBody extends StatefulWidget {
   const OtherProfileBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -89,7 +89,7 @@ class _OtherProfileBodyState extends State<OtherProfileBody> {
 
 class UserProfile extends StatelessWidget {
   const UserProfile({
-    Key key,
+    Key? key,
     @required this.data,
   }) : super(key: key);
 

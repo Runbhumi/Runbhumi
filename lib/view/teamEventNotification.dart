@@ -8,7 +8,7 @@ import 'teams/createTeam.dart';
 
 class TeamEventNotification extends StatefulWidget {
   final Events data;
-  TeamEventNotification({Key key, @required this.data}) : super(key: key);
+  TeamEventNotification({Key? key, @required this.data}) : super(key: key);
   @override
   _TeamEventNotificationState createState() => _TeamEventNotificationState();
 }

@@ -10,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class Uploader extends StatefulWidget {
   final File file;
 
-  Uploader({Key key, this.file}) : super(key: key);
+  Uploader({Key? key, this.file}) : super(key: key);
 
   @override
   _UploaderState createState() => _UploaderState();

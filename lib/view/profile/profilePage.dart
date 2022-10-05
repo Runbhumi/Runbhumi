@@ -193,7 +193,7 @@ class ProfileBody extends StatefulWidget {
   final Map data;
   const ProfileBody({
     @required this.data,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -230,7 +230,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 
 class MainUserProfile extends StatelessWidget {
   const MainUserProfile({
-    Key key,
+    Key? key,
     @required this.data,
   }) : super(key: key);
 

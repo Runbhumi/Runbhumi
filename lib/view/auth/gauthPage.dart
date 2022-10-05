@@ -1,10 +1,7 @@
-import 'dart:ui';
-
+import 'package:Runbhumi/widget/buildTitle.dart';
+import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../widget/widgets.dart';
-import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 

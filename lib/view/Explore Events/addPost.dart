@@ -206,7 +206,7 @@ class _AddPostState extends State<AddPost> {
 
 class Page1 extends StatefulWidget {
   const Page1({
-    Key key,
+    Key? key,
     @required GlobalKey<FormState> addpostkey,
     @required TextEditingController nameController,
     @required this.theme,

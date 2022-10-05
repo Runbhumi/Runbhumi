@@ -10,7 +10,7 @@ import 'package:unicons/unicons.dart';
 class ChallangeTeam extends StatefulWidget {
   final String sportName;
   final TeamChallengeNotification teamData;
-  ChallangeTeam({Key key, this.sportName, this.teamData}) : super(key: key);
+  ChallangeTeam({Key? key, this.sportName, this.teamData}) : super(key: key);
   @override
   _ChallangeTeamState createState() => _ChallangeTeamState();
 }

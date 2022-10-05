@@ -11,7 +11,7 @@ import '../../widget/widgets.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

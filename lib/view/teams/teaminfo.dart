@@ -45,7 +45,7 @@ Challenge Team
 class TeamInfo extends StatefulWidget {
   const TeamInfo({
     @required this.teamID,
-    Key key,
+    Key? key,
   }) : super(key: key);
   final String teamID;
   @override

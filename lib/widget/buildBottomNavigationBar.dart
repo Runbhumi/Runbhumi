@@ -53,7 +53,7 @@ class AnimatedBottomBar extends StatefulWidget {
 }
 
 class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
-  int _currentPage;
+  late int _currentPage;
 
   @override
   void initState() {
@@ -97,7 +97,8 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
 class AnimatedBottomNav extends StatelessWidget {
   final int currentIndex;
   final Function(int) onChange;
-  const AnimatedBottomNav({Key key, this.currentIndex, this.onChange})
+  const AnimatedBottomNav(
+      {Key? key, required this.currentIndex, required this.onChange})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -106,7 +107,7 @@ class AnimatedBottomNav extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context)
             .bottomNavigationBarTheme
-            .backgroundColor
+            .backgroundColor!
             .withOpacity(0.3),
       ),
       child: Row(
@@ -175,17 +176,17 @@ class AnimatedBottomNav extends StatelessWidget {
 class BottomNavItem extends StatelessWidget {
   final bool isActive;
   final IconData icon;
-  final Color activeColor;
-  final Color inactiveColor;
+  final Color? activeColor;
+  final Color? inactiveColor;
   final String title;
-  const BottomNavItem(
-      {Key key,
-      this.isActive = false,
-      this.icon,
-      this.activeColor,
-      this.inactiveColor,
-      this.title})
-      : super(key: key);
+  const BottomNavItem({
+    Key? key,
+    this.isActive = false,
+    required this.icon,
+    this.activeColor,
+    this.inactiveColor,
+    required this.title,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(

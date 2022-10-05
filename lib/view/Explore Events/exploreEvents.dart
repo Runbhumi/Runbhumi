@@ -637,7 +637,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
 
 class ExploreEventEmptyState extends StatelessWidget {
   const ExploreEventEmptyState({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -677,7 +677,7 @@ class ExploreEventEmptyState extends StatelessWidget {
 
 class BodyHeader extends StatelessWidget {
   const BodyHeader({
-    Key key,
+    Key? key,
     @required this.theme,
     @required this.text,
   }) : super(key: key);

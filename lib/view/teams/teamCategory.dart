@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class TeamCategory extends StatefulWidget {
   final String sportName;
-  TeamCategory({Key key, this.sportName}) : super(key: key);
+  TeamCategory({Key? key, this.sportName}) : super(key: key);
   @override
   _TeamCategoryState createState() => _TeamCategoryState();
 }

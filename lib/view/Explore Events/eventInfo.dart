@@ -14,7 +14,7 @@ class EventInfo extends StatefulWidget {
   final String eventId;
   const EventInfo({
     @required this.eventId,
-    Key key,
+    Key? key,
   }) : super(key: key);
   @override
   _EventInfoState createState() => _EventInfoState();

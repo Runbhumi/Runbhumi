@@ -6,7 +6,7 @@ import 'package:unicons/unicons.dart';
 
 class GoogleOauth extends StatefulWidget {
   const GoogleOauth({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,8 +21,7 @@ class _GoogleOauthState extends State<GoogleOauth> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        OutlineButton(
-          color: Colors.white,
+        Button(
           onPressed: () async {
             setState(() => state = true);
             await signInWithGoogle().catchError((err) {
@@ -44,39 +43,8 @@ class _GoogleOauthState extends State<GoogleOauth> {
               }
             });
           },
-          borderSide: BorderSide(
-              color: Theme.of(context).backgroundColor.withOpacity(0.7),
-              width: 2.0),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                if (state == false)
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16.0, top: 8, bottom: 8),
-                    child: Image(
-                        image: AssetImage('assets/googleicon.png'), width: 24),
-                  ),
-                if (state == false)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      "Continue with Google",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                if (state)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Loader(),
-                  )
-              ],
-            ),
-          ),
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(16.0),
-          ),
+          buttonTitle: state ? "loading..." : "Continue with Google",
+          bgColor: Colors.white,
         ),
       ],
     );

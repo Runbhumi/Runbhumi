@@ -402,7 +402,7 @@ class _TeamsListState extends State<TeamsList>
 
 class PlayerPreview3 extends StatelessWidget {
   const PlayerPreview3({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -427,7 +427,7 @@ class PlayerPreview3 extends StatelessWidget {
 
 class PlayerPreview1 extends StatelessWidget {
   const PlayerPreview1({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -449,7 +449,7 @@ class PlayerPreview1 extends StatelessWidget {
 
 class TeamSportLeading extends StatelessWidget {
   const TeamSportLeading({
-    Key key,
+    Key? key,
     @required this.sportIcon,
   }) : super(key: key);
 
@@ -469,7 +469,7 @@ class TeamSportLeading extends StatelessWidget {
 
 class TeamName extends StatelessWidget {
   const TeamName({
-    Key key,
+    Key? key,
     @required this.data,
   }) : super(key: key);
 
@@ -506,7 +506,7 @@ class TeamName extends StatelessWidget {
 
 class TeamDescription extends StatelessWidget {
   const TeamDescription({
-    Key key,
+    Key? key,
     @required this.data,
   }) : super(key: key);
 
@@ -528,7 +528,7 @@ class TeamDescription extends StatelessWidget {
 
 class TypeofTeam extends StatelessWidget {
   const TypeofTeam({
-    Key key,
+    Key? key,
     @required this.data,
   }) : super(key: key);
 
@@ -563,7 +563,7 @@ class TypeofTeam extends StatelessWidget {
 
 class PlayerPreview2 extends StatelessWidget {
   const PlayerPreview2({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -588,7 +588,7 @@ class PlayerPreview2 extends StatelessWidget {
 
 class SportsCategory extends StatelessWidget {
   const SportsCategory({
-    Key key,
+    Key? key,
     @required this.theme,
     @required this.sport,
     @required this.icon,

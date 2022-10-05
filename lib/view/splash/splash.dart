@@ -14,25 +14,8 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   // Timer to change the screen in 2.2 seconds
 
-  String _userId = Constants.prefs.getString('userId');
-  String _firsttime = Constants.prefs.getString('firsttime');
-  startTimeout() {
-    return Timer(Duration(milliseconds: 2200), handleTimeout);
-  }
-
-  void handleTimeout() {
-    changeScreen();
-  }
-
-  changeScreen() async {
-    _firsttime == null
-        ? CRouter.pushPageWithFadeAnimation(context, OnBoardingPage())
-        : _userId == null
-            ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
-            : Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
-  }
-
+  String? _userId = Constants.prefs.getString('userId');
+  String? _firsttime = Constants.prefs.getString('firsttime');
   @override
   void initState() {
     startTimeout();
@@ -42,6 +25,22 @@ class _SplashState extends State<Splash> {
       setState(() {});
       startTimeout();
     });
+  }
+
+  startTimeout() {
+    return Timer(Duration(milliseconds: 2200), changeScreen);
+  }
+
+  changeScreen() async {
+    // _firsttime == null
+    //     ? CRouter.pushPageWithFadeAnimation(context, OnBoardingPage())
+    //     : _userId == null
+    //         ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
+    //         : Navigator.pushReplacement(context,
+    //             MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return GauthPage();
+    }));
   }
 
   @override

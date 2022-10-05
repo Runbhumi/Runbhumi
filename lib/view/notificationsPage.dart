@@ -117,7 +117,7 @@ class _NotificationsState extends State<Notifications> {
 
 class FriendRequestNotificationCard extends StatelessWidget {
   const FriendRequestNotificationCard({
-    Key key,
+    Key? key,
     @required this.notificationData,
   }) : super(key: key);
 
@@ -268,7 +268,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
 
 class TeamEventNotificationCard extends StatelessWidget {
   const TeamEventNotificationCard({
-    Key key,
+    Key? key,
     @required this.notificationData,
   }) : super(key: key);
 
@@ -425,7 +425,7 @@ class TeamEventNotificationCard extends StatelessWidget {
 
 class IndividualEventNotificationCard extends StatelessWidget {
   const IndividualEventNotificationCard({
-    Key key,
+    Key? key,
     @required this.notificationData,
   }) : super(key: key);
 
@@ -581,7 +581,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
 
 class TeamJoinRequestNotificationCard extends StatelessWidget {
   const TeamJoinRequestNotificationCard({
-    Key key,
+    Key? key,
     @required this.notificationData,
   }) : super(key: key);
 
@@ -749,7 +749,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
 
 class ChallengeNotificationCard extends StatelessWidget {
   const ChallengeNotificationCard({
-    Key key,
+    Key? key,
     @required this.notificationData,
   }) : super(key: key);
 

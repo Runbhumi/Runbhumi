@@ -40,7 +40,7 @@ class _TeamsListState extends State<TeamsList>
           .collection("teams")
           .limit(loadMoreTeams)
           .snapshots(),
-      builder: (context, asyncSnapshot) {
+      builder: (context,AsyncSnapshot asyncSnapshot) {
         if (asyncSnapshot.hasData) {
           if (asyncSnapshot.data!.documents.length > 0) {
             return ListView.builder(

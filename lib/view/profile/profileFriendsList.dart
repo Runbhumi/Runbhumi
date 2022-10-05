@@ -1,3 +1,4 @@
+import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/widget/widgets.dart';
@@ -201,12 +202,12 @@ class UserSearch extends SearchDelegate<ListView> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<AsyncSnapshot<Friends>>(
         stream: getUser(query),
-        builder: (context, asyncSnapshot) {
+        builder: (context,AsyncSnapshot asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
-                  itemCount: asyncSnapshot.data?.documents.length,
+                  itemCount: asyncSnapshot.data?.docs.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -251,7 +252,7 @@ class UserSearch extends SearchDelegate<ListView> {
   Widget buildSuggestions(BuildContext context) {
     return StreamBuilder(
         stream: getUserFeed(query),
-        builder: (context, asyncSnapshot) {
+        builder: (context,AsyncSnapshot asyncSnapshot) {
           print("suggestions are loading");
           return asyncSnapshot.hasData
               ? ListView.builder(

@@ -809,7 +809,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.5,
                             child: Center(
                               child: Text(
-                                notificationData.opponentTeamName,
+                                notificationData.opponentTeamName!,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontSize: 14,
@@ -832,7 +832,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.5,
                             child: Center(
                               child: Text(
-                                notificationData.myTeamName,
+                                notificationData.myTeamName!,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontSize: 14,
@@ -854,7 +854,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           NotificationServices().declineNotification(
-                              notificationData.notificationId);
+                              notificationData.notificationId!);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -920,7 +920,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    notificationData.type,
+                    notificationData.type!,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,

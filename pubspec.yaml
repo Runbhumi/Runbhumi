@@ -52,7 +52,8 @@ dependencies:
   #stripe_payments
   # stripe_payment: ^1.0.9
   #icons
-  flutter_icons: ^1.1.0
+  # flutter_icons: ^1.1.0
+  unicons: ^2.1.0
 
   #modal_progress_hud
   #modal_progress_hud: ^0.1.3

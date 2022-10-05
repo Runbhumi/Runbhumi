@@ -2,12 +2,11 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:unicons/unicons.dart';
 
 class SpecificSport extends StatefulWidget {
   final String sportName;
@@ -167,7 +166,7 @@ class _SpecificSportState extends State<SpecificSport> {
                                         Row(
                                           children: [
                                             Icon(
-                                              Feather.map_pin,
+                                              UniconsLine.map_pin,
                                               size: 16.0,
                                             ),
                                             Text(

@@ -2,7 +2,7 @@ import 'package:Runbhumi/services/auth.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 
 class GoogleOauth extends StatefulWidget {
   const GoogleOauth({
@@ -91,7 +91,7 @@ SimpleDialog authError(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
               child: Icon(
-            Feather.info,
+            UniconsLine.info,
             size: 64,
           )),
         ),

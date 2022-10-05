@@ -4,8 +4,8 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:unicons/unicons.dart';
 
 class OtherUserProfile extends StatefulWidget {
   const OtherUserProfile({
@@ -161,8 +161,8 @@ class UserProfile extends StatelessWidget {
         if (data['friends'].contains(_id) && data['userId'] != _id)
           // remove friend btn
           Button(
-            myColor: Colors.redAccent[400],
-            myText: "Remove Friend",
+            bgColor: Colors.redAccent[400],
+            buttonTitle: "Remove Friend",
             onPressed: () {
               // a confirmation is required because its a serious action
               confirmationPopup(context, data['name'], data['userId'], _id);
@@ -194,8 +194,8 @@ class UserProfile extends StatelessWidget {
             !(data['notification'].contains(_id)))
           //add friend btn
           Button(
-            myColor: Theme.of(context).primaryColor,
-            myText: "Add Friend",
+            bgColor: Theme.of(context).primaryColor,
+            buttonTitle: "Add Friend",
             onPressed: () {
               NotificationServices().createRequest(data['userId']);
             },
@@ -303,7 +303,7 @@ class UserProfile extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Icon(
-                          Feather.mail,
+                          UniconsLine.envelope,
                           size: 24.0,
                         ),
                       ),
@@ -327,7 +327,7 @@ class UserProfile extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Icon(
-                            Feather.phone,
+                            UniconsLine.phone,
                             size: 24.0,
                           ),
                         ),
@@ -351,7 +351,7 @@ class UserProfile extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Icon(
-                            Feather.map_pin,
+                            UniconsLine.map_pin,
                             size: 24.0,
                           ),
                         ),

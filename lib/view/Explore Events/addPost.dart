@@ -5,13 +5,12 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
-import 'package:Runbhumi/widget/customBackButton.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:Runbhumi/widget/showOffline.dart';
@@ -156,7 +155,7 @@ class _AddPostState extends State<AddPost> {
         title: buildTitle(context, "Add Post"),
         actions: [
           IconButton(
-              icon: Icon(Feather.info),
+              icon: Icon(UniconsLine.info),
               onPressed: () {
                 //Navigator.pushNamed(context, "/cards");
                 showDialog(
@@ -297,7 +296,7 @@ class _Page1State extends State<Page1> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Icon(
-              Feather.info,
+              UniconsLine.info,
               size: 64,
             )),
           ),
@@ -329,7 +328,7 @@ class _Page1State extends State<Page1> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Icon(
-              Feather.info,
+              UniconsLine.info,
               size: 64,
             )),
           ),
@@ -361,7 +360,7 @@ class _Page1State extends State<Page1> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Icon(
-              Feather.info,
+              UniconsLine.info,
               size: 64,
             )),
           ),
@@ -519,7 +518,7 @@ class _Page1State extends State<Page1> {
                               textAlign: TextAlign.start,
                             ),
                             IconButton(
-                                icon: Icon(Feather.info),
+                                icon: Icon(UniconsLine.info),
                                 iconSize: 15.0,
                                 onPressed: () {
                                   showDialog(
@@ -551,7 +550,7 @@ class _Page1State extends State<Page1> {
                               textAlign: TextAlign.start,
                             ),
                             IconButton(
-                                icon: Icon(Feather.info),
+                                icon: Icon(UniconsLine.info),
                                 iconSize: 15.0,
                                 onPressed: () {
                                   showDialog(
@@ -583,7 +582,7 @@ class _Page1State extends State<Page1> {
                               textAlign: TextAlign.start,
                             ),
                             IconButton(
-                                icon: Icon(Feather.info),
+                                icon: Icon(UniconsLine.info),
                                 iconSize: 15.0,
                                 onPressed: () {
                                   showDialog(
@@ -601,8 +600,8 @@ class _Page1State extends State<Page1> {
                     ],
                   ),
                   Button(
-                    myText: "Add Post",
-                    myColor: userTokens > 0
+                    buttonTitle: "Add Post",
+                    bgColor: userTokens > 0
                         ? Theme.of(context).primaryColor
                         : Colors.grey,
                     onPressed: () {
@@ -700,7 +699,7 @@ SimpleDialog inValid(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
               child: Icon(
-            Feather.info,
+            UniconsLine.info,
             size: 64,
           )),
         ),
@@ -733,7 +732,7 @@ SimpleDialog infoDialog(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
               child: Icon(
-            Feather.info,
+            UniconsLine.info,
             size: 64,
           )),
         ),

@@ -2,7 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'views.dart';
 
 class Notifications extends StatefulWidget {
@@ -199,7 +199,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                                   height: 36,
                                 ),
                                 Icon(
-                                  Feather.x,
+                                  UniconsLine.x,
                                   color: Colors.red,
                                   size: 24,
                                 ),
@@ -227,7 +227,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                                 height: 36,
                               ),
                               Icon(
-                                Feather.check,
+                                UniconsLine.check,
                                 color: Colors.green,
                                 size: 24,
                               ),
@@ -244,7 +244,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      Feather.info,
+                      UniconsLine.info,
                       size: 13.0,
                     ),
                     SizedBox(width: 4),
@@ -357,7 +357,7 @@ class TeamEventNotificationCard extends StatelessWidget {
                                 height: 36,
                               ),
                               Icon(
-                                Feather.x,
+                                UniconsLine.x,
                                 color: Colors.red,
                                 size: 24,
                               ),
@@ -385,7 +385,7 @@ class TeamEventNotificationCard extends StatelessWidget {
                               height: 36,
                             ),
                             Icon(
-                              Feather.check,
+                              UniconsLine.check,
                               color: Colors.green,
                               size: 24,
                             ),
@@ -402,7 +402,7 @@ class TeamEventNotificationCard extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    Feather.info,
+                    UniconsLine.info,
                     size: 13.0,
                   ),
                   SizedBox(width: 4),
@@ -513,7 +513,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                                 height: 36,
                               ),
                               Icon(
-                                Feather.x,
+                                UniconsLine.x,
                                 color: Colors.red,
                                 size: 24,
                               ),
@@ -541,7 +541,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                               height: 36,
                             ),
                             Icon(
-                              Feather.check,
+                              UniconsLine.check,
                               color: Colors.green,
                               size: 24,
                             ),
@@ -558,7 +558,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    Feather.info,
+                    UniconsLine.info,
                     size: 13.0,
                   ),
                   SizedBox(width: 4),
@@ -681,7 +681,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                                 height: 36,
                               ),
                               Icon(
-                                Feather.x,
+                                UniconsLine.x,
                                 color: Colors.red,
                                 size: 24,
                               ),
@@ -709,7 +709,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                               height: 36,
                             ),
                             Icon(
-                              Feather.check,
+                              UniconsLine.check,
                               color: Colors.green,
                               size: 24,
                             ),
@@ -726,7 +726,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    Feather.info,
+                    UniconsLine.info,
                     size: 13.0,
                   ),
                   SizedBox(width: 4),
@@ -868,7 +868,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                                 height: 36,
                               ),
                               Icon(
-                                Feather.x,
+                                UniconsLine.x,
                                 color: Colors.red,
                                 size: 24,
                               ),
@@ -897,7 +897,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                               height: 36,
                             ),
                             Icon(
-                              Feather.check,
+                              UniconsLine.check,
                               color: Colors.green,
                               size: 24,
                             ),
@@ -914,7 +914,7 @@ class ChallengeNotificationCard extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    Feather.info,
+                    UniconsLine.info,
                     size: 13.0,
                   ),
                   SizedBox(width: 4),

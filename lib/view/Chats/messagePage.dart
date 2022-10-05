@@ -7,8 +7,8 @@ import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 import '../../widget/widgets.dart';
 import 'eventConversation.dart';
 
@@ -245,8 +245,8 @@ class _TeamChatsState extends State<TeamChats> {
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Button(
-                    myColor: Theme.of(context).primaryColor,
-                    myText: "Create team",
+                    bgColor: Theme.of(context).primaryColor,
+                    buttonTitle: "Create team",
                     onPressed: () {
                       Navigator.pushNamed(context, "/createteam");
                     },
@@ -409,7 +409,7 @@ class _DirectChatsState extends State<DirectChats> {
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      Feather.search,
+                      UniconsLine.search,
                       color: Theme.of(context).iconTheme.color.withOpacity(0.5),
                     ),
                     SizedBox(
@@ -475,7 +475,7 @@ class UserSearchDirect extends SearchDelegate<ListView> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Feather.x),
+        icon: Icon(UniconsLine.x),
         onPressed: () {
           query = '';
         },

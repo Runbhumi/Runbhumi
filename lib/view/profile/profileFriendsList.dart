@@ -3,8 +3,8 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 
 import '../views.dart';
 
@@ -97,7 +97,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      Feather.search,
+                      UniconsLine.search,
                       color: Theme.of(context).iconTheme.color.withOpacity(0.5),
                     ),
                     SizedBox(
@@ -126,7 +126,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
             //     decoration: const InputDecoration(
             //       hintText: 'Search friends...',
             //       border: InputBorder.none,
-            //       prefixIcon: Icon(Feather.search),
+            //       prefixIcon: Icon(UniconsLine.search),
             //       hintStyle: const TextStyle(color: Colors.grey),
             //     ),
             //     style: const TextStyle(fontSize: 16.0),
@@ -179,7 +179,7 @@ class UserSearch extends SearchDelegate<ListView> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Feather.x),
+        icon: Icon(UniconsLine.x),
         onPressed: () {
           query = '';
         },

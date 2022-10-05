@@ -1,5 +1,4 @@
 import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/EventService.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
@@ -8,10 +7,10 @@ import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:Runbhumi/utils/Constants.dart';
+import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExploreEvents extends StatefulWidget {
@@ -53,7 +52,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Icon(
-              Feather.info,
+              UniconsLine.info,
               size: 64,
             )),
           ),
@@ -101,7 +100,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Icon(
-              Feather.info,
+              UniconsLine.info,
               size: 64,
             )),
           ),
@@ -246,7 +245,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                           Row(
                                                             children: [
                                                               Icon(
-                                                                Feather.clock,
+                                                                UniconsLine
+                                                                    .clock,
                                                                 size: 14.0,
                                                               ),
                                                               SizedBox(
@@ -271,7 +271,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                           Row(
                                                             children: [
                                                               Icon(
-                                                                Feather.map_pin,
+                                                                UniconsLine
+                                                                    .map_pin,
                                                                 size: 14.0,
                                                               ),
                                                               SizedBox(
@@ -348,8 +349,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                   children: [
                                                     Icon(
                                                       data.type == 1
-                                                          ? Feather.globe
-                                                          : Feather.lock,
+                                                          ? UniconsLine.globe
+                                                          : UniconsLine.lock,
                                                       size: 18,
                                                       color: data.type == 1
                                                           ? Colors.green[400]
@@ -579,7 +580,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
         title: buildTitle(context, "Explore Events"),
         actions: [
           IconButton(
-              icon: Icon(Feather.info),
+              icon: Icon(UniconsLine.info),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -612,7 +613,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
         //   width: 60,
         //   height: 60,
         //   child: Icon(
-        //     Feather.plus,
+        //     UniconsLine.plus,
         //     size: 40,
         //   ),
         //   decoration: BoxDecoration(
@@ -626,7 +627,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
           Navigator.pushNamed(context, "/addpost");
         },
         child: Icon(
-          Feather.plus,
+          UniconsLine.plus,
           size: 32,
         ),
       ),

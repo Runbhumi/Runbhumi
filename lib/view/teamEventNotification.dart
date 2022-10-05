@@ -2,7 +2,7 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 
 import 'teams/createTeam.dart';
 
@@ -110,7 +110,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                         height: 36,
                                       ),
                                       Icon(
-                                        Feather.check,
+                                        UniconsLine.check,
                                         color: Colors.green,
                                         size: 24,
                                       ),
@@ -140,8 +140,8 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                               ),
                             ),
                             Button(
-                              myText: 'Create one',
-                              myColor: Theme.of(context).primaryColor,
+                              buttonTitle: 'Create one',
+                              bgColor: Theme.of(context).primaryColor,
                               onPressed: () {
                                 Navigator.push(
                                   context,

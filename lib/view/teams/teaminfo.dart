@@ -9,7 +9,7 @@ import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 // addMeInTeam(String teamId) => can pe used in a public team to join directly as a player
@@ -326,8 +326,8 @@ class _TeamInfoState extends State<TeamInfo> {
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(
                                 data["status"] == "public"
-                                    ? Feather.globe
-                                    : Feather.lock,
+                                    ? UniconsLine.globe
+                                    : UniconsLine.lock,
                                 size: 20,
                                 color: data["status"] == "public"
                                     ? Colors.green[400]
@@ -704,7 +704,7 @@ SimpleDialog notifcationPending(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
               child: Icon(
-            Feather.info,
+            UniconsLine.info,
             size: 64,
           )),
         ),
@@ -734,7 +734,7 @@ SimpleDialog closedTeam(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
               child: Icon(
-            Feather.info,
+            UniconsLine.info,
             size: 64,
           )),
         ),

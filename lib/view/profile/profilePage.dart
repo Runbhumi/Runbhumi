@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/profile/profileFriendsList.dart';
 import 'package:Runbhumi/widget/customAnimatedContainer.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import '../views.dart';
 import '../../widget/widgets.dart';
 
@@ -96,7 +95,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 ),
                 child: IconButton(
                   icon: const Icon(
-                    Feather.x,
+                    UniconsLine.x,
                     color: Colors.white,
                   ),
                   onPressed: toggle,
@@ -141,7 +140,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                     ),
                     child: IconButton(
                       icon: const Icon(
-                        Feather.menu,
+                        UniconsLine.award,
                       ),
                       onPressed: toggle,
                     ),
@@ -402,7 +401,7 @@ class MainUserProfile extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Icon(
-                          Feather.mail,
+                          UniconsLine.envelope,
                           size: 24.0,
                         ),
                       ),
@@ -426,7 +425,7 @@ class MainUserProfile extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Icon(
-                            Feather.phone,
+                            UniconsLine.phone,
                             size: 24.0,
                           ),
                         ),
@@ -450,7 +449,7 @@ class MainUserProfile extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Icon(
-                            Feather.map_pin,
+                            UniconsLine.map_pin,
                             size: 24.0,
                           ),
                         ),

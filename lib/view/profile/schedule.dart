@@ -3,7 +3,7 @@ import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -142,7 +142,7 @@ class _ScheduleState extends State<Schedule> {
                                         Row(
                                           children: [
                                             Icon(
-                                              Feather.map_pin,
+                                              UniconsLine.map_pin,
                                               size: 16.0,
                                             ),
                                             Text(

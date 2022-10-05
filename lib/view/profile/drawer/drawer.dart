@@ -4,10 +4,9 @@ import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/profile/drawer/faq.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:flutter/foundation.dart' as Foundation;
 
 class DrawerBody extends StatefulWidget {
   const DrawerBody({
@@ -64,7 +63,7 @@ class _DrawerBodyState extends State<DrawerBody> {
         //     },
         //     label: "Testing",
         //     icon: Icon(
-        //       Feather.flag,
+        //       UniconsLine.flag,
         //       color: Colors.white,
         //     ),
         //   ),
@@ -74,7 +73,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: "Edit Profile",
           icon: Icon(
-            Feather.edit,
+            UniconsLine.edit,
             color: Colors.white,
           ),
         ),
@@ -87,15 +86,15 @@ class _DrawerBodyState extends State<DrawerBody> {
           label: theme.myTheme == MyTheme.Light ? 'Dark Mode' : "Light Mode",
           icon: theme.myTheme == MyTheme.Light
               ? Icon(
-                  Feather.sun,
+                  UniconsLine.sun,
                   color: Colors.white,
                 )
-              : Icon(Feather.moon),
+              : Icon(UniconsLine.moon),
         ),
         // More Info
         DrawerButton(
           icon: Icon(
-            Feather.info,
+            UniconsLine.info,
             color: Colors.white,
           ),
           onpressed: () {
@@ -113,7 +112,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: 'FAQ',
           icon: Icon(
-            Feather.help_circle,
+            UniconsLine.info_circle,
             color: Colors.white,
           ),
         ),
@@ -124,7 +123,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: 'Give Feedback',
           icon: Icon(
-            Feather.thumbs_up,
+            UniconsLine.thumbs_up,
             color: Colors.white,
           ),
         ),
@@ -146,7 +145,7 @@ class _DrawerBodyState extends State<DrawerBody> {
           },
           label: 'Log Out',
           icon: Icon(
-            Feather.log_out,
+            UniconsLine.sign_out_alt,
             color: Colors.white,
           ),
         ),

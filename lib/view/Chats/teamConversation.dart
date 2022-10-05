@@ -15,7 +15,7 @@ import 'chatSchedule.dart';
 
 class TeamConversation extends StatefulWidget {
   final Teams data;
-  TeamConversation({@required this.data});
+  TeamConversation({required this.data});
   @override
   _TeamConversationState createState() => _TeamConversationState();
 }
@@ -273,10 +273,10 @@ class MessageTile extends StatefulWidget {
   final DateTime dateTime;
 
   MessageTile({
-    @required this.message,
-    @required this.sendByMe,
-    @required this.sentByName,
-    @required this.dateTime,
+    required this.message,
+    required this.sendByMe,
+    required this.sentByName,
+    required this.dateTime,
   });
 
   @override

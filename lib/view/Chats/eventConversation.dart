@@ -13,7 +13,7 @@ import 'chatSchedule.dart';
 
 class EventConversation extends StatefulWidget {
   final Events data;
-  EventConversation({@required this.data});
+  EventConversation({required this.data});
   @override
   _EventConversationState createState() => _EventConversationState();
 }
@@ -261,10 +261,10 @@ class MessageTile extends StatelessWidget {
   final DateTime dateTime;
 
   MessageTile({
-    @required this.message,
-    @required this.sendByMe,
-    @required this.sentByName,
-    @required this.dateTime,
+    required this.message,
+    required this.sendByMe,
+    required this.sentByName,
+    required this.dateTime,
   });
 
   @override

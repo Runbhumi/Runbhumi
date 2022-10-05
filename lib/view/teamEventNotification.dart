@@ -8,16 +8,16 @@ import 'teams/createTeam.dart';
 
 class TeamEventNotification extends StatefulWidget {
   final Events data;
-  TeamEventNotification({Key? key, @required this.data}) : super(key: key);
+  TeamEventNotification({Key? key, required this.data}) : super(key: key);
   @override
   _TeamEventNotificationState createState() => _TeamEventNotificationState();
 }
 
 class _TeamEventNotificationState extends State<TeamEventNotification> {
-  Stream currentTeams;
+  late Stream currentTeams;
   void initState() {
     super.initState();
-    getUserManagingTeams(widget.data.sportName);
+    getUserManagingTeams(widget.data.sportName!);
   }
 
   getUserManagingTeams(String sport) async {
@@ -40,7 +40,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                       itemBuilder: (context, index) {
                         TeamView data = new TeamView.fromJson(
                             asyncSnapshot.data.documents[index]);
-                        String sportIcon;
+                        late String sportIcon;
                         switch (widget.data.sportName) {
                           case "Volleyball":
                             sportIcon = "assets/icons8-volleyball-96.png";

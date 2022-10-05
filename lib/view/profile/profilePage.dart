@@ -11,16 +11,16 @@ import '../../widget/widgets.dart';
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
-  static _ProfileState of(BuildContext context) =>
+  static _ProfileState? of(BuildContext context) =>
       context.findAncestorStateOfType<_ProfileState>();
 }
 
 class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
   final db = FirebaseFirestore.instance;
-  StreamSubscription sub;
-  Map data;
+  late StreamSubscription sub;
+  late Map<String, dynamic> data;
   bool loading = false;
 
   @override
@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         .snapshots()
         .listen((snap) {
       setState(() {
-        data = snap.data();
+        data = snap.data()!;
         loading = true;
       });
     });
@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.grey[200].withOpacity(0.2),
+                    color: Colors.grey[200]!.withOpacity(0.2),
                     width: 0.2,
                   ),
                   color: Colors.white.withOpacity(0.2),
@@ -132,7 +132,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.grey[200].withOpacity(0.2),
+                        color: Colors.grey[200]!.withOpacity(0.2),
                         width: 0.2,
                       ),
                       color: Colors.grey.withOpacity(0.15),
@@ -192,7 +192,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 class ProfileBody extends StatefulWidget {
   final Map data;
   const ProfileBody({
-    @required this.data,
+    required this.data,
     Key? key,
   }) : super(key: key);
 
@@ -203,7 +203,7 @@ class ProfileBody extends StatefulWidget {
 class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
-    if (Profile.of(context).loading) {
+    if (Profile.of(context)!.loading) {
       return Center(
         child: Container(
           child: Column(
@@ -231,7 +231,7 @@ class _ProfileBodyState extends State<ProfileBody> {
 class MainUserProfile extends StatelessWidget {
   const MainUserProfile({
     Key? key,
-    @required this.data,
+    required this.data,
   }) : super(key: key);
 
   final Map data;

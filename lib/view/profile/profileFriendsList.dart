@@ -14,8 +14,8 @@ class ProfileFriendsList extends StatefulWidget {
 }
 
 class _ProfileFriendsListState extends State<ProfileFriendsList> {
-  Stream userFriend;
-  TextEditingController friendsSearch;
+  late Stream userFriend;
+  late TextEditingController friendsSearch;
   String searchQuery = "";
   void initState() {
     super.initState();
@@ -98,7 +98,8 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                   children: <Widget>[
                     Icon(
                       UniconsLine.search,
-                      color: Theme.of(context).iconTheme.color.withOpacity(0.5),
+                      color:
+                          Theme.of(context).iconTheme.color!.withOpacity(0.5),
                     ),
                     SizedBox(
                       width: 10,
@@ -108,7 +109,7 @@ class _ProfileFriendsListState extends State<ProfileFriendsList> {
                       style: TextStyle(
                         color: Theme.of(context)
                             .inputDecorationTheme
-                            .hintStyle
+                            .hintStyle!
                             .color,
                         fontSize: 16,
                       ),
@@ -193,7 +194,7 @@ class UserSearch extends SearchDelegate<ListView> {
     return IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () {
-          close(context, null);
+          close(context, [] as ListView);
         });
     // throw UnimplementedError();
   }
@@ -205,7 +206,7 @@ class UserSearch extends SearchDelegate<ListView> {
         builder: (context, asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
-                  itemCount: asyncSnapshot.data.documents.length,
+                  itemCount: asyncSnapshot.data?.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -219,16 +220,16 @@ class UserSearch extends SearchDelegate<ListView> {
                               borderRadius: BorderRadius.circular(20.0),
                               child: Image(
                                 image: NetworkImage(
-                                  asyncSnapshot.data.documents[index]
+                                  asyncSnapshot.data?.documents[index]
                                       .get('profileImage'),
                                 ),
                               ),
                             ),
                             title: Text(
-                              asyncSnapshot.data.documents[index].get('name'),
+                              asyncSnapshot.data?.documents[index].get('name'),
                             ),
                             subtitle: Text(
-                              asyncSnapshot.data.documents[index]
+                              asyncSnapshot.data?.documents[index]
                                   .get('username'),
                             ),
                           ),

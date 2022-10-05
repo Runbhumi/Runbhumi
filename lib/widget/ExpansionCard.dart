@@ -7,7 +7,7 @@ class ExpansionCard extends StatefulWidget {
     Key? key,
     required this.alwaysShowingChild,
     this.backgroundColor,
-    required this.onExpansionChanged,
+    this.onExpansionChanged,
     this.children = const <Widget>[],
     this.initiallyExpanded = false,
     this.maintainState = false,
@@ -28,7 +28,7 @@ class ExpansionCard extends StatefulWidget {
   /// When the tile starts expanding, this function is called with the value
   /// true. When the tile starts collapsing, this function is called with
   /// the value false.
-  final ValueChanged<bool> onExpansionChanged;
+  final ValueChanged<bool>? onExpansionChanged;
 
   /// The widgets that are displayed when the tile expands.
   final List<Widget> children;
@@ -138,7 +138,7 @@ class _ExpansionCardState extends State<ExpansionCard>
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null)
-      widget.onExpansionChanged(_isExpanded);
+      widget.onExpansionChanged!(_isExpanded);
   }
 
   Widget _buildChildren(BuildContext context, Widget? child) {

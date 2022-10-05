@@ -13,9 +13,9 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 Future signInWithGoogle() async {
   await Firebase.initializeApp();
   //Initializing the Firebase auth Serivices
-  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+      await googleSignInAccount!.authentication;
   //Getting the device token of the device for FCM purposes
   final String token = await FirebaseMessagingServices().getTokenz();
   final AuthCredential credential = GoogleAuthProvider.credential(
@@ -25,7 +25,7 @@ Future signInWithGoogle() async {
 
   final UserCredential authResult =
       await _auth.signInWithCredential(credential);
-  final User user = authResult.user;
+  final User user = authResult.user!;
 
   if (user != null) {
     print('User is not null');
@@ -38,11 +38,11 @@ Future signInWithGoogle() async {
     if (!result.exists) {
       //Creating a documnet
       Constants.prefs.setString("userId", user.uid);
-      Constants.prefs.setString("profileImage", user.photoURL);
-      Constants.prefs.setString("name", user.displayName);
+      Constants.prefs.setString("profileImage", user.photoURL!);
+      Constants.prefs.setString("name", user.displayName!);
       Constants.prefs.setString("token", token);
       print('User Signed Up');
-      String _username = generateusername(user.email);
+      String _username = generateusername(user.email!);
       //Writing to the backend and making a document for the user
       FirebaseFirestore.instance.collection('users').doc(user.uid).set(
           UserProfile.newuser(user.uid, _username, user.displayName,
@@ -60,8 +60,8 @@ Future signInWithGoogle() async {
           'userDeviceToken': FieldValue.arrayUnion([token]),
         });
         Constants.prefs.setString('userId', user.uid);
-        Constants.prefs.setString("name", user.displayName);
-        Constants.prefs.setString("profileImage", user.photoURL);
+        Constants.prefs.setString("name", user.displayName!);
+        Constants.prefs.setString("profileImage", user.photoURL!);
         Constants.prefs.setString("token", token);
       }
     }
@@ -83,8 +83,8 @@ Future<void> signOutGoogle() async {
   });
   print(Constants.prefs.getString("token"));
   print(Constants.prefs.getString("userId"));
-  Constants.prefs.setString('token', null);
-  Constants.prefs.setString('userId', null);
+  Constants.prefs.setString('token', null as String);
+  Constants.prefs.setString('userId', null as String);
   print("User Signed Out");
 }
 

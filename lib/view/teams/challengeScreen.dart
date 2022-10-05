@@ -8,18 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 class ChallangeTeam extends StatefulWidget {
-  final String sportName;
-  final TeamChallengeNotification teamData;
+  final String? sportName;
+  final TeamChallengeNotification? teamData;
   ChallangeTeam({Key? key, this.sportName, this.teamData}) : super(key: key);
   @override
   _ChallangeTeamState createState() => _ChallangeTeamState();
 }
 
 class _ChallangeTeamState extends State<ChallangeTeam> {
-  Stream currentTeams;
+  late Stream currentTeams;
   void initState() {
     super.initState();
-    getUserManagingTeams(widget.sportName);
+    getUserManagingTeams(widget.sportName!);
   }
 
   SimpleDialog successDialog(BuildContext context) {
@@ -57,7 +57,7 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                       itemBuilder: (context, index) {
                         TeamView data = new TeamView.fromJson(
                             asyncSnapshot.data.documents[index]);
-                        String sportIcon;
+                        late String sportIcon;
                         switch (widget.sportName) {
                           case "Volleyball":
                             sportIcon = "assets/icons8-volleyball-96.png";
@@ -96,7 +96,7 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                     TeamChallengeNotification myTeam =
                                         new TeamChallengeNotification.newTeam(
                                             data.teamId,
-                                            Constants.prefs.getString('userId'),
+                                            Constants.prefs.getString('userId')!,
                                             data.teamName);
 
                                     showDialog(
@@ -104,8 +104,8 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                         builder: (context) {
                                           NotificationServices()
                                               .challengeTeamNotification(
-                                                  widget.sportName,
-                                                  widget.teamData,
+                                                  widget.sportName!,
+                                                  widget.teamData!,
                                                   myTeam);
                                           Future.delayed(Duration(seconds: 3),
                                               () {

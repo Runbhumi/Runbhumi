@@ -3,85 +3,86 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Events {
   // name of the event
-  String eventName;
+  String? eventName;
 
   // unique id of the event
-  String eventId;
+  String? eventId;
 
   // unique user id of the creator
-  String creatorId;
+  String? creatorId;
 
   // name of the creator
-  String creatorName;
+  String? creatorName;
 
   // location of the event
-  String location;
+  String? location;
 
   // name of the sport for the event
-  String sportName;
+  String? sportName;
 
   // description of the event given by the user
-  String description;
+  String? description;
 
   // list of all the participants userid
   // EXCLUDING THE CREATOR
-  List<dynamic> playersId;
+  List<dynamic>? playersId;
 
   // list of all the participants userid
   // INCLUDING THE CREATOR
-  List<dynamic> participants;
+  List<dynamic>? participants;
 
   // list which includes all the info of all the players
-  List playerInfo;
+  List? playerInfo;
 
   // List of al the team id for team events
-  String teamId;
+  String? teamId;
 
   // List of the team Info for the team related events
-  List teamInfo;
+  List? teamInfo;
 
   // List of all the ids who are invited or are send any kind of invitation from the creator
-  List notification;
+  List? notification;
 
   // contains the date and time of the event
-  DateTime dateTime;
+  DateTime? dateTime;
 
   // members can deonote the max number of teams
-  int maxMembers;
+  int? maxMembers;
 
   // contains the info which distinguish a team event and a individual event
-  String status;
+  String? status;
 
   // contains the type of the event that is 1 -public , 2- private , 3- closed
-  int type;
+  int? type;
 
   //Contains teamName
-  String teamName;
+  String? teamName;
 
   //Checks if this event is paid or not
-  String paid;
+  String? paid;
 
   // this is a default constructor for event class
-  Events(
-      {this.eventId,
-      this.eventName,
-      this.creatorId,
-      this.creatorName,
-      this.location,
-      this.sportName,
-      this.description,
-      this.playersId,
-      this.participants,
-      this.playerInfo,
-      this.teamInfo,
-      this.dateTime,
-      this.maxMembers,
-      this.status,
-      this.notification,
-      this.type,
-      this.teamId,
-      this.teamName,
-      this.paid});
+  Events({
+    this.eventId,
+    this.eventName,
+    this.creatorId,
+    this.creatorName,
+    this.location,
+    this.sportName,
+    this.description,
+    this.playersId,
+    this.participants,
+    this.playerInfo,
+    this.teamInfo,
+    this.dateTime,
+    this.maxMembers,
+    this.status,
+    this.notification,
+    this.type,
+    this.teamId,
+    this.teamName,
+    this.paid,
+  });
 
   //  this is a constructor which can we used to initialise the values of a class
   // when a new class is initialised .
@@ -99,8 +100,8 @@ class Events {
       String paid) {
     this.eventId = eventId;
     this.eventName = eventName;
-    this.creatorId = Constants.prefs.getString('userId');
-    this.creatorName = Constants.prefs.getString('name');
+    this.creatorId = Constants.prefs.getString('userId')!;
+    this.creatorName = Constants.prefs.getString('name')!;
     this.location = location;
     this.sportName = sportName;
     this.playersId = [];
@@ -114,18 +115,19 @@ class Events {
     this.paid = paid;
   }
 //teamName and teamId
-  Events.miniEvent(
-      {this.eventId,
-      this.eventName,
-      this.location,
-      this.dateTime,
-      this.sportName,
-      this.creatorId,
-      this.creatorName,
-      this.type,
-      this.status,
-      this.playersId,
-      this.paid});
+  Events.miniEvent({
+    required this.eventId,
+    required this.eventName,
+    required this.location,
+    required this.dateTime,
+    required this.sportName,
+    required this.creatorId,
+    required this.creatorName,
+    required this.type,
+    required this.status,
+    required this.playersId,
+    required this.paid,
+  });
 
   Events.miniView(
       String eventId,
@@ -214,7 +216,7 @@ class Events {
   factory Events.fromMiniJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
     return Events(
-      eventId: data['eventId'],
+      eventId: (data as Map)['eventId'],
       eventName: data['eventName'],
       creatorId: data['creatorId'],
       location: data['location'],
@@ -252,7 +254,7 @@ class Events {
   factory Events.fromJson(QueryDocumentSnapshot snapshot) {
     var data = snapshot.data();
     return Events(
-        eventId: data['eventId'],
+        eventId: (data as Map)['eventId'],
         eventName: data['eventName'],
         creatorId: data['creatorId'],
         creatorName: data['creatorName'],
@@ -311,8 +313,10 @@ class Events {
   Future<bool> checkingAvailability(String id) async {
     var snap =
         await FirebaseFirestore.instance.collection('events').doc(id).get();
-    Map<String, dynamic> data = snap.data();
-    return data['playersId'].length < data['max'] ? true : false;
+    Map<String, dynamic>? data = snap.data();
+    return (data as Map)['playersId'].length < (data as Map)['max']
+        ? true
+        : false;
   }
 
   /* 
@@ -329,7 +333,7 @@ class Events {
   Future<List<dynamic>> players(String id) async {
     var snap =
         await FirebaseFirestore.instance.collection('events').doc(id).get();
-    Map<String, dynamic> data = snap.data();
-    return data['playersId'];
+    Map<String, dynamic>? data = snap.data();
+    return (data as Map)['playersId'];
   }
 }

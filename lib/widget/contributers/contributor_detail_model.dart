@@ -46,38 +46,38 @@ class ContributorDetail {
     this.updatedAt,
   });
 
-  String login;
-  int id;
-  String nodeId;
-  String avatarUrl;
-  String gravatarId;
-  String url;
-  String htmlUrl;
-  String followersUrl;
-  String followingUrl;
-  String gistsUrl;
-  String starredUrl;
-  String subscriptionsUrl;
-  String organizationsUrl;
-  String reposUrl;
-  String eventsUrl;
-  String receivedEventsUrl;
-  String type;
-  bool siteAdmin;
+  String? login;
+  int? id;
+  String? nodeId;
+  String? avatarUrl;
+  String? gravatarId;
+  String? url;
+  String? htmlUrl;
+  String? followersUrl;
+  String? followingUrl;
+  String? gistsUrl;
+  String? starredUrl;
+  String? subscriptionsUrl;
+  String? organizationsUrl;
+  String? reposUrl;
+  String? eventsUrl;
+  String? receivedEventsUrl;
+  String? type;
+  bool? siteAdmin;
   dynamic name;
   dynamic company;
-  String blog;
+  String? blog;
   dynamic location;
   dynamic email;
   dynamic hireable;
   dynamic bio;
   dynamic twitterUsername;
-  int publicRepos;
-  int publicGists;
-  int followers;
-  int following;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? publicRepos;
+  int? publicGists;
+  int? followers;
+  int? following;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory ContributorDetail.fromJson(Map<String, dynamic> json) =>
       ContributorDetail(
@@ -159,7 +159,7 @@ class ContributorDetail {
         "public_gists": publicGists == null ? null : publicGists,
         "followers": followers == null ? null : followers,
         "following": following == null ? null : following,
-        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
+        "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
       };
 }

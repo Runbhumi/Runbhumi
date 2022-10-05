@@ -13,11 +13,11 @@ class ImageCapture extends StatefulWidget {
 
 class _ImageCaptureState extends State<ImageCapture> {
   /// Active image file
-  File _imageFile;
+  late File _imageFile;
 
   /// Cropper plugin
   Future<void> _cropImage() async {
-    CroppedFile cropped = await ImageCropper.cropImage(
+    CroppedFile? cropped = await ImageCropper.cropImage(
       sourcePath: _imageFile.path,
       aspectRatioPresets: Platform.isAndroid
           ? [

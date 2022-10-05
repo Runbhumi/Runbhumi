@@ -678,8 +678,8 @@ class ExploreEventEmptyState extends StatelessWidget {
 class BodyHeader extends StatelessWidget {
   const BodyHeader({
     Key? key,
-    @required this.theme,
-    @required this.text,
+    required this.theme,
+    required this.text,
   }) : super(key: key);
 
   final ThemeNotifier theme;

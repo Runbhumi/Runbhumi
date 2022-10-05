@@ -9,14 +9,15 @@ class Chatrooms {
   String message;
   String type;
 
-  Chatrooms(
-      {this.playersId,
-      this.teamsId,
-      this.captainsId,
-      this.dateTime,
-      this.sentby,
-      this.message,
-      this.type});
+  Chatrooms({
+    required this.playersId,
+    required this.teamsId,
+    required this.captainsId,
+    required this.dateTime,
+    required this.sentby,
+    required this.message,
+    required this.type,
+  });
 
   Map<String, dynamic> toJson() => {
         'playersId': playersId,
@@ -28,11 +29,11 @@ class Chatrooms {
         'type': type
       };
   Chatrooms.fromSnapshot(DocumentSnapshot snapshot)
-      : playersId = snapshot.data()['playersId'],
-        teamsId = snapshot.data()['teamsId'],
-        captainsId = snapshot.data()['captainsId'],
-        dateTime = snapshot.data()['dateTime'],
-        sentby = snapshot.data()['sentby'],
-        message = snapshot.data()['message'],
-        type = snapshot.data()['type'];
+      : playersId = (snapshot.data() as Map)['playersId'],
+        teamsId = (snapshot.data() as Map)['teamsId'],
+        captainsId = (snapshot.data() as Map)['captainsId'],
+        dateTime = (snapshot.data() as Map)['dateTime'],
+        sentby = (snapshot.data() as Map)['sentby'],
+        message = (snapshot.data() as Map)['message'],
+        type = (snapshot.data() as Map)['type'];
 }

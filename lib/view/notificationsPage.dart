@@ -11,7 +11,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  Stream notification;
+  late Stream notification;
 
   void initState() {
     super.initState();
@@ -118,7 +118,7 @@ class _NotificationsState extends State<Notifications> {
 class FriendRequestNotificationCard extends StatelessWidget {
   const FriendRequestNotificationCard({
     Key? key,
-    @required this.notificationData,
+    required this.notificationData,
   }) : super(key: key);
 
   final NotificationClass notificationData;
@@ -133,7 +133,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => OtherUserProfile(
-                userID: notificationData.senderId,
+                userID: notificationData.senderId!,
               ),
             ),
           );
@@ -156,7 +156,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                               width: 48,
                               fit: BoxFit.fitWidth,
                               image: NetworkImage(
-                                notificationData.senderProfieImage,
+                                notificationData.senderProfieImage!,
                               ),
                             ),
                           ),
@@ -165,7 +165,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            notificationData.senderName,
+                            notificationData.senderName!,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -183,8 +183,8 @@ class FriendRequestNotificationCard extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             NotificationServices().declineRequest(
-                                notificationData.notificationId,
-                                notificationData.senderId);
+                                notificationData.notificationId!,
+                                notificationData.senderId!);
                           },
                           child: Stack(
                               alignment: AlignmentDirectional.center,
@@ -269,7 +269,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
 class TeamEventNotificationCard extends StatelessWidget {
   const TeamEventNotificationCard({
     Key? key,
-    @required this.notificationData,
+    required this.notificationData,
   }) : super(key: key);
 
   final EventNotification notificationData;
@@ -426,7 +426,7 @@ class TeamEventNotificationCard extends StatelessWidget {
 class IndividualEventNotificationCard extends StatelessWidget {
   const IndividualEventNotificationCard({
     Key? key,
-    @required this.notificationData,
+    required this.notificationData,
   }) : super(key: key);
 
   final EventNotification notificationData;
@@ -582,7 +582,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
 class TeamJoinRequestNotificationCard extends StatelessWidget {
   const TeamJoinRequestNotificationCard({
     Key? key,
-    @required this.notificationData,
+    required this.notificationData,
   }) : super(key: key);
 
   final TeamNotification notificationData;
@@ -603,7 +603,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => OtherUserProfile(
-                          userID: notificationData.senderId,
+                          userID: notificationData.senderId!,
                         ),
                       ),
                     );
@@ -620,7 +620,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                               width: 48,
                               fit: BoxFit.fitWidth,
                               image: NetworkImage(
-                                notificationData.senderPic,
+                                notificationData.senderPic!,
                               ),
                             ),
                           ),
@@ -630,7 +630,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            notificationData.senderName,
+                            notificationData.senderName!,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -647,7 +647,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            notificationData.teamName,
+                            notificationData.teamName!,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -750,14 +750,14 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
 class ChallengeNotificationCard extends StatelessWidget {
   const ChallengeNotificationCard({
     Key? key,
-    @required this.notificationData,
+    required this.notificationData,
   }) : super(key: key);
 
   final ChallengeNotification notificationData;
 
   @override
   Widget build(BuildContext context) {
-    String sportIcon;
+    late String sportIcon;
     switch (notificationData.sport) {
       case "Volleyball":
         sportIcon = "assets/icons8-volleyball-96.png";

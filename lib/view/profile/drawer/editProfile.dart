@@ -21,9 +21,9 @@ class _EditProfileState extends State<EditProfile> {
       new TextEditingController();
   int age = 0;
   final db = FirebaseFirestore.instance;
-  StreamSubscription sub;
-  String _chosenAgeCategory;
-  Map data;
+  late StreamSubscription sub;
+  late String _chosenAgeCategory;
+  late Map data;
   @override
   void initState() {
     super.initState();
@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
         .snapshots()
         .listen((snap) {
       setState(() {
-        data = snap.data();
+        data = snap.data()!;
         nameTextEditingController.text = data['name'];
         bioTextEditingController.text = data['bio'];
         _chosenAgeCategory = data['age'];
@@ -99,7 +99,7 @@ class _EditProfileState extends State<EditProfile> {
         setState(
           () {
             print(value);
-            _chosenAgeCategory = value;
+            _chosenAgeCategory = value!;
           },
         );
       },
@@ -143,7 +143,7 @@ class _EditProfileState extends State<EditProfile> {
                           image: DecorationImage(
                             // now only assets image
                             image: NetworkImage(
-                                Constants.prefs.getString('profileImage')),
+                                Constants.prefs.getString('profileImage')!),
 
                             fit: BoxFit.fill,
                           ),
@@ -278,7 +278,7 @@ class _EditProfileState extends State<EditProfile> {
                     };
                     await FirebaseFirestore.instance
                         .collection('users')
-                        .doc(Constants.prefs.get('userId'))
+                        .doc(Constants.prefs.get('userId') as String)
                         .update({
                       'profileImage': Constants.prefs.getString('profileImage'),
                       'name': nameTextEditingController.text,

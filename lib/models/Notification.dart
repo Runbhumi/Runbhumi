@@ -59,11 +59,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Runbhumi/models/models.dart';
 
 class NotificationClass {
-  String senderId;
-  String senderName;
-  String senderProfieImage;
-  String notificationId;
-  String type;
+  String? senderId;
+  String? senderName;
+  String? senderProfieImage;
+  String? notificationId;
+  String? type;
 
   NotificationClass.createNewRequest(String type, String nortificationId,
       String senderId, String senderName, String senderProfileImage) {
@@ -82,17 +82,18 @@ class NotificationClass {
         'type': type
       };
 
-  NotificationClass(
-      {this.notificationId,
-      this.senderId,
-      this.senderName,
-      this.senderProfieImage,
-      this.type});
+  NotificationClass({
+    this.notificationId,
+    this.senderId,
+    this.senderName,
+    this.senderProfieImage,
+    this.type,
+  });
 
   factory NotificationClass.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
     return NotificationClass(
-        notificationId: parsedJson['notificationId'],
+        notificationId: (parsedJson as Map)['notificationId'],
         senderId: parsedJson['senderId'],
         senderName: parsedJson['name'],
         senderProfieImage: parsedJson['profileImage'],
@@ -101,14 +102,14 @@ class NotificationClass {
 }
 
 class TeamNotification {
-  String notificationId;
-  String teamId;
-  String senderId;
-  String senderName;
-  String senderPic;
-  String type;
-  String teamName;
-  String teamSport;
+  String? notificationId;
+  String? teamId;
+  String? senderId;
+  String? senderName;
+  String? senderPic;
+  String? type;
+  String? teamName;
+  String? teamSport;
 
   TeamNotification(
       {this.notificationId,
@@ -145,7 +146,7 @@ class TeamNotification {
   factory TeamNotification.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
     return TeamNotification(
-        notificationId: parsedJson['notificationId'],
+        notificationId: (parsedJson as Map)['notificationId'],
         teamId: parsedJson['teamId'],
         senderId: parsedJson['senderId'],
         senderName: parsedJson['senderName'],
@@ -173,8 +174,8 @@ class ChallengeNotification {
       TeamChallengeNotification myteam,
       TeamChallengeNotification opponentTeam) {
     this.notificationId = notificationId;
-    this.senderId = Constants.prefs.getString('userId');
-    this.senderName = Constants.prefs.getString('name');
+    this.senderId = Constants.prefs.getString('userId')!;
+    this.senderName = Constants.prefs.getString('name')!;
     this.sport = sport;
     this.myTeamName = myteam.teamName;
     this.opponentTeamName = opponentTeam.teamName;
@@ -195,21 +196,22 @@ class ChallengeNotification {
         'opponentTeamId': this.opponentTeamId
       };
 
-  ChallengeNotification(
-      {this.notificationId,
-      this.senderId,
-      this.senderName,
-      this.sport,
-      this.myTeamName,
-      this.opponentTeamName,
-      this.type,
-      this.myTeamId,
-      this.opponentTeamId});
+  ChallengeNotification({
+    required this.notificationId,
+    required this.senderId,
+    required this.senderName,
+    required this.sport,
+    required this.myTeamName,
+    required this.opponentTeamName,
+    required this.type,
+    required this.myTeamId,
+    required this.opponentTeamId,
+  });
 
   factory ChallengeNotification.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
     return ChallengeNotification(
-        notificationId: parsedJson['notificationId'],
+        notificationId: (parsedJson as Map)['notificationId'],
         senderId: parsedJson['senderId'],
         senderName: parsedJson['name'],
         sport: parsedJson['sport'],
@@ -244,9 +246,9 @@ class EventNotification {
     this.notificationId = notificationId;
     this.eventName = eventName;
     this.eventId = eventId;
-    this.senderId = Constants.prefs.getString('userId');
-    this.senderName = Constants.prefs.getString('name');
-    this.senderPic = Constants.prefs.getString('profileImage');
+    this.senderId = Constants.prefs.getString('userId')!;
+    this.senderName = Constants.prefs.getString('name')!;
+    this.senderPic = Constants.prefs.getString('profileImage')!;
     this.type = 'event';
     this.subtype = 'individual';
   }
@@ -256,8 +258,8 @@ class EventNotification {
     this.notificationId = notificationId;
     this.eventId = eventId;
     this.eventName = eventName;
-    this.senderId = Constants.prefs.getString('userId');
-    this.senderName = Constants.prefs.getString('name');
+    this.senderId = Constants.prefs.getString('userId')!;
+    this.senderName = Constants.prefs.getString('name')!;
     this.teamName = teamName;
     this.teamId = teamId;
     this.type = 'event';
@@ -287,28 +289,30 @@ class EventNotification {
         'teamId': this.teamId
       };
 
-  EventNotification.team(
-      {this.notificationId,
-      this.senderId,
-      this.senderName,
-      this.eventId,
-      this.eventName,
-      this.teamId,
-      this.teamName,
-      this.subtype});
+  EventNotification.team({
+    required this.notificationId,
+    required this.senderId,
+    required this.senderName,
+    required this.eventId,
+    required this.eventName,
+    required this.teamId,
+    required this.teamName,
+    required this.subtype,
+  });
 
-  EventNotification.individual(
-      {this.notificationId,
-      this.senderId,
-      this.senderName,
-      this.senderPic,
-      this.eventId,
-      this.eventName,
-      this.subtype});
+  EventNotification.individual({
+    required this.notificationId,
+    required this.senderId,
+    required this.senderName,
+    required this.senderPic,
+    required this.eventId,
+    required this.eventName,
+    required this.subtype,
+  });
 
   factory EventNotification.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
-    if (parsedJson['subtype'] == 'individual')
+    if ((parsedJson as Map)['subtype'] == 'individual')
       return EventNotification.individual(
           notificationId: parsedJson['notificationId'],
           senderId: parsedJson['senderId'],

@@ -14,10 +14,10 @@ class Conversation extends StatefulWidget {
   final List<dynamic> usersPics;
   //chatRoomId is used to identify which chat room we are in
   Conversation(
-      {@required this.chatRoomId,
-      @required this.usersNames,
-      @required this.users,
-      @required this.usersPics});
+      {required this.chatRoomId,
+      required this.usersNames,
+      required this.users,
+      required this.usersPics});
   @override
   _ConversationState createState() => _ConversationState();
 }
@@ -253,10 +253,10 @@ class MessageTile extends StatelessWidget {
   final DateTime dateTime;
 
   MessageTile({
-    @required this.message,
-    @required this.sendByMe,
-    @required this.sentByName,
-    @required this.dateTime,
+    required this.message,
+    required this.sendByMe,
+    required this.sentByName,
+    required this.dateTime,
   });
 
   @override

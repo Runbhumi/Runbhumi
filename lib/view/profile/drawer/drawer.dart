@@ -44,7 +44,7 @@ class _DrawerBodyState extends State<DrawerBody> {
                   ),
                 ),
                 Text(
-                  Constants.prefs.getString('name'),
+                  Constants.prefs.getString('name')!,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,

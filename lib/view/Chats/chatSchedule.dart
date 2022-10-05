@@ -9,9 +9,9 @@ class ChatSchedule extends StatefulWidget {
   final List<dynamic> usersNames;
   final List<dynamic> users;
   ChatSchedule({
-    @required this.chatRoomId,
-    @required this.usersNames,
-    @required this.users,
+    required this.chatRoomId,
+    required this.usersNames,
+    required this.users,
   });
   @override
   _ChatScheduleState createState() => _ChatScheduleState();

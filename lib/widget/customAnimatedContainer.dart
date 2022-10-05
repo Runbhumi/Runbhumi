@@ -277,11 +277,9 @@ abstract class ImplicitlyAnimatedWidget extends StatefulWidget {
   const ImplicitlyAnimatedWidget({
     Key? key,
     this.curve = Curves.linear,
-    @required this.duration,
+    required this.duration,
     this.onEnd,
-  })  : assert(curve != null),
-        assert(duration != null),
-        super(key: key);
+  })  : super(key: key);
 
   /// The curve to apply when animating the parameters of this container.
   final Curve curve;
@@ -371,7 +369,7 @@ abstract class ImplicitlyAnimatedWidgetState<T extends ImplicitlyAnimatedWidget>
     _controller.addStatusListener((AnimationStatus status) {
       switch (status) {
         case AnimationStatus.completed:
-          if (widget.onEnd != null) widget.onEnd();
+ widget.onEnd();
           break;
         case AnimationStatus.dismissed:
         case AnimationStatus.forward:
@@ -641,14 +639,14 @@ class CustomAnimatedContainer extends ImplicitlyAnimatedWidget {
     this.child,
     this.clipBehavior = Clip.none,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(margin == null || margin.isNonNegative),
-        assert(padding == null || padding.isNonNegative),
-        assert(decoration == null || decoration.debugAssertIsValid()),
-        assert(constraints == null || constraints.debugAssertIsValid()),
+  })  : assert(margin.isNonNegative),
+        assert(padding.isNonNegative),
+        assert(decoration.debugAssertIsValid()),
+        assert(constraints.debugAssertIsValid()),
         assert(
-            color == null || decoration == null,
+            color == null,
             'Cannot provide both a color and a decoration\n'
             'The color argument is just a shorthand for "decoration: BoxDecoration(color: color)".'),
         decoration =
@@ -766,14 +764,14 @@ class CustomAnimatedContainer extends ImplicitlyAnimatedWidget {
 
 class _CustomAnimatedContainerState
     extends AnimatedWidgetBaseState<CustomAnimatedContainer> {
-  AlignmentGeometryTween _alignment;
-  EdgeInsetsGeometryTween _padding;
-  DecorationTween _decoration;
-  DecorationTween _foregroundDecoration;
-  BoxConstraintsTween _constraints;
-  EdgeInsetsGeometryTween _margin;
-  Matrix4Tween _transform;
-  AlignmentGeometryTween _transformAlignment;
+  late AlignmentGeometryTween _alignment;
+  late EdgeInsetsGeometryTween _padding;
+  late DecorationTween _decoration;
+  late DecorationTween _foregroundDecoration;
+  late BoxConstraintsTween _constraints;
+  late EdgeInsetsGeometryTween _margin;
+  late Matrix4Tween _transform;
+  late AlignmentGeometryTween _transformAlignment;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
@@ -825,13 +823,13 @@ class _CustomAnimatedContainerState
     final Animation<double> animation = this.animation;
     return Container(
       child: widget.child,
-      alignment: _alignment?.evaluate(animation),
-      padding: _padding?.evaluate(animation),
-      decoration: _decoration?.evaluate(animation),
-      foregroundDecoration: _foregroundDecoration?.evaluate(animation),
-      constraints: _constraints?.evaluate(animation),
-      margin: _margin?.evaluate(animation),
-      transform: _transform?.evaluate(animation),
+      alignment: _alignment.evaluate(animation),
+      padding: _padding.evaluate(animation),
+      decoration: _decoration.evaluate(animation),
+      foregroundDecoration: _foregroundDecoration.evaluate(animation),
+      constraints: _constraints.evaluate(animation),
+      margin: _margin.evaluate(animation),
+      transform: _transform.evaluate(animation),
       // transformAlignment: _transformAlignment?.evaluate(animation),
       clipBehavior: widget.clipBehavior,
     );
@@ -887,13 +885,12 @@ class AnimatedPadding extends ImplicitlyAnimatedWidget {
   /// The [padding], [curve], and [duration] arguments must not be null.
   AnimatedPadding({
     Key? key,
-    @required this.padding,
+    required this.padding,
     this.child,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(padding != null),
-        assert(padding.isNonNegative),
+  })  : assert(padding.isNonNegative),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The amount of space by which to inset the child.
@@ -915,7 +912,7 @@ class AnimatedPadding extends ImplicitlyAnimatedWidget {
 }
 
 class _AnimatedPaddingState extends AnimatedWidgetBaseState<AnimatedPadding> {
-  EdgeInsetsGeometryTween _padding;
+  late EdgeInsetsGeometryTween _padding;
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
@@ -1010,16 +1007,15 @@ class AnimatedAlign extends ImplicitlyAnimatedWidget {
   /// The [alignment], [curve], and [duration] arguments must not be null.
   const AnimatedAlign({
     Key? key,
-    @required this.alignment,
+    required this.alignment,
     this.child,
     this.heightFactor,
     this.widthFactor,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(alignment != null),
-        assert(widthFactor == null || widthFactor >= 0.0),
-        assert(heightFactor == null || heightFactor >= 0.0),
+  })  : assert(widthFactor >= 0.0),
+        assert(heightFactor >= 0.0),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// How to align the child.
@@ -1079,16 +1075,12 @@ class _AnimatedAlignState extends AnimatedWidgetBaseState<AnimatedAlign> {
             (dynamic value) =>
                 AlignmentGeometryTween(begin: value as AlignmentGeometry))
         as AlignmentGeometryTween;
-    if (widget.heightFactor != null) {
-      _heightFactorTween = visitor(_heightFactorTween, widget.heightFactor,
-              (dynamic value) => Tween<double>(begin: value as double))
-          as Tween<double>;
-    }
-    if (widget.widthFactor != null) {
-      _widthFactorTween = visitor(_widthFactorTween, widget.widthFactor,
-              (dynamic value) => Tween<double>(begin: value as double))
-          as Tween<double>;
-    }
+    _heightFactorTween = visitor(_heightFactorTween, widget.heightFactor,
+            (dynamic value) => Tween<double>(begin: value as double))
+        as Tween<double>;
+    _widthFactorTween = visitor(_widthFactorTween, widget.widthFactor,
+            (dynamic value) => Tween<double>(begin: value as double))
+        as Tween<double>;
   }
 
   @override
@@ -1158,7 +1150,7 @@ class AnimatedPositioned extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   const AnimatedPositioned({
     Key? key,
-    @required this.child,
+    required this.child,
     this.left,
     this.top,
     this.right,
@@ -1166,10 +1158,10 @@ class AnimatedPositioned extends ImplicitlyAnimatedWidget {
     this.width,
     this.height,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(left == null || right == null || width == null),
-        assert(top == null || bottom == null || height == null),
+  })  : assert(right == null),
+        assert(bottom == null),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// Creates a widget that animates the rectangle it occupies implicitly.
@@ -1177,10 +1169,10 @@ class AnimatedPositioned extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   AnimatedPositioned.fromRect({
     Key? key,
-    @required this.child,
-    @required Rect rect,
+    required this.child,
+    required Rect rect,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
   })  : left = rect.left,
         top = rect.top,
@@ -1324,7 +1316,7 @@ class AnimatedPositionedDirectional extends ImplicitlyAnimatedWidget {
   /// The [curve] and [duration] arguments must not be null.
   const AnimatedPositionedDirectional({
     Key? key,
-    @required this.child,
+    required this.child,
     this.start,
     this.top,
     this.end,
@@ -1332,10 +1324,10 @@ class AnimatedPositionedDirectional extends ImplicitlyAnimatedWidget {
     this.width,
     this.height,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(start == null || end == null || width == null),
-        assert(top == null || bottom == null || height == null),
+  })  : assert(end == null),
+        assert(bottom == null),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The widget below this widget in the tree.
@@ -1505,12 +1497,12 @@ class AnimatedOpacity extends ImplicitlyAnimatedWidget {
   const AnimatedOpacity({
     Key? key,
     this.child,
-    @required this.opacity,
+    required this.opacity,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
     this.alwaysIncludeSemantics = false,
-  })  : assert(opacity != null && opacity >= 0.0 && opacity <= 1.0),
+  })  : assert(opacity >= 0.0 && opacity <= 1.0),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The widget below this widget in the tree.
@@ -1643,12 +1635,12 @@ class SliverAnimatedOpacity extends ImplicitlyAnimatedWidget {
   const SliverAnimatedOpacity({
     Key? key,
     this.sliver,
-    @required this.opacity,
+    required this.opacity,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
     this.alwaysIncludeSemantics = false,
-  })  : assert(opacity != null && opacity >= 0.0 && opacity <= 1.0),
+  })  : assert(opacity >= 0.0 && opacity <= 1.0),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The sliver below this widget in the tree.
@@ -1736,8 +1728,8 @@ class AnimatedDefaultTextStyle extends ImplicitlyAnimatedWidget {
   /// arguments must not be null.
   const AnimatedDefaultTextStyle({
     Key? key,
-    @required this.child,
-    @required this.style,
+    required this.child,
+    required this.style,
     this.textAlign,
     this.softWrap = true,
     this.overflow = TextOverflow.clip,
@@ -1745,14 +1737,9 @@ class AnimatedDefaultTextStyle extends ImplicitlyAnimatedWidget {
     this.textWidthBasis = TextWidthBasis.parent,
     this.textHeightBehavior,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(style != null),
-        assert(child != null),
-        assert(softWrap != null),
-        assert(overflow != null),
-        assert(maxLines == null || maxLines > 0),
-        assert(textWidthBasis != null),
+  })  : assert(maxLines > 0),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The widget below this widget in the tree.
@@ -1878,27 +1865,19 @@ class AnimatedPhysicalModel extends ImplicitlyAnimatedWidget {
   /// Animating [shadowColor] is optional and is controlled by the [animateShadowColor] flag.
   const AnimatedPhysicalModel({
     Key? key,
-    @required this.child,
-    @required this.shape,
+    required this.child,
+    required this.shape,
     this.clipBehavior = Clip.none,
     this.borderRadius = BorderRadius.zero,
-    @required this.elevation,
-    @required this.color,
+    required this.elevation,
+    required this.color,
     this.animateColor = true,
-    @required this.shadowColor,
+    required this.shadowColor,
     this.animateShadowColor = true,
     Curve curve = Curves.linear,
-    @required Duration duration,
+    required Duration duration,
     VoidCallback onEnd,
-  })  : assert(child != null),
-        assert(shape != null),
-        assert(clipBehavior != null),
-        assert(borderRadius != null),
-        assert(elevation != null && elevation >= 0.0),
-        assert(color != null),
-        assert(shadowColor != null),
-        assert(animateColor != null),
-        assert(animateShadowColor != null),
+  })  : assert(elevation >= 0.0),
         super(key: key, curve: curve, duration: duration, onEnd: onEnd);
 
   /// The widget below this widget in the tree.

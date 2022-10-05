@@ -13,7 +13,7 @@ import 'package:unicons/unicons.dart';
 class EventInfo extends StatefulWidget {
   final String eventId;
   const EventInfo({
-    @required this.eventId,
+    required this.eventId,
     Key? key,
   }) : super(key: key);
   @override

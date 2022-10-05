@@ -20,7 +20,7 @@ class TeamsList extends StatefulWidget {
 class _TeamsListState extends State<TeamsList>
     with SingleTickerProviderStateMixin {
   int loadMoreTeams = 20;
-  ScrollController _teamsScrollController;
+  late ScrollController _teamsScrollController;
   void initState() {
     super.initState();
     _teamsScrollController = ScrollController()
@@ -51,7 +51,7 @@ class _TeamsListState extends State<TeamsList>
                 Teams data =
                     new Teams.fromJson(asyncSnapshot.data.documents[index]);
 
-                String sportIcon;
+                late String sportIcon;
                 // IconData sportIcon;
                 switch (data.sport) {
                   case "Volleyball":
@@ -122,7 +122,7 @@ class _TeamsListState extends State<TeamsList>
                                           NotificationServices()
                                               .createTeamNotification(
                                                   Constants.prefs
-                                                      .getString('userId'),
+                                                      .getString('userId')!,
                                                   data.manager,
                                                   data);
                                         }
@@ -450,7 +450,7 @@ class PlayerPreview1 extends StatelessWidget {
 class TeamSportLeading extends StatelessWidget {
   const TeamSportLeading({
     Key? key,
-    @required this.sportIcon,
+    required this.sportIcon,
   }) : super(key: key);
 
   final String sportIcon;
@@ -470,7 +470,7 @@ class TeamSportLeading extends StatelessWidget {
 class TeamName extends StatelessWidget {
   const TeamName({
     Key? key,
-    @required this.data,
+    required this.data,
   }) : super(key: key);
 
   final Teams data;
@@ -507,7 +507,7 @@ class TeamName extends StatelessWidget {
 class TeamDescription extends StatelessWidget {
   const TeamDescription({
     Key? key,
-    @required this.data,
+    required this.data,
   }) : super(key: key);
 
   final Teams data;
@@ -529,7 +529,7 @@ class TeamDescription extends StatelessWidget {
 class TypeofTeam extends StatelessWidget {
   const TypeofTeam({
     Key? key,
-    @required this.data,
+    required this.data,
   }) : super(key: key);
 
   final Teams data;
@@ -589,9 +589,9 @@ class PlayerPreview2 extends StatelessWidget {
 class SportsCategory extends StatelessWidget {
   const SportsCategory({
     Key? key,
-    @required this.theme,
-    @required this.sport,
-    @required this.icon,
+    required this.theme,
+    required this.sport,
+    required this.icon,
   }) : super(key: key);
 
   final ThemeNotifier theme;

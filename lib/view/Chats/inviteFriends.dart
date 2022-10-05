@@ -8,7 +8,7 @@ class InviteFriends extends StatefulWidget {
   final Teams team;
   //TeamId will help us trigger the notification for that particular team
   InviteFriends({
-    @required this.team,
+    required this.team,
   });
   @override
   _InviteFriendsState createState() => _InviteFriendsState();

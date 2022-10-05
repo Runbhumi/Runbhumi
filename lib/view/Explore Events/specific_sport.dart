@@ -9,14 +9,14 @@ import 'package:intl/intl.dart';
 import 'package:unicons/unicons.dart';
 
 class SpecificSport extends StatefulWidget {
-  final String sportName;
+  final String? sportName;
   SpecificSport({Key? key, this.sportName}) : super(key: key);
   @override
   _SpecificSportState createState() => _SpecificSportState();
 }
 
 class _SpecificSportState extends State<SpecificSport> {
-  Stream currentFeed;
+  late Stream currentFeed;
   void initState() {
     super.initState();
     getUserInfoEvents();
@@ -40,7 +40,7 @@ class _SpecificSportState extends State<SpecificSport> {
   }
 
   getUserInfoEvents() async {
-    EventService().getSpecificFeed(widget.sportName).then((snapshots) {
+    EventService().getSpecificFeed(widget.sportName!).then((snapshots) {
       setState(() {
         currentFeed = snapshots;
         // print("we got the data + ${currentFeed.toString()} ");
@@ -48,7 +48,7 @@ class _SpecificSportState extends State<SpecificSport> {
     });
   }
 
-  Widget feed({ThemeNotifier theme}) {
+  Widget feed({ThemeNotifier? theme}) {
     return StreamBuilder(
       stream: currentFeed,
       builder: (context, asyncSnapshot) {
@@ -61,7 +61,7 @@ class _SpecificSportState extends State<SpecificSport> {
                     itemBuilder: (context, index) {
                       Events data = new Events.fromJson(
                           asyncSnapshot.data.documents[index]);
-                      String sportIcon;
+                      late String sportIcon;
                       // IconData sportIcon;
                       switch (widget.sportName) {
                         case "Volleyball":
@@ -77,7 +77,7 @@ class _SpecificSportState extends State<SpecificSport> {
                           sportIcon = "assets/icons8-soccer-ball-96.png";
                           break;
                       }
-                      bool registrationCondition = data.playersId
+                      bool registrationCondition = data.playersId!
                           .contains(Constants.prefs.getString('userId'));
                       return Padding(
                         padding: const EdgeInsets.symmetric(
@@ -109,17 +109,18 @@ class _SpecificSportState extends State<SpecificSport> {
                                           onPressed: () {
                                             if (!registrationCondition) {
                                               registerUserToEvent(
-                                                  data.eventId,
-                                                  data.eventName,
-                                                  data.sportName,
-                                                  data.location,
-                                                  data.dateTime,
-                                                  data.creatorId,
-                                                  data.creatorName,
-                                                  data.status,
-                                                  data.type,
-                                                  data.playersId,
-                                                  data.paid);
+                                                data.eventId!,
+                                                data.eventName!,
+                                                data.sportName!,
+                                                data.location!,
+                                                data.dateTime!,
+                                                data.creatorId!,
+                                                data.creatorName!,
+                                                data.status!,
+                                                data.type!,
+                                                data.playersId!,
+                                                data.paid!,
+                                              );
                                               print("User Registered");
                                               showDialog(
                                                   context: context,
@@ -134,10 +135,10 @@ class _SpecificSportState extends State<SpecificSport> {
                                     ],
                                     leading: Image.asset(sportIcon),
                                     title: Text(
-                                      data.eventName,
+                                      data.eventName!,
                                       style: TextStyle(
                                         color:
-                                            theme.currentTheme.backgroundColor,
+                                            theme!.currentTheme.backgroundColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -147,7 +148,7 @@ class _SpecificSportState extends State<SpecificSport> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          data.description,
+                                          data.description!,
                                           style: TextStyle(
                                             color: theme
                                                 .currentTheme.backgroundColor,
@@ -156,7 +157,7 @@ class _SpecificSportState extends State<SpecificSport> {
                                         Text(
                                           DateFormat('E-dd/MM-')
                                               .add_jm()
-                                              .format(data.dateTime)
+                                              .format(data.dateTime!)
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 13,
@@ -170,7 +171,7 @@ class _SpecificSportState extends State<SpecificSport> {
                                               size: 16.0,
                                             ),
                                             Text(
-                                              data.location,
+                                              data.location!,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle1,
@@ -208,7 +209,7 @@ class _SpecificSportState extends State<SpecificSport> {
     return Scaffold(
       appBar: AppBar(
         leading: CustomBackButton(),
-        title: buildTitle(context, widget.sportName),
+        title: buildTitle(context, widget.sportName!),
       ),
       body: Container(
         child: Column(

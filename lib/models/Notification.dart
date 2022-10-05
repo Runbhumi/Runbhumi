@@ -168,7 +168,7 @@ class ChallengeNotification {
   String myTeamId;
   String opponentTeamId;
 
-  ChallengeNotification.createNewRequest(
+  createNewRequest(
       String notificationId,
       String sport,
       TeamChallengeNotification myteam,
@@ -177,10 +177,10 @@ class ChallengeNotification {
     this.senderId = Constants.prefs.getString('userId')!;
     this.senderName = Constants.prefs.getString('name')!;
     this.sport = sport;
-    this.myTeamName = myteam.teamName;
-    this.opponentTeamName = opponentTeam.teamName;
-    this.myTeamId = myteam.teamId;
-    this.opponentTeamId = opponentTeam.teamId;
+    this.myTeamName = myteam.teamName!;
+    this.opponentTeamName = opponentTeam.teamName!;
+    this.myTeamId = myteam.teamId!;
+    this.opponentTeamId = opponentTeam.teamId!;
     this.type = "challenge";
   }
 
@@ -226,22 +226,22 @@ class ChallengeNotification {
 // there are two types of event notification one for team and other for the users
 
 class EventNotification {
-  String notificationId;
-  String senderId;
-  String senderName;
-  String eventId;
-  String eventName;
-  String teamName;
-  String teamId;
-  String senderPic;
-  String type;
-  String subtype;
+  String? notificationId;
+  String? senderId;
+  String? senderName;
+  String? eventId;
+  String? eventName;
+  String? teamName;
+  String? teamId;
+  String? senderPic;
+  String? type;
+  String? subtype;
 
   //------------------ there are two types which are assigned ----------------
   // team - for teams reated private events
   // individual -for individual private events
 
-  EventNotification.createIndividualNotification(
+  createIndividualNotification(
       String notificationId, String eventId, String eventName) {
     this.notificationId = notificationId;
     this.eventName = eventName;
@@ -253,15 +253,20 @@ class EventNotification {
     this.subtype = 'individual';
   }
 
-  EventNotification.createTeamsNotification(String notificationId,
-      String eventId, String eventName, String teamId, String teamName) {
-    this.notificationId = notificationId;
-    this.eventId = eventId;
-    this.eventName = eventName;
+  createTeamsNotification(
+    String? notificationId,
+    String? eventId,
+    String? eventName,
+    String? teamId,
+    String? teamName,
+  ) {
+    this.notificationId = notificationId!;
+    this.eventId = eventId!;
+    this.eventName = eventName!;
     this.senderId = Constants.prefs.getString('userId')!;
     this.senderName = Constants.prefs.getString('name')!;
-    this.teamName = teamName;
-    this.teamId = teamId;
+    this.teamName = teamName!;
+    this.teamId = teamId!;
     this.type = 'event';
     this.subtype = 'team';
   }

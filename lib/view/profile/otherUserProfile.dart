@@ -173,21 +173,11 @@ class UserProfile extends StatelessWidget {
             !(data['friends'].contains(_id)) &&
             data['notification'].contains(_id))
           //request sent btn
-          OutlineButton(
-            padding: const EdgeInsets.all(16.0),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor.withOpacity(0.4),
-              width: 4.0,
-            ),
-            highlightedBorderColor: Theme.of(context).primaryColor,
-            color: Theme.of(context).primaryColor,
-            child: Text(
+          Button(
+            bgColor: Theme.of(context).primaryColor,
+            buttonTitle:
               "Request Sent",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0)),
-            onPressed: () {},
+              onPressed: (){},
           ),
         if (data['userId'] != _id &&
             !(data['friends'].contains(_id)) &&

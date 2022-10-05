@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Friends {
-  String name;
-  String profileImage;
-  String friendId;
+  String? name;
+  String? profileImage;
+  String? friendId;
 
   Friends.newFriend(String id, String name, String profileImage) {
     this.friendId = id;

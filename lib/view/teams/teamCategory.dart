@@ -374,11 +374,11 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
         builder: (context, asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
-                  itemCount: asyncSnapshot.data.documents.length,
+                  itemCount: asyncSnapshot.data!.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     Teams data =
-                        new Teams.fromJson(asyncSnapshot.data.documents[index]);
+                        new Teams.fromJson(asyncSnapshot.data!.documents[index]);
 
                     late String sportIcon;
                     switch (data.sport) {

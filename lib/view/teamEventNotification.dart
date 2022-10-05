@@ -69,7 +69,7 @@ class _TeamEventNotificationState extends State<TeamEventNotification> {
                                 ),
                               ),
                               title: Text(
-                                data.teamName,
+                                data.teamName!,
                               ),
                               trailing: Padding(
                                 padding: const EdgeInsets.only(

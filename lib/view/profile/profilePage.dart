@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/widget/customAnimatedContainer.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -109,64 +108,64 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
 
     var _myDuration = Duration(milliseconds: 300);
-    var myChild = CustomAnimatedContainer(
-      curve: Curves.easeInOut,
-      clipBehavior: Clip.antiAlias,
-      duration: _myDuration,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(_myValue),
-      ),
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: loading
-                ? buildTitle(context, data["username"] ?? "Profile")
-                : null,
-            centerTitle: true,
-            elevation: 0,
-            leading: Builder(
-              builder: (BuildContext context) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey[200]!.withOpacity(0.2),
-                        width: 0.2,
-                      ),
-                      color: Colors.grey.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        UniconsLine.award,
-                      ),
-                      onPressed: toggle,
-                    ),
-                  ),
-                );
-              },
-            ),
-            bottom: TabBar(
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.grey,
-              tabs: [
-                Tab(child: Text("Profile")),
-                Tab(child: Text("Friends")),
-                Tab(child: Text("Schedule")),
-              ],
-              indicator: new BubbleTabIndicator(
-                indicatorHeight: 30.0,
-                indicatorColor: Theme.of(context).primaryColor,
-                tabBarIndicatorSize: TabBarIndicatorSize.tab,
-              ),
-            ),
-          ),
-          body: ProfileBody(data: data),
-        ),
-      ),
-    );
+    // var myChild = CustomAnimatedContainer(
+    //   curve: Curves.easeInOut,
+    //   clipBehavior: Clip.antiAlias,
+    //   duration: _myDuration,
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(_myValue),
+    //   ),
+    //   child: DefaultTabController(
+    //     length: 3,
+    //     child: Scaffold(
+    //       appBar: AppBar(
+    //         title: loading
+    //             ? buildTitle(context, data["username"] ?? "Profile")
+    //             : null,
+    //         centerTitle: true,
+    //         elevation: 0,
+    //         leading: Builder(
+    //           builder: (BuildContext context) {
+    //             return Padding(
+    //               padding: const EdgeInsets.all(8.0),
+    //               child: Container(
+    //                 decoration: BoxDecoration(
+    //                   border: Border.all(
+    //                     color: Colors.grey[200]!.withOpacity(0.2),
+    //                     width: 0.2,
+    //                   ),
+    //                   color: Colors.grey.withOpacity(0.15),
+    //                   borderRadius: BorderRadius.circular(12),
+    //                 ),
+    //                 child: IconButton(
+    //                   icon: const Icon(
+    //                     UniconsLine.award,
+    //                   ),
+    //                   onPressed: toggle,
+    //                 ),
+    //               ),
+    //             );
+    //           },
+    //         ),
+    //         bottom: TabBar(
+    //           labelColor: Colors.white,
+    //           unselectedLabelColor: Colors.grey,
+    //           tabs: [
+    //             Tab(child: Text("Profile")),
+    //             Tab(child: Text("Friends")),
+    //             Tab(child: Text("Schedule")),
+    //           ],
+    //           indicator: new BubbleTabIndicator(
+    //             indicatorHeight: 30.0,
+    //             indicatorColor: Theme.of(context).primaryColor,
+    //             tabBarIndicatorSize: TabBarIndicatorSize.tab,
+    //           ),
+    //         ),
+    //       ),
+    //       body: ProfileBody(data: data),
+    //     ),
+    //   ),
+    // );
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, _) {
@@ -176,7 +175,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           children: [
             myDrawer,
             Transform(
-              child: myChild,
+              // child: myChild,
               transform: Matrix4.identity()
                 ..translate(slide)
                 ..scale(scale),

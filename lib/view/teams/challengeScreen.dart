@@ -86,7 +86,7 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                 ),
                               ),
                               title: Text(
-                                data.teamName,
+                                data.teamName!,
                               ),
                               trailing: Padding(
                                 padding: const EdgeInsets.only(
@@ -95,10 +95,10 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                   onTap: () {
                                     TeamChallengeNotification myTeam =
                                         new TeamChallengeNotification.newTeam(
-                                            data.teamId,
-                                            Constants.prefs
-                                                .getString('userId')!,
-                                            data.teamName);
+                                      data.teamId!,
+                                      Constants.prefs.getString('userId')!,
+                                      data.teamName!,
+                                    );
 
                                     showDialog(
                                         context: context,

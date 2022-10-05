@@ -9,39 +9,41 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // c - completed now can not be done
 
 class Teams {
-  String teamId;
-  String sport;
-  String teamName;
-  String captain;
-  String manager;
-  String image;
-  String bio;
-  List player;
-  List playerId;
-  List notificationPlayers;
-  String status;
-  String verified;
+  String? teamId;
+  String? sport;
+  String? teamName;
+  String? captain;
+  String? manager;
+  String? image;
+  String? bio;
+  List? player;
+  List? playerId;
+  List? notificationPlayers;
+  String? status;
+  String? verified;
 
-  Teams(
-      {this.teamId,
-      this.sport,
-      this.teamName,
-      this.captain,
-      this.manager,
-      this.image,
-      this.bio,
-      this.player,
-      this.playerId,
-      this.notificationPlayers,
-      this.status,
-      this.verified});
+  Teams({
+    this.teamId,
+    this.sport,
+    this.teamName,
+    this.captain,
+    this.manager,
+    this.image,
+    this.bio,
+    this.player,
+    this.playerId,
+    this.notificationPlayers,
+    this.status,
+    this.verified,
+  });
 
   Teams.newTeam(
       String teamId, String sport, String teamName, String bio, String status) {
     final Friends myprofile = new Friends.newFriend(
-        Constants.prefs.getString('userId'),
-        Constants.prefs.getString('name'),
-        Constants.prefs.getString('profileImage'));
+      Constants.prefs.getString('userId')!,
+      Constants.prefs.getString('name')!,
+      Constants.prefs.getString('profileImage')!,
+    );
 
     final mapOfProfile = myprofile.toJson();
     this.teamId = teamId;
@@ -66,14 +68,14 @@ class Teams {
         'image': this.image,
         'bio': this.bio,
         'players': this.player,
-        "teamSearchParam": setSearchParam(teamName),
+        "teamSearchParam": setSearchParam(teamName!),
         'playerId': this.playerId,
         'notificationPlayers': this.notificationPlayers,
         'status': this.status,
         'verified': this.verified
       };
   factory Teams.fromJson(QueryDocumentSnapshot data) {
-    var parsedJson = data.data();
+    var parsedJson = data.data() as Map;
     return Teams(
         teamId: parsedJson['teamId'],
         sport: parsedJson['sport'],
@@ -91,9 +93,9 @@ class Teams {
 }
 
 class TeamView {
-  String teamId;
-  String sport;
-  String teamName;
+  String? teamId;
+  String? sport;
+  String? teamName;
   //String manager;
 
   TeamView({this.teamId, this.sport, this.teamName}); //this.manager
@@ -115,7 +117,7 @@ class TeamView {
       };
 
   factory TeamView.fromJson(QueryDocumentSnapshot data) {
-    var parsedJson = data.data();
+    var parsedJson = data.data() as Map;
     return TeamView(
       teamId: parsedJson['teamId'],
       sport: parsedJson['sport'],
@@ -151,9 +153,9 @@ class TeamView {
 // }
 
 class TeamChallengeNotification {
-  String teamId;
-  String manager;
-  String teamName;
+  String? teamId;
+  String? manager;
+  String? teamName;
   TeamChallengeNotification({this.teamId, this.manager, this.teamName});
 
   TeamChallengeNotification.newTeam(

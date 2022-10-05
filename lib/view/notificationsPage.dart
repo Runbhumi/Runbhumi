@@ -306,7 +306,7 @@ class TeamEventNotificationCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        notificationData.teamName,
+                        notificationData.teamName!,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -323,7 +323,7 @@ class TeamEventNotificationCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        notificationData.eventName,
+                        notificationData.eventName!,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -340,9 +340,10 @@ class TeamEventNotificationCard extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () async {
                           await NotificationServices().declineTeamRequest(
-                              notificationData.eventId,
-                              notificationData.notificationId,
-                              notificationData.senderId);
+                            notificationData.eventId!,
+                            notificationData.notificationId!,
+                            notificationData.senderId!,
+                          );
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -453,7 +454,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                             width: 48,
                             fit: BoxFit.fitWidth,
                             image: NetworkImage(
-                              notificationData.senderPic,
+                              notificationData.senderPic!,
                             ),
                           ),
                         ),
@@ -463,7 +464,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          notificationData.senderName,
+                          notificationData.senderName!,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -480,7 +481,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          notificationData.eventName,
+                          notificationData.eventName!,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,

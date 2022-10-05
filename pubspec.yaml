@@ -26,11 +26,11 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
+  cupertino_icons: ^1.0.2
   datetime_picker_formfield: ^1.0.0
   provider:
   bubble_tab_indicator: "^0.1.4"
-  image_picker: ^0.6.7+12
+  image_picker: ^0.8.5+3
   image_cropper: ^1.3.1
   sliding_up_panel: ^1.0.2
   # maps
@@ -43,10 +43,10 @@ dependencies:
   #connectivity 
   # connectivity: ^2.0.2
   # connectivity_widget: ^0.1.7
-  connectivity_wrapper: ^1.0.4
+  connectivity_wrapper: ^1.1.0
 
   #onboarding screen
-  introduction_screen: ^1.0.7
+  introduction_screen: ^3.0.2
 
 
   #stripe_payments
@@ -58,32 +58,32 @@ dependencies:
   #modal_progress_hud: ^0.1.3
 
   #http
-  http: ^0.12.2
+  http: ^0.13.5
 
   #url launcher
-  url_launcher: ^5.7.2
+  url_launcher: ^6.1.5
   
   #firbase
-  firebase_core: ^0.5.0
-  firebase_messaging: ^7.0.3
+  firebase_core: ^1.24.0
+  firebase_messaging: ^13.0.4
 
   #authorization
-  firebase_auth: ^0.18.0+1
-  google_sign_in: ^4.5.3
+  firebase_auth: ^3.11.1
+  google_sign_in: ^5.4.2
 
   #storage
-  cloud_firestore: ^0.14.0+2
-  firebase_storage: ^4.0.0
+  cloud_firestore: ^3.5.0
+  firebase_storage: ^10.3.10
 
   #shared prefrences
-  shared_preferences: ^0.5.12
+  shared_preferences: ^2.0.15
 
   rflutter_alert: ^1.1.0
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.8.0"
+  flutter_launcher_icons: ^0.10.0
 
 flutter_icons:
   android: true
@@ -146,11 +146,5 @@ flutter:
         - asset: fonts/Montserrat-ExtraBoldItalic.ttf
           weight: 800
           style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

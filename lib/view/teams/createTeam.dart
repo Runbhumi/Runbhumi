@@ -18,7 +18,7 @@ import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 // import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 // import 'package:provider/provider.dart';
 import '../Chats/inviteFriends.dart';
 
@@ -51,7 +51,7 @@ class _CreateTeamState extends State<CreateTeam> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
                 child: Icon(
-              Feather.info,
+              UniconsLine.info,
               size: 64,
             )),
           ),
@@ -251,7 +251,7 @@ class _CreateTeamState extends State<CreateTeam> {
                               textAlign: TextAlign.start,
                             ),
                             IconButton(
-                                icon: Icon(Feather.info),
+                                icon: Icon(UniconsLine.info),
                                 iconSize: 15.0,
                                 onPressed: () {
                                   showDialog(
@@ -332,8 +332,8 @@ class _CreateTeamState extends State<CreateTeam> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Button(
-                    myText: "Create Team",
-                    myColor: Theme.of(context).primaryColor,
+                    buttonTitle: "Create Team",
+                    bgColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       if (_createNewTeamkey.currentState.validate() &&
                           _chosenSport != null) {
@@ -401,7 +401,7 @@ SimpleDialog inValidInput(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
               child: Icon(
-            Feather.info,
+            UniconsLine.info,
             size: 64,
           )),
         ),

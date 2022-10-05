@@ -8,7 +8,7 @@ import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 
 class TeamCategory extends StatefulWidget {
@@ -198,7 +198,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                                         Row(
                                           children: [
                                             Icon(
-                                              Feather.map_pin,
+                                              UniconsLine.map_pin,
                                               size: 16.0,
                                             ),
                                             Text(
@@ -264,7 +264,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                   child: Row(
                     children: <Widget>[
                       Icon(
-                        Feather.search,
+                        UniconsLine.search,
                         color:
                             Theme.of(context).iconTheme.color.withOpacity(0.5),
                       ),
@@ -348,7 +348,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Feather.x),
+        icon: Icon(UniconsLine.x),
         onPressed: () {
           query = '';
         },
@@ -503,7 +503,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                       Row(
                                         children: [
                                           Icon(
-                                            Feather.map_pin,
+                                            UniconsLine.map_pin,
                                             size: 16.0,
                                           ),
                                           Text(

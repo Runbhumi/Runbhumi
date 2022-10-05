@@ -1,9 +1,6 @@
 // import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/widget/buildTitle.dart';
-import 'package:Runbhumi/widget/button.dart';
-import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -55,8 +52,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                               Image(image: NetworkImage(data.profileImage)),
                           title: Text(data.name),
                           trailing: Button(
-                            myText: "Aready In Team",
-                            myColor: Theme.of(context).primaryColor,
+                            buttonTitle: "Aready In Team",
+                            bgColor: Theme.of(context).primaryColor,
                             onPressed: () {
                               // ------- When the user in already in the team  ---------------
                             },
@@ -68,8 +65,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                               Image(image: NetworkImage(data.profileImage)),
                           title: Text(data.name),
                           trailing: Button(
-                            myText: "Invite Sent",
-                            myColor: Theme.of(context).primaryColor,
+                            buttonTitle: "Invite Sent",
+                            bgColor: Theme.of(context).primaryColor,
                             onPressed: () {
                               // Alert the user that he is exceeding the limit of members in the group
                             },
@@ -86,8 +83,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                               Image(image: NetworkImage(data.profileImage)),
                           title: Text(data.name),
                           trailing: Button(
-                            myText: "Invite",
-                            myColor: Theme.of(context).primaryColor,
+                            buttonTitle: "Invite",
+                            bgColor: Theme.of(context).primaryColor,
                             onPressed: () {
                               // ------- When the user is not in the team  ---------------
                               NotificationServices().createTeamNotification(
@@ -113,8 +110,8 @@ class _InviteFriendsState extends State<InviteFriends> {
       leading: Image(image: NetworkImage(data.profileImage)),
       title: Text(data.name),
       trailing: Button(
-        myText: text,
-        myColor: Theme.of(context).primaryColor,
+        buttonTitle: text,
+        bgColor: Theme.of(context).primaryColor,
         onPressed: () {
           //------- Code to send a team joining notification ---------------
           //Use Team Id to refer to the team and pass on to the notification
@@ -133,8 +130,8 @@ class _InviteFriendsState extends State<InviteFriends> {
       body: Column(children: [
         friends(),
         Button(
-          myText: 'Leave',
-          myColor: Colors.blue,
+          buttonTitle: 'Leave',
+          bgColor: Colors.blue,
           onPressed: () {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => AnimatedBottomBar()));

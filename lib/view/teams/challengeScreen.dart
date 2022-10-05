@@ -4,9 +4,8 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 
 class ChallangeTeam extends StatefulWidget {
   final String sportName;
@@ -128,7 +127,7 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                         height: 36,
                                       ),
                                       Icon(
-                                        Feather.check,
+                                        UniconsLine.check,
                                         color: Colors.green,
                                         size: 24,
                                       ),
@@ -158,8 +157,8 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                               ),
                             ),
                             Button(
-                              myText: 'Create one',
-                              myColor: Theme.of(context).primaryColor,
+                              buttonTitle: 'Create one',
+                              bgColor: Theme.of(context).primaryColor,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -186,7 +185,7 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Feather.x),
+            icon: Icon(UniconsLine.x),
             onPressed: () {
               Navigator.pop(context);
             },

@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:Runbhumi/services/ImageUpload.dart';
 import 'package:Runbhumi/widget/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,7 +17,7 @@ class _ImageCaptureState extends State<ImageCapture> {
 
   /// Cropper plugin
   Future<void> _cropImage() async {
-    File cropped = await ImageCropper.cropImage(
+    CroppedFile cropped = await ImageCropper.cropImage(
       sourcePath: _imageFile.path,
       aspectRatioPresets: Platform.isAndroid
           ? [
@@ -81,11 +80,11 @@ class _ImageCaptureState extends State<ImageCapture> {
         leading: CustomBackButton(),
         actions: [
           IconButton(
-            icon: Icon(Feather.camera, semanticLabel: "Camera"),
+            icon: Icon(UniconsLine.camera, semanticLabel: "Camera"),
             onPressed: () => _pickImage(ImageSource.camera),
           ),
           IconButton(
-            icon: Icon(Feather.folder, semanticLabel: "Open from gallery"),
+            icon: Icon(UniconsLine.folder, semanticLabel: "Open from gallery"),
             onPressed: () => _pickImage(ImageSource.gallery),
           ),
         ],

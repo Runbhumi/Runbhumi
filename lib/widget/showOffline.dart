@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 
 class ShowOffline extends StatelessWidget {
   const ShowOffline({
@@ -16,7 +16,7 @@ class ShowOffline extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(
-                Feather.wifi_off,
+                UniconsLine.wifi_slash,
                 size: 64,
                 color: Colors.red[300],
               ),

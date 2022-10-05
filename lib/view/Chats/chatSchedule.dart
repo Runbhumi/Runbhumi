@@ -170,8 +170,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                     ),
                   ),
                   Button(
-                    myText: "Schedule",
-                    myColor: Theme.of(context).primaryColor,
+                    buttonTitle: "Schedule",
+                    bgColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       var newDoc =
                           FirebaseFirestore.instance.collection('events').doc();

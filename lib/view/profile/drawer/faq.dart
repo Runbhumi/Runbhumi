@@ -204,8 +204,8 @@ class Faq extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Button(
-              myText: "Feedback Form",
-              myColor: Theme.of(context).primaryColor,
+              buttonTitle: "Feedback Form",
+              bgColor: Theme.of(context).primaryColor,
               onPressed: () {
                 _launchURL("https://runbhumi.vercel.app/feedback");
               },

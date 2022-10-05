@@ -6,8 +6,8 @@ import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:unicons/unicons.dart';
 
 import 'chatSchedule.dart';
 
@@ -61,7 +61,7 @@ class _EventConversationState extends State<EventConversation> {
                         child: Center(
                           child: ListTile(
                             leading: Icon(
-                              Feather.info,
+                              UniconsLine.info,
                               size: 20,
                             ),
                             title: Text(

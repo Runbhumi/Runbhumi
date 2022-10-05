@@ -4,13 +4,12 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:Runbhumi/view/teams/challengeScreen.dart';
-//import 'package:Runbhumi/view/teams/challengeScreen.dart';
 import 'package:Runbhumi/view/teams/teamCategory.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 
 class TeamsList extends StatefulWidget {
@@ -277,8 +276,8 @@ class _TeamsListState extends State<TeamsList>
                       ),
                     ),
                     Button(
-                      myColor: Theme.of(context).primaryColor,
-                      myText: "Create team",
+                      bgColor: Theme.of(context).primaryColor,
+                      buttonTitle: "Create team",
                       onPressed: () {
                         Navigator.pushNamed(context, "/createteam");
                       },
@@ -336,7 +335,7 @@ class _TeamsListState extends State<TeamsList>
           Navigator.pushNamed(context, "/createteam");
         },
         child: Icon(
-          Feather.user_plus,
+          UniconsLine.user_plus,
           size: 32,
         ),
       ),
@@ -542,7 +541,7 @@ class TypeofTeam extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 4.0),
           child: Icon(
-            data.status == "public" ? Feather.globe : Feather.lock,
+            data.status == "public" ? UniconsLine.globe : UniconsLine.lock,
             size: 16,
             color:
                 data.status == "public" ? Colors.green[400] : Colors.red[400],

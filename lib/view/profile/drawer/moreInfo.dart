@@ -4,7 +4,7 @@ import 'package:Runbhumi/utils/theme_config.dart';
 // import 'package:Runbhumi/widget/contributers/contributors_data_model.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 // import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -739,7 +739,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
                     _launchURL(
                         "https://www.linkedin.com/in/sai-rohan-bangari/");
                   },
-                  child: Icon(Feather.linkedin)),
+                  child: Icon(UniconsLine.linkedin)),
             )),
           ),
           Padding(
@@ -752,7 +752,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
                   onTap: () {
                     _launchURL("https://www.linkedin.com/in/hayat-tamboli/");
                   },
-                  child: Icon(Feather.linkedin)),
+                  child: Icon(UniconsLine.linkedin)),
             )),
           ),
           Padding(
@@ -766,7 +766,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
                     _launchURL(
                         "https://www.linkedin.com/in/manas-gupta-253760192/");
                   },
-                  child: Icon(Feather.linkedin)),
+                  child: Icon(UniconsLine.linkedin)),
             )),
           ),
           Padding(
@@ -780,7 +780,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
                     _launchURL(
                         "https://www.linkedin.com/in/mohit-l-48a2121ab/");
                   },
-                  child: Icon(Feather.linkedin)),
+                  child: Icon(UniconsLine.linkedin)),
             )),
           ),
           // Padding(
@@ -877,7 +877,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
           //                                 ? Row(
           //                                     children: [
           //                                       Icon(
-          //                                         Feather.map_pin,
+          //                                         UniconsLine.map_pin,
           //                                         size: 14,
           //                                       ),
           //                                       Text(

@@ -5,10 +5,10 @@ import 'package:Runbhumi/view/profile/otherUserProfile.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:unicons/unicons.dart';
 
 class EventInfo extends StatefulWidget {
   final String eventId;
@@ -71,7 +71,7 @@ class _EventInfoState extends State<EventInfo> {
         //     Navigator.pushNamed(context, "/addpost");
         //   },
         //   child: Icon(
-        //     Feather.user_plus,
+        //     UniconsLine.user_plus,
         //     size: 32,
         //   ),
         // ),
@@ -190,7 +190,7 @@ class _EventInfoState extends State<EventInfo> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Icon(
-                    Feather.chevrons_up,
+                    UniconsLine.angle_up,
                     size: 32,
                   ),
                   Text(
@@ -259,7 +259,7 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              Feather.file_text,
+                              UniconsLine.file,
                               size: 24.0,
                             ),
                           ),
@@ -284,7 +284,9 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              data["type"] == 1 ? Feather.globe : Feather.lock,
+                              data["type"] == 1
+                                  ? UniconsLine.globe
+                                  : UniconsLine.lock,
                               size: 24.0,
                             ),
                           ),
@@ -307,7 +309,7 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              Feather.dollar_sign,
+                              UniconsLine.dollar_sign,
                               size: 24.0,
                             ),
                           ),
@@ -330,7 +332,7 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              Feather.calendar,
+                              UniconsLine.calender,
                               size: 24.0,
                             ),
                           ),
@@ -355,7 +357,7 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              Feather.clock,
+                              UniconsLine.clock,
                               size: 24.0,
                             ),
                           ),
@@ -381,7 +383,7 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              Feather.map_pin,
+                              UniconsLine.map_pin,
                               size: 24.0,
                             ),
                           ),

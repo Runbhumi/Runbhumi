@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
+// import 'package:unicons/unicons.dart';
 
 // BottomNavigationBar buildBottomNavigationBar(
 //     BuildContext context, void Function(int) onTap, int currentIndex) {
@@ -13,28 +13,28 @@
 //     unselectedItemColor: Theme.of(context).primaryColor.withOpacity(0.5),
 //     items: [
 //       new BottomNavigationBarItem(
-//         icon: Icon(Feather.compass),
-//         activeIcon: Icon(Feather.compass),
+//         icon: Icon(UniconsLine.compass),
+//         activeIcon: Icon(UniconsLine.compass),
 //         label: 'Explore',
 //       ),
 //       new BottomNavigationBarItem(
-//         icon: Icon(Feather.message_square),
-//         activeIcon: Icon(Feather.message_square),
+//         icon: Icon(UniconsLine.message_square),
+//         activeIcon: Icon(UniconsLine.message_square),
 //         label: 'Message',
 //       ),
 //       new BottomNavigationBarItem(
-//         icon: Icon(Feather.users),
-//         activeIcon: Icon(Feather.users),
+//         icon: Icon(UniconsLine.users),
+//         activeIcon: Icon(UniconsLine.users),
 //         label: 'Teams',
 //       ),
 //       new BottomNavigationBarItem(
-//         icon: Icon(Feather.bell),
-//         activeIcon: Icon(Feather.bell),
+//         icon: Icon(UniconsLine.bell),
+//         activeIcon: Icon(UniconsLine.bell),
 //         label: 'Notifications',
 //       ),
 //       new BottomNavigationBarItem(
-//         icon: Icon(Feather.user),
-//         activeIcon: Icon(Feather.user),
+//         icon: Icon(UniconsLine.user),
+//         activeIcon: Icon(UniconsLine.user),
 //         label: 'Profile',
 //       ),
 //     ],
@@ -45,7 +45,7 @@ import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/showOffline.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:unicons/unicons.dart';
 
 class AnimatedBottomBar extends StatefulWidget {
   @override
@@ -116,7 +116,7 @@ class AnimatedBottomNav extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: () => onChange(0),
               child: BottomNavItem(
-                icon: Feather.compass,
+                icon: UniconsLine.compass,
                 title: "Explore",
                 isActive: currentIndex == 0,
               ),
@@ -127,7 +127,7 @@ class AnimatedBottomNav extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: () => onChange(1),
               child: BottomNavItem(
-                icon: Feather.message_square,
+                icon: UniconsLine.message,
                 title: "Message",
                 isActive: currentIndex == 1,
               ),
@@ -138,7 +138,7 @@ class AnimatedBottomNav extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: () => onChange(2),
               child: BottomNavItem(
-                icon: Feather.users,
+                icon: UniconsLine.user,
                 title: "Teams",
                 isActive: currentIndex == 2,
               ),
@@ -149,7 +149,7 @@ class AnimatedBottomNav extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: () => onChange(3),
               child: BottomNavItem(
-                icon: Feather.bell,
+                icon: UniconsLine.bell,
                 title: "Notifications",
                 isActive: currentIndex == 3,
               ),
@@ -160,7 +160,7 @@ class AnimatedBottomNav extends StatelessWidget {
               behavior: HitTestBehavior.translucent,
               onTap: () => onChange(4),
               child: BottomNavItem(
-                icon: Feather.user,
+                icon: UniconsLine.user,
                 title: "Profile",
                 isActive: currentIndex == 4,
               ),

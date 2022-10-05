@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DrawerBody extends StatefulWidget {
   const DrawerBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class _DrawerBodyState extends State<DrawerBody> {
                   ),
                 ),
                 Text(
-                  Constants.prefs.getString('name'),
+                  Constants.prefs.getString('name')!,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,

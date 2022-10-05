@@ -11,7 +11,7 @@ import '../../widget/widgets.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
-  Stream currentFeed;
+  late Stream currentFeed;
   void initState() {
     super.initState();
     getUserInfoEvents();
@@ -48,7 +48,7 @@ class _ScheduleState extends State<Schedule> {
                     itemBuilder: (context, index) {
                       Events data = new Events.fromMiniJson(
                           asyncSnapshot.data.documents[index]);
-                      String sportIcon;
+                      late String sportIcon;
                       // IconData sportIcon;
                       switch (data.sportName) {
                         case "Volleyball":
@@ -117,7 +117,7 @@ class _ScheduleState extends State<Schedule> {
                                       ),
                                     ],
                                     title: Text(
-                                      data.eventName,
+                                      data.eventName!,
                                       style: TextStyle(
                                         color:
                                             theme.currentTheme.backgroundColor,
@@ -132,7 +132,7 @@ class _ScheduleState extends State<Schedule> {
                                         Text(
                                           DateFormat('MMM dd -')
                                               .add_jm()
-                                              .format(data.dateTime)
+                                              .format(data.dateTime!)
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 13,
@@ -146,7 +146,7 @@ class _ScheduleState extends State<Schedule> {
                                               size: 16.0,
                                             ),
                                             Text(
-                                              data.location,
+                                              data.location!,
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
@@ -206,7 +206,7 @@ confirmationPopupForDeleting(BuildContext context, Events data) {
       context: context,
       style: alertStyle,
       title: "Delete Event",
-      desc: "Are you user you want to delete this event " + data.eventName,
+      desc: "Are you user you want to delete this event " + data.eventName!,
       buttons: [
         DialogButton(
           child: Padding(
@@ -238,12 +238,12 @@ confirmationPopupForDeleting(BuildContext context, Events data) {
             ),
           ),
           onPressed: () {
-            if (data.type < 4) {
+            if (data.type! < 4) {
               deleteEvent(data.eventId);
             } else {
-              List<dynamic> playerId = data.playersId;
+              List<dynamic> playerId = data.playersId!;
               for (int i = 0; i < playerId.length; i++) {
-                deleteIndividualUserMini(data.eventId, playerId[i]);
+                deleteIndividualUserMini(data.eventId!, playerId[i]);
               }
               //deleting the chatroom events.
             }
@@ -270,7 +270,7 @@ confirmationPopupForLeaving(BuildContext context, Events data) {
       context: context,
       style: alertStyle,
       title: "Leave Event",
-      desc: "Are you user you want to leave this event " + data.eventName,
+      desc: "Are you user you want to leave this event " + data.eventName!,
       buttons: [
         DialogButton(
           child: Padding(
@@ -302,11 +302,11 @@ confirmationPopupForLeaving(BuildContext context, Events data) {
             ),
           ),
           onPressed: () {
-            if (data.type < 4) {
+            if (data.type! < 4) {
               leaveEvent(data);
             } else {
               deleteIndividualUserMini(
-                  data.eventId, Constants.prefs.getString('userId'));
+                  data.eventId!, Constants.prefs.getString('userId')!);
             }
             Navigator.pop(context);
           },

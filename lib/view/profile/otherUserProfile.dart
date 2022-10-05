@@ -9,28 +9,28 @@ import 'package:unicons/unicons.dart';
 
 class OtherUserProfile extends StatefulWidget {
   const OtherUserProfile({
-    @required this.userID,
-    Key key,
+    required this.userID,
+    Key? key,
   }) : super(key: key);
   final String userID;
 
   @override
   _OtherUserProfileState createState() => _OtherUserProfileState();
-  static _OtherUserProfileState of(BuildContext context) =>
+  static _OtherUserProfileState? of(BuildContext context) =>
       context.findAncestorStateOfType<_OtherUserProfileState>();
 }
 
 class _OtherUserProfileState extends State<OtherUserProfile> {
   final db = FirebaseFirestore.instance;
-  StreamSubscription sub;
-  Map data;
+  late StreamSubscription sub;
+  late Map<String, dynamic> data;
   bool _loading = false;
   @override
   void initState() {
     super.initState();
     sub = db.collection('users').doc(widget.userID).snapshots().listen((snap) {
       setState(() {
-        data = snap.data();
+        data = snap.data()!;
         _loading = true;
       });
     });
@@ -58,7 +58,7 @@ class _OtherUserProfileState extends State<OtherUserProfile> {
 
 class OtherProfileBody extends StatefulWidget {
   const OtherProfileBody({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -68,14 +68,14 @@ class OtherProfileBody extends StatefulWidget {
 class _OtherProfileBodyState extends State<OtherProfileBody> {
   @override
   Widget build(BuildContext context) {
-    if (OtherUserProfile.of(context)._loading) {
+    if (OtherUserProfile.of(context)!._loading) {
       return Center(
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: UserProfile(data: OtherUserProfile.of(context).data),
+                child: UserProfile(data: OtherUserProfile.of(context)!.data),
               ),
             ],
           ),
@@ -89,17 +89,17 @@ class _OtherProfileBodyState extends State<OtherProfileBody> {
 
 class UserProfile extends StatelessWidget {
   const UserProfile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
-  final Map data;
+  final Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
     // if (data['friends'].contains(Constants.prefs.getString('userId')))
     //   print('Its is true');
-    String _id = Constants.prefs.getString('userId');
+    String _id = Constants.prefs.getString('userId')!;
     return Column(
       children: [
         //profile image
@@ -173,20 +173,9 @@ class UserProfile extends StatelessWidget {
             !(data['friends'].contains(_id)) &&
             data['notification'].contains(_id))
           //request sent btn
-          OutlineButton(
-            padding: const EdgeInsets.all(16.0),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor.withOpacity(0.4),
-              width: 4.0,
-            ),
-            highlightedBorderColor: Theme.of(context).primaryColor,
-            color: Theme.of(context).primaryColor,
-            child: Text(
-              "Request Sent",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0)),
+          Button(
+            bgColor: Theme.of(context).primaryColor,
+            buttonTitle: "Request Sent",
             onPressed: () {},
           ),
         if (data['userId'] != _id &&

@@ -1,12 +1,11 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
 class ExpansionCard extends StatefulWidget {
   const ExpansionCard({
-    Key key,
-    this.alwaysShowingChild,
+    Key? key,
+    required this.alwaysShowingChild,
     this.backgroundColor,
     this.onExpansionChanged,
     this.children = const <Widget>[],
@@ -15,9 +14,7 @@ class ExpansionCard extends StatefulWidget {
     this.expandedCrossAxisAlignment,
     this.expandedAlignment,
     this.childrenPadding,
-  })  : assert(initiallyExpanded != null),
-        assert(maintainState != null),
-        assert(
+  })  : assert(
           expandedCrossAxisAlignment != CrossAxisAlignment.baseline,
           'CrossAxisAlignment.baseline is not supported since the expanded children '
           'are aligned in a column, not a row. Try to use another constant.',
@@ -31,13 +28,13 @@ class ExpansionCard extends StatefulWidget {
   /// When the tile starts expanding, this function is called with the value
   /// true. When the tile starts collapsing, this function is called with
   /// the value false.
-  final ValueChanged<bool> onExpansionChanged;
+  final ValueChanged<bool>? onExpansionChanged;
 
   /// The widgets that are displayed when the tile expands.
   final List<Widget> children;
 
   /// The color to display behind the sublist when expanded.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// A widget to display instead of a rotating arrow icon.
   // final Widget trailing;
@@ -59,7 +56,7 @@ class ExpansionCard extends StatefulWidget {
   /// The width of the column is the width of the widest child widget in [children].
   ///
   /// When the value is null, the value of `expandedAlignment` is [Alignment.center].
-  final Alignment expandedAlignment;
+  final Alignment? expandedAlignment;
 
   /// Specifies the alignment of each child within [children] when the tile is expanded.
   ///
@@ -75,12 +72,12 @@ class ExpansionCard extends StatefulWidget {
   /// instead.
   ///
   /// When the value is null, the value of `expandedCrossAxisAlignment` is [CrossAxisAlignment.center].
-  final CrossAxisAlignment expandedCrossAxisAlignment;
+  final CrossAxisAlignment? expandedCrossAxisAlignment;
 
   /// Specifies padding for [children].
   ///
   /// When the value is null, the value of `childrenPadding` is [EdgeInsets.zero].
-  final EdgeInsetsGeometry childrenPadding;
+  final EdgeInsetsGeometry? childrenPadding;
 
   @override
   _ExpansionCardState createState() => _ExpansionCardState();
@@ -97,9 +94,9 @@ class _ExpansionCardState extends State<ExpansionCard>
   final ColorTween _headerColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-  AnimationController _controller;
-  Animation<double> _heightFactor;
-  Animation<Color> _backgroundColor;
+  late AnimationController _controller;
+  Animation<double>? _heightFactor;
+  Animation<Color?>? _backgroundColor;
 
   bool _isExpanded = false;
 
@@ -115,8 +112,7 @@ class _ExpansionCardState extends State<ExpansionCard>
     _backgroundColor =
         _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded = PageStorage.of(context)?.readState(context) as bool ??
-        widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) as bool;
     if (_isExpanded) _controller.value = 1.0;
   }
 
@@ -142,15 +138,15 @@ class _ExpansionCardState extends State<ExpansionCard>
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null)
-      widget.onExpansionChanged(_isExpanded);
+      widget.onExpansionChanged!(_isExpanded);
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     final Color borderSideColor = Colors.transparent;
 
     return Container(
       decoration: BoxDecoration(
-        color: _backgroundColor.value ?? Colors.transparent,
+        color: _backgroundColor?.value ?? Colors.transparent,
         border: Border(
           top: BorderSide(color: borderSideColor),
           bottom: BorderSide(color: borderSideColor),
@@ -169,7 +165,7 @@ class _ExpansionCardState extends State<ExpansionCard>
           ClipRect(
             child: Align(
               alignment: widget.expandedAlignment ?? Alignment.center,
-              heightFactor: _heightFactor.value,
+              heightFactor: _heightFactor?.value,
               child: child,
             ),
           ),
@@ -183,7 +179,7 @@ class _ExpansionCardState extends State<ExpansionCard>
     final ThemeData theme = Theme.of(context);
     _borderColorTween.end = theme.dividerColor;
     _headerColorTween
-      ..begin = theme.textTheme.subtitle1.color
+      ..begin = theme.textTheme.subtitle1?.color
       ..end = theme.accentColor;
     _backgroundColorTween.end = widget.backgroundColor;
     super.didChangeDependencies();

@@ -6,9 +6,9 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationServices {
-  final String _id = Constants.prefs.getString('userId');
-  final String _name = Constants.prefs.getString('name');
-  final String _profileImage = Constants.prefs.getString('profileImage');
+  final String _id = Constants.prefs.getString('userId')!;
+  final String _name = Constants.prefs.getString('name')!;
+  final String _profileImage = Constants.prefs.getString('profileImage')!;
 
   createRequest(String uid) {
     var db = FirebaseFirestore.instance
@@ -40,7 +40,7 @@ class NotificationServices {
     // String notificationID, String id, String name, String profileImage) {
     var db = FirebaseFirestore.instance.collection('users');
     db.doc(_id).collection('friends').doc(data.senderId).set(Friends.newFriend(
-            data.senderId, data.senderName, data.senderProfieImage)
+            data.senderId!, data.senderName!, data.senderProfieImage!)
         .toJson());
 
     db
@@ -48,10 +48,10 @@ class NotificationServices {
         .collection('friends')
         .doc(_id)
         .set(Friends.newFriend(_id, _name, _profileImage).toJson());
-    declineRequest(data.notificationId, data.senderId);
+    declineRequest(data.notificationId!, data.senderId!);
 
-    FriendServices().addUpdateMyFriendCount(1, data.senderId, _id);
-    FriendServices().addUpdateMyFriendCount(1, _id, data.senderId);
+    FriendServices().addUpdateMyFriendCount(1, data.senderId!, _id);
+    FriendServices().addUpdateMyFriendCount(1, _id, data.senderId!);
   }
 
   getNotification() async {
@@ -73,7 +73,7 @@ class NotificationServices {
     String id = doc.id;
     final EventNotification eventNotification =
         new EventNotification.createIndividualNotification(
-            id, event.eventId, event.eventName);
+            id, event.eventId!, event.eventName!);
     doc.set(eventNotification.toUserJson());
     await FirebaseFirestore.instance
         .collection('events')
@@ -88,16 +88,16 @@ class NotificationServices {
         .collection('events')
         .doc(notificationId)
         .get();
-    Map<String, dynamic> map = snap.data();
-    Events event = Events.fromMap(map);
+    Map<String, dynamic>? map = snap.data();
+    Events event = Events.fromMap(map!);
     return event;
   }
 
   acceptIndividualNotification(EventNotification notification) async {
-    Events event = await checkPlayerCount(notification.eventId);
-    Friends friend = new Friends.newFriend(
-        notification.senderId, notification.senderName, notification.senderPic);
-    if (event.playersId.length < event.maxMembers) {
+    Events event = await checkPlayerCount(notification.eventId!);
+    Friends friend = new Friends.newFriend(notification.senderId!,
+        notification.senderName!, notification.senderPic!);
+    if (event.playersId!.length < event.maxMembers!) {
       await FirebaseFirestore.instance
           .collection('events')
           .doc(notification.eventId)
@@ -107,20 +107,21 @@ class NotificationServices {
         'playerInfo': FieldValue.arrayUnion([friend.toJson()])
       });
       await addScheduleToUser(
-          notification.senderId,
-          event.eventName,
-          event.sportName,
-          event.location,
-          event.dateTime,
-          event.creatorId,
-          event.creatorName,
-          event.eventId,
-          event.status,
-          event.type,
-          event.playersId,
-          event.paid);
+        notification.senderId!,
+        event.eventName!,
+        event.sportName!,
+        event.location!,
+        event.dateTime!,
+        event.creatorId!,
+        event.creatorName!,
+        event.eventId!,
+        event.status!,
+        event.type!,
+        event.playersId!,
+        event.paid!,
+      );
 
-      await declineNotification(notification.notificationId);
+      await declineNotification(notification.notificationId!);
       return true;
     }
 
@@ -128,7 +129,7 @@ class NotificationServices {
   }
 
   declineEventNotification(EventNotification notificationData) async {
-    declineNotification(notificationData.notificationId);
+    declineNotification(notificationData.notificationId!);
     await FirebaseFirestore.instance
         .collection('events')
         .doc(notificationData.eventId)
@@ -165,7 +166,7 @@ class NotificationServices {
     var doc = db.doc();
     String id = doc.id;
     doc.set(TeamNotification.newNotification(
-            id, teamView.teamId, teamView.teamName, teamView.sport)
+            id, teamView.teamId!, teamView.teamName!, teamView.sport!)
         .toJson());
     await FirebaseFirestore.instance
         .collection('teams')
@@ -191,12 +192,12 @@ class NotificationServices {
       'playerId': FieldValue.arrayUnion([user.friendId]),
       'notificationPlayers': FieldValue.arrayRemove([user.friendId]),
     });
-    CustomMessageServices().sendTeamNewMemberJoinMessage(team.teamId, _name);
+    CustomMessageServices().sendTeamNewMemberJoinMessage(team.teamId!, _name);
     declineTeamInviteNotification(team);
   }
 
   declineTeamInviteNotification(TeamNotification teams) async {
-    declineNotification(teams.notificationId);
+    declineNotification(teams.notificationId!);
     await FirebaseFirestore.instance
         .collection('teams')
         .doc(teams.teamId)
@@ -225,8 +226,8 @@ class NotificationServices {
 
   Future<bool> acceptTeamEventNotification(
       EventNotification notification) async {
-    Events event = await checkPlayerCount(notification.eventId);
-    if (event.playersId.length < event.maxMembers) {
+    Events event = await checkPlayerCount(notification.eventId!);
+    if (event.playersId!.length < event.maxMembers!) {
       await FirebaseFirestore.instance
           .collection('events')
           .doc(notification.eventId)
@@ -239,24 +240,33 @@ class NotificationServices {
         ])
       });
       await addScheduleToUser(
-          notification.senderId,
-          event.eventName,
-          event.sportName,
-          event.location,
-          event.dateTime,
-          event.creatorId,
-          event.creatorName,
-          event.eventId,
-          event.status,
-          event.type,
-          event.playersId,
-          event.paid);
-      await declineTeamRequest(notification.eventId,
-          notification.notificationId, notification.senderId);
+        notification.senderId!,
+        event.eventName!,
+        event.sportName!,
+        event.location!,
+        event.dateTime!,
+        event.creatorId!,
+        event.creatorName!,
+        event.eventId!,
+        event.status!,
+        event.type!,
+        event.playersId!,
+        event.paid!,
+      );
+      await declineTeamRequest(
+        notification.eventId!,
+        notification.notificationId!,
+        notification.senderId!,
+      );
       await CustomMessageServices().sendEventAcceptEventChatCustomMessage(
-          notification.eventId, notification.teamName);
+        notification.eventId!,
+        notification.teamName!,
+      );
       await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
-          notification.teamId, notification.senderName, notification.eventName);
+        notification.teamId!,
+        notification.senderName!,
+        notification.eventName!,
+      );
       return true;
     }
     return false;
@@ -264,16 +274,16 @@ class NotificationServices {
 
   acceptChallengeTeamNotification(
       ChallengeNotification notificationData) async {
-    String nameOftheEvent = notificationData.myTeamName +
+    String nameOftheEvent = notificationData.myTeamName! +
         ' Vs ' +
-        notificationData.opponentTeamName;
+        notificationData.opponentTeamName!;
     print('I am here yo');
     String eventId = createNewEvent(
         nameOftheEvent,
-        notificationData.senderId,
-        notificationData.senderName,
+        notificationData.senderId!,
+        notificationData.senderName!,
         "Challenge",
-        notificationData.sport,
+        notificationData.sport!,
         "Challenge",
         [_id],
         DateTime.now(),
@@ -283,10 +293,10 @@ class NotificationServices {
         true,
         false,
         'free');
-    EventService().addGivenUsertoEvent(eventId, notificationData.senderId);
+    EventService().addGivenUsertoEvent(eventId, notificationData.senderId!);
     CustomMessageServices().sendChallegeFirstRoomMessage(eventId);
     // here a chatroom logic can be written
-    declineNotification(notificationData.notificationId);
+    declineNotification(notificationData.notificationId!);
   }
 
   // getTeamInfo(String teamId) async {

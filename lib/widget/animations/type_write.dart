@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TypeWrite extends StatefulWidget {
-  final String word;
-  final TextStyle style;
-  final double textScaleFactor;
+  final String? word;
+  final TextStyle? style;
+  final double? textScaleFactor;
   final int seconds;
 
   TypeWrite({
-    Key key,
+    Key? key,
     this.word,
     this.style,
     this.textScaleFactor,
@@ -25,7 +25,7 @@ class _TypeWriteState extends State<TypeWrite> with TickerProviderStateMixin {
     animate();
   }
 
-  AnimationController controller;
+  late AnimationController controller;
 
   animate() async {
     controller = AnimationController(
@@ -34,16 +34,16 @@ class _TypeWriteState extends State<TypeWrite> with TickerProviderStateMixin {
     );
     setState(() {
       _stringIndex = _stringIndex == null ? 0 : _stringIndex + 1;
-      _characterCount = StepTween(begin: 0, end: widget.word.length)
+      _characterCount = StepTween(begin: 0, end: widget.word!.length)
           .animate(CurvedAnimation(parent: controller, curve: Curves.easeIn));
     });
 
     await controller.forward();
   }
 
-  Animation<int> _characterCount;
+  late Animation<int> _characterCount;
 
-  int _stringIndex;
+  late int _stringIndex;
 
   @override
   void dispose() {
@@ -55,8 +55,8 @@ class _TypeWriteState extends State<TypeWrite> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _characterCount,
-      builder: (BuildContext context, Widget child) {
-        String text = widget.word.substring(0, _characterCount.value);
+      builder: (BuildContext context, Widget? child) {
+        String text = widget.word!.substring(0, _characterCount.value);
         return Text(
           text,
           style: widget.style,

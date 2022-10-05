@@ -44,8 +44,8 @@ Challenge Team
 */
 class TeamInfo extends StatefulWidget {
   const TeamInfo({
-    @required this.teamID,
-    Key key,
+    required this.teamID,
+    Key? key,
   }) : super(key: key);
   final String teamID;
   @override
@@ -53,10 +53,10 @@ class TeamInfo extends StatefulWidget {
 }
 
 class _TeamInfoState extends State<TeamInfo> {
-  StreamSubscription sub;
-  Map data;
+  late StreamSubscription sub;
+  late Map data;
   bool _loading = false;
-  String sportIcon;
+  late String sportIcon;
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _TeamInfoState extends State<TeamInfo> {
         .snapshots()
         .listen((snap) {
       setState(() {
-        data = snap.data();
+        data = snap.data()!;
         _loading = true;
       });
     });
@@ -133,7 +133,7 @@ class _TeamInfoState extends State<TeamInfo> {
               Teams teamView = Teams.newTeam(data['teamId'], data['sport'],
                   data['teamName'], data['bio'], data['status']);
               NotificationServices().createTeamNotification(
-                  Constants.prefs.getString('userId'),
+                  Constants.prefs.getString('userId')!,
                   data['manager'],
                   teamView);
             }

@@ -11,7 +11,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  Stream notification;
+  late Stream notification;
 
   void initState() {
     super.initState();
@@ -117,8 +117,8 @@ class _NotificationsState extends State<Notifications> {
 
 class FriendRequestNotificationCard extends StatelessWidget {
   const FriendRequestNotificationCard({
-    Key key,
-    @required this.notificationData,
+    Key? key,
+    required this.notificationData,
   }) : super(key: key);
 
   final NotificationClass notificationData;
@@ -133,7 +133,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => OtherUserProfile(
-                userID: notificationData.senderId,
+                userID: notificationData.senderId!,
               ),
             ),
           );
@@ -156,7 +156,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                               width: 48,
                               fit: BoxFit.fitWidth,
                               image: NetworkImage(
-                                notificationData.senderProfieImage,
+                                notificationData.senderProfieImage!,
                               ),
                             ),
                           ),
@@ -165,7 +165,7 @@ class FriendRequestNotificationCard extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            notificationData.senderName,
+                            notificationData.senderName!,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -183,8 +183,8 @@ class FriendRequestNotificationCard extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             NotificationServices().declineRequest(
-                                notificationData.notificationId,
-                                notificationData.senderId);
+                                notificationData.notificationId!,
+                                notificationData.senderId!);
                           },
                           child: Stack(
                               alignment: AlignmentDirectional.center,
@@ -268,8 +268,8 @@ class FriendRequestNotificationCard extends StatelessWidget {
 
 class TeamEventNotificationCard extends StatelessWidget {
   const TeamEventNotificationCard({
-    Key key,
-    @required this.notificationData,
+    Key? key,
+    required this.notificationData,
   }) : super(key: key);
 
   final EventNotification notificationData;
@@ -306,7 +306,7 @@ class TeamEventNotificationCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        notificationData.teamName,
+                        notificationData.teamName!,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -323,7 +323,7 @@ class TeamEventNotificationCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        notificationData.eventName,
+                        notificationData.eventName!,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -340,9 +340,10 @@ class TeamEventNotificationCard extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () async {
                           await NotificationServices().declineTeamRequest(
-                              notificationData.eventId,
-                              notificationData.notificationId,
-                              notificationData.senderId);
+                            notificationData.eventId!,
+                            notificationData.notificationId!,
+                            notificationData.senderId!,
+                          );
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -425,8 +426,8 @@ class TeamEventNotificationCard extends StatelessWidget {
 
 class IndividualEventNotificationCard extends StatelessWidget {
   const IndividualEventNotificationCard({
-    Key key,
-    @required this.notificationData,
+    Key? key,
+    required this.notificationData,
   }) : super(key: key);
 
   final EventNotification notificationData;
@@ -453,7 +454,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                             width: 48,
                             fit: BoxFit.fitWidth,
                             image: NetworkImage(
-                              notificationData.senderPic,
+                              notificationData.senderPic!,
                             ),
                           ),
                         ),
@@ -463,7 +464,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          notificationData.senderName,
+                          notificationData.senderName!,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -480,7 +481,7 @@ class IndividualEventNotificationCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          notificationData.eventName,
+                          notificationData.eventName!,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -581,8 +582,8 @@ class IndividualEventNotificationCard extends StatelessWidget {
 
 class TeamJoinRequestNotificationCard extends StatelessWidget {
   const TeamJoinRequestNotificationCard({
-    Key key,
-    @required this.notificationData,
+    Key? key,
+    required this.notificationData,
   }) : super(key: key);
 
   final TeamNotification notificationData;
@@ -603,7 +604,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => OtherUserProfile(
-                          userID: notificationData.senderId,
+                          userID: notificationData.senderId!,
                         ),
                       ),
                     );
@@ -620,7 +621,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                               width: 48,
                               fit: BoxFit.fitWidth,
                               image: NetworkImage(
-                                notificationData.senderPic,
+                                notificationData.senderPic!,
                               ),
                             ),
                           ),
@@ -630,7 +631,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            notificationData.senderName,
+                            notificationData.senderName!,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -647,7 +648,7 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            notificationData.teamName,
+                            notificationData.teamName!,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -749,15 +750,15 @@ class TeamJoinRequestNotificationCard extends StatelessWidget {
 
 class ChallengeNotificationCard extends StatelessWidget {
   const ChallengeNotificationCard({
-    Key key,
-    @required this.notificationData,
+    Key? key,
+    required this.notificationData,
   }) : super(key: key);
 
   final ChallengeNotification notificationData;
 
   @override
   Widget build(BuildContext context) {
-    String sportIcon;
+    late String sportIcon;
     switch (notificationData.sport) {
       case "Volleyball":
         sportIcon = "assets/icons8-volleyball-96.png";
@@ -808,7 +809,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.5,
                             child: Center(
                               child: Text(
-                                notificationData.opponentTeamName,
+                                notificationData.opponentTeamName!,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontSize: 14,
@@ -831,7 +832,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.5,
                             child: Center(
                               child: Text(
-                                notificationData.myTeamName,
+                                notificationData.myTeamName!,
                                 overflow: TextOverflow.fade,
                                 style: TextStyle(
                                   fontSize: 14,
@@ -853,7 +854,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           NotificationServices().declineNotification(
-                              notificationData.notificationId);
+                              notificationData.notificationId!);
                         },
                         child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -919,7 +920,7 @@ class ChallengeNotificationCard extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    notificationData.type,
+                    notificationData.type!,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,

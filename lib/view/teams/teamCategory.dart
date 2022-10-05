@@ -4,7 +4,6 @@ import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/Chats/teamConversation.dart';
 import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/widget/loader.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +11,14 @@ import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 
 class TeamCategory extends StatefulWidget {
-  final String sportName;
-  TeamCategory({Key key, this.sportName}) : super(key: key);
+  final String? sportName;
+  TeamCategory({Key? key, this.sportName}) : super(key: key);
   @override
   _TeamCategoryState createState() => _TeamCategoryState();
 }
 
 class _TeamCategoryState extends State<TeamCategory> {
-  Stream teamFeed;
+  late Stream teamFeed;
   void initState() {
     super.initState();
     getAllTeams();
@@ -29,7 +28,7 @@ class _TeamCategoryState extends State<TeamCategory> {
 
   getAllTeams() async {
     await TeamService()
-        .getSpecificCategoryFeed(widget.sportName)
+        .getSpecificCategoryFeed(widget.sportName!)
         .then((snapshots) {
       setState(() {
         teamFeed = snapshots;
@@ -61,7 +60,7 @@ class _TeamCategoryState extends State<TeamCategory> {
     });
   }
 
-  Widget feed({ThemeNotifier theme}) {
+  Widget feed({required ThemeNotifier theme}) {
     return StreamBuilder(
       stream: teamFeed,
       builder: (context, asyncSnapshot) {
@@ -74,7 +73,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                       Teams data = new Teams.fromJson(
                           asyncSnapshot.data.documents[index]);
 
-                      String sportIcon;
+                      late String sportIcon;
                       switch (widget.sportName) {
                         case "Volleyball":
                           sportIcon = "assets/icons8-volleyball-96.png";
@@ -90,10 +89,10 @@ class _TeamCategoryState extends State<TeamCategory> {
                           break;
                       }
                       bool notifiedCondition = false;
-                      bool joinCondition = data.playerId
+                      bool joinCondition = data.playerId!
                           .contains(Constants.prefs.getString('userId'));
-                      if (data.notificationPlayers.length > 0)
-                        notifiedCondition = data.notificationPlayers
+                      if (data.notificationPlayers!.length > 0)
+                        notifiedCondition = data.notificationPlayers!
                             .contains(Constants.prefs.getString('userId'));
 
                       //asyncSnapshot
@@ -144,8 +143,8 @@ class _TeamCategoryState extends State<TeamCategory> {
                                                     .createTeamNotification(
                                                         Constants.prefs
                                                             .getString(
-                                                                'userId'),
-                                                        data.manager,
+                                                                'userId')!,
+                                                        data.manager!,
                                                         data);
                                               }
                                               if (data.status == 'closed') {
@@ -154,7 +153,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                                               }
                                               if (data.status == 'public') {
                                                 TeamService()
-                                                    .addMeInTeam(data.teamId)
+                                                    .addMeInTeam(data.teamId!)
                                                     .then(() => {
                                                           // give a success notification that he was
                                                           //added to the team and take him to the chat
@@ -176,7 +175,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                                     ],
                                     leading: Image.asset(sportIcon),
                                     title: Text(
-                                      data.teamName,
+                                      data.teamName!,
                                       style: TextStyle(
                                         color:
                                             theme.currentTheme.backgroundColor,
@@ -189,7 +188,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          data.bio,
+                                          data.bio!,
                                           style: TextStyle(
                                             color: theme
                                                 .currentTheme.backgroundColor,
@@ -202,7 +201,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                                               size: 16.0,
                                             ),
                                             Text(
-                                              data.status,
+                                              data.status!,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle1,
@@ -212,7 +211,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                                       ],
                                     ),
                                     trailing:
-                                        Text(data.playerId.length.toString()),
+                                        Text(data.playerId!.length.toString()),
                                   ),
                                 ),
                               ),
@@ -239,7 +238,7 @@ class _TeamCategoryState extends State<TeamCategory> {
     return Scaffold(
       appBar: AppBar(
         leading: CustomBackButton(),
-        title: buildTitle(context, widget.sportName),
+        title: buildTitle(context, widget.sportName!),
       ),
       body: Container(
         child: Column(
@@ -266,7 +265,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                       Icon(
                         UniconsLine.search,
                         color:
-                            Theme.of(context).iconTheme.color.withOpacity(0.5),
+                            Theme.of(context).iconTheme.color!.withOpacity(0.5),
                       ),
                       SizedBox(
                         width: 10,
@@ -276,7 +275,7 @@ class _TeamCategoryState extends State<TeamCategory> {
                         style: TextStyle(
                           color: Theme.of(context)
                               .inputDecorationTheme
-                              .hintStyle
+                              .hintStyle!
                               .color,
                           fontSize: 16,
                         ),
@@ -362,7 +361,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
     return IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () {
-          close(context, null);
+          close(context, [] as ListView);
         });
     // throw UnimplementedError();
   }
@@ -372,16 +371,16 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return StreamBuilder(
         stream: getTeams(query),
-        builder: (context, asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           return asyncSnapshot.hasData
               ? ListView.builder(
-                  itemCount: asyncSnapshot.data.documents.length,
+                  itemCount: asyncSnapshot.data!.documents.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    Teams data =
-                        new Teams.fromJson(asyncSnapshot.data.documents[index]);
+                    Teams data = new Teams.fromJson(
+                        asyncSnapshot.data!.documents[index]);
 
-                    String sportIcon;
+                    late String sportIcon;
                     switch (data.sport) {
                       case "Volleyball":
                         sportIcon = "assets/icons8-volleyball-96.png";
@@ -397,10 +396,10 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                         break;
                     }
                     bool notifiedCondition = false;
-                    bool joinCondition = data.playerId
+                    bool joinCondition = data.playerId!
                         .contains(Constants.prefs.getString('userId'));
-                    if (data.notificationPlayers.length > 0)
-                      notifiedCondition = data.notificationPlayers
+                    if (data.notificationPlayers!.length > 0)
+                      notifiedCondition = data.notificationPlayers!
                           .contains(Constants.prefs.getString('userId'));
 
                     //asyncSnapshot
@@ -450,8 +449,8 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                               NotificationServices()
                                                   .createTeamNotification(
                                                       Constants.prefs
-                                                          .getString('userId'),
-                                                      data.manager,
+                                                          .getString('userId')!,
+                                                      data.manager!,
                                                       data);
                                             }
                                             if (data.status == 'closed') {
@@ -460,7 +459,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                             }
                                             if (data.status == 'public') {
                                               TeamService()
-                                                  .addMeInTeam(data.teamId)
+                                                  .addMeInTeam(data.teamId!)
                                                   .then(() => {
                                                         // give a success notification that he was
                                                         //added to the team and take him to the chat
@@ -482,7 +481,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                   ],
                                   leading: Image.asset(sportIcon),
                                   title: Text(
-                                    data.teamName,
+                                    data.teamName!,
                                     style: TextStyle(
                                       color: theme.currentTheme.backgroundColor,
                                       fontSize: 18,
@@ -494,7 +493,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        data.bio,
+                                        data.bio!,
                                         style: TextStyle(
                                           color: theme
                                               .currentTheme.backgroundColor,
@@ -507,7 +506,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                             size: 16.0,
                                           ),
                                           Text(
-                                            data.status,
+                                            data.status!,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -517,7 +516,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                     ],
                                   ),
                                   trailing:
-                                      Text(data.playerId.length.toString()),
+                                      Text(data.playerId!.length.toString()),
                                 ),
                               ),
                             ),
@@ -582,10 +581,10 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    String sportIcon;
+    late String sportIcon;
     return StreamBuilder(
         stream: getTeamFeed(query),
-        builder: (context, asyncSnapshot) {
+        builder: (context, AsyncSnapshot asyncSnapshot) {
           print("Suggestions Working");
           print(asyncSnapshot.hasData);
           return asyncSnapshot.hasData

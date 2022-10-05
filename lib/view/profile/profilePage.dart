@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/widget/customAnimatedContainer.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +10,16 @@ import '../../widget/widgets.dart';
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
-  static _ProfileState of(BuildContext context) =>
+  static _ProfileState? of(BuildContext context) =>
       context.findAncestorStateOfType<_ProfileState>();
 }
 
 class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
   final db = FirebaseFirestore.instance;
-  StreamSubscription sub;
-  Map data;
+  late StreamSubscription sub;
+  late Map<String, dynamic> data;
   bool loading = false;
 
   @override
@@ -36,7 +35,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         .snapshots()
         .listen((snap) {
       setState(() {
-        data = snap.data();
+        data = snap.data()!;
         loading = true;
       });
     });
@@ -87,7 +86,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.grey[200].withOpacity(0.2),
+                    color: Colors.grey[200]!.withOpacity(0.2),
                     width: 0.2,
                   ),
                   color: Colors.white.withOpacity(0.2),
@@ -109,64 +108,64 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
 
     var _myDuration = Duration(milliseconds: 300);
-    var myChild = CustomAnimatedContainer(
-      curve: Curves.easeInOut,
-      clipBehavior: Clip.antiAlias,
-      duration: _myDuration,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(_myValue),
-      ),
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: loading
-                ? buildTitle(context, data["username"] ?? "Profile")
-                : null,
-            centerTitle: true,
-            elevation: 0,
-            leading: Builder(
-              builder: (BuildContext context) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey[200].withOpacity(0.2),
-                        width: 0.2,
-                      ),
-                      color: Colors.grey.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        UniconsLine.award,
-                      ),
-                      onPressed: toggle,
-                    ),
-                  ),
-                );
-              },
-            ),
-            bottom: TabBar(
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.grey,
-              tabs: [
-                Tab(child: Text("Profile")),
-                Tab(child: Text("Friends")),
-                Tab(child: Text("Schedule")),
-              ],
-              indicator: new BubbleTabIndicator(
-                indicatorHeight: 30.0,
-                indicatorColor: Theme.of(context).primaryColor,
-                tabBarIndicatorSize: TabBarIndicatorSize.tab,
-              ),
-            ),
-          ),
-          body: ProfileBody(data: data),
-        ),
-      ),
-    );
+    // var myChild = CustomAnimatedContainer(
+    //   curve: Curves.easeInOut,
+    //   clipBehavior: Clip.antiAlias,
+    //   duration: _myDuration,
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(_myValue),
+    //   ),
+    //   child: DefaultTabController(
+    //     length: 3,
+    //     child: Scaffold(
+    //       appBar: AppBar(
+    //         title: loading
+    //             ? buildTitle(context, data["username"] ?? "Profile")
+    //             : null,
+    //         centerTitle: true,
+    //         elevation: 0,
+    //         leading: Builder(
+    //           builder: (BuildContext context) {
+    //             return Padding(
+    //               padding: const EdgeInsets.all(8.0),
+    //               child: Container(
+    //                 decoration: BoxDecoration(
+    //                   border: Border.all(
+    //                     color: Colors.grey[200]!.withOpacity(0.2),
+    //                     width: 0.2,
+    //                   ),
+    //                   color: Colors.grey.withOpacity(0.15),
+    //                   borderRadius: BorderRadius.circular(12),
+    //                 ),
+    //                 child: IconButton(
+    //                   icon: const Icon(
+    //                     UniconsLine.award,
+    //                   ),
+    //                   onPressed: toggle,
+    //                 ),
+    //               ),
+    //             );
+    //           },
+    //         ),
+    //         bottom: TabBar(
+    //           labelColor: Colors.white,
+    //           unselectedLabelColor: Colors.grey,
+    //           tabs: [
+    //             Tab(child: Text("Profile")),
+    //             Tab(child: Text("Friends")),
+    //             Tab(child: Text("Schedule")),
+    //           ],
+    //           indicator: new BubbleTabIndicator(
+    //             indicatorHeight: 30.0,
+    //             indicatorColor: Theme.of(context).primaryColor,
+    //             tabBarIndicatorSize: TabBarIndicatorSize.tab,
+    //           ),
+    //         ),
+    //       ),
+    //       body: ProfileBody(data: data),
+    //     ),
+    //   ),
+    // );
     return AnimatedBuilder(
       animation: animationController,
       builder: (context, _) {
@@ -176,7 +175,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           children: [
             myDrawer,
             Transform(
-              child: myChild,
+              // child: myChild,
               transform: Matrix4.identity()
                 ..translate(slide)
                 ..scale(scale),
@@ -192,8 +191,8 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 class ProfileBody extends StatefulWidget {
   final Map data;
   const ProfileBody({
-    @required this.data,
-    Key key,
+    required this.data,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -203,7 +202,7 @@ class ProfileBody extends StatefulWidget {
 class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
-    if (Profile.of(context).loading) {
+    if (Profile.of(context)!.loading) {
       return Center(
         child: Container(
           child: Column(
@@ -230,8 +229,8 @@ class _ProfileBodyState extends State<ProfileBody> {
 
 class MainUserProfile extends StatelessWidget {
   const MainUserProfile({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final Map data;

@@ -15,13 +15,13 @@ import 'chatSchedule.dart';
 
 class TeamConversation extends StatefulWidget {
   final Teams data;
-  TeamConversation({@required this.data});
+  TeamConversation({required this.data});
   @override
   _TeamConversationState createState() => _TeamConversationState();
 }
 
 class _TeamConversationState extends State<TeamConversation> {
-  Stream<QuerySnapshot> chats;
+  late Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   ScrollController _controller = ScrollController();
   int limit = 20;
@@ -30,9 +30,9 @@ class _TeamConversationState extends State<TeamConversation> {
     if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessageTeam(
           DateTime.now(),
-          Constants.prefs.getString('userId'),
+          Constants.prefs.getString('userId')!,
           messageEditingController.text.trim(),
-          Constants.prefs.getString('name'),
+          Constants.prefs.getString('name')!,
           widget.data.teamId);
       setState(() {
         messageEditingController.text = "";
@@ -45,7 +45,7 @@ class _TeamConversationState extends State<TeamConversation> {
     //displaying previous chats
     return StreamBuilder(
       stream: chats,
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? ListView.builder(
                 reverse: true,
@@ -67,7 +67,7 @@ class _TeamConversationState extends State<TeamConversation> {
                               size: 20,
                             ),
                             title: Text(
-                              data.message,
+                              data.message!,
                               style: TextStyle(fontSize: 13),
                             ),
                           ),
@@ -77,11 +77,11 @@ class _TeamConversationState extends State<TeamConversation> {
                   }
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
-                    message: data.message,
+                    message: data.message!,
                     sendByMe:
                         Constants.prefs.getString('userId') == data.sentby,
-                    sentByName: data.sentByName,
-                    dateTime: data.dateTime,
+                    sentByName: data.sentByName!,
+                    dateTime: data.dateTime!,
                   );
                 })
             : Center(
@@ -95,7 +95,7 @@ class _TeamConversationState extends State<TeamConversation> {
 
   @override
   void initState() {
-    ChatroomService().getTeamMessages(widget.data.teamId, limit).then((value) {
+    ChatroomService().getTeamMessages(widget.data.teamId!, limit).then((value) {
       setState(() {
         chats = value;
       });
@@ -115,7 +115,7 @@ class _TeamConversationState extends State<TeamConversation> {
       setState(() {
         limit += limit;
         ChatroomService()
-            .getTeamMessages(widget.data.teamId, limit)
+            .getTeamMessages(widget.data.teamId!, limit)
             .then((value) {
           setState(() {
             chats = value;
@@ -127,7 +127,7 @@ class _TeamConversationState extends State<TeamConversation> {
 
   @override
   Widget build(BuildContext context) {
-    String sportIcon;
+    late String sportIcon;
     // IconData sportIcon;
     switch (widget.data.sport) {
       case "Volleyball":
@@ -153,7 +153,7 @@ class _TeamConversationState extends State<TeamConversation> {
               MaterialPageRoute(
                 builder: (context) {
                   return TeamInfo(
-                    teamID: widget.data.teamId,
+                    teamID: widget.data.teamId!,
                   );
                 },
               ),
@@ -170,7 +170,7 @@ class _TeamConversationState extends State<TeamConversation> {
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 2.5,
-                child: Text(widget.data.teamName,
+                child: Text(widget.data.teamName!,
                     overflow: TextOverflow.fade,
                     style: TextStyle(color: Theme.of(context).backgroundColor)),
               ),
@@ -184,9 +184,9 @@ class _TeamConversationState extends State<TeamConversation> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChatSchedule(
-                    chatRoomId: widget.data.teamId,
-                    usersNames: widget.data.player,
-                    users: widget.data.playerId,
+                    chatRoomId: widget.data.teamId!,
+                    usersNames: widget.data.player!,
+                    users: widget.data.playerId!,
                   ),
                 ),
               );
@@ -273,10 +273,10 @@ class MessageTile extends StatefulWidget {
   final DateTime dateTime;
 
   MessageTile({
-    @required this.message,
-    @required this.sendByMe,
-    @required this.sentByName,
-    @required this.dateTime,
+    required this.message,
+    required this.sendByMe,
+    required this.sentByName,
+    required this.dateTime,
   });
 
   @override

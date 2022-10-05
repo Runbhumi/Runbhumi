@@ -13,18 +13,18 @@ import 'package:unicons/unicons.dart';
 class EventInfo extends StatefulWidget {
   final String eventId;
   const EventInfo({
-    @required this.eventId,
-    Key key,
+    required this.eventId,
+    Key? key,
   }) : super(key: key);
   @override
   _EventInfoState createState() => _EventInfoState();
 }
 
 class _EventInfoState extends State<EventInfo> {
-  StreamSubscription sub;
-  Map data;
+  late StreamSubscription sub;
+  late Map? data;
   bool _loading = false;
-  String sportIcon;
+  late String sportIcon;
   @override
   void initState() {
     super.initState();
@@ -48,7 +48,7 @@ class _EventInfoState extends State<EventInfo> {
 
   @override
   Widget build(BuildContext context) {
-    switch (data['sportName']) {
+    switch ((data as Map)['sportName']) {
       case "Volleyball":
         sportIcon = "assets/volleyball-image.jpg";
         break;
@@ -79,7 +79,7 @@ class _EventInfoState extends State<EventInfo> {
         appBar: AppBar(
           title: buildTitle(
             context,
-            data['eventName'],
+            (data as Map)['eventName'],
           ),
           leading: CustomBackButton(),
         ),
@@ -121,10 +121,10 @@ class _EventInfoState extends State<EventInfo> {
               color: Theme.of(context).canvasColor,
             ),
             child: Flexible(
-              child: data["status"] == "individual"
+              child: (data as Map)["status"] == "individual"
                   ? ListView.builder(
                       shrinkWrap: true,
-                      itemCount: data["playersId"].length,
+                      itemCount: (data as Map)["playersId"].length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
@@ -132,7 +132,8 @@ class _EventInfoState extends State<EventInfo> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => OtherUserProfile(
-                                  userID: data["playerInfo"][index]["id"],
+                                  userID: (data as Map)["playerInfo"][index]
+                                      ["id"],
                                 ),
                               ),
                             );
@@ -147,13 +148,14 @@ class _EventInfoState extends State<EventInfo> {
                                     placeholder: AssetImage(
                                         "assets/ProfilePlaceholder.png"),
                                     image: NetworkImage(
-                                      data["playerInfo"][index]["profileImage"],
+                                      (data as Map)["playerInfo"][index]
+                                          ["profileImage"],
                                     ),
                                   ),
                                 ),
                               ),
                               title: Text(
-                                data["playerInfo"][index]["name"],
+                                (data as Map)["playerInfo"][index]["name"],
                                 style: TextStyle(fontSize: 18),
                               ),
                             ),
@@ -164,11 +166,12 @@ class _EventInfoState extends State<EventInfo> {
                   : Container(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: data["playersId"].length,
+                        itemCount: (data as Map)["playersId"].length,
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
                             child: ListTile(
-                              title: Text(data["teamInfo"][index]["teamName"]),
+                              title: Text(
+                                  (data as Map)["teamInfo"][index]["teamName"]),
                             ),
                           );
                         },
@@ -194,7 +197,7 @@ class _EventInfoState extends State<EventInfo> {
                     size: 32,
                   ),
                   Text(
-                    data["status"] == "individual"
+                    (data as Map)["status"] == "individual"
                         ? "People who joined"
                         : "Teams who joined",
                     style: TextStyle(
@@ -220,7 +223,7 @@ class _EventInfoState extends State<EventInfo> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          data["sportName"],
+                          (data as Map)["sportName"],
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -230,16 +233,17 @@ class _EventInfoState extends State<EventInfo> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             Text(
-                              (data["playersId"].length.toString() +
+                              ((data as Map)["playersId"].length.toString() +
                                   "/" +
-                                  data["max"].toString()),
+                                  (data as Map)["max"].toString()),
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             CircularProgressIndicator(
-                              value: data["playersId"].length / data["max"],
+                              value: (data as Map)["playersId"].length /
+                                  (data as Map)["max"],
                               backgroundColor: theme
                                   .currentTheme.backgroundColor
                                   .withOpacity(0.15),
@@ -266,7 +270,7 @@ class _EventInfoState extends State<EventInfo> {
                         ),
                         Flexible(
                           child: Text(
-                            data['description'].trim(),
+                            (data as Map)['description'].trim(),
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -284,7 +288,7 @@ class _EventInfoState extends State<EventInfo> {
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Icon(
-                              data["type"] == 1
+                              (data as Map)["type"] == 1
                                   ? UniconsLine.globe
                                   : UniconsLine.lock,
                               size: 24.0,
@@ -292,7 +296,7 @@ class _EventInfoState extends State<EventInfo> {
                           ),
                         ),
                         Text(
-                          data["type"] == 1 ? "Public" : "Private",
+                          (data as Map)["type"] == 1 ? "Public" : "Private",
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -315,7 +319,7 @@ class _EventInfoState extends State<EventInfo> {
                           ),
                         ),
                         Text(
-                          data["paid"] == "paid" ? "Paid" : "Free",
+                          (data as Map)["paid"] == "paid" ? "Paid" : "Free",
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -339,7 +343,7 @@ class _EventInfoState extends State<EventInfo> {
                         ),
                         Text(
                           DateFormat('MMM dd')
-                              .format(data["dateTime"].toDate())
+                              .format((data as Map)["dateTime"].toDate())
                               .toString(),
                           style: TextStyle(
                             fontSize: 16,
@@ -365,7 +369,7 @@ class _EventInfoState extends State<EventInfo> {
                         Text(
                           DateFormat()
                               .add_jm()
-                              .format(data["dateTime"].toDate())
+                              .format((data as Map)["dateTime"].toDate())
                               .toString(),
                           style: TextStyle(
                             fontSize: 16,
@@ -390,7 +394,7 @@ class _EventInfoState extends State<EventInfo> {
                         ),
                         Flexible(
                           child: Text(
-                            data["location"],
+                            (data as Map)["location"],
                             style: TextStyle(
                               fontSize: 16,
                             ),

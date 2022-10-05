@@ -13,13 +13,13 @@ import 'chatSchedule.dart';
 
 class EventConversation extends StatefulWidget {
   final Events data;
-  EventConversation({@required this.data});
+  EventConversation({required this.data});
   @override
   _EventConversationState createState() => _EventConversationState();
 }
 
 class _EventConversationState extends State<EventConversation> {
-  Stream<QuerySnapshot> chats;
+  late Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   ScrollController _controller = ScrollController();
   int limit = 20;
@@ -28,9 +28,9 @@ class _EventConversationState extends State<EventConversation> {
     if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessageEvent(
           DateTime.now(),
-          Constants.prefs.getString('userId'),
+          Constants.prefs.getString('userId')!,
           messageEditingController.text.trim(),
-          Constants.prefs.getString('name'),
+          Constants.prefs.getString('name')!,
           widget.data.eventId);
       setState(() {
         messageEditingController.text = "";
@@ -43,7 +43,7 @@ class _EventConversationState extends State<EventConversation> {
     //displaying previous chats
     return StreamBuilder(
       stream: chats,
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? ListView.builder(
                 reverse: true,
@@ -65,7 +65,7 @@ class _EventConversationState extends State<EventConversation> {
                               size: 20,
                             ),
                             title: Text(
-                              data.message,
+                              data.message!,
                               style: TextStyle(fontSize: 13),
                             ),
                           ),
@@ -75,11 +75,11 @@ class _EventConversationState extends State<EventConversation> {
                   }
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
-                    message: data.message,
+                    message: data.message!,
                     sendByMe:
                         Constants.prefs.getString('userId') == data.sentby,
-                    sentByName: data.sentByName,
-                    dateTime: data.dateTime,
+                    sentByName: data.sentByName!,
+                    dateTime: data.dateTime!,
                   );
                 })
             : Center(
@@ -94,7 +94,7 @@ class _EventConversationState extends State<EventConversation> {
   @override
   void initState() {
     ChatroomService()
-        .getEventMessages(widget.data.eventId, limit)
+        .getEventMessages(widget.data.eventId!, limit)
         .then((value) {
       setState(() {
         chats = value;
@@ -115,7 +115,7 @@ class _EventConversationState extends State<EventConversation> {
       setState(() {
         limit += limit;
         ChatroomService()
-            .getEventMessages(widget.data.eventId, limit)
+            .getEventMessages(widget.data.eventId!, limit)
             .then((value) {
           setState(() {
             chats = value;
@@ -137,7 +137,7 @@ class _EventConversationState extends State<EventConversation> {
               MaterialPageRoute(
                 builder: (context) {
                   return EventInfo(
-                    eventId: widget.data.eventId,
+                    eventId: widget.data.eventId!,
                   );
                 },
               ),
@@ -155,7 +155,7 @@ class _EventConversationState extends State<EventConversation> {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 1.6,
                   child: Text(
-                    widget.data.eventName,
+                    widget.data.eventName!,
                     style: TextStyle(color: Theme.of(context).backgroundColor),
                     overflow: TextOverflow.fade,
                     maxLines: 1,
@@ -172,9 +172,9 @@ class _EventConversationState extends State<EventConversation> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChatSchedule(
-                    chatRoomId: widget.data.eventId,
-                    usersNames: widget.data.playersId,
-                    users: widget.data.playersId,
+                    chatRoomId: widget.data.eventId!,
+                    usersNames: widget.data.playersId!,
+                    users: widget.data.playersId!,
                   ),
                 ),
               );
@@ -261,10 +261,10 @@ class MessageTile extends StatelessWidget {
   final DateTime dateTime;
 
   MessageTile({
-    @required this.message,
-    @required this.sendByMe,
-    @required this.sentByName,
-    @required this.dateTime,
+    required this.message,
+    required this.sendByMe,
+    required this.sentByName,
+    required this.dateTime,
   });
 
   @override

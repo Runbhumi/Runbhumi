@@ -3,7 +3,7 @@ import 'package:unicons/unicons.dart';
 
 class ShowOffline extends StatelessWidget {
   const ShowOffline({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

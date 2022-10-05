@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class SingleFriendCard extends StatelessWidget {
   const SingleFriendCard({
-    @required this.imageLink,
-    @required this.name,
-    @required this.userId,
-    Key key,
+    required this.imageLink,
+    required this.name,
+    required this.userId,
+    Key? key,
   }) : super(key: key);
   final String imageLink;
   final String name;

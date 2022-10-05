@@ -20,7 +20,7 @@ class TeamsList extends StatefulWidget {
 class _TeamsListState extends State<TeamsList>
     with SingleTickerProviderStateMixin {
   int loadMoreTeams = 20;
-  ScrollController _teamsScrollController;
+  late ScrollController _teamsScrollController;
   void initState() {
     super.initState();
     _teamsScrollController = ScrollController()
@@ -34,24 +34,24 @@ class _TeamsListState extends State<TeamsList>
       });
   }
 
-  Widget feed({ThemeNotifier theme}) {
+  Widget feed({ThemeNotifier? theme}) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection("teams")
           .limit(loadMoreTeams)
           .snapshots(),
-      builder: (context, asyncSnapshot) {
+      builder: (context, AsyncSnapshot asyncSnapshot) {
         if (asyncSnapshot.hasData) {
-          if (asyncSnapshot.data.documents.length > 0) {
+          if (asyncSnapshot.data!.documents.length > 0) {
             return ListView.builder(
               controller: _teamsScrollController,
-              itemCount: asyncSnapshot.data.documents.length,
+              itemCount: asyncSnapshot.data!.documents.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 Teams data =
-                    new Teams.fromJson(asyncSnapshot.data.documents[index]);
+                    new Teams.fromJson(asyncSnapshot.data!.documents[index]);
 
-                String sportIcon;
+                late String sportIcon;
                 // IconData sportIcon;
                 switch (data.sport) {
                   case "Volleyball":
@@ -68,10 +68,10 @@ class _TeamsListState extends State<TeamsList>
                     break;
                 }
                 bool notifiedCondition = false;
-                bool joinCondition =
-                    data.playerId.contains(Constants.prefs.getString('userId'));
-                if (data.notificationPlayers.length > 0)
-                  notifiedCondition = data.notificationPlayers
+                bool joinCondition = data.playerId!
+                    .contains(Constants.prefs.getString('userId'));
+                if (data.notificationPlayers!.length > 0)
+                  notifiedCondition = data.notificationPlayers!
                       .contains(Constants.prefs.getString('userId'));
 
                 //asyncSnapshot
@@ -87,7 +87,7 @@ class _TeamsListState extends State<TeamsList>
                         MaterialPageRoute(
                           builder: (context) {
                             return TeamInfo(
-                              teamID: data.teamId,
+                              teamID: data.teamId!,
                             );
                           },
                         ),
@@ -122,8 +122,8 @@ class _TeamsListState extends State<TeamsList>
                                           NotificationServices()
                                               .createTeamNotification(
                                                   Constants.prefs
-                                                      .getString('userId'),
-                                                  data.manager,
+                                                      .getString('userId')!,
+                                                  data.manager!,
                                                   data);
                                         }
                                         if (data.status == 'closed') {
@@ -132,7 +132,7 @@ class _TeamsListState extends State<TeamsList>
                                         }
                                         if (data.status == 'public') {
                                           TeamService()
-                                              .addMeInTeam(data.teamId)
+                                              .addMeInTeam(data.teamId!)
                                               .then(() => {
                                                     // give a success notification that he was
                                                     //added to the team and take him to the chat
@@ -152,9 +152,10 @@ class _TeamsListState extends State<TeamsList>
                                   // Challenge logic
                                   final TeamChallengeNotification teamData =
                                       new TeamChallengeNotification.newTeam(
-                                          data.teamId,
-                                          data.manager,
-                                          data.teamName);
+                                    data.teamId!,
+                                    data.manager!,
+                                    data.teamName!,
+                                  );
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -232,14 +233,14 @@ class _TeamsListState extends State<TeamsList>
                                       alignment: AlignmentDirectional.center,
                                       children: [
                                         CircularProgressIndicator(
-                                          value: data.playerId.length / 20,
-                                          backgroundColor: theme
+                                          value: data.playerId!.length / 20,
+                                          backgroundColor: theme!
                                               .currentTheme.backgroundColor
                                               .withOpacity(0.15),
                                           strokeWidth: 7,
                                         ),
                                         Text(
-                                          data.playerId.length.toString() +
+                                          data.playerId!.length.toString() +
                                               "/20",
                                           style: TextStyle(
                                             fontSize: 11,
@@ -402,7 +403,7 @@ class _TeamsListState extends State<TeamsList>
 
 class PlayerPreview3 extends StatelessWidget {
   const PlayerPreview3({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -427,7 +428,7 @@ class PlayerPreview3 extends StatelessWidget {
 
 class PlayerPreview1 extends StatelessWidget {
   const PlayerPreview1({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -449,8 +450,8 @@ class PlayerPreview1 extends StatelessWidget {
 
 class TeamSportLeading extends StatelessWidget {
   const TeamSportLeading({
-    Key key,
-    @required this.sportIcon,
+    Key? key,
+    required this.sportIcon,
   }) : super(key: key);
 
   final String sportIcon;
@@ -469,8 +470,8 @@ class TeamSportLeading extends StatelessWidget {
 
 class TeamName extends StatelessWidget {
   const TeamName({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final Teams data;
@@ -483,7 +484,7 @@ class TeamName extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width / 2.5,
           child: Text(
-            data.teamName,
+            data.teamName!,
             style: TextStyle(
               color: theme.currentTheme.backgroundColor,
               fontSize: 18,
@@ -506,8 +507,8 @@ class TeamName extends StatelessWidget {
 
 class TeamDescription extends StatelessWidget {
   const TeamDescription({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final Teams data;
@@ -516,7 +517,7 @@ class TeamDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeNotifier theme = Provider.of<ThemeNotifier>(context);
     return Text(
-      data.bio,
+      data.bio!,
       style: TextStyle(
         color: theme.currentTheme.backgroundColor,
       ),
@@ -528,8 +529,8 @@ class TeamDescription extends StatelessWidget {
 
 class TypeofTeam extends StatelessWidget {
   const TypeofTeam({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final Teams data;
@@ -563,7 +564,7 @@ class TypeofTeam extends StatelessWidget {
 
 class PlayerPreview2 extends StatelessWidget {
   const PlayerPreview2({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -588,10 +589,10 @@ class PlayerPreview2 extends StatelessWidget {
 
 class SportsCategory extends StatelessWidget {
   const SportsCategory({
-    Key key,
-    @required this.theme,
-    @required this.sport,
-    @required this.icon,
+    Key? key,
+    required this.theme,
+    required this.sport,
+    required this.icon,
   }) : super(key: key);
 
   final ThemeNotifier theme;

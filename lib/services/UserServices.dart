@@ -14,7 +14,7 @@ class UserService {
   updateEventTokens(int n) {
     FirebaseFirestore.instance
         .collection('users')
-        .doc(Constants.prefs.get('userId'))
+        .doc(Constants.prefs.get('userId') as String)
         .set({'eventTokens': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
@@ -47,7 +47,7 @@ class UserService {
   updateTeamsCount(int n) {
     _db
         .collection('users')
-        .doc(Constants.prefs.get('userId'))
+        .doc(Constants.prefs.get('userId') as String)
         .set({'teamsCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 

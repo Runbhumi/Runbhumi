@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 /// A "back" icon that's appropriate for the current [TargetPlatform].
@@ -67,14 +66,14 @@ class BackButtonIcon extends StatelessWidget {
 class CustomBackButton extends StatelessWidget {
   /// Creates an [IconButton] with the appropriate "back" icon for the current
   /// target platform.
-  const CustomBackButton({Key key, this.color, this.onPressed})
+  const CustomBackButton({Key? key, this.color, this.onPressed})
       : super(key: key);
 
   /// The color to use for the icon.
   ///
   /// Defaults to the [IconThemeData.color] specified in the ambient [IconTheme],
   /// which usually matches the ambient [Theme]'s [ThemeData.iconTheme].
-  final Color color;
+  final Color? color;
 
   /// An override callback to perform instead of the default behavior which is
   /// to pop the [Navigator].
@@ -84,7 +83,7 @@ class CustomBackButton extends StatelessWidget {
   /// situations.
   ///
   /// Defaults to null.
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +93,7 @@ class CustomBackButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.grey[200].withOpacity(0.2),
+            color: Colors.grey[200]!.withOpacity(0.2),
             width: 0.2,
           ),
           color: Colors.grey.withOpacity(0.15),
@@ -107,7 +106,7 @@ class CustomBackButton extends StatelessWidget {
           tooltip: MaterialLocalizations.of(context).backButtonTooltip,
           onPressed: () {
             if (onPressed != null) {
-              onPressed();
+              onPressed!();
             } else {
               Navigator.maybePop(context);
             }
@@ -136,13 +135,13 @@ class CustomBackButton extends StatelessWidget {
 ///  * [IconButton], to create other material design icon buttons.
 class CloseButton extends StatelessWidget {
   /// Creates a Material Design close button.
-  const CloseButton({Key key, this.color, this.onPressed}) : super(key: key);
+  const CloseButton({Key? key, this.color, this.onPressed}) : super(key: key);
 
   /// The color to use for the icon.
   ///
   /// Defaults to the [IconThemeData.color] specified in the ambient [IconTheme],
   /// which usually matches the ambient [Theme]'s [ThemeData.iconTheme].
-  final Color color;
+  final Color? color;
 
   /// An override callback to perform instead of the default behavior which is
   /// to pop the [Navigator].
@@ -152,7 +151,7 @@ class CloseButton extends StatelessWidget {
   /// situations.
   ///
   /// Defaults to null.
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +162,7 @@ class CloseButton extends StatelessWidget {
       tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
       onPressed: () {
         if (onPressed != null) {
-          onPressed();
+          onPressed!();
         } else {
           Navigator.maybePop(context);
         }

@@ -19,7 +19,7 @@ class ExploreEvents extends StatefulWidget {
 }
 
 class _ExploreEventsState extends State<ExploreEvents> {
-  Stream currentFeed;
+  late Stream currentFeed;
   void initState() {
     super.initState();
     getUserInfoEvents();
@@ -131,7 +131,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
     });
   }
 
-  Widget feed({ThemeNotifier theme}) {
+  Widget feed({ThemeNotifier? theme}) {
     return StreamBuilder(
       stream: currentFeed,
       builder: (context, asyncSnapshot) {
@@ -146,7 +146,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                       itemBuilder: (context, index) {
                         Events data = new Events.fromJson(
                             asyncSnapshot.data.documents[index]);
-                        String sportIcon;
+                        late String sportIcon;
                         switch (data.sportName) {
                           case "Volleyball":
                             sportIcon = "assets/icons8-volleyball-96.png";
@@ -161,7 +161,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                             sportIcon = "assets/icons8-soccer-ball-96.png";
                             break;
                         }
-                        bool registrationCondition = data.playersId.contains(
+                        bool registrationCondition = data.playersId!.contains(
                             Constants.prefs
                                 .getString('userId')); //asyncSnapshot
                         // .data.documents[index]
@@ -182,7 +182,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                         MaterialPageRoute(
                                           builder: (context) {
                                             return EventInfo(
-                                              eventId: data.eventId,
+                                              eventId: data.eventId!,
                                             );
                                           },
                                         ),
@@ -226,9 +226,9 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                           //event name
                                                           Container(
                                                             child: Text(
-                                                              data.eventName,
+                                                              data.eventName!,
                                                               style: TextStyle(
-                                                                color: theme
+                                                                color: theme!
                                                                     .currentTheme
                                                                     .backgroundColor,
                                                                 fontSize: 18,
@@ -256,7 +256,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                                         'MMM dd -')
                                                                     .add_jm()
                                                                     .format(data
-                                                                        .dateTime)
+                                                                        .dateTime!)
                                                                     .toString(),
                                                                 style:
                                                                     TextStyle(
@@ -284,7 +284,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                                         .width /
                                                                     2.4,
                                                                 child: Text(
-                                                                  data.location,
+                                                                  data.location!,
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
@@ -312,7 +312,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                           .center,
                                                   children: [
                                                     Text(
-                                                      (data.playersId.length
+                                                      (data.playersId!.length
                                                               .toString() +
                                                           "/" +
                                                           data.maxMembers
@@ -324,9 +324,9 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                       ),
                                                     ),
                                                     CircularProgressIndicator(
-                                                      value: data.playersId
+                                                      value: data.playersId!
                                                               .length /
-                                                          data.maxMembers,
+                                                          data.maxMembers!,
                                                       backgroundColor: theme
                                                           .currentTheme
                                                           .backgroundColor
@@ -371,7 +371,8 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                     ),
                                                   ],
                                                 ),
-                                                Text(data.status + "s can join",
+                                                Text(
+                                                    data.status! + "s can join",
                                                     style: TextStyle(
                                                         fontSize: 16)),
                                               ],
@@ -421,7 +422,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
-                                                Text(data.description.trim()),
+                                                Text(data.description!.trim()),
                                                 SizedBox(height: 4),
                                               ],
                                             ),
@@ -429,13 +430,15 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                         ],
                                       ),
                                       children: [
-                                        data.notification.contains(Constants
+                                        data.notification!.contains(Constants
                                                 .prefs
                                                 .getString('userId'))
                                             ? SmallButton(
                                                 myColor: Theme.of(context)
                                                     .primaryColor,
-                                                myText: "Notification Sent")
+                                                myText: "Notification Sent",
+                                                onPressed: () {},
+                                              )
                                             : SmallButton(
                                                 myColor: !registrationCondition
                                                     ? Theme.of(context)
@@ -462,7 +465,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                                           data)),
                                                         );
                                                       } else {
-                                                        if (!data.notification
+                                                        if (!data.notification!
                                                             .contains(Constants
                                                                 .prefs
                                                                 .getString(
@@ -471,7 +474,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                               .createIndividualNotification(
                                                                   data);
                                                         }
-                                                        if (data.notification
+                                                        if (data.notification!
                                                             .contains(Constants
                                                                 .prefs
                                                                 .getString(
@@ -502,24 +505,25 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                                         print('Here is the me');
                                                         if (await Events()
                                                             .checkingAvailability(
-                                                                data.eventId)) {
+                                                                data.eventId!)) {
                                                           registerUserToEvent(
-                                                              data.eventId,
-                                                              data.eventName,
-                                                              data.sportName,
-                                                              data.location,
-                                                              data.dateTime,
-                                                              data.creatorId,
-                                                              data.creatorName,
-                                                              data.status,
-                                                              data.type,
-                                                              data.playersId,
-                                                              data.paid);
+                                                            data.eventId!,
+                                                            data.eventName!,
+                                                            data.sportName!,
+                                                            data.location!,
+                                                            data.dateTime!,
+                                                            data.creatorId!,
+                                                            data.creatorName!,
+                                                            data.status!,
+                                                            data.type!,
+                                                            data.playersId!,
+                                                            data.paid!,
+                                                          );
                                                           print(
                                                               "User Registered");
                                                           EventService()
                                                               .addUserToEvent(
-                                                                  data.eventId);
+                                                                  data.eventId!);
                                                           showDialog(
                                                               context: context,
                                                               builder:
@@ -637,7 +641,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
 
 class ExploreEventEmptyState extends StatelessWidget {
   const ExploreEventEmptyState({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -677,9 +681,9 @@ class ExploreEventEmptyState extends StatelessWidget {
 
 class BodyHeader extends StatelessWidget {
   const BodyHeader({
-    Key key,
-    @required this.theme,
-    @required this.text,
+    Key? key,
+    required this.theme,
+    required this.text,
   }) : super(key: key);
 
   final ThemeNotifier theme;

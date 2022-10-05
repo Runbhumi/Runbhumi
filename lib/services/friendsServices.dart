@@ -13,7 +13,7 @@ class FriendServices {
   updateMyFriendCount(int n) {
     _db
         .collection('users')
-        .doc(Constants.prefs.get('userId'))
+        .doc(Constants.prefs.get('userId') as String)
         .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 

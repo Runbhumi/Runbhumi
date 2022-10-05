@@ -957,7 +957,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 }
 
 // Future<List<ContributorCard>> getContributors(
-//     {@required String username, @required String repository}) async {
+//     {required String username, required String repository}) async {
 //   const String head = 'https://api.github.com/repos/';
 //   const String tail = '/contributors';
 //   String url = head + username + '/' + repository + tail;

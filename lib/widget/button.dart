@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
   const Button({
-    Key key,
+    Key? key,
     this.buttonTitle,
-    this.onPressed,
+    required this.onPressed,
     this.imageLeft,
     this.iconLeft,
     this.iconRight,
@@ -15,14 +15,14 @@ class Button extends StatefulWidget {
     this.horzPad = 8,
     this.vertPad = 14,
   }) : super(key: key);
-  final String buttonTitle;
-  final void Function() onPressed;
-  final Image imageLeft;
-  final Icon iconLeft;
-  final Icon iconRight;
-  final Color bgColor;
-  final Color textColor;
-  final Color iconBgColor;
+  final String? buttonTitle;
+  final void Function()? onPressed;
+  final Image? imageLeft;
+  final Icon? iconLeft;
+  final Icon? iconRight;
+  final Color? bgColor;
+  final Color? textColor;
+  final Color? iconBgColor;
   final BorderSide border;
   final double vertPad;
   final double horzPad;
@@ -38,9 +38,9 @@ class _ButtonState extends State<Button> {
     return ElevatedButton(
       onPressed: widget.onPressed,
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(widget.textColor),
-        backgroundColor: MaterialStateProperty.all<Color>(widget.bgColor),
-        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        foregroundColor: MaterialStateProperty.all<Color?>(widget.textColor),
+        backgroundColor: MaterialStateProperty.all<Color?>(widget.bgColor),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
             EdgeInsets.symmetric(
                 vertical: widget.vertPad, horizontal: widget.horzPad)),
         shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
@@ -72,7 +72,7 @@ class _ButtonState extends State<Button> {
           ),
           if (widget.buttonTitle != null)
             Text(
-              widget.buttonTitle,
+              widget.buttonTitle!,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           Container(

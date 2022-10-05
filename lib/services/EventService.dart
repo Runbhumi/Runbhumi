@@ -13,7 +13,8 @@ class EventService {
     var userId = Constants.prefs.get('userId');
     var userName = Constants.prefs.get('name');
     var profileImage = Constants.prefs.get('profileImage');
-    Friends friend = new Friends.newFriend(userId, userName, profileImage);
+    Friends friend = new Friends.newFriend(
+        userId as String, userName as String, profileImage as String);
     _eventCollectionReference.doc(id).set({
       "playersId": FieldValue.arrayUnion([userId]),
       'playerInfo': FieldValue.arrayUnion([friend.toJson()]),
@@ -47,7 +48,7 @@ class EventService {
   getCurrentUserFeed() async {
     return FirebaseFirestore.instance
         .collection("users")
-        .doc(Constants.prefs.get('userId'))
+        .doc(Constants.prefs.get('userId') as String)
         .collection('userEvent')
         .orderBy('dateTime')
         .snapshots();
@@ -122,7 +123,7 @@ addEventToUser(
     String paid) {
   FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.get('userId'))
+      .doc(Constants.prefs.get('userId') as String)
       .collection('userEvent')
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime, status,
@@ -148,7 +149,7 @@ addTeamEventToUser(
     String paid) {
   FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.get('userId'))
+      .doc(Constants.prefs.get('userId') as String)
       .collection('userEvent')
       .doc(id)
       .set(Events.miniTeamView(
@@ -215,13 +216,13 @@ Future<Events> getEventDetails(String notificationId) async {
       .collection('events')
       .doc(notificationId)
       .get();
-  Map<String, dynamic> map = snap.data();
+  Map<String, dynamic> map = snap.data()!;
   Events event = Events.fromMap(map);
   return event;
 }
 
 Future<bool> addTeamToEvent(Events event, TeamView team) async {
-  bool availability = await Events().checkingAvailability(event.eventId);
+  bool availability = await Events().checkingAvailability(event.eventId!);
   if (availability) {
     await FirebaseFirestore.instance
         .collection('events')
@@ -236,23 +237,24 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
       ])
     });
     addTeamEventToUser(
-        event.eventId,
-        event.eventName,
-        event.sportName,
-        event.location,
-        event.dateTime,
-        event.creatorId,
-        event.creatorName,
-        event.status,
-        event.type,
-        event.playersId,
-        team.teamName,
-        team.teamId,
-        event.paid);
+      event.eventId!,
+      event.eventName!,
+      event.sportName!,
+      event.location!,
+      event.dateTime!,
+      event.creatorId!,
+      event.creatorName!,
+      event.status!,
+      event.type!,
+      event.playersId!,
+      team.teamName!,
+      team.teamId!,
+      event.paid!,
+    );
     await CustomMessageServices()
-        .sendEventAcceptEventChatCustomMessage(event.eventId, team.teamName);
+        .sendEventAcceptEventChatCustomMessage(event.eventId!, team.teamName!);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
-        team.teamId, Constants.prefs.getString('name'), event.eventName);
+        team.teamId!, Constants.prefs.getString('name')!, event.eventName!);
     return true;
   }
 
@@ -270,12 +272,13 @@ leaveEvent(Events data) async {
   var profileImage = Constants.prefs.get('profileImage');
   FirebaseFirestore.instance
       .collection('users')
-      .doc(userId)
+      .doc(userId as String)
       .collection('userEvent')
       .doc(data.eventId)
       .delete();
   if (data.status == 'individual') {
-    Friends friend = new Friends.newFriend(userId, userName, profileImage);
+    Friends friend = new Friends.newFriend(
+        userId, userName as String, profileImage as String);
     FirebaseFirestore.instance.collection('events').doc(data.eventId).set({
       'playersId': FieldValue.arrayRemove([userId]),
       'playerInfo': FieldValue.arrayRemove([friend.toJson()]),
@@ -292,19 +295,19 @@ leaveEvent(Events data) async {
     }, SetOptions(merge: true));
   }
   //UserService().updateEventCount(-1);
-  CustomMessageServices()
-      .userLeftEventMessage(data.eventId, Constants.prefs.get('name'));
+  CustomMessageServices().userLeftEventMessage(
+      data.eventId!, Constants.prefs.get('name') as String);
 }
 
 deleteEvent(id) async {
   getEventInfo(id);
   await FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.get('userId'))
+      .doc(Constants.prefs.get('userId') as String)
       .collection('userEvent')
       .doc(id)
       .delete();
-  UserService().updateEventCount(-1, Constants.prefs.get('userId'));
+  UserService().updateEventCount(-1, Constants.prefs.get('userId') as String);
   await FirebaseFirestore.instance.collection('events').doc(id).delete();
 }
 

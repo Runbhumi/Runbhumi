@@ -22,8 +22,8 @@ import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 // 2 - private
 // 3 - closed
 
-String userId = Constants.prefs.getString('userId');
-String name = Constants.prefs.getString('name');
+String userId = Constants.prefs.getString('userId')!;
+String name = Constants.prefs.getString('name')!;
 
 class AddPost extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _AddPostState extends State<AddPost> {
   TextEditingController _datetime = new TextEditingController();
   TextEditingController _locationController = new TextEditingController();
   TextEditingController _descController = new TextEditingController();
-  String _chosenSport;
+  String? _chosenSport;
   double _maxMembers = 2;
   int _type = 1;
   String _status = 'team';
@@ -104,7 +104,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Public'),
       value: 1,
       onChanged: (val) {
-        setState(() => _type = val);
+        setState(() => _type = val!);
       },
     );
     var privateRadio = RadioListTile(
@@ -112,7 +112,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Private'),
       value: 2,
       onChanged: (val) {
-        setState(() => _type = val);
+        setState(() => _type = val!);
       },
     );
     var teamRadio = RadioListTile(
@@ -120,7 +120,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Teams'),
       value: 'team',
       onChanged: (val) {
-        setState(() => _status = val);
+        setState(() => _status = val!);
       },
     );
     var individualRadio = RadioListTile(
@@ -128,7 +128,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Individuals'),
       value: 'individual',
       onChanged: (val) {
-        setState(() => _status = val);
+        setState(() => _status = val!);
       },
     );
     var paidRadio = RadioListTile(
@@ -136,7 +136,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Paid'),
       value: 'paid',
       onChanged: (val) {
-        setState(() => _paid = val);
+        setState(() => _paid = val!);
       },
     );
     var notPaidRadio = RadioListTile(
@@ -144,7 +144,7 @@ class _AddPostState extends State<AddPost> {
       title: Text('Free'),
       value: 'free',
       onChanged: (val) {
-        setState(() => _paid = val);
+        setState(() => _paid = val!);
       },
     );
 
@@ -182,7 +182,7 @@ class _AddPostState extends State<AddPost> {
                 locationController: _locationController,
                 descController: _descController,
                 slider: slider,
-                chosenSport: _chosenSport,
+                chosenSport: _chosenSport!,
                 maxMembers: _maxMembers,
                 status: _status,
                 type: _type,
@@ -206,26 +206,26 @@ class _AddPostState extends State<AddPost> {
 
 class Page1 extends StatefulWidget {
   const Page1({
-    Key key,
-    @required GlobalKey<FormState> addpostkey,
-    @required TextEditingController nameController,
-    @required this.theme,
-    @required this.sportsList,
-    @required TextEditingController datetime,
-    @required TextEditingController locationController,
-    @required TextEditingController descController,
-    @required this.slider,
-    @required this.publicRadio,
-    @required this.privateRadio,
-    @required this.teamRadio,
-    @required this.individualRadio,
-    @required String chosenSport,
-    @required double maxMembers,
-    @required int type,
-    @required String status,
-    @required String paid,
-    @required this.paidRadio,
-    @required this.notPaidRadio,
+    Key? key,
+    required GlobalKey<FormState> addpostkey,
+    required TextEditingController nameController,
+    required this.theme,
+    required this.sportsList,
+    required TextEditingController datetime,
+    required TextEditingController locationController,
+    required TextEditingController descController,
+    required this.slider,
+    required this.publicRadio,
+    required this.privateRadio,
+    required this.teamRadio,
+    required this.individualRadio,
+    required String chosenSport,
+    required double maxMembers,
+    required int type,
+    required String status,
+    required String paid,
+    required this.paidRadio,
+    required this.notPaidRadio,
   })  : _addpostkey = addpostkey,
         _nameController = nameController,
         _datetime = datetime,
@@ -264,8 +264,8 @@ class Page1 extends StatefulWidget {
 
 class _Page1State extends State<Page1> {
   final db = FirebaseFirestore.instance;
-  StreamSubscription sub;
-  Map data;
+  late StreamSubscription sub;
+  late Map? data;
   int userTokens = 0;
   @override
   void initState() {
@@ -277,7 +277,7 @@ class _Page1State extends State<Page1> {
         .listen((snap) {
       setState(() {
         data = snap.data();
-        userTokens = data['eventTokens'];
+        userTokens = (data as Map)['eventTokens'];
       });
     });
   }
@@ -413,7 +413,7 @@ class _Page1State extends State<Page1> {
                       "You have $userTokens event tokens left",
                       style: TextStyle(
                         color: userTokens > 0
-                            ? Theme.of(context).textTheme.bodyText1.color
+                            ? Theme.of(context).textTheme.bodyText1!.color
                             : Colors.red,
                       ),
                     ),
@@ -608,7 +608,7 @@ class _Page1State extends State<Page1> {
                       // this funtion writes in the DB and adds an
                       // event when manually testing anything,
                       // just comment this function
-                      if (widget._addpostkey.currentState.validate() &&
+                      if (widget._addpostkey.currentState!.validate() &&
                           widget._descController.text != null &&
                           widget._datetime.text != null) {
                         if (userTokens > 0) {

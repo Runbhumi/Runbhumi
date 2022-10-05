@@ -3,23 +3,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //Start of the Meassage class
 class Message {
   //Date and time of the message being sent
-  DateTime dateTime;
+  DateTime? dateTime;
   //Id of the user who sent the message
-  String sentby;
+  String? sentby;
   //What the message consists of
-  String message;
+  String? message;
   //Name of the user who sent the message
-  String sentByName;
+  String? sentByName;
   //type of message, used to differentiate custom messages
-  String type;
+  String? type;
 
   //Constructor of the message class
-  Message(
-      {this.dateTime,
-      this.sentby,
-      this.message,
-      this.sentByName,
-      this.type}); //this.reaction});
+  Message({
+    this.dateTime,
+    this.sentby,
+    this.message,
+    this.sentByName,
+    this.type,
+  }); //this.reaction});
   //Method for creating a new message and assigning values to the class variables
   Message.newMessage(
     DateTime dateTime,
@@ -53,7 +54,7 @@ class Message {
   factory Message.fromJson(QueryDocumentSnapshot data) {
     var parsedJson = data.data();
     return Message(
-        dateTime: parsedJson['dateTime'].toDate(),
+        dateTime: (parsedJson as Map)['dateTime'].toDate(),
         sentby: parsedJson['sentby'],
         message: parsedJson['message'],
         sentByName: parsedJson['sentByName'],

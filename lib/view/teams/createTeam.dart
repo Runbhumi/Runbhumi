@@ -29,9 +29,9 @@ class CreateTeam extends StatefulWidget {
 
 class _CreateTeamState extends State<CreateTeam> {
   GlobalKey<FormState> _createNewTeamkey = GlobalKey<FormState>();
-  String _chosenSport;
+  late String _chosenSport;
   // GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  Teams team;
+  late Teams team;
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _descController = new TextEditingController();
   TextEditingController _teamLocationController = new TextEditingController();
@@ -132,7 +132,7 @@ class _CreateTeamState extends State<CreateTeam> {
         setState(
           () {
             print(value);
-            _chosenSport = value;
+            _chosenSport = value!;
           },
         );
       },
@@ -335,7 +335,7 @@ class _CreateTeamState extends State<CreateTeam> {
                     buttonTitle: "Create Team",
                     bgColor: Theme.of(context).primaryColor,
                     onPressed: () {
-                      if (_createNewTeamkey.currentState.validate() &&
+                      if (_createNewTeamkey.currentState!.validate() &&
                           _chosenSport != null) {
                         //------- Code to create a team just remember to pass all the arguments ---------------
                         team = TeamService().createNewTeam(_chosenSport,

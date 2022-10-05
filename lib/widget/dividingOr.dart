@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DividingOr extends StatelessWidget {
   const DividingOr({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

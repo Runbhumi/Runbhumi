@@ -22,7 +22,7 @@ class _UploaderState extends State<Uploader> {
   //     "https://firebasestorage.googleapis.com/v0/b/runbhumi-574fe.appspot.com/o/ProfieImage%2F";
   StorageUploadTask _uploadTask;
   StorageReference ref;
-  String filePath;
+  late String filePath;
   String url = "";
 
   /// Starts an upload task
@@ -30,7 +30,7 @@ class _UploaderState extends State<Uploader> {
     /// Unique file name for the file
     String fileDirectory = 'ProfileImage/';
     filePath =
-        '${DateTime.now()}' + Constants.prefs.getString('userId') + '.png';
+        '${DateTime.now()}' + Constants.prefs.getString('userId')! + '.png';
     setState(() {
       ref = _storage.ref().child(fileDirectory + filePath);
       _uploadTask = ref.putFile(widget.file);
@@ -47,7 +47,7 @@ class _UploaderState extends State<Uploader> {
       return StreamBuilder<StorageTaskEvent>(
           stream: _uploadTask.events,
           builder: (context, snapshot) {
-            var event = snapshot?.data?.snapshot;
+            var event = snapshot.data?.snapshot;
 
             double progressPercent = event != null
                 ? event.bytesTransferred / event.totalByteCount
@@ -57,8 +57,8 @@ class _UploaderState extends State<Uploader> {
               children: [
                 if (_uploadTask.isComplete)
                   Button(
-                    myText: "Success",
-                    myColor: Theme.of(context).accentColor,
+                    buttonTitle: "Success",
+                    bgColor: Theme.of(context).accentColor,
                     onPressed: () => {
                       url != null
                           ? Constants.prefs.setString('profileImage', url)
@@ -84,8 +84,8 @@ class _UploaderState extends State<Uploader> {
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: Button(
-          myText: 'Upload to Firebase',
-          myColor: Theme.of(context).primaryColor,
+          buttonTitle: 'Upload to Firebase',
+          bgColor: Theme.of(context).primaryColor,
           // icon: Icon(Icons.cloud_upload),
           onPressed: _startUpload,
         ),

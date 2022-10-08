@@ -1,8 +1,8 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
 
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +103,9 @@ class _SpecificSportState extends State<SpecificSport> {
                                       SmallButton(
                                           myColor: !registrationCondition
                                               ? Theme.of(context).primaryColor
-                                              : Theme.of(context).accentColor,
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                           myText: !registrationCondition
                                               ? "Join"
                                               : "Already Registered",

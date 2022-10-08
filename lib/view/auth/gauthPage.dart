@@ -1,5 +1,5 @@
-import 'package:Runbhumi/widget/buildTitle.dart';
-// import 'package:Runbhumi/widget/googleOauth.dart';
+import 'package:runbhumi/widget/buildTitle.dart';
+// import 'package:runbhumi/widget/googleOauth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -104,8 +104,8 @@ class _GauthPageState extends State<GauthPage> {
                             color: Theme.of(context).primaryColor),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launch(
-                                'https://runbhumi-website.vercel.app/privacy-policy');
+                            launchUrl(Uri.parse(
+                                'https://runbhumi-website.vercel.app/privacy-policy'));
                           },
                       ),
                       TextSpan(text: ' and '),
@@ -116,8 +116,8 @@ class _GauthPageState extends State<GauthPage> {
                             color: Theme.of(context).primaryColor),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            launch(
-                                'https://runbhumi-website.vercel.app/terms-and-conditions');
+                            launchUrl(Uri.parse(
+                                'https://runbhumi-website.vercel.app/terms-and-conditions'));
                           },
                       ),
                     ],

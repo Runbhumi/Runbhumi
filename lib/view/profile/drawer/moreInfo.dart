@@ -1,8 +1,8 @@
-import 'package:Runbhumi/utils/theme_config.dart';
-// import 'package:Runbhumi/widget/contributers/contributor_detail_model.dart';
-// import 'package:Runbhumi/widget/contributers/contributors_card_model.dart';
-// import 'package:Runbhumi/widget/contributers/contributors_data_model.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+// import 'package:runbhumi/widget/contributers/contributor_detail_model.dart';
+// import 'package:runbhumi/widget/contributers/contributors_card_model.dart';
+// import 'package:runbhumi/widget/contributers/contributors_data_model.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 // import 'package:http/http.dart' as http;
@@ -988,9 +988,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 // }
 
 _launchURL(String gurl) async {
-  String url = gurl;
-  if (await canLaunch(url)) {
-    await launch(url);
+  Uri url = Uri.parse(gurl);
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
   } else {
     throw 'Could not launch $url';
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/widget/animations/fade_page_route.dart';
+import 'package:runbhumi/widget/animations/fade_page_route.dart';
 
 class CRouter {
   static Future pushPage(BuildContext context, Widget page) async {

@@ -55,7 +55,7 @@
 // ------------------------------------------------------------------------------------
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Runbhumi/models/models.dart';
+import 'package:runbhumi/models/models.dart';
 import 'package:get_storage/get_storage.dart';
 
 class NotificationClass {

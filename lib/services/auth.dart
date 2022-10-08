@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/models/User.dart';
+// import 'package:runbhumi/services/services.dart';
+import 'package:runbhumi/models/User.dart';
 //
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -17,7 +17,8 @@ Future signInWithGoogle() async {
   final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount!.authentication;
   //Getting the device token of the device for FCM purposes
-  final String token = await FirebaseMessagingServices().getTokenz();
+  final String token = "test";
+  // final String token = await FirebaseMessagingServices().getTokenz();
   final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
@@ -27,6 +28,7 @@ Future signInWithGoogle() async {
       await _auth.signInWithCredential(credential);
   final User user = authResult.user!;
 
+  // ignore: unnecessary_null_comparison
   if (user != null) {
     print('User is not null');
     //The user has authenticated already

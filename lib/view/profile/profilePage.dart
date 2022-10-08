@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -108,7 +106,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       body: DrawerBody(),
     );
 
-    var _myDuration = Duration(milliseconds: 300);
+    // var _myDuration = Duration(milliseconds: 300);
     // var myChild = CustomAnimatedContainer(
     //   curve: Curves.easeInOut,
     //   clipBehavior: Clip.antiAlias,

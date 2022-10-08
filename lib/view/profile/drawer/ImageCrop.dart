@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'dart:io';
-// import 'package:Runbhumi/services/ImageUpload.dart';
-// import 'package:Runbhumi/widget/widgets.dart';
+// import 'package:runbhumi/services/ImageUpload.dart';
+// import 'package:runbhumi/widget/widgets.dart';
 // import 'package:unicons/unicons.dart';
 // import 'package:image_cropper/image_cropper.dart';
 // import 'package:image_picker/image_picker.dart';

@@ -1,6 +1,6 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'views.dart';

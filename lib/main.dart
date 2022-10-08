@@ -1,7 +1,7 @@
-import 'package:Runbhumi/view/splash/splash.dart';
+import 'package:runbhumi/view/splash/splash.dart';
 import 'package:flutter/material.dart';
 //
-// import 'package:Runbhumi/utils/theme_config.dart';
+// import 'package:runbhumi/utils/theme_config.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

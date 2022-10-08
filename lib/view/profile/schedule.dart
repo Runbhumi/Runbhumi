@@ -1,7 +1,7 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
 
-import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/utils/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';

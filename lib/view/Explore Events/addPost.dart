@@ -1,11 +1,13 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/services/services.dart';
 
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/utils/validations.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/utils/validations.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:Runbhumi/widget/showOffline.dart';
+import 'package:runbhumi/widget/showOffline.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 
 // status map
@@ -671,7 +673,8 @@ class _Page1State extends State<Page1> {
                                   color: Theme.of(context).primaryColor),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  launch(_emailLaunchUri.toString());
+                                  launchUrl(
+                                      Uri.parse(_emailLaunchUri.toString()));
                                 },
                             ),
                             TextSpan(text: ' to purchase more tokens.'),
@@ -763,7 +766,7 @@ SimpleDialog infoDialog(BuildContext context) {
                   ),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () {
-                      launch(_emailLaunchUri.toString());
+                      launchUrl(Uri.parse(_emailLaunchUri.toString()));
                     }),
             ]),
           ),

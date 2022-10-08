@@ -1,11 +1,11 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
-class FirebaseMessagingServices {
-  final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+// class FirebaseMessagingServices {
+//   final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
 
-  getTokenz() async {
-    String? token = await _firebaseMessaging.getToken();
-    print(token);
-    return token;
-  }
-}
+//   getTokenz() async {
+//     String? token = await _firebaseMessaging.getToken();
+//     print(token);
+//     return token;
+//   }
+// }

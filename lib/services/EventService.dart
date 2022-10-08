@@ -1,10 +1,10 @@
-import 'package:Runbhumi/models/models.dart';
+import 'package:runbhumi/models/models.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/services/services.dart';
 import 'package:get_storage/get_storage.dart';
 
-//import 'package:Runbhumi/models/Events.dart';
+//import 'package:runbhumi/models/Events.dart';
 
 class EventService {
   CollectionReference _eventCollectionReference =

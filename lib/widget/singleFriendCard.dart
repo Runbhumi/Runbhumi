@@ -1,4 +1,4 @@
-import 'package:Runbhumi/view/views.dart';
+import 'package:runbhumi/view/views.dart';
 import 'package:flutter/material.dart';
 
 class SingleFriendCard extends StatelessWidget {

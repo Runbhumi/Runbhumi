@@ -1,4 +1,4 @@
-import 'package:Runbhumi/view/views.dart';
+import 'package:runbhumi/view/views.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:introduction_screen/introduction_screen.dart';

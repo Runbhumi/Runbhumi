@@ -1,10 +1,10 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
-import 'package:Runbhumi/view/teamEventNotification.dart';
-import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/view/Explore%20Events/eventInfo.dart';
+import 'package:runbhumi/view/teamEventNotification.dart';
+import 'package:runbhumi/view/teams/teaminfo.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -83,7 +83,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                     ),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
-                        launch(_emailLaunchUri.toString());
+                        launchUrl(Uri.parse(_emailLaunchUri.toString()));
                       }),
               ]),
             ),

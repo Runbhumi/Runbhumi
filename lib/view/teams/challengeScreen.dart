@@ -1,9 +1,9 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
 
-import 'package:Runbhumi/view/views.dart';
-import 'package:Runbhumi/widget/button.dart';
-import 'package:Runbhumi/widget/loader.dart';
+import 'package:runbhumi/view/views.dart';
+import 'package:runbhumi/widget/button.dart';
+import 'package:runbhumi/widget/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';

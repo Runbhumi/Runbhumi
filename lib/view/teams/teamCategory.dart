@@ -1,10 +1,10 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
 
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/Chats/teamConversation.dart';
-import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/view/Chats/teamConversation.dart';
+import 'package:runbhumi/view/teams/teaminfo.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -120,7 +120,9 @@ class _TeamCategoryState extends State<TeamCategory> {
                                       SmallButton(
                                           myColor: !joinCondition
                                               ? Theme.of(context).primaryColor
-                                              : Theme.of(context).accentColor,
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                           myText: !joinCondition
                                               ? !notifiedCondition
                                                   ? "Join"
@@ -336,7 +338,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
   ThemeData appBarTheme(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
     return ThemeData(
-      primaryColor: theme.currentTheme.appBarTheme.color,
+      primaryColor: theme.currentTheme.appBarTheme.backgroundColor,
       appBarTheme: theme.currentTheme.appBarTheme,
       inputDecorationTheme: theme.currentTheme.inputDecorationTheme,
       textTheme: theme.currentTheme.textTheme,
@@ -426,7 +428,9 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                     SmallButton(
                                         myColor: !joinCondition
                                             ? Theme.of(context).primaryColor
-                                            : Theme.of(context).accentColor,
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                         myText: !joinCondition
                                             ? !notifiedCondition
                                                 ? "Join"

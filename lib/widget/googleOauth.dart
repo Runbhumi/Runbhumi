@@ -1,7 +1,8 @@
-import 'package:Runbhumi/services/auth.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/services/auth.dart';
+
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 
 class GoogleOauth extends StatefulWidget {
@@ -35,7 +36,7 @@ class _GoogleOauthState extends State<GoogleOauth> {
                 },
               );
             }).then((_) {
-              if (Constants.prefs.getString('userId') != null) {
+              if (GetStorage().read('userId') != null) {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

@@ -1,8 +1,9 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+
+import 'package:runbhumi/utils/theme_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -87,19 +88,19 @@ class _ScheduleState extends State<Schedule> {
                                     children: [
                                       SmallButton(
                                         myColor: Color(0xffEB4758),
-                                        myText: Constants.prefs.get('userId') !=
+                                        myText: GetStorage().read('userId') !=
                                                 data.creatorId
                                             ? "Leave"
                                             : "Delete",
                                         onPressed: () {
-                                          print(Constants.prefs.get('userId'));
-                                          print(Constants.prefs.get('userId'));
-                                          if (Constants.prefs.get('userId') ==
+                                          print(GetStorage().read('userId'));
+                                          print(GetStorage().read('userId'));
+                                          if (GetStorage().read('userId') ==
                                               data.creatorId) {
                                             confirmationPopupForDeleting(
                                                 context, data);
                                             // print(
-                                            //     Constants.prefs.get('userId') ==
+                                            //     GetStorage().get('userId') ==
                                             //         data.creatorId);
                                             // Navigator.push(
                                             //     context,
@@ -306,7 +307,7 @@ confirmationPopupForLeaving(BuildContext context, Events data) {
               leaveEvent(data);
             } else {
               deleteIndividualUserMini(
-                  data.eventId!, Constants.prefs.getString('userId')!);
+                  data.eventId!, GetStorage().read('userId')!);
             }
             Navigator.pop(context);
           },

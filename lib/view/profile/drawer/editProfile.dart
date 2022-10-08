@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _EditProfileState extends State<EditProfile> {
     // });
     sub = db
         .collection('users')
-        .doc(Constants.prefs.getString('userId'))
+        .doc(GetStorage().read('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {
@@ -143,7 +144,7 @@ class _EditProfileState extends State<EditProfile> {
                           image: DecorationImage(
                             // now only assets image
                             image: NetworkImage(
-                                Constants.prefs.getString('profileImage')!),
+                                GetStorage().read('profileImage')!),
 
                             fit: BoxFit.fill,
                           ),
@@ -278,9 +279,9 @@ class _EditProfileState extends State<EditProfile> {
                     };
                     await FirebaseFirestore.instance
                         .collection('users')
-                        .doc(Constants.prefs.get('userId') as String)
+                        .doc(GetStorage().read('userId') as String)
                         .update({
-                      'profileImage': Constants.prefs.getString('profileImage'),
+                      'profileImage': GetStorage().read('profileImage'),
                       'name': nameTextEditingController.text,
                       'bio': bioTextEditingController.text,
                       'age': _chosenAgeCategory,
@@ -391,7 +392,7 @@ class _EditProfileState extends State<EditProfile> {
 
 //   StorageUploadTask _uploadTask;
 //   void _startUpload() {
-//     String filePath = 'images/${Constants.prefs.get('userId')}.png';
+//     String filePath = 'images/${GetStorage().get('userId')}.png';
 //     setState(() {
 //       _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
 //     });

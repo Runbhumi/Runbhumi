@@ -1,5 +1,5 @@
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Events {
   // name of the event
@@ -100,8 +100,8 @@ class Events {
       String paid) {
     this.eventId = eventId;
     this.eventName = eventName;
-    this.creatorId = Constants.prefs.getString('userId')!;
-    this.creatorName = Constants.prefs.getString('name')!;
+    this.creatorId = GetStorage().read('userId')!;
+    this.creatorName = GetStorage().read('name')!;
     this.location = location;
     this.sportName = sportName;
     this.playersId = [];
@@ -109,7 +109,7 @@ class Events {
     this.dateTime = dateTime;
     this.maxMembers = maxMembers;
     this.type = type;
-    this.participants = [Constants.prefs.getString('userId')];
+    this.participants = [GetStorage().read('userId')];
     this.status = status;
     this.notification = [];
     this.paid = paid;

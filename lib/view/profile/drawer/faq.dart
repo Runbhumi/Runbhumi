@@ -1,4 +1,4 @@
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -221,9 +221,9 @@ class Faq extends StatelessWidget {
 }
 
 _launchURL(String gurl) async {
-  String url = gurl;
-  if (await canLaunch(url)) {
-    await launch(url);
+  Uri url = Uri.parse(gurl);
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
   } else {
     throw 'Could not launch $url';
   }

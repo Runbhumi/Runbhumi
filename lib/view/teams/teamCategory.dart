@@ -1,12 +1,13 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/Chats/teamConversation.dart';
-import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/view/Chats/teamConversation.dart';
+import 'package:runbhumi/view/teams/teaminfo.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 
@@ -89,11 +90,11 @@ class _TeamCategoryState extends State<TeamCategory> {
                           break;
                       }
                       bool notifiedCondition = false;
-                      bool joinCondition = data.playerId!
-                          .contains(Constants.prefs.getString('userId'));
+                      bool joinCondition =
+                          data.playerId!.contains(GetStorage().read('userId'));
                       if (data.notificationPlayers!.length > 0)
                         notifiedCondition = data.notificationPlayers!
-                            .contains(Constants.prefs.getString('userId'));
+                            .contains(GetStorage().read('userId'));
 
                       //asyncSnapshot
                       // .data.documents[index]
@@ -119,7 +120,9 @@ class _TeamCategoryState extends State<TeamCategory> {
                                       SmallButton(
                                           myColor: !joinCondition
                                               ? Theme.of(context).primaryColor
-                                              : Theme.of(context).accentColor,
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                           myText: !joinCondition
                                               ? !notifiedCondition
                                                   ? "Join"
@@ -141,9 +144,8 @@ class _TeamCategoryState extends State<TeamCategory> {
                                               if (data.status == 'private') {
                                                 NotificationServices()
                                                     .createTeamNotification(
-                                                        Constants.prefs
-                                                            .getString(
-                                                                'userId')!,
+                                                        GetStorage()
+                                                            .read('userId')!,
                                                         data.manager!,
                                                         data);
                                               }
@@ -336,7 +338,7 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
   ThemeData appBarTheme(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
     return ThemeData(
-      primaryColor: theme.currentTheme.appBarTheme.color,
+      primaryColor: theme.currentTheme.appBarTheme.backgroundColor,
       appBarTheme: theme.currentTheme.appBarTheme,
       inputDecorationTheme: theme.currentTheme.inputDecorationTheme,
       textTheme: theme.currentTheme.textTheme,
@@ -396,11 +398,11 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                         break;
                     }
                     bool notifiedCondition = false;
-                    bool joinCondition = data.playerId!
-                        .contains(Constants.prefs.getString('userId'));
+                    bool joinCondition =
+                        data.playerId!.contains(GetStorage().read('userId'));
                     if (data.notificationPlayers!.length > 0)
                       notifiedCondition = data.notificationPlayers!
-                          .contains(Constants.prefs.getString('userId'));
+                          .contains(GetStorage().read('userId'));
 
                     //asyncSnapshot
                     // .data.documents[index]
@@ -426,7 +428,9 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                     SmallButton(
                                         myColor: !joinCondition
                                             ? Theme.of(context).primaryColor
-                                            : Theme.of(context).accentColor,
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                         myText: !joinCondition
                                             ? !notifiedCondition
                                                 ? "Join"
@@ -448,8 +452,8 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
                                             if (data.status == 'private') {
                                               NotificationServices()
                                                   .createTeamNotification(
-                                                      Constants.prefs
-                                                          .getString('userId')!,
+                                                      GetStorage()
+                                                          .read('userId')!,
                                                       data.manager!,
                                                       data);
                                             }
@@ -539,14 +543,14 @@ class TeamCategorySearchDirect extends SearchDelegate<ListView> {
   // createChatRoom(String userId, BuildContext context, String username,
   //     String userProfile) {
   //   print(userId);
-  //   print(Constants.prefs.getString('userId'));
-  //   if (userId != Constants.prefs.getString('userId')) {
-  //     List<String> users = [userId, Constants.prefs.getString('userId')];
+  //   print(GetStorage().read('userId'));
+  //   if (userId != GetStorage().read('userId')) {
+  //     List<String> users = [userId, GetStorage().read('userId')];
   //     String chatRoomId =
-  //         getUsersInvolved(userId, Constants.prefs.getString('userId'));
-  //     List<String> usersNames = [username, Constants.prefs.getString('name')];
+  //         getUsersInvolved(userId, GetStorage().read('userId'));
+  //     List<String> usersNames = [username, GetStorage().read('name')];
   //     List<String> usersPics = [
-  //       Constants.prefs.getString('profileImage'),
+  //       GetStorage().read('profileImage'),
   //       userProfile
   //     ];
 

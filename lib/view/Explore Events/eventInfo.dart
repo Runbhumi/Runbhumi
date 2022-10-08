@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/profile/otherUserProfile.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/view/profile/otherUserProfile.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

@@ -1,4 +1,4 @@
-name: Runbhumi
+name: runbhumi
 description: social media with a sports flavour
 
 # The following line prevents the package from being accidentally published to
@@ -80,6 +80,8 @@ dependencies:
   shared_preferences: ^2.0.15
 
   rflutter_alert: ^2.0.4
+  get: ^4.6.5
+  get_storage: ^2.0.3
   
 dev_dependencies:
   flutter_test:

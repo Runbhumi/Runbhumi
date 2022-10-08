@@ -1,13 +1,14 @@
 import 'dart:math';
 
-import 'package:Runbhumi/models/Teams.dart';
-import 'package:Runbhumi/models/message.dart';
-import 'package:Runbhumi/services/chatroomServices.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/Teams.dart';
+import 'package:runbhumi/models/message.dart';
+import 'package:runbhumi/services/chatroomServices.dart';
+
+import 'package:runbhumi/view/teams/teaminfo.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:unicons/unicons.dart';
 
@@ -30,9 +31,9 @@ class _TeamConversationState extends State<TeamConversation> {
     if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessageTeam(
           DateTime.now(),
-          Constants.prefs.getString('userId')!,
+          GetStorage().read('userId')!,
           messageEditingController.text.trim(),
-          Constants.prefs.getString('name')!,
+          GetStorage().read('name')!,
           widget.data.teamId);
       setState(() {
         messageEditingController.text = "";
@@ -78,8 +79,7 @@ class _TeamConversationState extends State<TeamConversation> {
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
                     message: data.message!,
-                    sendByMe:
-                        Constants.prefs.getString('userId') == data.sentby,
+                    sendByMe: GetStorage().read('userId') == data.sentby,
                     sentByName: data.sentByName!,
                     dateTime: data.dateTime!,
                   );

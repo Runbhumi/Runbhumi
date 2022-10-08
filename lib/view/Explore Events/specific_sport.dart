@@ -1,9 +1,10 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:unicons/unicons.dart';
@@ -77,8 +78,8 @@ class _SpecificSportState extends State<SpecificSport> {
                           sportIcon = "assets/icons8-soccer-ball-96.png";
                           break;
                       }
-                      bool registrationCondition = data.playersId!
-                          .contains(Constants.prefs.getString('userId'));
+                      bool registrationCondition =
+                          data.playersId!.contains(GetStorage().read('userId'));
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
@@ -102,7 +103,9 @@ class _SpecificSportState extends State<SpecificSport> {
                                       SmallButton(
                                           myColor: !registrationCondition
                                               ? Theme.of(context).primaryColor
-                                              : Theme.of(context).accentColor,
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                           myText: !registrationCondition
                                               ? "Join"
                                               : "Already Registered",

@@ -4,6 +4,6 @@ __Class Name__ => <a href="https://github.com/Runbhumi/Runbhumi/blob/master/lib/
 
 Methods :
 
-Constants.prefs.('userId') => to get userid anywhere 
-Constants.prefs.('loggedin') => to know about the connection state of user
+GetStorage().('userId') => to get userid anywhere 
+GetStorage().('loggedin') => to know about the connection state of user
 

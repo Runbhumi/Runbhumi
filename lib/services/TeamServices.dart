@@ -1,8 +1,9 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/models/verificationApp.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/models/verificationApp.dart';
+import 'package:runbhumi/services/services.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 // --------- remeber to pass me when setting a new manager ------------------------------
 
@@ -11,9 +12,9 @@ class TeamService {
       FirebaseFirestore.instance.collection('teams');
 
   final Friends me = new Friends.newFriend(
-    Constants.prefs.getString('userId')!,
-    Constants.prefs.getString('name')!,
-    Constants.prefs.getString('profileImage')!,
+    GetStorage().read('userId')!,
+    GetStorage().read('name')!,
+    GetStorage().read('profileImage')!,
   );
   Teams createNewTeam(
       String sport, String teamName, String bio, String status) {
@@ -80,8 +81,8 @@ class TeamService {
       'playerId': FieldValue.arrayUnion([me.friendId]),
       'players': FieldValue.arrayUnion([me.toJson()]),
     });
-    CustomMessageServices().sendTeamNewMemberJoinMessage(
-        teamId, Constants.prefs.getString('name')!);
+    CustomMessageServices()
+        .sendTeamNewMemberJoinMessage(teamId, GetStorage().read('name')!);
   }
 
   removeMeFromTeam(String teamId) async {
@@ -90,7 +91,7 @@ class TeamService {
       'players': FieldValue.arrayRemove([me.toJson()]),
     });
     CustomMessageServices()
-        .sendTeamLeaveMemberMessage(teamId, Constants.prefs.getString('name')!);
+        .sendTeamLeaveMemberMessage(teamId, GetStorage().read('name')!);
   }
 
   removePlayerFromTeam(
@@ -108,7 +109,7 @@ class TeamService {
   }
 
   deleteTeam(String manager, String teamId) async {
-    if (manager == Constants.prefs.getString('userId')) {
+    if (manager == GetStorage().read('userId')) {
       await FirebaseFirestore.instance.collection('teams').doc(teamId).delete();
       await FirebaseFirestore.instance
           .collection('users')

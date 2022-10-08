@@ -1,18 +1,19 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Runbhumi/services/services.dart';
+import 'package:runbhumi/models/models.dart';
 
-//import 'package:Runbhumi/models/Events.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:runbhumi/services/services.dart';
+import 'package:get_storage/get_storage.dart';
+
+//import 'package:runbhumi/models/Events.dart';
 
 class EventService {
   CollectionReference _eventCollectionReference =
       FirebaseFirestore.instance.collection('events');
 
   addUserToEvent(String id) {
-    var userId = Constants.prefs.get('userId');
-    var userName = Constants.prefs.get('name');
-    var profileImage = Constants.prefs.get('profileImage');
+    var userId = GetStorage().read('userId');
+    var userName = GetStorage().read('name');
+    var profileImage = GetStorage().read('profileImage');
     Friends friend = new Friends.newFriend(
         userId as String, userName as String, profileImage as String);
     _eventCollectionReference.doc(id).set({
@@ -48,7 +49,7 @@ class EventService {
   getCurrentUserFeed() async {
     return FirebaseFirestore.instance
         .collection("users")
-        .doc(Constants.prefs.get('userId') as String)
+        .doc(GetStorage().read('userId') as String)
         .collection('userEvent')
         .orderBy('dateTime')
         .snapshots();
@@ -57,7 +58,7 @@ class EventService {
   getCurrentUserEventChats() async {
     return FirebaseFirestore.instance
         .collection("events")
-        .where('participants', arrayContains: Constants.prefs.get('userId'))
+        .where('participants', arrayContains: GetStorage().read('userId'))
         // .orderBy('dateTime', descending: true)
         .snapshots();
   }
@@ -123,7 +124,7 @@ addEventToUser(
     String paid) {
   FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.get('userId') as String)
+      .doc(GetStorage().read('userId') as String)
       .collection('userEvent')
       .doc(id)
       .set(Events.miniView(id, eventName, sportName, location, dateTime, status,
@@ -149,7 +150,7 @@ addTeamEventToUser(
     String paid) {
   FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.get('userId') as String)
+      .doc(GetStorage().read('userId') as String)
       .collection('userEvent')
       .doc(id)
       .set(Events.miniTeamView(
@@ -228,9 +229,8 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
         .collection('events')
         .doc(event.eventId)
         .update({
-      'playersId': FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
-      'participants':
-          FieldValue.arrayUnion([Constants.prefs.getString('userId')]),
+      'playersId': FieldValue.arrayUnion([GetStorage().read('userId')]),
+      'participants': FieldValue.arrayUnion([GetStorage().read('userId')]),
       'teamsId': FieldValue.arrayUnion([team.teamId]),
       'teamInfo': FieldValue.arrayUnion([
         {'teamName': team.teamName, 'teamId': team.teamId}
@@ -254,7 +254,7 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
     await CustomMessageServices()
         .sendEventAcceptEventChatCustomMessage(event.eventId!, team.teamName!);
     await CustomMessageServices().sendEventAcceptTeamChatCustomMessage(
-        team.teamId!, Constants.prefs.getString('name')!, event.eventName!);
+        team.teamId!, GetStorage().read('name')!, event.eventName!);
     return true;
   }
 
@@ -267,9 +267,9 @@ Future<bool> addTeamToEvent(Events event, TeamView team) async {
 // leaving a event logic
 
 leaveEvent(Events data) async {
-  var userId = Constants.prefs.get('userId');
-  var userName = Constants.prefs.get('name');
-  var profileImage = Constants.prefs.get('profileImage');
+  var userId = GetStorage().read('userId');
+  var userName = GetStorage().read('name');
+  var profileImage = GetStorage().read('profileImage');
   FirebaseFirestore.instance
       .collection('users')
       .doc(userId as String)
@@ -295,26 +295,26 @@ leaveEvent(Events data) async {
     }, SetOptions(merge: true));
   }
   //UserService().updateEventCount(-1);
-  CustomMessageServices().userLeftEventMessage(
-      data.eventId!, Constants.prefs.get('name') as String);
+  CustomMessageServices()
+      .userLeftEventMessage(data.eventId!, GetStorage().read('name') as String);
 }
 
 deleteEvent(id) async {
   getEventInfo(id);
   await FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.get('userId') as String)
+      .doc(GetStorage().read('userId') as String)
       .collection('userEvent')
       .doc(id)
       .delete();
-  UserService().updateEventCount(-1, Constants.prefs.get('userId') as String);
+  UserService().updateEventCount(-1, GetStorage().read('userId') as String);
   await FirebaseFirestore.instance.collection('events').doc(id).delete();
 }
 
 getEventInfo(String eventId) async {
   List<dynamic> players = await Events().players(eventId);
   for (int i = 0; i < players.length; i++) {
-    if (players[i] != Constants.prefs.get('userId'))
+    if (players[i] != GetStorage().read('userId'))
       deleteIndividualUserMini(eventId, players[i]);
   }
 }

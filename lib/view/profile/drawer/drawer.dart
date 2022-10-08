@@ -1,9 +1,10 @@
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/profile/drawer/faq.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/services/services.dart';
+
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/view/profile/drawer/faq.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,7 +45,7 @@ class _DrawerBodyState extends State<DrawerBody> {
                   ),
                 ),
                 Text(
-                  Constants.prefs.getString('name')!,
+                  GetStorage().read('name')!,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -139,7 +140,7 @@ class _DrawerBodyState extends State<DrawerBody> {
         DrawerButton(
           onpressed: () {
             print("logout");
-            Constants.prefs.setBool("loggedin", false);
+            GetStorage().write("loggedin", false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },
@@ -157,7 +158,7 @@ class _DrawerBodyState extends State<DrawerBody> {
             children: [
               GestureDetector(
                 onTap: () {
-                  launch(websiteURL + 'privacy-policy');
+                  launchUrl(Uri.parse(websiteURL + 'privacy-policy'));
                 },
                 child: Text(
                   "Privacy Policy",
@@ -170,7 +171,7 @@ class _DrawerBodyState extends State<DrawerBody> {
               SizedBox(height: 8),
               GestureDetector(
                 onTap: () {
-                  launch(websiteURL + 'terms-and-conditions');
+                  launchUrl(Uri.parse(websiteURL + 'terms-and-conditions'));
                 },
                 child: Text(
                   "Terms & Conditions",
@@ -198,9 +199,9 @@ class _DrawerBodyState extends State<DrawerBody> {
 }
 
 _launchURL(String gurl) async {
-  String url = gurl;
-  if (await canLaunch(url)) {
-    await launch(url);
+  Uri url = Uri.parse(gurl);
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
   } else {
     throw 'Could not launch $url';
   }

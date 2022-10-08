@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import '../views.dart';
 import '../../widget/widgets.dart';
@@ -31,7 +30,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
     sub = db
         .collection('users')
-        .doc(Constants.prefs.getString('userId'))
+        .doc(GetStorage().read('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {
@@ -107,7 +106,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       body: DrawerBody(),
     );
 
-    var _myDuration = Duration(milliseconds: 300);
+    // var _myDuration = Duration(milliseconds: 300);
     // var myChild = CustomAnimatedContainer(
     //   curve: Curves.easeInOut,
     //   clipBehavior: Clip.antiAlias,

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 /*
 -----------------------------------------------------------------------------------------
                          ********* Type of staus in backend ********* 
@@ -9,13 +11,13 @@ closed(lowercase)- is when the team is not accepting invites or any new player
 -------------------------------------------------------------------------------------------
 */
 
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/widget/showOffline.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/widget/showOffline.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
-import 'package:Runbhumi/services/services.dart';
-// import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/utils/validations.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/services/services.dart';
+// import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/utils/validations.dart';
+import 'package:runbhumi/widget/widgets.dart';
 // import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';

@@ -1,14 +1,16 @@
+// ignore_for_file: dead_code
+
 import 'dart:async';
 
-import 'package:Runbhumi/models/Teams.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/view/teams/challengeScreen.dart';
-import 'package:Runbhumi/view/views.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/Teams.dart';
+import 'package:runbhumi/services/services.dart';
+
+import 'package:runbhumi/view/teams/challengeScreen.dart';
+import 'package:runbhumi/view/views.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -121,7 +123,7 @@ class _TeamInfoState extends State<TeamInfo> {
           break;
         case 'Join Team':
           if (data['notificationPlayers']
-              .contains(Constants.prefs.getString('userId'))) {
+              .contains(GetStorage().read('userId'))) {
             showDialog(
               context: context,
               builder: (context) {
@@ -133,9 +135,7 @@ class _TeamInfoState extends State<TeamInfo> {
               Teams teamView = Teams.newTeam(data['teamId'], data['sport'],
                   data['teamName'], data['bio'], data['status']);
               NotificationServices().createTeamNotification(
-                  Constants.prefs.getString('userId')!,
-                  data['manager'],
-                  teamView);
+                  GetStorage().read('userId')!, data['manager'], teamView);
             }
             if (data['status'] == 'closed' || data['playerId'].length >= 20) {
               showDialog(
@@ -191,8 +191,7 @@ class _TeamInfoState extends State<TeamInfo> {
             PopupMenuButton<String>(
               onSelected: handleClick,
               itemBuilder: (BuildContext context) {
-                if (!data['playerId']
-                    .contains(Constants.prefs.getString('userId'))) {
+                if (!data['playerId'].contains(GetStorage().read('userId'))) {
                   //For all the users who are viwing the teamInfo and not part of the team
                   return {'Join Team', 'Challenge'}.map((String choice) {
                     return PopupMenuItem<String>(
@@ -203,8 +202,7 @@ class _TeamInfoState extends State<TeamInfo> {
                 } else {
                   //For the users who are in the team
                   if (data['status'] == 'closed') {
-                    return Constants.prefs.getString('userId') ==
-                            data['manager']
+                    return GetStorage().read('userId') == data['manager']
                         ? data["verified"] == 'N'
                             ? {
                                 'Delete team',
@@ -232,8 +230,7 @@ class _TeamInfoState extends State<TeamInfo> {
                             );
                           }).toList();
                   } else {
-                    return Constants.prefs.getString('userId') ==
-                            data['manager']
+                    return GetStorage().read('userId') == data['manager']
                         ? data["verified"] == 'N'
                             ? {
                                 'Delete team',
@@ -478,8 +475,8 @@ class _TeamInfoState extends State<TeamInfo> {
                                                 ),
                                             ],
                                           ),
-                                          trailing: Constants.prefs
-                                                      .getString('userId') ==
+                                          trailing: GetStorage()
+                                                      .read('userId') ==
                                                   data['manager']
                                               ? (data["players"][index]["id"] !=
                                                       data["manager"])

@@ -1,7 +1,7 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -170,7 +170,7 @@ class UserSearch extends SearchDelegate<ListView> {
   ThemeData appBarTheme(BuildContext context) {
     final theme = Provider.of<ThemeNotifier>(context);
     return ThemeData(
-      primaryColor: theme.currentTheme.appBarTheme.color,
+      primaryColor: theme.currentTheme.appBarTheme.backgroundColor,
       appBarTheme: theme.currentTheme.appBarTheme,
       inputDecorationTheme: theme.currentTheme.inputDecorationTheme,
       textTheme: theme.currentTheme.textTheme,

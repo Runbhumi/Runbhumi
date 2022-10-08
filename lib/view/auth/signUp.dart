@@ -1,5 +1,5 @@
-// import 'package:Runbhumi/utils/validations.dart';
-// import 'package:Runbhumi/utils/Constants.dart';
+// import 'package:runbhumi/utils/validations.dart';
+//
 // import 'package:flutter/material.dart';
 // import '../../widget/widgets.dart';
 
@@ -25,7 +25,7 @@
 //       setState(() {});
 //       showInSnackBar('Please fix the errors in red before submitting.');
 //     } else {
-//       Constants.prefs.setBool("loggedin", true);
+//       GetStorage().setBool("loggedin", true);
 //       print("going to " + "/home");
 //       Navigator.pushReplacementNamed(context, '/home');
 //     }

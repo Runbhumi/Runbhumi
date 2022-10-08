@@ -11,7 +11,7 @@ class PlaceholderWidget extends StatelessWidget {
               Alignment(0.8, 0.0), // 10% of the width, so there are ten blinds.
           colors: [
             Theme.of(context).primaryColor,
-            Theme.of(context).accentColor
+            Theme.of(context).colorScheme.secondary
           ], // whitish to gray
           tileMode: TileMode.clamp, // repeats the gradient over the canvas
         ),

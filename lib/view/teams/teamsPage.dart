@@ -1,14 +1,15 @@
-import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:Runbhumi/view/Chats/teamConversation.dart';
-import 'package:Runbhumi/view/teams/challengeScreen.dart';
-import 'package:Runbhumi/view/teams/teamCategory.dart';
-import 'package:Runbhumi/view/teams/teaminfo.dart';
-import 'package:Runbhumi/widget/widgets.dart';
+import 'package:runbhumi/models/models.dart';
+import 'package:runbhumi/services/services.dart';
+
+import 'package:runbhumi/utils/theme_config.dart';
+import 'package:runbhumi/view/Chats/teamConversation.dart';
+import 'package:runbhumi/view/teams/challengeScreen.dart';
+import 'package:runbhumi/view/teams/teamCategory.dart';
+import 'package:runbhumi/view/teams/teaminfo.dart';
+import 'package:runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 
@@ -68,11 +69,11 @@ class _TeamsListState extends State<TeamsList>
                     break;
                 }
                 bool notifiedCondition = false;
-                bool joinCondition = data.playerId!
-                    .contains(Constants.prefs.getString('userId'));
+                bool joinCondition =
+                    data.playerId!.contains(GetStorage().read('userId'));
                 if (data.notificationPlayers!.length > 0)
                   notifiedCondition = data.notificationPlayers!
-                      .contains(Constants.prefs.getString('userId'));
+                      .contains(GetStorage().read('userId'));
 
                 //asyncSnapshot
                 // .data.documents[index]
@@ -101,7 +102,9 @@ class _TeamsListState extends State<TeamsList>
                                 ? SmallButton(
                                     myColor: !joinCondition
                                         ? Theme.of(context).primaryColor
-                                        : Theme.of(context).accentColor,
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                     myText: !joinCondition
                                         ? !notifiedCondition
                                             ? "Join"
@@ -121,8 +124,7 @@ class _TeamsListState extends State<TeamsList>
                                         if (data.status == 'private') {
                                           NotificationServices()
                                               .createTeamNotification(
-                                                  Constants.prefs
-                                                      .getString('userId')!,
+                                                  GetStorage().read('userId')!,
                                                   data.manager!,
                                                   data);
                                         }
@@ -145,7 +147,7 @@ class _TeamsListState extends State<TeamsList>
                             SmallButton(
                               myColor: !joinCondition
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).accentColor,
+                                  : Theme.of(context).colorScheme.secondary,
                               myText: !joinCondition ? 'Challenge' : 'Message',
                               onPressed: () {
                                 if (!joinCondition) {

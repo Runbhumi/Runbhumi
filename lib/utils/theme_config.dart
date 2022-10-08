@@ -1,10 +1,13 @@
-import 'package:Runbhumi/utils/Constants.dart';
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 
 // dark mode switch
 enum MyTheme { Light, Dark }
 
-String _darkmode = Constants.prefs.getString("darkmode")!;
+String _darkmode = GetStorage().read("darkmode")!;
 
 class ThemeNotifier extends ChangeNotifier {
   static List<ThemeData> themes = [
@@ -45,21 +48,18 @@ class ThemeNotifier extends ChangeNotifier {
       appBarTheme: AppBarTheme(
         color: Color(0xffF7F7FF),
         elevation: 0,
-        brightness: Brightness.light,
         centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       primaryColor: Color(0xff2dadc2),
       primaryColorLight: Color(0xff00d2ff),
       primaryColorDark: Color(0xff0052ff),
-      accentColor: Color(0xff00d2ff),
-      buttonColor: Color(0xff00d2ff),
       scaffoldBackgroundColor: Color(0xffF7FAFF),
       fontFamily: 'Montserrat',
       brightness: Brightness.light,
-      primaryColorBrightness: Brightness.light,
       backgroundColor: Color(0xff393E46),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         elevation: 0,
@@ -74,6 +74,8 @@ class ThemeNotifier extends ChangeNotifier {
         elevation: 0,
         selectedItemColor: Color(0xff2dadc2),
       ),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff00d2ff)),
     ),
     //dark theme
     ThemeData(
@@ -98,7 +100,6 @@ class ThemeNotifier extends ChangeNotifier {
       appBarTheme: AppBarTheme(
         color: Colors.black45,
         elevation: 0,
-        brightness: Brightness.dark,
         centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.white,
@@ -106,6 +107,7 @@ class ThemeNotifier extends ChangeNotifier {
         actionsIconTheme: IconThemeData(
           color: Colors.white,
         ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
@@ -128,8 +130,6 @@ class ThemeNotifier extends ChangeNotifier {
       primaryColor: Color(0xff2dadc2),
       primaryColorLight: Color(0xff00d2ff),
       primaryColorDark: Color(0xff0052ff),
-      accentColor: Color(0xff00d2ff),
-      buttonColor: Color(0xff00d2ff),
       scaffoldBackgroundColor: Color(0xff040505),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black45,
@@ -139,6 +139,8 @@ class ThemeNotifier extends ChangeNotifier {
       fontFamily: 'Montserrat',
       brightness: Brightness.dark,
       backgroundColor: Color(0xffffffff),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff00d2ff)),
     ),
   ];
 
@@ -165,10 +167,10 @@ class ThemeNotifier extends ChangeNotifier {
 
   void switchTheme() {
     if (_current == MyTheme.Light) {
-      Constants.prefs.setString("darkmode", "true");
+      GetStorage().write("darkmode", "true");
       currentTheme = MyTheme.Dark;
     } else {
-      Constants.prefs.setString("darkmode", "false");
+      GetStorage().write("darkmode", "false");
       currentTheme = MyTheme.Light;
     }
   }

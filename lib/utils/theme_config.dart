@@ -1,10 +1,10 @@
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 // dark mode switch
 enum MyTheme { Light, Dark }
 
-String _darkmode = Constants.prefs.getString("darkmode")!;
+String _darkmode = GetStorage().read("darkmode")!;
 
 class ThemeNotifier extends ChangeNotifier {
   static List<ThemeData> themes = [
@@ -165,10 +165,10 @@ class ThemeNotifier extends ChangeNotifier {
 
   void switchTheme() {
     if (_current == MyTheme.Light) {
-      Constants.prefs.setString("darkmode", "true");
+      GetStorage().write("darkmode", "true");
       currentTheme = MyTheme.Dark;
     } else {
-      Constants.prefs.setString("darkmode", "false");
+      GetStorage().write("darkmode", "false");
       currentTheme = MyTheme.Light;
     }
   }

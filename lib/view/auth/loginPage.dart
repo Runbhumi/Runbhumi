@@ -1,4 +1,4 @@
-// import 'package:Runbhumi/utils/Constants.dart';
+// 
 // import 'package:flutter/material.dart';
 // import '../../widget/widgets.dart';
 
@@ -35,7 +35,7 @@
 //               padding: const EdgeInsets.all(8.0),
 //               child: GestureDetector(
 //                 onTap: () {
-//                   Constants.prefs.setBool("loggedin", true);
+//                   GetStorage().setBool("loggedin", true);
 //                   print("going to " + "/home");
 //                   Navigator.pushReplacementNamed(context, "/home");
 //                 },

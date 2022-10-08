@@ -1,6 +1,7 @@
 import 'package:Runbhumi/models/models.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 // there can be 3 status for the verified team
 
@@ -40,16 +41,16 @@ class Teams {
   Teams.newTeam(
       String teamId, String sport, String teamName, String bio, String status) {
     final Friends myprofile = new Friends.newFriend(
-      Constants.prefs.getString('userId')!,
-      Constants.prefs.getString('name')!,
-      Constants.prefs.getString('profileImage')!,
+      GetStorage().read('userId')!,
+      GetStorage().read('name')!,
+      GetStorage().read('profileImage')!,
     );
 
     final mapOfProfile = myprofile.toJson();
     this.teamId = teamId;
     this.sport = sport;
     this.teamName = teamName;
-    this.captain = Constants.prefs.getString('userId');
+    this.captain = GetStorage().read('userId');
     this.manager = myprofile.friendId;
     this.image = "";
     this.bio = bio;

@@ -1,11 +1,11 @@
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Runbhumi/services/services.dart';
 import 'package:Runbhumi/models/User.dart';
-// import 'package:Runbhumi/utils/Constants.dart';
+//
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -37,10 +37,10 @@ Future signInWithGoogle() async {
 
     if (!result.exists) {
       //Creating a documnet
-      Constants.prefs.setString("userId", user.uid);
-      Constants.prefs.setString("profileImage", user.photoURL!);
-      Constants.prefs.setString("name", user.displayName!);
-      Constants.prefs.setString("token", token);
+      GetStorage().write("userId", user.uid);
+      GetStorage().write("profileImage", user.photoURL!);
+      GetStorage().write("name", user.displayName!);
+      GetStorage().write("token", token);
       print('User Signed Up');
       String _username = generateusername(user.email!);
       //Writing to the backend and making a document for the user
@@ -51,7 +51,7 @@ Future signInWithGoogle() async {
     } else {
       //Document already exists
       print('I am Here');
-      if (Constants.prefs.get('userId') != user.uid) {
+      if (GetStorage().read('userId') != user.uid) {
         print('Reached');
         await FirebaseFirestore.instance
             .collection('users')
@@ -59,10 +59,10 @@ Future signInWithGoogle() async {
             .update({
           'userDeviceToken': FieldValue.arrayUnion([token]),
         });
-        Constants.prefs.setString('userId', user.uid);
-        Constants.prefs.setString("name", user.displayName!);
-        Constants.prefs.setString("profileImage", user.photoURL!);
-        Constants.prefs.setString("token", token);
+        GetStorage().write('userId', user.uid);
+        GetStorage().write("name", user.displayName!);
+        GetStorage().write("profileImage", user.photoURL!);
+        GetStorage().write("token", token);
       }
     }
   }
@@ -70,21 +70,20 @@ Future signInWithGoogle() async {
 
 Future<void> signOutGoogle() async {
   //Removing the device token, since the user is logging out
-  print(Constants.prefs.getString("token"));
+  print(GetStorage().read("token"));
   FirebaseFirestore.instance
       .collection('users')
-      .doc(Constants.prefs.getString("userId"))
+      .doc(GetStorage().read("userId"))
       .update({
-    'userDeviceToken':
-        FieldValue.arrayRemove([Constants.prefs.getString("token")]),
+    'userDeviceToken': FieldValue.arrayRemove([GetStorage().read("token")]),
   }).then((_) async {
     await FirebaseAuth.instance.signOut();
     await googleSignIn.disconnect();
   });
-  print(Constants.prefs.getString("token"));
-  print(Constants.prefs.getString("userId"));
-  Constants.prefs.setString('token', null as String);
-  Constants.prefs.setString('userId', null as String);
+  print(GetStorage().read("token"));
+  print(GetStorage().read("userId"));
+  GetStorage().write('token', null as String);
+  GetStorage().write('userId', null as String);
   print("User Signed Out");
 }
 

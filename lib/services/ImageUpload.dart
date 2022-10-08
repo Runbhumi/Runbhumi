@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Uploader extends StatefulWidget {
   final File? file;
@@ -29,8 +30,7 @@ class _UploaderState extends State<Uploader> {
   _startUpload() async {
     /// Unique file name for the file
     String fileDirectory = 'ProfileImage/';
-    filePath =
-        '${DateTime.now()}' + Constants.prefs.getString('userId')! + '.png';
+    filePath = '${DateTime.now()}' + GetStorage().read('userId')! + '.png';
     setState(() {
       ref = _storage.ref().child(fileDirectory + filePath);
       _uploadTask = ref.putFile(widget.file);
@@ -61,7 +61,7 @@ class _UploaderState extends State<Uploader> {
                     bgColor: Theme.of(context).accentColor,
                     onPressed: () => {
                       url != null
-                          ? Constants.prefs.setString('profileImage', url)
+                          ? GetStorage().write('profileImage', url)
                           : Loader(),
                       Navigator.push(
                           context,

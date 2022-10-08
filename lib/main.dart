@@ -1,20 +1,25 @@
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/utils/theme_config.dart';
-import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+import 'package:Runbhumi/view/splash/splash.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'view/views.dart';
-import 'package:provider/provider.dart';
+//
+// import 'package:Runbhumi/utils/theme_config.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:provider/provider.dart';
 // import 'package:flutter/services.dart';
 
-Future main() async {
+main() async {
+  // initialiaze Get storage
+  await GetStorage.init();
   // initialize shared prefs
-  WidgetsFlutterBinding.ensureInitialized();
-  Constants.prefs = await SharedPreferences.getInstance();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // Constants.prefs = await SharedPreferences.getInstance();
   // using provider
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => ThemeNotifier()),
-  ], child: Runbhumi()));
+  // runApp(MultiProvider(providers: [
+  //   ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+  // ], child: Runbhumi()));
+  runApp(Runbhumi());
 }
 
 class Runbhumi extends StatefulWidget {
@@ -55,23 +60,23 @@ class _RunbhumiState extends State<Runbhumi> {
   @override
   Widget build(BuildContext context) {
     return ConnectivityAppWrapper(
-      app: MaterialApp(
+      app: GetMaterialApp(
         //name of app
         title: 'Runbhumi',
         // Named Routes
-        routes: {
-          // '/mainapp': (context) => AnimatedBottomNav(),
-          '/addpost': (context) => AddPost(),
-          '/secondpage': (context) => GauthPage(),
-          '/moreinfo': (context) => MoreInfo(),
-          '/network': (context) => MessagePage(),
-          '/profile': (context) => Profile(),
-          '/editprofile': (context) => EditProfile(),
-          '/createteam': (context) => CreateTeam(),
-          //'/cards': (context) => Cards(),
-        },
+        // routes: {
+        // '/mainapp': (context) => AnimatedBottomNav(),
+        // '/addpost': (context) => AddPost(),
+        // '/secondpage': (context) => GauthPage(),
+        // '/moreinfo': (context) => MoreInfo(),
+        // '/network': (context) => MessagePage(),
+        // '/profile': (context) => Profile(),
+        // '/editprofile': (context) => EditProfile(),
+        // '/createteam': (context) => CreateTeam(),
+        //'/cards': (context) => Cards(),
+        // },
         //theme
-        theme: Provider.of<ThemeNotifier>(context).currentTheme,
+        // theme: Provider.of<ThemeNotifier>(context).currentTheme,
         home: Splash(),
         // debug tag which comes on top left corner
         debugShowCheckedModeBanner: false,

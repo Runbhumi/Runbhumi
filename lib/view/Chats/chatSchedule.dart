@@ -1,7 +1,8 @@
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../widget/widgets.dart';
 
 class ChatSchedule extends StatefulWidget {
@@ -183,8 +184,8 @@ class _ChatScheduleState extends State<ChatSchedule> {
                             _chosenSport,
                             _locationController.text,
                             DateTime.parse(_datetime.text),
-                            Constants.prefs.getString('userId')!,
-                            Constants.prefs.getString('name')!,
+                            GetStorage().read('userId')!,
+                            GetStorage().read('name')!,
                             id,
                             'chatroom',
                             4,

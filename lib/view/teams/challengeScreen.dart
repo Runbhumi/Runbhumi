@@ -1,10 +1,11 @@
 import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/view/views.dart';
 import 'package:Runbhumi/widget/button.dart';
 import 'package:Runbhumi/widget/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 
 class ChallangeTeam extends StatefulWidget {
@@ -96,7 +97,7 @@ class _ChallangeTeamState extends State<ChallangeTeam> {
                                     TeamChallengeNotification myTeam =
                                         new TeamChallengeNotification.newTeam(
                                       data.teamId!,
-                                      Constants.prefs.getString('userId')!,
+                                      GetStorage().read('userId')!,
                                       data.teamName!,
                                     );
 

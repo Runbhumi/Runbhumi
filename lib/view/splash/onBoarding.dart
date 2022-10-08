@@ -1,6 +1,6 @@
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:Runbhumi/view/views.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class OnBoardingPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    Constants.prefs.setString("firsttime", "done");
+    GetStorage().write("firsttime", "done");
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => GauthPage()),
     );

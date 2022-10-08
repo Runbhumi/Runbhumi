@@ -2,13 +2,14 @@ import 'package:Runbhumi/models/models.dart';
 import 'package:Runbhumi/services/services.dart';
 
 import 'package:Runbhumi/services/friendsServices.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 class NotificationServices {
-  final String _id = Constants.prefs.getString('userId')!;
-  final String _name = Constants.prefs.getString('name')!;
-  final String _profileImage = Constants.prefs.getString('profileImage')!;
+  final String _id = GetStorage().read('userId')!;
+  final String _name = GetStorage().read('name')!;
+  final String _profileImage = GetStorage().read('profileImage')!;
 
   createRequest(String uid) {
     var db = FirebaseFirestore.instance

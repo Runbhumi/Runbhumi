@@ -1,9 +1,10 @@
 import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import '../views.dart';
 
@@ -32,9 +33,9 @@ class _ConversationState extends State<Conversation> {
     if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessage(
           DateTime.now(),
-          Constants.prefs.getString('userId')!,
+          GetStorage().read('userId')!,
           messageEditingController.text.trim(),
-          Constants.prefs.getString('name')!,
+          GetStorage().read('name')!,
           widget.chatRoomId);
       setState(() {
         messageEditingController.text = "";
@@ -59,8 +60,7 @@ class _ConversationState extends State<Conversation> {
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
                     message: data.message!,
-                    sendByMe:
-                        Constants.prefs.getString('userId') == data.sentby,
+                    sendByMe: GetStorage().read('userId') == data.sentby,
                     sentByName: data.sentByName!,
                     dateTime: data.dateTime!,
                   );
@@ -109,7 +109,7 @@ class _ConversationState extends State<Conversation> {
   @override
   Widget build(BuildContext context) {
     int indexOfOtherUser = 0;
-    if (Constants.prefs.getString('name') == widget.usersNames[0]) {
+    if (GetStorage().read('name') == widget.usersNames[0]) {
       indexOfOtherUser = 1;
     }
     return Scaffold(

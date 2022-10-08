@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/utils/validations.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,8 +23,8 @@ import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 // 2 - private
 // 3 - closed
 
-String userId = Constants.prefs.getString('userId')!;
-String name = Constants.prefs.getString('name')!;
+String userId = GetStorage().read('userId')!;
+String name = GetStorage().read('name')!;
 
 class AddPost extends StatefulWidget {
   @override
@@ -272,7 +273,7 @@ class _Page1State extends State<Page1> {
     super.initState();
     sub = db
         .collection('users')
-        .doc(Constants.prefs.getString('userId'))
+        .doc(GetStorage().read('userId'))
         .snapshots()
         .listen((snap) {
       setState(() {

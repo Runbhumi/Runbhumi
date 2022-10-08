@@ -1,5 +1,5 @@
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 class FriendServices {
   //FirebaseFirestore instance in order to connect with the database
@@ -13,7 +13,7 @@ class FriendServices {
   updateMyFriendCount(int n) {
     _db
         .collection('users')
-        .doc(Constants.prefs.get('userId') as String)
+        .doc(GetStorage().read('userId') as String)
         .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 

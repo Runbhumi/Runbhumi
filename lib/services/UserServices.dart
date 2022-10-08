@@ -1,27 +1,28 @@
 import 'package:Runbhumi/models/User.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 class UserService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   // updateEventCount(int n) {
   //   FirebaseFirestore.instance
   //       .collection('users')
-  //       .doc(Constants.prefs.get('userId'))
+  //       .doc(GetStorage().get('userId'))
   //       .set({'eventCount': FieldValue.increment(n)}, SetOptions(merge: true));
   // }
 
   updateEventTokens(int n) {
     FirebaseFirestore.instance
         .collection('users')
-        .doc(Constants.prefs.get('userId') as String)
+        .doc(GetStorage().read('userId') as String)
         .set({'eventTokens': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
   // updateMyFriendCount(int n) {
   //   _db
   //       .collection('users')
-  //       .doc(Constants.prefs.get('userId'))
+  //       .doc(GetStorage().get('userId'))
   //       .set({'friendCount': FieldValue.increment(n)}, SetOptions(merge: true));
   // }
 
@@ -47,7 +48,7 @@ class UserService {
   updateTeamsCount(int n) {
     _db
         .collection('users')
-        .doc(Constants.prefs.get('userId') as String)
+        .doc(GetStorage().read('userId') as String)
         .set({'teamsCount': FieldValue.increment(n)}, SetOptions(merge: true));
   }
 
@@ -66,7 +67,7 @@ class UserService {
   getFriends() async {
     return FirebaseFirestore.instance
         .collection("users")
-        .doc(Constants.prefs.getString('userId'))
+        .doc(GetStorage().read('userId'))
         .collection("friends")
         .snapshots();
   }
@@ -82,7 +83,7 @@ class UserService {
   getTeams(String sport) async {
     return FirebaseFirestore.instance
         .collection("users")
-        .doc(Constants.prefs.getString('userId'))
+        .doc(GetStorage().read('userId'))
         .collection("teams")
         .where('sport', isEqualTo: sport)
         .snapshots();

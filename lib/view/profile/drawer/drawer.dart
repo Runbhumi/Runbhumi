@@ -1,9 +1,10 @@
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/utils/theme_config.dart';
 import 'package:Runbhumi/view/profile/drawer/faq.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:unicons/unicons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,7 +45,7 @@ class _DrawerBodyState extends State<DrawerBody> {
                   ),
                 ),
                 Text(
-                  Constants.prefs.getString('name')!,
+                  GetStorage().read('name')!,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -139,7 +140,7 @@ class _DrawerBodyState extends State<DrawerBody> {
         DrawerButton(
           onpressed: () {
             print("logout");
-            Constants.prefs.setBool("loggedin", false);
+            GetStorage().write("loggedin", false);
             signOutGoogle();
             Navigator.pushReplacementNamed(context, "/secondpage");
           },

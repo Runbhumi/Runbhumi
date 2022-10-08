@@ -1,10 +1,13 @@
 import 'dart:async';
-import 'package:Runbhumi/utils/Constants.dart';
-import 'package:Runbhumi/widget/widgets.dart';
-import 'package:firebase_core/firebase_core.dart';
+
+import 'package:Runbhumi/view/auth/gauthPage.dart';
+// import 'package:Runbhumi/widget/widgets.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:Runbhumi/utils/router.dart';
-import '../views.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+// import 'package:Runbhumi/utils/router.dart';
+// import '../views.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -14,17 +17,17 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   // Timer to change the screen in 2.2 seconds
 
-  String? _userId = Constants.prefs.getString('userId');
-  String? _firsttime = Constants.prefs.getString('firsttime');
+  String? _userId = GetStorage().read('userId');
+  String? _firsttime = GetStorage().read('firsttime');
   @override
   void initState() {
     startTimeout();
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("firbase initialized in splash screen");
-      setState(() {});
-      startTimeout();
-    });
+    // Firebase.initializeApp().whenComplete(() {
+    //   print("firbase initialized in splash screen");
+    //   setState(() {});
+    //   startTimeout();
+    // });
   }
 
   startTimeout() {
@@ -38,9 +41,15 @@ class _SplashState extends State<Splash> {
     //         ? CRouter.pushPageWithFadeAnimation(context, GauthPage())
     //         : Navigator.pushReplacement(context,
     //             MaterialPageRoute(builder: (context) => AnimatedBottomBar()));
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return GauthPage();
-    }));
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) {
+    //       return GauthPage();
+    //     },
+    //   ),
+    // );
+    Get.to(() => GauthPage());
   }
 
   @override

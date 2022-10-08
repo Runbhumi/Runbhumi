@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:Runbhumi/services/services.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:unicons/unicons.dart';
 
@@ -97,9 +98,9 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (data['friends'].contains(Constants.prefs.getString('userId')))
+    // if (data['friends'].contains(GetStorage().read('userId')))
     //   print('Its is true');
-    String _id = Constants.prefs.getString('userId')!;
+    String _id = GetStorage().read('userId')!;
     return Column(
       children: [
         //profile image

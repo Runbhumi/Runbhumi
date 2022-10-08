@@ -54,9 +54,9 @@
 //
 // ------------------------------------------------------------------------------------
 
-import 'package:Runbhumi/utils/Constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Runbhumi/models/models.dart';
+import 'package:get_storage/get_storage.dart';
 
 class NotificationClass {
   String? senderId;
@@ -123,9 +123,9 @@ class TeamNotification {
   TeamNotification.newNotification(
       String notificationId, String teamId, String teamName, String teamSport) {
     this.notificationId = notificationId;
-    this.senderId = Constants.prefs.getString('userId');
-    this.senderName = Constants.prefs.getString('name');
-    this.senderPic = Constants.prefs.getString('profileImage');
+    this.senderId = GetStorage().read('userId');
+    this.senderName = GetStorage().read('name');
+    this.senderPic = GetStorage().read('profileImage');
     this.type = "inviteTeams";
     this.teamId = teamId;
     this.teamName = teamName;
@@ -174,8 +174,8 @@ class ChallengeNotification {
       TeamChallengeNotification myteam,
       TeamChallengeNotification opponentTeam) {
     this.notificationId = notificationId;
-    this.senderId = Constants.prefs.getString('userId')!;
-    this.senderName = Constants.prefs.getString('name')!;
+    this.senderId = GetStorage().read('userId')!;
+    this.senderName = GetStorage().read('name')!;
     this.sport = sport;
     this.myTeamName = myteam.teamName!;
     this.opponentTeamName = opponentTeam.teamName!;
@@ -246,9 +246,9 @@ class EventNotification {
     this.notificationId = notificationId;
     this.eventName = eventName;
     this.eventId = eventId;
-    this.senderId = Constants.prefs.getString('userId')!;
-    this.senderName = Constants.prefs.getString('name')!;
-    this.senderPic = Constants.prefs.getString('profileImage')!;
+    this.senderId = GetStorage().read('userId')!;
+    this.senderName = GetStorage().read('name')!;
+    this.senderPic = GetStorage().read('profileImage')!;
     this.type = 'event';
     this.subtype = 'individual';
   }
@@ -263,8 +263,8 @@ class EventNotification {
     this.notificationId = notificationId!;
     this.eventId = eventId!;
     this.eventName = eventName!;
-    this.senderId = Constants.prefs.getString('userId')!;
-    this.senderName = Constants.prefs.getString('name')!;
+    this.senderId = GetStorage().read('userId')!;
+    this.senderName = GetStorage().read('name')!;
     this.teamName = teamName!;
     this.teamId = teamId!;
     this.type = 'event';

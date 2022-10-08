@@ -1,5 +1,5 @@
 import 'package:Runbhumi/widget/buildTitle.dart';
-import 'package:Runbhumi/widget/googleOauth.dart';
+// import 'package:Runbhumi/widget/googleOauth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -85,10 +85,10 @@ class _GauthPageState extends State<GauthPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: GoogleOauth(),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              //   child: GoogleOauth(),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: RichText(

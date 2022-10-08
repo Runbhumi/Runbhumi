@@ -1,11 +1,12 @@
 import 'package:Runbhumi/models/Events.dart';
 import 'package:Runbhumi/models/message.dart';
 import 'package:Runbhumi/services/chatroomServices.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:Runbhumi/view/Explore%20Events/eventInfo.dart';
 import 'package:Runbhumi/widget/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:unicons/unicons.dart';
 
@@ -28,9 +29,9 @@ class _EventConversationState extends State<EventConversation> {
     if (messageEditingController.text.trim().isNotEmpty) {
       ChatroomService().sendNewMessageEvent(
           DateTime.now(),
-          Constants.prefs.getString('userId')!,
+          GetStorage().read('userId')!,
           messageEditingController.text.trim(),
-          Constants.prefs.getString('name')!,
+          GetStorage().read('name')!,
           widget.data.eventId);
       setState(() {
         messageEditingController.text = "";
@@ -76,8 +77,7 @@ class _EventConversationState extends State<EventConversation> {
                   return MessageTile(
                     //decides who sent the message and accordingly aligns the text
                     message: data.message!,
-                    sendByMe:
-                        Constants.prefs.getString('userId') == data.sentby,
+                    sendByMe: GetStorage().read('userId') == data.sentby,
                     sentByName: data.sentByName!,
                     dateTime: data.dateTime!,
                   );

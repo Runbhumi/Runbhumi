@@ -1,6 +1,7 @@
 import 'package:Runbhumi/models/message.dart';
-import 'package:Runbhumi/utils/Constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
 
 //Start of ChatroomService class
 class ChatroomService {
@@ -135,7 +136,7 @@ class ChatroomService {
     print("I am here");
     return FirebaseFirestore.instance
         .collection("DirectChats")
-        .where('users', arrayContains: Constants.prefs.getString('userId'))
+        .where('users', arrayContains: GetStorage().read('userId'))
         .snapshots();
   }
 

@@ -51,7 +51,8 @@ class ThemeNotifier extends ChangeNotifier {
         centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.black,
-        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       primaryColor: Color(0xff2dadc2),
       primaryColorLight: Color(0xff00d2ff),
@@ -72,7 +73,9 @@ class ThemeNotifier extends ChangeNotifier {
         backgroundColor: Colors.white,
         elevation: 0,
         selectedItemColor: Color(0xff2dadc2),
-      ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xff00d2ff)),
+      ),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff00d2ff)),
     ),
     //dark theme
     ThemeData(
@@ -103,7 +106,8 @@ class ThemeNotifier extends ChangeNotifier {
         ),
         actionsIconTheme: IconThemeData(
           color: Colors.white,
-        ), systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
@@ -134,7 +138,9 @@ class ThemeNotifier extends ChangeNotifier {
       ),
       fontFamily: 'Montserrat',
       brightness: Brightness.dark,
-      backgroundColor: Color(0xffffffff), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xff00d2ff)),
+      backgroundColor: Color(0xffffffff),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff00d2ff)),
     ),
   ];
 

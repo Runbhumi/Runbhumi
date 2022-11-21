@@ -1,4 +1,4 @@
-<p align="center"><img align="center" src="./assets/icon/icon.png" height="128" /></p>
+<p align="center"><img align="center" src="./assets/runbhumi logomark.png" height="128" /></p>
 <h1 align="center">Welcome to Runbhumi 👋</h1>
 <p align="center">
   <a href="../Runbhumi/documentation/auth.md" target="_blank">
@@ -17,7 +17,7 @@
 
 ### 🏠 [Homepage](https://runbhumi-website.vercel.app)
 
-### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=2%3A42&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down)
+<!-- ### ✨ [Prototype](https://www.figma.com/proto/LB4Ovc0vF92Q0twfrBacfa/Runbhumi?node-id=2%3A42&viewport=-537%2C287%2C0.35181379318237305&scaling=scale-down) -->
 
 
 ### 💪 Motivation/Inspiration
